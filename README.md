@@ -6,7 +6,7 @@
 This repository hosts both the ASP benchmark and a biologically plausible model for unsupervised segmentation of objects. If you use the benchmark or the model in your project please cite the following paper (published at CVPR2023):
 
 - [Frey, M., Doeller, C.F. & Barry, C. (2023).
- Probing neural representations of scene perception in a hippocampally dependent task using artificial neural networks. arXiv preprint arXiv:1910.02058.]()
+ Probing neural representations of scene perception in a hippocampally dependent task using artificial neural networks. arXiv preprint arXiv:2303.06367.](https://arxiv.org/abs/2303.06367)
 
 ## Variations of Dataset
 We provide several different versions of our dataset, varying both the color of the objects as well as changing the global reference frame. 
@@ -37,12 +37,6 @@ Then use the `--dataset_path` argument to point to the folder containing the dat
 ## Adapt the dataset
 
 We provide a [Blender file](blender/asp.blend) which can be used to adapt the task and objects, including code for rendering across novel viewpoints. 
-
-## Cite
-If you use the model or benchmark in your research, please cite the work as follows: 
-```
-
-```
 
 # Model training
 
