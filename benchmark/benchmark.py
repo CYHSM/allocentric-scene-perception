@@ -7,12 +7,27 @@ import argparse
 import h5py
 import json
 from torchvision import transforms
+import random
 
 import sys
 sys.path.append('/home/markus/Documents/Github/allocentric-scene-perception')
 from data import ASP
 
+def set_seed(seed):
+    """Set all seeds to make results reproducible"""
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    np.random.seed(seed)
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+
 def main(args):
+    # Set seed for reproducibility
+    print(f"Setting random seed to {args.seed}")
+    set_seed(args.seed)
+
     # Create output directory
     os.makedirs(args.output_dir, exist_ok=True)
     
@@ -68,6 +83,15 @@ def main(args):
     
     model = model.to(device).eval()
     
+    # Resolve data configuration for the specific model
+    data_config = timm.data.resolve_data_config(model.pretrained_cfg)
+    
+    # Create transform using the resolved data config
+    print("Using model-specific data transform")
+    transform = timm.data.create_transform(**data_config)
+    
+    print(f"Transform details: {transform}")
+    
     # Get feature info for pyramid mode
     if is_feature_pyramid:
         feature_info = model.feature_info
@@ -79,7 +103,9 @@ def main(args):
             if args.feature_mode == 'penultimate_pooled':
                 # Get shape from forward pass
                 with torch.no_grad():
-                    dummy_input = torch.randn(1, 3, 224, 224).to(device)
+                    # Use input size from data config
+                    input_size = data_config.get('input_size', (3, 224, 224))
+                    dummy_input = torch.randn(1, *input_size).to(device)
                     dummy_output = model(dummy_input)
                     feature_dim = dummy_output.shape[1]
             else:  # penultimate_unpooled
@@ -96,15 +122,6 @@ def main(args):
         
         print(f"Penultimate feature dimension: {feature_dim}")
     
-    # Set up image transformation
-    model_input_size = args.input_size if args.input_size is not None else 224
-    transform = transforms.Compose([
-        transforms.Resize((model_input_size, model_input_size)),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ])
-    
-    print(f"Resizing images to {model_input_size}x{model_input_size}")
-    
     # File for saving features
     output_file = os.path.join(args.output_dir, f"{args.model_name.replace('/', '_')}_{args.feature_mode}_features.h5")
     h5_file = h5py.File(output_file, 'w')
@@ -120,14 +137,20 @@ def main(args):
     # Save metadata
     metadata = {
         'model_name': args.model_name,
-        'input_size': model_input_size,
+        'input_size': data_config.get('input_size', (3, 224, 224)),
         'feature_mode': args.feature_mode,
         'dataset_name': args.dataset_name,
         'actual_scenes': actual_scenes,
         'num_scenes': len(actual_scenes),
         'num_timesteps': args.num_timesteps,
         'device': 'cpu',
-        'max_digits': max_digits
+        'max_digits': max_digits,
+        'data_transform_config': {
+            'mean': data_config.get('mean', None),
+            'std': data_config.get('std', None),
+            'interpolation': data_config.get('interpolation', None),
+            'crop_pct': data_config.get('crop_pct', None)
+        }
     }
     
     # Add feature pyramid specific metadata
@@ -301,6 +324,8 @@ if __name__ == "__main__":
                         help='Save scene metadata (can make files larger)')
     parser.add_argument('--verbose', action='store_true', default=False,
                         help='Print verbose output')
+    parser.add_argument('--seed', type=int, default=42,
+                        help='Random seed for reproducibility')
     
     args = parser.parse_args()
     main(args)

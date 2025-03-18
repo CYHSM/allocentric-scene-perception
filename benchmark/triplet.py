@@ -10,6 +10,18 @@ from tqdm import tqdm
 import pandas as pd
 from scipy import stats
 from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+import random
+import torch
+
+def set_seed(seed):
+    """Set all seeds to make results reproducible"""
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    np.random.seed(seed)
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
 
 def load_all_level_features(h5_file_path):
     """
@@ -137,9 +149,9 @@ def load_all_level_features(h5_file_path):
     
     return features_by_level, feature_mode
 
-def sample_triplets(features_by_scene, num_triplets=10000):
+def sample_triplets(features_by_scene):
     """
-    Sample triplets for evaluation:
+    Sample triplets for evaluation with each scene being used exactly once as an anchor:
     - anchor: An image from a scene
     - positive: Another image from the same scene
     - negative: An image from a different scene
@@ -158,11 +170,8 @@ def sample_triplets(features_by_scene, num_triplets=10000):
     if len(valid_scenes) < 2:
         raise ValueError("Need at least 2 scenes with 2+ images each to create triplets")
     
-    # Sample triplets
-    for _ in range(num_triplets):
-        # Sample anchor scene
-        anchor_scene = np.random.choice(valid_scenes)
-        
+    # Use each scene once as an anchor
+    for anchor_scene in valid_scenes:
         # Sample anchor and positive from same scene
         anchor_idx, pos_idx = np.random.choice(len(features_by_scene[anchor_scene]), size=2, replace=False)
         
@@ -295,9 +304,11 @@ def process_level(level_name, features_by_scene, args, output_dir, model_name):
     """Process a single feature level and return results"""
     print(f"\nProcessing level: {level_name}")
     
-    # Sample triplets
-    print(f"Sampling {args.num_triplets} triplets...")
-    triplets, metadata = sample_triplets(features_by_scene, num_triplets=args.num_triplets)
+    # Sample triplets (one per scene)
+    valid_scenes = [scene_idx for scene_idx, features in features_by_scene.items() if len(features) >= 2]
+    print(f"Sampling triplets with {len(valid_scenes)} scenes as anchors...")
+    
+    triplets, metadata = sample_triplets(features_by_scene)
     
     # Evaluate triplets with complete pairwise comparison
     print("Evaluating triplets...")
@@ -332,6 +343,7 @@ def process_level(level_name, features_by_scene, args, output_dir, model_name):
     # Return results
     return {
         'level_name': level_name,
+        'num_triplets': len(triplets),
         'complete_accuracy': float(complete_acc),
         'partial_accuracy': float(partial_acc),
         'roc_auc': float(roc_auc),
@@ -492,7 +504,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Evaluate model features using triplet comparison test')
     parser.add_argument('--h5_file', type=str, required=True, help='Path to H5 file with features')
     parser.add_argument('--output_dir', type=str, default='./triplet_results', help='Output directory')
-    parser.add_argument('--num_triplets', type=int, default=10000, help='Number of triplets to sample')
     parser.add_argument('--run_significance_test', action='store_true', help='Run significance test with varying numbers of triplets')
     
     args = parser.parse_args()
