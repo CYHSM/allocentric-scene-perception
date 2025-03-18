@@ -94,6 +94,8 @@ class ASP(Dataset):
         rand_indices_start = np.random.randint(0, len(self.samples_per_scene) - self.num_timesteps)
         df_scene = df_scene.iloc[rand_indices_start : rand_indices_start + self.num_timesteps]
 
+        # print(f"Scene: {rand_scene}, df Scene: {df_scene['img_path']}")
+
         # Loop through rand_rows and stack images
         for i in range(0, df_scene.shape[0]):
             row = df_scene.iloc[i, :]

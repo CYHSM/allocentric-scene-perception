@@ -310,7 +310,7 @@ if __name__ == "__main__":
                         help='Number of scenes to process after filtering')
     parser.add_argument('--max_scene_search', type=int, default=5000,
                         help='Maximum number of scenes to search for matching criteria')
-    parser.add_argument('--num_timesteps', type=int, default=8, help='Number of timesteps per scene')
+    parser.add_argument('--num_timesteps', type=int, default=3, help='Number of timesteps per scene')
     parser.add_argument('--feature_mode', type=str, default='penultimate_pooled', 
                       choices=['pyramid', 'penultimate_unpooled', 'penultimate_pooled'],
                       help='Feature extraction mode: pyramid (multiple layers), penultimate_unpooled, or penultimate_pooled')

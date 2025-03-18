@@ -459,8 +459,15 @@ def main(args):
     # Create output directory
     os.makedirs(args.output_dir, exist_ok=True)
     
-    # Get model name from file
-    model_name = os.path.basename(args.h5_file).split('_')[0]
+    h5_basename = os.path.basename(args.h5_file)
+    if '_pyramid_' in h5_basename:
+        model_name = h5_basename.split('_pyramid_')[0]
+    elif '_penultimate_' in h5_basename:
+        model_name = h5_basename.split('_penultimate_')[0]
+    else:
+        # Fallback to original method if pattern not found
+        model_name = h5_basename.split('_')[0]
+    print(f"Using model name: {model_name}")
     
     # Load features from all levels
     print(f"Loading features from {args.h5_file}")
