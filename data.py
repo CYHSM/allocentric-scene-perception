@@ -4,7 +4,6 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 from PIL import Image
-import tensorflow as tf
 
 import pytorch_lightning as pl
 import torch
@@ -60,26 +59,29 @@ class ASP(Dataset):
                 chosen_scenes = chose_color(chosen_scenes, color, scene, df_scene)
 
             # If reference frame is specified, use only the specified one
-            if df_scene['GlobalRef'][0] and ('ref' in dataset_name):
+            if not df_scene['GlobalRef'][0] and ('noref' in dataset_name):
                 chosen_scenes = chose_color(chosen_scenes, color, scene, df_scene)
-            elif not df_scene['GlobalRef'][0] and ('noref' in dataset_name):
+            if df_scene['GlobalRef'][0] and ('ref' in dataset_name) and ('no' not in dataset_name):
                 chosen_scenes = chose_color(chosen_scenes, color, scene, df_scene)
 
         self.scenes = chosen_scenes
-        print('Number of chosen scenes for {}: {}'.format(dataset_name, len(self.scenes)))
+        # print('Number of chosen scenes for {}: {}'.format(dataset_name, len(self.scenes)))
 
     def read_img(self, path):
         image = Image.open(path + '_rgb.jpg').convert('RGB')
-        image = image.resize((64, 64))
+        # image = image.resize((64, 64))
         image = torch.tensor(np.array(image)) / 255
         image = image.unsqueeze(0)
         return image
 
     def read_mask(self, path):
         mask = Image.open(path + '_inst.png').convert('L')
-        mask = torch.tensor(tf.one_hot(np.array(mask), depth=6).numpy())
-        mask = mask.unsqueeze(0)
-        return mask
+        mask_array = np.array(mask)
+        mask_tensor = torch.tensor(mask_array, dtype=torch.long)
+        one_hot = torch.nn.functional.one_hot(mask_tensor, num_classes=10)
+        one_hot = one_hot.unsqueeze(0)
+        
+        return one_hot
 
     def __getitem__(self, idx):
         return self.get_samples_within_scene() 

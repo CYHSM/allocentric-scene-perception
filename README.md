@@ -22,7 +22,9 @@ Both of these can be combined with the following options:
  - noglobal_COLOR: Uses the scene without the global reference frame.
  - all_COLOR: Uses snapshots from both the global and local reference frame.
 
-COLOR can be one of `['mix', 'green', 'white']`. For example, a valid dataset option would be `asp_surround_mix_ref`. Note that the snapshots are sampled randomly surrounding the center of the environment, therefore you can not assume that the snapshots are evenly distributed around the environment.
+COLOR can be one of `['mix', 'green', 'white']`. For example, a valid dataset option would be `asp_surround_mix_ref`. Note that the snapshots are sampled randomly surrounding the center of the environment, therefore you can not assume that the snapshots are evenly distributed around the environment. 
+
+Note that the below pre-rendered images have an error in the ref column, so 'ref' refers to no reference and 'noref' to images with a global reference frame.
 
 ## Dataset download
 

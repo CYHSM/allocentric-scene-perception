@@ -1,0 +1,20 @@
+{
+  "model_name": "resnet50",
+  "num_scenes": 5,
+  "num_triplets": 100,
+  "complete_accuracy": 0.47,
+  "partial_accuracy": 0.61,
+  "roc_auc": 0.5683999999999999,
+  "mean_same_scene_similarity": 0.5079033461213112,
+  "mean_diff_scene_similarity_a_n": 0.45940241336822507,
+  "mean_diff_scene_similarity_p_n": 0.45929451793432235,
+  "mean_delta_ap_an": 0.04850093275308609,
+  "mean_delta_ap_pn": 0.048608828186988834,
+  "avg_same_diff_delta": 0.04855488047003746,
+  "t_statistic_ap_an": 3.10007413703139,
+  "p_value_ap_an": 0.0025196215735897374,
+  "cohens_d_ap_an": 0.31156917378236154,
+  "t_statistic_ap_pn": 3.1830421427210758,
+  "p_value_ap_pn": 0.0019479223007442962,
+  "cohens_d_ap_pn": 0.3199077720998391
+}

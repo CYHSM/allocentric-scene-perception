@@ -1,0 +1,20 @@
+{
+  "model_name": "efficientnet",
+  "num_scenes": 100,
+  "num_triplets": 10000,
+  "complete_accuracy": 0.4905,
+  "partial_accuracy": 0.6235,
+  "roc_auc": 0.6202164075000001,
+  "mean_same_scene_similarity": 0.8605465442478657,
+  "mean_diff_scene_similarity_a_n": 0.8324065143883228,
+  "mean_diff_scene_similarity_p_n": 0.8328348242819309,
+  "mean_delta_ap_an": 0.028140029859542847,
+  "mean_delta_ap_pn": 0.027711719965934755,
+  "avg_same_diff_delta": 0.0279258749127388,
+  "t_statistic_ap_an": 34.400285269870615,
+  "p_value_ap_an": 3.3516692922924365e-245,
+  "cohens_d_ap_an": 0.3440200541314592,
+  "t_statistic_ap_pn": 33.721210488116554,
+  "p_value_ap_pn": 3.417798099484026e-236,
+  "cohens_d_ap_pn": 0.3372289667510604
+}
