@@ -15,11 +15,18 @@ from torch.utils.data import Dataset
 
 
 class ASP(Dataset):
-    def __init__(self, scene_base = '/data/asp/', scenes=range(0, 800), samples_per_scene=range(0, 16), num_timesteps=8, dataset_name='asp_surround'): 
+    def __init__(self, scene_base = '/data/asp/', scenes=range(0, 800), samples_per_scene=range(0, 16), num_timesteps=8, dataset_name='asp_surround', seed=None): 
         self.scene_base = scene_base
         self.scenes = scenes
         self.samples_per_scene = samples_per_scene
         self.num_timesteps = num_timesteps
+        
+        # Set the base random seed
+        self.base_seed = seed if seed is not None else 42
+        
+        # Create a global RNG for scene selection
+        self.global_rng = np.random.RandomState(self.base_seed)
+            
         self.setup(dataset_name)
         self.image_transform = T.Resize((64, 64))
 
@@ -86,15 +93,39 @@ class ASP(Dataset):
     def __getitem__(self, idx):
         return self.get_samples_within_scene() 
 
-    def get_samples_within_scene(self):
-        rand_scene = np.random.choice(self.scenes)
+    def get_scene_specific_rng(self, scene_idx):
+        """Create a deterministic RNG for a specific scene"""
+        # Combine the base seed with the scene index to get a scene-specific seed
+        scene_seed = self.base_seed * 10000 + scene_idx
+        return np.random.RandomState(scene_seed)
+        
+    def get_samples_within_scene(self, specific_scene=None):
+        """
+        Get samples from within a scene.
+        
+        Args:
+            specific_scene: If provided, use this specific scene. 
+                           If None, randomly select a scene.
+        """
+        if specific_scene is None:
+            # Use the global RNG to select a random scene
+            rand_scene = self.global_rng.choice(self.scenes)
+        else:
+            # Use the specified scene
+            rand_scene = specific_scene
+        
+        # Create a scene-specific RNG for consistent sampling within this scene
+        scene_rng = self.get_scene_specific_rng(rand_scene)
+        
         df_scene = pd.read_csv(self.scene_base + 'props_scene{}.csv'.format(rand_scene))
         df_scene = df_scene.iloc[self.samples_per_scene]
 
-        rand_indices_start = np.random.randint(0, len(self.samples_per_scene) - self.num_timesteps)
+        # Use the scene-specific RNG to determine the starting index
+        # This ensures that the same scene always uses the same images
+        rand_indices_start = scene_rng.randint(0, len(self.samples_per_scene) - self.num_timesteps)
         df_scene = df_scene.iloc[rand_indices_start : rand_indices_start + self.num_timesteps]
 
-        # print(f"Scene: {rand_scene}, df Scene: {df_scene['img_path']}")
+        # print(f"rand Scene: {rand_scene}, df: {df_scene['img_path']}")
 
         # Loop through rand_rows and stack images
         for i in range(0, df_scene.shape[0]):
@@ -118,12 +149,20 @@ class ASP(Dataset):
         return img_stack, mask_stack, df_scene.to_dict(orient='list')
 
     def get_samples_across_scenes(self):
-        rand_scenes = np.random.choice(self.scenes, self.num_timesteps)
-        rand_index = np.random.randint(0, len(self.samples_per_scene))
+        # Select scenes using the global RNG
+        rand_scenes = self.global_rng.choice(self.scenes, self.num_timesteps)
+        
         for i, rand_scene in enumerate(rand_scenes):
+            # Get scene-specific RNG for each scene
+            scene_rng = self.get_scene_specific_rng(rand_scene)
+            
             df_scene = pd.read_csv(self.scene_base + 'props_scene{}.csv'.format(rand_scene))
             df_scene = df_scene.iloc[self.samples_per_scene]
-            df_scene = df_scene.iloc[rand_index]
+            
+            # Use the consistent scene_rng-determined index
+            scene_rand_index = scene_rng.randint(0, len(self.samples_per_scene))
+            df_scene = df_scene.iloc[scene_rand_index]
+            
             row = df_scene['img_path']
             row_split = row.split('/')
             row_correct = self.scene_base + row_split[-2] + os.path.sep + row_split[-1]
@@ -159,6 +198,7 @@ class DataModule(pl.LightningDataModule):
         num_timesteps: int = 6,
         dataset: str = 'asp_surround',
         dataset_path: str = '/data/',
+        seed: int = None,
     ):
         super().__init__()
         self.train_batch_size = train_batch_size
@@ -170,6 +210,7 @@ class DataModule(pl.LightningDataModule):
         self.num_timesteps = num_timesteps
         self.dataset = dataset
         self.dataset_path = dataset_path
+        self.seed = seed
 
     def setup(self, stage: Optional[str] = None):
         # Fix train and test set. For reproducibility, this should not be changed!
@@ -177,8 +218,8 @@ class DataModule(pl.LightningDataModule):
         test_scenes = 1000
         # -----------------------
 
-        self.train_dataset = ASP(scenes=range(0, train_scenes), scene_base=self.dataset_path, num_timesteps=self.num_timesteps, dataset_name=self.dataset)
-        self.val_dataset = ASP(scenes=range(train_scenes, train_scenes + test_scenes), scene_base=self.dataset_path, num_timesteps=self.num_timesteps, dataset_name=self.dataset)   
+        self.train_dataset = ASP(scenes=range(0, train_scenes), scene_base=self.dataset_path, num_timesteps=self.num_timesteps, dataset_name=self.dataset, seed=self.seed)
+        self.val_dataset = ASP(scenes=range(train_scenes, train_scenes + test_scenes), scene_base=self.dataset_path, num_timesteps=self.num_timesteps, dataset_name=self.dataset, seed=self.seed)   
         self.max_entities = 6 # Used for calculating ARI
 
     def train_dataloader(self):

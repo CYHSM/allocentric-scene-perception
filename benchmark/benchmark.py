@@ -41,7 +41,8 @@ def main(args):
         scene_base=args.data_path,
         scenes=range(args.max_scene_search),  # Search through this many scenes
         num_timesteps=args.num_timesteps,
-        dataset_name=args.dataset_name
+        dataset_name=args.dataset_name,
+        seed=args.seed  # Pass the seed to ASP dataset
     )
     
     # Get the filtered scene list
@@ -145,6 +146,7 @@ def main(args):
         'num_timesteps': args.num_timesteps,
         'device': 'cpu',
         'max_digits': max_digits,
+        'seed': args.seed,  # Save the seed in metadata
         'data_transform_config': {
             'mean': data_config.get('mean', None),
             'std': data_config.get('std', None),
@@ -183,12 +185,14 @@ def main(args):
     
     # Create custom dataset for specific scenes
     class CustomSceneASP(ASP):
-        def __init__(self, scene_base, scene_idx, num_timesteps, dataset_name):
+        def __init__(self, scene_base, scene_idx, num_timesteps, dataset_name, seed=None):
             super().__init__(scene_base=scene_base, scenes=[scene_idx], 
-                         num_timesteps=num_timesteps, dataset_name=dataset_name)
+                         num_timesteps=num_timesteps, dataset_name=dataset_name, seed=seed)
+            self.specific_scene_idx = scene_idx
         
         def __getitem__(self, idx):
-            return self.get_samples_within_scene()
+            # Use the specific scene directly
+            return self.get_samples_within_scene(specific_scene=self.specific_scene_idx)
     
     for i, scene_idx in enumerate(tqdm(actual_scenes)):
         # Create dataset for this specific scene
@@ -196,7 +200,8 @@ def main(args):
             scene_base=args.data_path,
             scene_idx=scene_idx,
             num_timesteps=args.num_timesteps,
-            dataset_name=args.dataset_name
+            dataset_name=args.dataset_name,
+            seed=args.seed  # Pass the seed to CustomSceneASP
         )
         
         # Get scene data

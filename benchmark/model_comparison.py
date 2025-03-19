@@ -1,4 +1,5 @@
 import os
+os.environ['HF_HOME'] = '/media/markus/Elements/Github/allocentric-scene-perception/models/'
 import subprocess
 import argparse
 import json
@@ -7,6 +8,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 from tqdm import tqdm
+import timm
+
+def get_timm_models(filter_pattern=None, pretrained_only=False):
+    """Get list of available timm models"""
+    models = timm.list_models(filter_pattern, pretrained=pretrained_only)
+    return models
 
 def run_benchmark_and_triplet(model_name, args):
     """Run benchmark.py and triplet.py for a single model"""
@@ -51,7 +58,8 @@ def run_benchmark_and_triplet(model_name, args):
         triplet_cmd = [
             "python", "triplet.py",
             "--h5_file", feature_file,
-            "--output_dir", results_dir
+            "--output_dir", results_dir,
+            "--seed", str(args.seed)  # Pass the seed to triplet.py
         ]
         
         if args.verbose:
@@ -193,17 +201,46 @@ def main(args):
     os.makedirs(args.results_dir, exist_ok=True)
     
     # Set models to process
-    models = args.models if args.models else [
-        'resnet18', 'resnet34', 'resnet50', 'resnet101',
-        'efficientnet_b0', 'efficientnet_b1', 
-        'vit_small_patch16_224', 'vit_base_patch16_224',
-        'convnext_tiny', 'convnext_small'
-    ]
     # models = args.models if args.models else [
-    #     'resnet18', 'resnet34', 'resnet50'
+    #     'resnet18', 'resnet34', 'resnet50', 'resnet101',
+    #     'efficientnet_b0', 'efficientnet_b1', 
+    #     'vit_small_patch16_224', 'vit_base_patch16_224',
+    #     'convnext_tiny', 'convnext_small'
     # ]
+    if args.models:
+        models = args.models
+    elif args.list_all_models:
+        # Print all available models and exit
+        all_models = get_timm_models()
+        print(f"Total available models: {len(all_models)}")
+        for model in all_models:
+            print(model)
+        return
+    elif args.model_pattern:
+        # Filter models by pattern
+        models = get_timm_models(args.model_pattern, pretrained_only=args.pretrained_only)
+        print(f"Found {len(models)} models matching pattern '{args.model_pattern}'")
+    else:
+        # Use default list
+        models = [
+            'resnet18', 'resnet34', 'resnet50', 'resnet101',
+            'efficientnet_b0', 'efficientnet_b1', 
+            'vit_small_patch16_224', 'vit_base_patch16_224',
+            'convnext_tiny', 'convnext_small'
+        ]
 
     print(f"Processing {len(models)} models with seed {args.seed}, {args.num_scenes} scenes")
+    
+    # Save seed information to a metadata file
+    seed_info = {
+        'seed': args.seed,
+        'num_scenes': args.num_scenes,
+        'dataset_name': args.dataset_name,
+        'models': models
+    }
+    
+    with open(os.path.join(args.results_dir, 'experiment_metadata.json'), 'w') as f:
+        json.dump(seed_info, f, indent=2)
     
     # Run benchmark and triplet for each model
     model_results_files = {}
@@ -245,6 +282,9 @@ if __name__ == "__main__":
     parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
     parser.add_argument('--force_recompute', action='store_true', help='Force recomputation')
     parser.add_argument('--verbose', action='store_true', help='Print verbose output')
+    parser.add_argument('--list-all-models', action='store_true', help='List all available timm models and exit')
+    parser.add_argument('--model-pattern', type=str, help='Pattern to filter model names (e.g., "resnet*")')
+    parser.add_argument('--pretrained-only', action='store_true', help='Only include models with pretrained weights')
     
     args = parser.parse_args()
     main(args)

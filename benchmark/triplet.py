@@ -30,12 +30,22 @@ def load_all_level_features(h5_file_path):
     Returns:
         - features_by_level: Dictionary mapping level names to dictionaries of scene features
         - feature_mode: Type of features (pyramid, penultimate_pooled, etc.)
+        - seed: Random seed used to generate the features (if available)
     """
     features_by_level = {}
+    seed = None
     
     with h5py.File(h5_file_path, 'r') as f:
         # Get metadata
         feature_mode = f.attrs.get('feature_mode', 'unknown')
+        
+        # Try to get the seed from metadata
+        if 'seed' in f.attrs:
+            try:
+                seed = int(f.attrs['seed'])
+                print(f"Found seed in h5 file: {seed}")
+            except:
+                print("Could not parse seed from h5 file")
         
         # Check if we have a scene mapping
         scene_mapping = {}
@@ -147,14 +157,18 @@ def load_all_level_features(h5_file_path):
                 # Store features for this level
                 features_by_level[level_name] = features_by_scene
     
-    return features_by_level, feature_mode
+    return features_by_level, feature_mode, seed
 
-def sample_triplets(features_by_scene):
+def sample_triplets(features_by_scene, rng=None):
     """
     Sample triplets for evaluation with each scene being used exactly once as an anchor:
     - anchor: An image from a scene
     - positive: Another image from the same scene
     - negative: An image from a different scene
+    
+    Args:
+        features_by_scene: Dictionary mapping scene indices to feature arrays
+        rng: Optional random number generator (numpy.random.RandomState)
     
     Returns:
         - triplets: List of (anchor, positive, negative) feature vectors
@@ -162,6 +176,10 @@ def sample_triplets(features_by_scene):
     """
     triplets = []
     metadata = []
+    
+    # Use provided RNG or create a new one
+    if rng is None:
+        rng = np.random
     
     # Filter scenes that have at least 2 images
     valid_scenes = [scene_idx for scene_idx, features in features_by_scene.items() 
@@ -173,13 +191,13 @@ def sample_triplets(features_by_scene):
     # Use each scene once as an anchor
     for anchor_scene in valid_scenes:
         # Sample anchor and positive from same scene
-        anchor_idx, pos_idx = np.random.choice(len(features_by_scene[anchor_scene]), size=2, replace=False)
+        anchor_idx, pos_idx = rng.choice(len(features_by_scene[anchor_scene]), size=2, replace=False)
         
         # Sample negative scene
-        neg_scene = np.random.choice([s for s in valid_scenes if s != anchor_scene])
+        neg_scene = rng.choice([s for s in valid_scenes if s != anchor_scene])
         
         # Sample negative from negative scene
-        neg_idx = np.random.choice(len(features_by_scene[neg_scene]))
+        neg_idx = rng.choice(len(features_by_scene[neg_scene]))
         
         # Get feature vectors
         anchor = features_by_scene[anchor_scene][anchor_idx]
@@ -300,7 +318,7 @@ def compute_similarity_deltas(similarity_matrices):
     # Return both sets of deltas
     return ap_an_deltas, ap_pn_deltas
 
-def process_level(level_name, features_by_scene, args, output_dir, model_name):
+def process_level(level_name, features_by_scene, args, output_dir, model_name, rng=None):
     """Process a single feature level and return results"""
     print(f"\nProcessing level: {level_name}")
     
@@ -308,7 +326,7 @@ def process_level(level_name, features_by_scene, args, output_dir, model_name):
     valid_scenes = [scene_idx for scene_idx, features in features_by_scene.items() if len(features) >= 2]
     print(f"Sampling triplets with {len(valid_scenes)} scenes as anchors...")
     
-    triplets, metadata = sample_triplets(features_by_scene)
+    triplets, metadata = sample_triplets(features_by_scene, rng=rng)
     
     # Evaluate triplets with complete pairwise comparison
     print("Evaluating triplets...")
@@ -459,6 +477,15 @@ def main(args):
     # Create output directory
     os.makedirs(args.output_dir, exist_ok=True)
     
+    # Set seed for reproducibility if provided
+    if args.seed is not None:
+        print(f"Setting random seed to {args.seed}")
+        set_seed(args.seed)
+        # Create a seeded random number generator
+        rng = np.random.RandomState(args.seed)
+    else:
+        rng = None
+    
     h5_basename = os.path.basename(args.h5_file)
     if '_pyramid_' in h5_basename:
         model_name = h5_basename.split('_pyramid_')[0]
@@ -471,8 +498,14 @@ def main(args):
     
     # Load features from all levels
     print(f"Loading features from {args.h5_file}")
-    features_by_level, feature_mode = load_all_level_features(args.h5_file)
+    features_by_level, feature_mode, h5_seed = load_all_level_features(args.h5_file)
     print(f"Loaded features for {len(features_by_level)} levels, feature mode: {feature_mode}")
+    
+    # If we weren't given a seed but there's one in the h5 file, use that
+    if args.seed is None and h5_seed is not None:
+        print(f"Using seed from h5 file: {h5_seed}")
+        set_seed(h5_seed)
+        rng = np.random.RandomState(h5_seed)
     
     if not features_by_level:
         print("No features found!")
@@ -482,7 +515,7 @@ def main(args):
     all_results = []
     
     for level_name, features_by_scene in features_by_level.items():
-        level_result = process_level(level_name, features_by_scene, args, args.output_dir, model_name)
+        level_result = process_level(level_name, features_by_scene, args, args.output_dir, model_name, rng=rng)
         all_results.append(level_result)
     
     # Create comparison plots across levels
@@ -499,6 +532,7 @@ def main(args):
         'model_name': model_name,
         'feature_mode': feature_mode,
         'num_levels': len(features_by_level),
+        'seed': h5_seed if args.seed is None else args.seed,
         'level_results': all_results
     }
     
@@ -512,6 +546,7 @@ if __name__ == "__main__":
     parser.add_argument('--h5_file', type=str, required=True, help='Path to H5 file with features')
     parser.add_argument('--output_dir', type=str, default='./triplet_results', help='Output directory')
     parser.add_argument('--run_significance_test', action='store_true', help='Run significance test with varying numbers of triplets')
+    parser.add_argument('--seed', type=int, default=None, help='Random seed for reproducibility (if not provided, will try to use seed from h5 file)')
     
     args = parser.parse_args()
     main(args)
