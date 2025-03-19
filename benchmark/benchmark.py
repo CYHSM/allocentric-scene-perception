@@ -10,7 +10,7 @@ from torchvision import transforms
 import random
 
 import sys
-sys.path.append('/home/markus/Documents/Github/allocentric-scene-perception')
+sys.path.append('../')
 from data import ASP
 
 def set_seed(seed):
