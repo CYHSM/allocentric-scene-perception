@@ -76,7 +76,7 @@ def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
             model_data[metric],       # y position = metric value
             c=model_data['layer_depth'],  # color = layer depth
             s=120,                   # point size
-            cmap='viridis',          # colormap
+            cmap='turbo',          # colormap
             norm=norm,               # normalize colors across all models
             alpha=0.8                # transparency
         )
@@ -90,15 +90,15 @@ def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
         )
         
         # Add layer name labels
-        for _, row in model_data.iterrows():
-            plt.text(
-                i + 0.1,              # x position (offset)
-                row[metric],          # y position
-                row['level_name'],    # label
-                fontsize=8,
-                ha='left',
-                va='center'
-            )
+        # for _, row in model_data.iterrows():
+        #     plt.text(
+        #         i + 0.1,              # x position (offset)
+        #         row[metric],          # y position
+        #         row['level_name'],    # label
+        #         fontsize=8,
+        #         ha='left',
+        #         va='center'
+        #     )
     
     # Add colorbar
     cbar = plt.colorbar(scatter)
@@ -111,7 +111,7 @@ def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
     plt.ylabel(metric_name, fontsize=14)
     
     # Set x-axis ticks to model names
-    plt.xticks(range(len(sorted_models)), sorted_models, rotation=45, ha='right')
+    plt.xticks(range(len(sorted_models)), sorted_models, rotation=45, ha='right', fontsize=5)
     
     # Add grid
     plt.grid(alpha=0.3)

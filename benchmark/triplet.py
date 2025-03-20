@@ -114,6 +114,76 @@ def load_single_level_features(h5_file_path, level_name):
     
     return features_by_scene
 
+def sample_triplets_per_image(features_by_scene, rng=None, sample_size=None):
+    """
+    Sample triplets for evaluation with each image being used once as an anchor.
+    This creates more triplets than the original approach which used each scene once.
+    
+    Parameters:
+    features_by_scene: Dictionary mapping scene indices to feature arrays
+    rng: Random number generator (optional)
+    sample_size: Maximum number of triplets to sample (optional)
+    
+    Returns:
+    triplets: List of (anchor, positive, negative) feature tuples
+    metadata: List of (anchor_scene, anchor_idx, pos_idx, neg_scene, neg_idx) metadata tuples
+    """
+    triplets = []
+    metadata = []
+    
+    # Use provided RNG or create a new one
+    if rng is None:
+        rng = np.random
+    
+    # Filter scenes that have at least 2 images
+    valid_scenes = [scene_idx for scene_idx, features in features_by_scene.items() 
+                   if len(features) >= 2]
+    
+    if len(valid_scenes) < 2:
+        raise ValueError("Need at least 2 scenes with 2+ images each to create triplets")
+    
+    # Calculate total number of possible triplets
+    total_images = sum(len(features_by_scene[scene]) for scene in valid_scenes)
+    print(f"Total valid images across {len(valid_scenes)} scenes: {total_images}")
+    
+    # Create a list of all (scene_idx, image_idx) pairs
+    all_image_pairs = []
+    for scene_idx in valid_scenes:
+        num_images = len(features_by_scene[scene_idx])
+        all_image_pairs.extend([(scene_idx, img_idx) for img_idx in range(num_images)])
+    
+    # Limit sample size if requested
+    if sample_size is not None and sample_size < len(all_image_pairs):
+        sampled_pairs = rng.choice(all_image_pairs, size=sample_size, replace=False)
+    else:
+        sampled_pairs = all_image_pairs
+    
+    print(f"Sampling {len(sampled_pairs)} image pairs as anchors")
+    
+    # Use each selected image once as an anchor
+    for anchor_scene, anchor_idx in sampled_pairs:
+        # Choose a different image from the same scene as positive
+        scene_images = len(features_by_scene[anchor_scene])
+        other_indices = [i for i in range(scene_images) if i != anchor_idx]
+        pos_idx = rng.choice(other_indices)
+        
+        # Sample negative scene
+        neg_scene = rng.choice([s for s in valid_scenes if s != anchor_scene])
+        
+        # Sample negative from negative scene
+        neg_idx = rng.choice(len(features_by_scene[neg_scene]))
+        
+        # Get feature vectors
+        anchor = features_by_scene[anchor_scene][anchor_idx]
+        positive = features_by_scene[anchor_scene][pos_idx]
+        negative = features_by_scene[neg_scene][neg_idx]
+        
+        # Add to lists
+        triplets.append((anchor, positive, negative))
+        metadata.append((anchor_scene, anchor_idx, pos_idx, neg_scene, neg_idx))
+    
+    return triplets, metadata
+
 def sample_triplets(features_by_scene, rng=None, sample_size=None):
     """
     Sample triplets for evaluation with each scene being used exactly once as an anchor.
@@ -274,9 +344,10 @@ def process_level(h5_file_path, level_name, args, output_dir, model_name, rng=No
     valid_scenes = [scene_idx for scene_idx, features in features_by_scene.items() if len(features) >= 2]
     print(f"Found {len(valid_scenes)} valid scenes with 2+ images")
     
-    # Sample triplets (one triplet per valid scene, or up to max_triplets)
-    print(f"Sampling triplets with {len(valid_scenes)} scenes as anchors...")
-    triplets, metadata = sample_triplets(features_by_scene, rng=rng, sample_size=max_triplets)
+    # Sample triplets (one triplet per image, or up to max_triplets)
+    print(f"Sampling triplets with each image in {len(valid_scenes)} scenes as anchors...")
+    triplets, metadata = sample_triplets_per_image(features_by_scene, rng=rng, sample_size=max_triplets)
+    print(f"Generated {len(triplets)} triplets")
     
     # Free up memory from features we no longer need
     features_by_scene = None
@@ -319,7 +390,7 @@ def process_level(h5_file_path, level_name, args, output_dir, model_name, rng=No
     # Return results
     return {
         'level_name': level_name,
-        'num_triplets': len(triplets) if triplets else 0,
+        'num_triplets': len(sim_matrices),
         'complete_accuracy': float(complete_acc),
         'partial_accuracy': float(partial_acc),
         'roc_auc': float(roc_auc),

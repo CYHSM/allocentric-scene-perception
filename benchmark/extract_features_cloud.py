@@ -12,6 +12,10 @@ from io import StringIO
 from pathlib import Path
 from tqdm import tqdm
 
+# python -m zipfile -e ASP_FixedSun.zip ./
+# pip install timm pandas numpy einops matplotlib lightning h5py
+# python extract_features_cloud.py --pretrained_only --model_pattern "eva_giant_patch14_336.clip_ft_in1k" --num_scenes 200
+
 # Set up logging
 logging.basicConfig(
     level=logging.INFO,
