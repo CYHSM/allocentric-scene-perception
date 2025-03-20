@@ -99,6 +99,60 @@ class ASP(Dataset):
         scene_seed = self.base_seed * 10000 + scene_idx
         return np.random.RandomState(scene_seed)
         
+    def get_random_samples_within_scene(self, specific_scene=None):
+        """
+        Get random samples from within a scene.
+        
+        Unlike get_samples_within_scene which takes consecutive samples,
+        this function takes random samples from the available timesteps.
+        
+        Args:
+            specific_scene: If provided, use this specific scene. 
+                        If None, randomly select a scene.
+        """
+        if specific_scene is None:
+            # Use the global RNG to select a random scene
+            rand_scene = self.global_rng.choice(self.scenes)
+        else:
+            # Use the specified scene
+            rand_scene = specific_scene
+        
+        # Create a scene-specific RNG for consistent sampling within this scene
+        scene_rng = self.get_scene_specific_rng(rand_scene)
+        
+        # Get all samples for this scene
+        df_scene = pd.read_csv(self.scene_base + 'props_scene{}.csv'.format(rand_scene))
+        df_scene = df_scene.iloc[self.samples_per_scene]
+        
+        # Select random indices without replacement
+        indices = scene_rng.choice(len(self.samples_per_scene), size=self.num_timesteps, replace=False)
+        selected_rows = df_scene.iloc[indices]
+        
+        print(f"rand Scene: {rand_scene}, df: {selected_rows['img_path']}")
+
+        # Loop through selected rows and stack images
+        for i, row in enumerate(selected_rows.iterrows()):
+            row = row[1]  # Get the Series from the tuple
+            row_split = row['img_path'].split('/')
+            row_correct = self.scene_base + row_split[-2] + os.path.sep + row_split[-1]
+            image = self.read_img(row_correct)
+            mask = self.read_mask(row_correct)
+            if i == 0:
+                img_stack = image
+                mask_stack = mask
+            else:
+                img_stack = torch.cat((img_stack, image), dim=0)
+                mask_stack = torch.cat((mask_stack, mask), dim=0)
+        
+        mask_stack = rearrange(mask_stack, "t h w k -> t k h w")
+        mask_stack = self.image_transform(mask_stack)
+        mask_stack = mask_stack.unsqueeze(-1)
+
+        img_stack = rearrange(img_stack, "t h w c -> t c h w")
+
+        return img_stack, mask_stack, selected_rows.to_dict(orient='list')
+
+
     def get_samples_within_scene(self, specific_scene=None):
         """
         Get samples from within a scene.

@@ -9,9 +9,10 @@ import json
 from tqdm import tqdm
 import pandas as pd
 from scipy import stats
-from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+from sklearn.metrics import roc_curve, auc
 import random
 import torch
+import gc  # Garbage collector
 
 def set_seed(seed):
     """Set all seeds to make results reproducible"""
@@ -23,23 +24,14 @@ def set_seed(seed):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
 
-def load_all_level_features(h5_file_path):
-    """
-    Load features from all levels in pyramid mode
-    
-    Returns:
-        - features_by_level: Dictionary mapping level names to dictionaries of scene features
-        - feature_mode: Type of features (pyramid, penultimate_pooled, etc.)
-        - seed: Random seed used to generate the features (if available)
-    """
-    features_by_level = {}
-    seed = None
-    
+def get_metadata_from_h5(h5_file_path):
+    """Extract metadata from H5 file without loading features"""
     with h5py.File(h5_file_path, 'r') as f:
         # Get metadata
         feature_mode = f.attrs.get('feature_mode', 'unknown')
         
         # Try to get the seed from metadata
+        seed = None
         if 'seed' in f.attrs:
             try:
                 seed = int(f.attrs['seed'])
@@ -47,132 +39,85 @@ def load_all_level_features(h5_file_path):
             except:
                 print("Could not parse seed from h5 file")
         
-        # Check if we have a scene mapping
-        scene_mapping = {}
-        if 'scene_mapping' in f:
-            for key in f['scene_mapping'].attrs:
-                scene_mapping[key] = f['scene_mapping'].attrs[key]
-        
-        # Find all feature levels
+        # Get all feature levels
         if feature_mode == 'pyramid' or any(key.startswith('level_') for key in f.keys()):
-            feature_mode = 'pyramid'  # Set mode to pyramid if we detect level_* groups
-            
-            # Get all level groups
+            feature_mode = 'pyramid'
             feature_levels = [key for key in f.keys() if key.startswith('level_')]
             
             # Sort levels by their numeric index
             try:
                 feature_levels = sorted(feature_levels, 
-                                       key=lambda x: int(x.split('_')[1]))
+                                      key=lambda x: int(x.split('_')[1]))
             except:
                 # If sorting fails, keep original order
                 pass
-            
-            print(f"Found {len(feature_levels)} feature levels: {feature_levels}")
-            
-            # Process each level
-            for level_name in feature_levels:
-                feature_group = f[level_name]
-                features_by_scene = {}
-                
-                # Process features for this level
-                for key in feature_group.keys():
-                    # Extract scene ID from key
-                    if '_t' in key:
-                        scene_id, t_id = key.split('_t')
-                        
-                        # Get original scene index if available
-                        if scene_id in scene_mapping:
-                            scene_idx = int(scene_mapping[scene_id])
-                        else:
-                            # Extract numeric part from scene_id
-                            scene_idx = int(scene_id.split('_')[1].lstrip('0'))
-                        
-                        # Load feature
-                        feature = np.array(feature_group[key])
-                        
-                        # Initialize list for this scene if needed
-                        if scene_idx not in features_by_scene:
-                            features_by_scene[scene_idx] = []
-                        
-                        # Flatten if needed
-                        if len(feature.shape) > 2:
-                            feature = feature.reshape(feature.shape[0], -1)
-                        
-                        # Add to scene's feature list
-                        features_by_scene[scene_idx].append(feature.squeeze())
-                
-                # Convert lists of features to numpy arrays
-                for scene_idx in features_by_scene:
-                    features_by_scene[scene_idx] = np.array(features_by_scene[scene_idx])
-                
-                # Store features for this level
-                features_by_level[level_name] = features_by_scene
-        
         else:  # Not pyramid mode - add single feature set
-            feature_group = None
-            
             if feature_mode in ['penultimate_pooled', 'penultimate_unpooled'] and 'features' in f:
-                feature_group = f['features']
-                level_name = 'features'
+                feature_levels = ['features']
             elif len(f.keys()) > 0:
-                # Just use the first group as a fallback
-                level_name = list(f.keys())[0]
-                feature_group = f[level_name]
-            
-            if feature_group is not None:
-                features_by_scene = {}
-                
-                # Process features
-                for key in feature_group.keys():
-                    # Extract scene ID from key
-                    if '_t' in key:
-                        scene_id, t_id = key.split('_t')
-                        
-                        # Get original scene index if available
-                        if scene_id in scene_mapping:
-                            scene_idx = int(scene_mapping[scene_id])
-                        else:
-                            # Extract numeric part from scene_id
-                            scene_idx = int(scene_id.split('_')[1].lstrip('0'))
-                        
-                        # Load feature
-                        feature = np.array(feature_group[key])
-                        
-                        # Initialize list for this scene if needed
-                        if scene_idx not in features_by_scene:
-                            features_by_scene[scene_idx] = []
-                        
-                        # Flatten if needed
-                        if len(feature.shape) > 2:
-                            feature = feature.reshape(feature.shape[0], -1)
-                        
-                        # Add to scene's feature list
-                        features_by_scene[scene_idx].append(feature.squeeze())
-                
-                # Convert lists of features to numpy arrays
-                for scene_idx in features_by_scene:
-                    features_by_scene[scene_idx] = np.array(features_by_scene[scene_idx])
-                
-                # Store features for this level
-                features_by_level[level_name] = features_by_scene
+                # Just use the first group that's not scene_mapping
+                feature_levels = [key for key in f.keys() if key != 'scene_mapping']
     
-    return features_by_level, feature_mode, seed
+    return feature_mode, seed, feature_levels
 
-def sample_triplets(features_by_scene, rng=None):
+def load_single_level_features(h5_file_path, level_name):
     """
-    Sample triplets for evaluation with each scene being used exactly once as an anchor:
-    - anchor: An image from a scene
-    - positive: Another image from the same scene
-    - negative: An image from a different scene
-    
-    Args:
-        features_by_scene: Dictionary mapping scene indices to feature arrays
-        rng: Optional random number generator (numpy.random.RandomState)
+    Load features from a single level, memory efficient
     
     Returns:
-        - triplets: List of (anchor, positive, negative) feature vectors
-        - metadata: List of (anchor_scene, anchor_idx, pos_idx, neg_scene, neg_idx)
+        - features_by_scene: Dictionary mapping scene indices to feature arrays
+        - scene_mapping: Dictionary mapping scene IDs to scene indices
+    """
+    features_by_scene = {}
+    scene_mapping = {}
+    
+    with h5py.File(h5_file_path, 'r') as f:
+        # Get scene mapping if available
+        if 'scene_mapping' in f:
+            for key in f['scene_mapping'].attrs:
+                scene_mapping[key] = f['scene_mapping'].attrs[key]
+        
+        # Get the feature group for this level
+        if level_name in f:
+            feature_group = f[level_name]
+            
+            # Process features for this level
+            for key in feature_group.keys():
+                # Extract scene ID from key
+                if '_t' in key:
+                    scene_id, t_id = key.split('_t')
+                    
+                    # Get original scene index if available
+                    if scene_id in scene_mapping:
+                        scene_idx = int(scene_mapping[scene_id])
+                    else:
+                        # Extract numeric part from scene_id
+                        scene_idx = int(scene_id.split('_')[1].lstrip('0'))
+                    
+                    # Load feature
+                    feature = np.array(feature_group[key])
+                    
+                    # Initialize list for this scene if needed
+                    if scene_idx not in features_by_scene:
+                        features_by_scene[scene_idx] = []
+                    
+                    # Flatten if needed
+                    if len(feature.shape) > 2:
+                        feature = feature.reshape(feature.shape[0], -1)
+                    
+                    # Add to scene's feature list
+                    features_by_scene[scene_idx].append(feature.squeeze())
+            
+            # Convert lists of features to numpy arrays
+            for scene_idx in features_by_scene:
+                features_by_scene[scene_idx] = np.array(features_by_scene[scene_idx])
+    
+    return features_by_scene
+
+def sample_triplets(features_by_scene, rng=None, sample_size=None):
+    """
+    Sample triplets for evaluation with each scene being used exactly once as an anchor.
+    Optionally limit to a sample_size number of triplets.
     """
     triplets = []
     metadata = []
@@ -188,7 +133,11 @@ def sample_triplets(features_by_scene, rng=None):
     if len(valid_scenes) < 2:
         raise ValueError("Need at least 2 scenes with 2+ images each to create triplets")
     
-    # Use each scene once as an anchor
+    # Limit sample size if requested
+    if sample_size is not None and sample_size < len(valid_scenes):
+        valid_scenes = rng.choice(valid_scenes, size=sample_size, replace=False)
+    
+    # Use each selected scene once as an anchor
     for anchor_scene in valid_scenes:
         # Sample anchor and positive from same scene
         anchor_idx, pos_idx = rng.choice(len(features_by_scene[anchor_scene]), size=2, replace=False)
@@ -213,11 +162,6 @@ def sample_triplets(features_by_scene, rng=None):
 def evaluate_triplets_complete(triplets, similarity_metric='cosine'):
     """
     Evaluate triplets completely, checking all pairwise relationships
-    
-    Returns:
-        - accuracy: Percentage of triplets where all within-scene similarities are higher than across-scene similarities
-        - partial_accuracy: Percentage of triplets where at least anchor-positive > anchor-negative 
-        - similarity_matrix: Pairwise similarities for each triplet [(a,p), (a,n), (p,n)]
     """
     complete_correct = 0
     partial_correct = 0
@@ -245,8 +189,8 @@ def evaluate_triplets_complete(triplets, similarity_metric='cosine'):
         # Record similarities
         similarity_matrices.append((sim_a_p, sim_a_n, sim_p_n))
     
-    complete_accuracy = complete_correct / len(triplets)
-    partial_accuracy = partial_correct / len(triplets)
+    complete_accuracy = complete_correct / len(triplets) if triplets else 0
+    partial_accuracy = partial_correct / len(triplets) if triplets else 0
     
     return complete_accuracy, partial_accuracy, similarity_matrices
 
@@ -318,19 +262,33 @@ def compute_similarity_deltas(similarity_matrices):
     # Return both sets of deltas
     return ap_an_deltas, ap_pn_deltas
 
-def process_level(level_name, features_by_scene, args, output_dir, model_name, rng=None):
+def process_level(h5_file_path, level_name, args, output_dir, model_name, rng=None, max_triplets=None):
     """Process a single feature level and return results"""
     print(f"\nProcessing level: {level_name}")
     
-    # Sample triplets (one per scene)
+    # Load features for this level only
+    print(f"Loading features for level {level_name}...")
+    features_by_scene = load_single_level_features(h5_file_path, level_name)
+    
+    # Count valid scenes (with at least 2 images)
     valid_scenes = [scene_idx for scene_idx, features in features_by_scene.items() if len(features) >= 2]
+    print(f"Found {len(valid_scenes)} valid scenes with 2+ images")
+    
+    # Sample triplets (one triplet per valid scene, or up to max_triplets)
     print(f"Sampling triplets with {len(valid_scenes)} scenes as anchors...")
+    triplets, metadata = sample_triplets(features_by_scene, rng=rng, sample_size=max_triplets)
     
-    triplets, metadata = sample_triplets(features_by_scene, rng=rng)
+    # Free up memory from features we no longer need
+    features_by_scene = None
+    gc.collect()
     
-    # Evaluate triplets with complete pairwise comparison
-    print("Evaluating triplets...")
+    # Evaluate triplets
+    print(f"Evaluating {len(triplets)} triplets...")
     complete_acc, partial_acc, sim_matrices = evaluate_triplets_complete(triplets)
+    
+    # Free up memory from triplets we no longer need
+    triplets = None
+    gc.collect()
     
     # Plot similarity distributions
     print("Creating visualizations...")
@@ -344,8 +302,8 @@ def process_level(level_name, features_by_scene, args, output_dir, model_name, r
     t_ap_pn, p_ap_pn = stats.ttest_1samp(ap_pn_deltas, 0)
     
     # Calculate effect sizes (Cohen's d)
-    cohens_d_ap_an = np.mean(ap_an_deltas) / np.std(ap_an_deltas)
-    cohens_d_ap_pn = np.mean(ap_pn_deltas) / np.std(ap_pn_deltas)
+    cohens_d_ap_an = np.mean(ap_an_deltas) / (np.std(ap_an_deltas) + 1e-10)
+    cohens_d_ap_pn = np.mean(ap_pn_deltas) / (np.std(ap_pn_deltas) + 1e-10)
     
     # Average of both same-scene vs different-scene comparisons
     avg_delta = np.mean(ap_an_deltas + ap_pn_deltas)
@@ -361,7 +319,7 @@ def process_level(level_name, features_by_scene, args, output_dir, model_name, r
     # Return results
     return {
         'level_name': level_name,
-        'num_triplets': len(triplets),
+        'num_triplets': len(triplets) if triplets else 0,
         'complete_accuracy': float(complete_acc),
         'partial_accuracy': float(partial_acc),
         'roc_auc': float(roc_auc),
@@ -381,6 +339,7 @@ def process_level(level_name, features_by_scene, args, output_dir, model_name, r
 
 def plot_level_comparison(all_results, output_dir, model_name):
     """Create comparison plots across all levels"""
+    # Implementation is the same as original
     # Extract data for plotting
     levels = [r['level_name'] for r in all_results]
     
@@ -486,6 +445,7 @@ def main(args):
     else:
         rng = None
     
+    # Extract model name from h5 file
     h5_basename = os.path.basename(args.h5_file)
     if '_pyramid_' in h5_basename:
         model_name = h5_basename.split('_pyramid_')[0]
@@ -496,10 +456,10 @@ def main(args):
         model_name = h5_basename.split('_')[0]
     print(f"Using model name: {model_name}")
     
-    # Load features from all levels
-    print(f"Loading features from {args.h5_file}")
-    features_by_level, feature_mode, h5_seed = load_all_level_features(args.h5_file)
-    print(f"Loaded features for {len(features_by_level)} levels, feature mode: {feature_mode}")
+    # Get metadata and feature levels without loading features
+    print(f"Extracting metadata from {args.h5_file}")
+    feature_mode, h5_seed, feature_levels = get_metadata_from_h5(args.h5_file)
+    print(f"Found {len(feature_levels)} feature levels, feature mode: {feature_mode}")
     
     # If we weren't given a seed but there's one in the h5 file, use that
     if args.seed is None and h5_seed is not None:
@@ -507,16 +467,28 @@ def main(args):
         set_seed(h5_seed)
         rng = np.random.RandomState(h5_seed)
     
-    if not features_by_level:
+    if not feature_levels:
         print("No features found!")
         return
     
-    # Process each level
+    # Process each level individually to reduce memory usage
     all_results = []
     
-    for level_name, features_by_scene in features_by_level.items():
-        level_result = process_level(level_name, features_by_scene, args, args.output_dir, model_name, rng=rng)
+    for level_name in feature_levels:
+        # Process one level at a time
+        level_result = process_level(
+            args.h5_file, 
+            level_name, 
+            args, 
+            args.output_dir, 
+            model_name, 
+            rng=rng,
+            max_triplets=args.max_triplets
+        )
         all_results.append(level_result)
+        
+        # Force garbage collection
+        gc.collect()
     
     # Create comparison plots across levels
     if len(all_results) > 1:
@@ -531,7 +503,7 @@ def main(args):
     combined_results = {
         'model_name': model_name,
         'feature_mode': feature_mode,
-        'num_levels': len(features_by_level),
+        'num_levels': len(feature_levels),
         'seed': h5_seed if args.seed is None else args.seed,
         'level_results': all_results
     }
@@ -542,11 +514,12 @@ def main(args):
     print(f"\nResults saved to {args.output_dir}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Evaluate model features using triplet comparison test')
+    parser = argparse.ArgumentParser(description='Memory-efficient triplet analysis')
     parser.add_argument('--h5_file', type=str, required=True, help='Path to H5 file with features')
     parser.add_argument('--output_dir', type=str, default='./triplet_results', help='Output directory')
-    parser.add_argument('--run_significance_test', action='store_true', help='Run significance test with varying numbers of triplets')
-    parser.add_argument('--seed', type=int, default=None, help='Random seed for reproducibility (if not provided, will try to use seed from h5 file)')
+    parser.add_argument('--seed', type=int, default=None, help='Random seed for reproducibility')
+    parser.add_argument('--max_triplets', type=int, default=None, 
+                       help='Maximum number of triplets to sample (default: use all valid scenes)')
     
     args = parser.parse_args()
     main(args)

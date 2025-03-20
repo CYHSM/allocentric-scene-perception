@@ -32,7 +32,7 @@ def main(args):
     os.makedirs(args.output_dir, exist_ok=True)
     
     # Use CPU instead of GPU
-    device = torch.device('cuda')
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
     
     # Set up dataset first to get the actual scene indices
@@ -192,7 +192,7 @@ def main(args):
         
         def __getitem__(self, idx):
             # Use the specific scene directly
-            return self.get_samples_within_scene(specific_scene=self.specific_scene_idx)
+            return self.get_random_samples_within_scene(specific_scene=self.specific_scene_idx)
     
     for i, scene_idx in enumerate(tqdm(actual_scenes)):
         # Create dataset for this specific scene
