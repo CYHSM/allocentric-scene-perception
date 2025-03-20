@@ -86,7 +86,6 @@ def main(args):
     
     # Resolve data configuration for the specific model
     data_config = timm.data.resolve_data_config(model.pretrained_cfg)
-    data_config['antialias'] = True
     
     # Create transform using the resolved data config
     print("Using model-specific data transform")
