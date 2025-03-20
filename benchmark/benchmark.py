@@ -32,7 +32,7 @@ def main(args):
     os.makedirs(args.output_dir, exist_ok=True)
     
     # Use CPU instead of GPU
-    device = torch.device('cpu')
+    device = torch.device('cuda')
     print(f"Using device: {device}")
     
     # Set up dataset first to get the actual scene indices

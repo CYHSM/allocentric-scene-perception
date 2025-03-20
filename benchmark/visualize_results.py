@@ -44,13 +44,16 @@ def collect_results(result_files):
         return None
 
 def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
-    """Create a scatter plot showing model performance across layers"""
+    """Create a scatter plot showing model performance across layers, sorted by best performance"""
     if df is None or len(df) == 0:
         print("No data to plot")
         return
     
-    # Extract models and sort them
-    models = sorted(df['model'].unique())
+    # Get the best performance for each model
+    best_performances = df.groupby('model')[metric].max().reset_index()
+    
+    # Sort models by their best performance (descending)
+    sorted_models = best_performances.sort_values(metric, ascending=False)['model'].tolist()
     
     # Create figure
     plt.figure(figsize=(16, 10))
@@ -61,7 +64,7 @@ def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
     norm = plt.Normalize(min_depth, max_depth)
     
     # Plot each model's layers as points
-    for i, model in enumerate(models):
+    for i, model in enumerate(sorted_models):
         model_data = df[df['model'] == model]
         
         # Sort by layer depth
@@ -103,12 +106,12 @@ def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
     
     # Add title and labels
     metric_name = metric.replace('_', ' ').title()
-    plt.title(f'Model Layer Performance - {metric_name}', fontsize=16)
+    plt.title(f'Model Layer Performance - {metric_name} (Sorted by Best Performance)', fontsize=16)
     plt.xlabel('Model', fontsize=14)
     plt.ylabel(metric_name, fontsize=14)
     
     # Set x-axis ticks to model names
-    plt.xticks(range(len(models)), models, rotation=45, ha='right')
+    plt.xticks(range(len(sorted_models)), sorted_models, rotation=45, ha='right')
     
     # Add grid
     plt.grid(alpha=0.3)
@@ -117,11 +120,11 @@ def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
     plt.tight_layout()
     
     # Save figure
-    output_file = os.path.join(output_dir, f'model_layer_scatter_{metric}.png')
+    output_file = os.path.join(output_dir, f'model_layer_scatter_{metric}_sorted.png')
     plt.savefig(output_file, dpi=300)
     plt.close()
     
-    print(f"Scatter plot saved to: {output_file}")
+    print(f"Sorted scatter plot saved to: {output_file}")
 
 def create_performance_heatmap(df, output_dir):
     """Create a heatmap comparing model performance across metrics"""
@@ -153,27 +156,30 @@ def create_performance_heatmap(df, output_dir):
     # Create DataFrame
     model_metrics_df = pd.DataFrame(model_metrics)
     
+    # Sort models by complete_accuracy (descending)
+    sorted_models = model_metrics_df.sort_values('complete_accuracy', ascending=False)['model'].tolist()
+    
     # Create heatmap data
-    heatmap_data = np.zeros((len(models), len(metrics)))
-    for i, model in enumerate(models):
+    heatmap_data = np.zeros((len(sorted_models), len(metrics)))
+    for i, model in enumerate(sorted_models):
         model_row = model_metrics_df[model_metrics_df['model'] == model]
         for j, metric in enumerate(metrics):
             heatmap_data[i, j] = model_row[metric].values[0]
     
     # Create heatmap
-    plt.figure(figsize=(12, len(models) * 0.8))
+    plt.figure(figsize=(12, len(sorted_models) * 0.8))
     sns.heatmap(heatmap_data, annot=True, fmt='.3f', cmap='viridis',
                 xticklabels=[m.replace('_', ' ').title() for m in metrics],
-                yticklabels=models)
-    plt.title('Best Layer Performance by Model and Metric')
+                yticklabels=sorted_models)
+    plt.title('Best Layer Performance by Model and Metric (Sorted by Complete Accuracy)')
     plt.tight_layout()
     
     # Save figure
-    output_file = os.path.join(output_dir, 'model_performance_heatmap.png')
+    output_file = os.path.join(output_dir, 'model_performance_heatmap_sorted.png')
     plt.savefig(output_file, dpi=300)
     plt.close()
     
-    print(f"Performance heatmap saved to: {output_file}")
+    print(f"Sorted performance heatmap saved to: {output_file}")
 
 def main():
     parser = argparse.ArgumentParser(description='Visualize triplet analysis results')
@@ -222,16 +228,18 @@ def main():
         # Create performance heatmap
         create_performance_heatmap(results_df, args.output_dir)
         
-        # Create bar chart of best performing layers
+        # Create bar chart of best performing layers, sorted by performance
         best_layers = results_df.loc[results_df.groupby('model')['complete_accuracy'].idxmax()]
+        best_layers_sorted = best_layers.sort_values('complete_accuracy', ascending=False)
+        
         plt.figure(figsize=(14, 8))
-        sns.barplot(x='model', y='complete_accuracy', data=best_layers, palette='viridis')
-        plt.title('Best Layer Performance by Model')
+        sns.barplot(x='model', y='complete_accuracy', data=best_layers_sorted, palette='viridis')
+        plt.title('Best Layer Performance by Model (Sorted)')
         plt.xlabel('Model')
         plt.ylabel('Complete Accuracy')
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
-        plt.savefig(os.path.join(args.output_dir, 'best_layer_performance.png'), dpi=300)
+        plt.savefig(os.path.join(args.output_dir, 'best_layer_performance_sorted.png'), dpi=300)
         plt.close()
         
         print("Visualizations complete!")
