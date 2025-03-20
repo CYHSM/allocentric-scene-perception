@@ -7,6 +7,8 @@ import shutil
 import time
 import logging
 import requests
+import csv
+from io import StringIO
 from pathlib import Path
 from tqdm import tqdm
 
@@ -76,7 +78,8 @@ def get_timm_models(filter_pattern=None, pretrained_only=True):
 def get_top_models(limit=100):
     """
     Get a list of top timm models based on ImageNet performance.
-    If the list cannot be fetched, fall back to a predefined list of popular models.
+    Uses the results CSV from pytorch-image-models repository.
+    If the data cannot be fetched, fall back to a predefined list of popular models.
     """
     # First try to get models from timm's available pretrained models
     all_pretrained = timm.list_models(pretrained=True)
@@ -88,24 +91,63 @@ def get_top_models(limit=100):
         return all_pretrained
     
     try:
-        # Try to get model info (this should give performance info)
-        model_info = {}
-        for model_name in tqdm(all_pretrained, desc="Getting model info"):
-            try:
-                info = timm.get_pretrained_cfg(model_name)
-                # Extract accuracy if available
-                if hasattr(info, 'get'):
-                    acc = info.get('acc1', 0)
-                    model_info[model_name] = acc
-            except Exception as e:
-                logger.warning(f"Failed to get info for {model_name}: {e}")
-                model_info[model_name] = 0  # Default accuracy
+        # Try to fetch the ImageNet results CSV from GitHub
+        results_url = "https://raw.githubusercontent.com/huggingface/pytorch-image-models/main/results/results-imagenet.csv"
+        logger.info(f"Fetching model performance data from: {results_url}")
         
-        # Sort by accuracy (descending)
-        sorted_models = sorted(model_info.items(), key=lambda x: x[1], reverse=True)
+        response = requests.get(results_url)
+        response.raise_for_status()  # Ensure we got a valid response
+        
+        # Parse the CSV data
+        csv_data = response.text.splitlines()
+        
+        # Parse header and find column indices
+        header = csv_data[0].split(',')
+        model_col = header.index('model')
+        top1_col = header.index('top1')
+        
+        # Extract model performance data
+        model_performance = {}
+        for line in csv_data[1:]:  # Skip header
+            values = line.split(',')
+            model_name = values[model_col]
+            
+            # Clean up model name if needed (remove quotes, etc.)
+            model_name = model_name.strip('"\'')
+            
+            # Try to get top1 accuracy
+            try:
+                top1_acc = float(values[top1_col])
+                model_performance[model_name] = top1_acc
+            except (ValueError, IndexError):
+                # Skip models with invalid data
+                continue
+        
+        logger.info(f"Parsed performance data for {len(model_performance)} models")
+        
+        # Filter to only include models that are available in timm with pretrained weights
+        available_performance = {
+            model: acc for model, acc in model_performance.items() 
+            if model in all_pretrained
+        }
+        
+        logger.info(f"Found performance data for {len(available_performance)} available pretrained models")
+        
+        # Sort models by accuracy (descending)
+        sorted_models = sorted(available_performance.items(), key=lambda x: x[1], reverse=True)
         
         # Get top models
         top_models = [model[0] for model in sorted_models[:limit]]
+        
+        # If we couldn't get enough models with performance data, add other available models
+        if len(top_models) < limit:
+            remaining_models = [m for m in all_pretrained if m not in top_models]
+            remaining_needed = limit - len(top_models)
+            
+            if remaining_needed > 0 and remaining_models:
+                logger.info(f"Adding {remaining_needed} additional models to reach requested limit")
+                top_models.extend(remaining_models[:remaining_needed])
+        
         logger.info(f"Selected top {len(top_models)} models by ImageNet accuracy")
         return top_models
         
