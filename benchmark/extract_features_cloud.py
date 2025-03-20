@@ -6,11 +6,9 @@ import json
 import shutil
 import time
 import logging
+import requests
 from pathlib import Path
-
-# python -m zipfile -e ASP_FixedSun.zip ./
-# pip install timm pandas numpy einops matplotlib lightning h5py
-# python extract_features_cloud.py --pretrained_only --model_pattern "eva_giant_patch14_336.clip_ft_in1k" --num_scenes 200
+from tqdm import tqdm
 
 # Set up logging
 logging.basicConfig(
@@ -18,7 +16,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler('feature_extraction.log')
+        logging.FileHandler('top100_feature_extraction.log')
     ]
 )
 logger = logging.getLogger(__name__)
@@ -69,11 +67,87 @@ def get_dir_size(path):
                 total_size += os.path.getsize(fp)
     return total_size
 
-def get_timm_models(filter_pattern=None, pretrained_only=False):
+def get_timm_models(filter_pattern=None, pretrained_only=True):
     """Get list of available timm models"""
     models = timm.list_models(filter_pattern, pretrained=pretrained_only)
     logger.info(f"Found {len(models)} models matching the criteria")
     return models
+
+def get_top_models(limit=100):
+    """
+    Get a list of top timm models based on ImageNet performance.
+    If the list cannot be fetched, fall back to a predefined list of popular models.
+    """
+    # First try to get models from timm's available pretrained models
+    all_pretrained = timm.list_models(pretrained=True)
+    logger.info(f"Found {len(all_pretrained)} pretrained models in timm")
+    
+    # If we have fewer than the limit, return all available
+    if len(all_pretrained) <= limit:
+        logger.info(f"Returning all {len(all_pretrained)} available pretrained models")
+        return all_pretrained
+    
+    try:
+        # Try to get model info (this should give performance info)
+        model_info = {}
+        for model_name in tqdm(all_pretrained, desc="Getting model info"):
+            try:
+                info = timm.get_pretrained_cfg(model_name)
+                # Extract accuracy if available
+                if hasattr(info, 'get'):
+                    acc = info.get('acc1', 0)
+                    model_info[model_name] = acc
+            except Exception as e:
+                logger.warning(f"Failed to get info for {model_name}: {e}")
+                model_info[model_name] = 0  # Default accuracy
+        
+        # Sort by accuracy (descending)
+        sorted_models = sorted(model_info.items(), key=lambda x: x[1], reverse=True)
+        
+        # Get top models
+        top_models = [model[0] for model in sorted_models[:limit]]
+        logger.info(f"Selected top {len(top_models)} models by ImageNet accuracy")
+        return top_models
+        
+    except Exception as e:
+        logger.error(f"Error getting model performance data: {e}")
+        
+        # Fallback to a predefined list of popular model architectures
+        # with variety in architecture types and sizes
+        fallback_patterns = [
+            "resnet*",
+            "efficientnet*",
+            "vit*",
+            "swin*",
+            "convnext*",
+            "regnety*",
+            "deit*",
+            "eva*",
+            "beit*",
+            "maxvit*",
+            "dinov2*"
+        ]
+        
+        logger.info(f"Using fallback model patterns: {fallback_patterns}")
+        
+        # Collect models matching these patterns
+        fallback_models = []
+        for pattern in fallback_patterns:
+            models = timm.list_models(pattern, pretrained=True)
+            fallback_models.extend(models)
+        
+        # Remove duplicates
+        fallback_models = list(set(fallback_models))
+        
+        # Sort alphabetically to get consistent results
+        fallback_models.sort()
+        
+        # Limit to requested number
+        if len(fallback_models) > limit:
+            fallback_models = fallback_models[:limit]
+            
+        logger.info(f"Selected {len(fallback_models)} fallback models")
+        return fallback_models
 
 def extract_model_features(model_name, args):
     """Extract features for a single model and clean up afterward"""
@@ -109,7 +183,16 @@ def extract_model_features(model_name, args):
     
     try:
         # Run the benchmark command
-        subprocess.run(benchmark_cmd, check=True)
+        process = subprocess.run(benchmark_cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+        # Log the output
+        stdout = process.stdout.decode('utf-8')
+        stderr = process.stderr.decode('utf-8')
+        
+        if stdout:
+            logger.info(f"Benchmark output for {model_name}:\n{stdout}")
+        if stderr:
+            logger.warning(f"Benchmark error output for {model_name}:\n{stderr}")
         
         # Clean model cache to free space
         if not args.keep_models:
@@ -134,32 +217,54 @@ def extract_model_features(model_name, args):
     
     except subprocess.CalledProcessError as e:
         logger.error(f"Error extracting features for {model_name}: {e}")
+        
+        # Log error output
+        if e.stdout:
+            logger.error(f"Error stdout: {e.stdout.decode('utf-8')}")
+        if e.stderr:
+            logger.error(f"Error stderr: {e.stderr.decode('utf-8')}")
+            
         # Clean up even if there was an error
+        if not args.keep_models:
+            clean_model_cache(args.model_cache_dir)
+        return None
+    except Exception as e:
+        logger.error(f"Unexpected error for {model_name}: {e}")
         if not args.keep_models:
             clean_model_cache(args.model_cache_dir)
         return None
 
 def main():
-    parser = argparse.ArgumentParser(description='Extract features from multiple models (Cloud Version)')
-    parser.add_argument('--models', nargs='*', help='List of timm models to process')
-    parser.add_argument('--model_pattern', type=str, help='Pattern to filter model names (e.g., "resnet*")')
-    parser.add_argument('--pretrained_only', action='store_true', help='Only include models with pretrained weights')
-    parser.add_argument('--data_path', type=str, default='../data/ASP_FixedSun/', help='Path to the ASP dataset')
-    parser.add_argument('--output_dir', type=str, default='../features', help='Directory to store features')
-    parser.add_argument('--model_cache_dir', type=str, default='./models', help='Directory to temporarily store model files')
-    parser.add_argument('--num_scenes', type=int, default=100, help='Number of scenes to process')
-    parser.add_argument('--max_scene_search', type=int, default=5000, help='Maximum number of scenes to search')
-    parser.add_argument('--dataset_name', type=str, default='asp_surround_mix_noref', help='Dataset name')
+    parser = argparse.ArgumentParser(description='Extract features from top 100 timm models (Cloud Version)')
+    parser.add_argument('--data_path', type=str, default='../data/ASP_FixedSun/', 
+                       help='Path to the ASP dataset')
+    parser.add_argument('--output_dir', type=str, default='../features', 
+                       help='Directory to store features')
+    parser.add_argument('--model_cache_dir', type=str, default='./models', 
+                       help='Directory to temporarily store model files')
+    parser.add_argument('--num_scenes', type=int, default=100, 
+                       help='Number of scenes to process')
+    parser.add_argument('--max_scene_search', type=int, default=5000, 
+                       help='Maximum number of scenes to search')
+    parser.add_argument('--dataset_name', type=str, default='asp_surround_mix_noref', 
+                       help='Dataset name')
     parser.add_argument('--feature_mode', type=str, default='pyramid', 
                       choices=['pyramid', 'penultimate_unpooled', 'penultimate_pooled'],
                       help='Feature extraction mode')
-    parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
-    parser.add_argument('--force_recompute', action='store_true', help='Force recomputation')
-    parser.add_argument('--verbose', action='store_true', help='Print verbose output')
-    parser.add_argument('--list_all_models', action='store_true', help='List all available timm models and exit')
-    parser.add_argument('--keep_models', action='store_true', help='Keep downloaded models (not recommended for cloud environments)')
-    parser.add_argument('--cloud_status_file', type=str, default='cloud_extraction_status.json', 
-                      help='JSON file to track extraction status in cloud environment')
+    parser.add_argument('--seed', type=int, default=42, 
+                       help='Random seed for reproducibility')
+    parser.add_argument('--force_recompute', action='store_true', 
+                       help='Force recomputation')
+    parser.add_argument('--verbose', action='store_true', 
+                       help='Print verbose output')
+    parser.add_argument('--keep_models', action='store_true', 
+                       help='Keep downloaded models (not recommended for cloud environments)')
+    parser.add_argument('--cloud_status_file', type=str, default='top100_extraction_status.json', 
+                      help='JSON file to track extraction status')
+    parser.add_argument('--custom_models', nargs='*', 
+                       help='Custom list of specific models to process instead of top 100')
+    parser.add_argument('--num_models', type=int, default=100, 
+                       help='Number of top models to process')
     
     args = parser.parse_args()
     
@@ -168,14 +273,6 @@ def main():
     
     # Create output directory
     os.makedirs(args.output_dir, exist_ok=True)
-    
-    # Handle listing all models
-    if args.list_all_models:
-        all_models = get_timm_models()
-        logger.info(f"Total available models: {len(all_models)}")
-        for model in all_models:
-            print(model)
-        return
     
     # Load status if it exists
     status_file = os.path.join(args.output_dir, args.cloud_status_file)
@@ -190,18 +287,13 @@ def main():
             logger.error(f"Error loading status file: {e}")
     
     # Determine which models to process
-    if args.models:
-        models = args.models
-    elif args.model_pattern:
-        models = get_timm_models(args.model_pattern, pretrained_only=args.pretrained_only)
-        logger.info(f"Found {len(models)} models matching pattern '{args.model_pattern}'")
+    if args.custom_models:
+        models = args.custom_models
+        logger.info(f"Using {len(models)} custom-specified models")
     else:
-        models = [
-            'resnet18', 'resnet34', 'resnet50', 'resnet101',
-            'efficientnet_b0', 'efficientnet_b1', 
-            'vit_small_patch16_224', 'vit_base_patch16_224',
-            'convnext_tiny', 'convnext_small'
-        ]
+        # Get top models
+        models = get_top_models(limit=args.num_models)
+        logger.info(f"Selected {len(models)} top models")
     
     # Filter out already completed models
     if completed_models and not args.force_recompute:
@@ -224,7 +316,7 @@ def main():
         'timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
     }
     
-    with open(os.path.join(args.output_dir, 'feature_extraction_metadata.json'), 'w') as f:
+    with open(os.path.join(args.output_dir, 'top100_extraction_metadata.json'), 'w') as f:
         json.dump(metadata, f, indent=2)
     
     # Extract features for each model
@@ -233,11 +325,22 @@ def main():
         logger.info(f"\nProcessing model {i+1}/{len(models)}: {model_name}")
         
         try:
-            # Check disk space before extraction
+            # Monitor system resources
             if hasattr(shutil, 'disk_usage'):
                 total, used, free = shutil.disk_usage(args.output_dir)
-                if free < 1 * (1024**3):  # Less than 1 GB free
+                if free < 5 * (1024**3):  # Less than 5 GB free
                     logger.warning(f"Low disk space warning: {free / (1024**3):.2f} GB free")
+                    
+                    if free < 1 * (1024**3):  # Critical - less than 1 GB free
+                        logger.critical("Critical disk space shortage - pausing extraction")
+                        # Wait for potential cleanup or monitoring interventation
+                        time.sleep(60)  # Wait a minute
+                        
+                        # Check again
+                        total, used, free = shutil.disk_usage(args.output_dir)
+                        if free < 1 * (1024**3):
+                            logger.critical("Disk space still critical - skipping this model")
+                            continue
             
             # Extract features
             feature_file = extract_model_features(model_name, args)
@@ -251,16 +354,17 @@ def main():
                     json.dump({
                         'completed_models': completed_models,
                         'last_updated': time.strftime('%Y-%m-%d %H:%M:%S'),
-                        'progress': f"{i+1}/{len(models)}"
+                        'progress': f"{i+1}/{len(models)}",
+                        'remaining_models': len(models) - (i+1)
                     }, f, indent=2)
         
         except Exception as e:
-            logger.error(f"Unexpected error processing {model_name}: {e}")
+            logger.error(f"Unexpected error processing {model_name}: {e}", exc_info=True)
             # Continue with the next model
             continue
     
     # Save list of extracted feature files
-    with open(os.path.join(args.output_dir, 'feature_files.json'), 'w') as f:
+    with open(os.path.join(args.output_dir, 'top100_feature_files.json'), 'w') as f:
         json.dump(feature_files, f, indent=2)
     
     logger.info(f"\nExtracted features for {len(feature_files)} models")
