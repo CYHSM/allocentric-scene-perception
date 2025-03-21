@@ -58,11 +58,10 @@ def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
     # Create figure
     plt.figure(figsize=(16, 10))
     
-    # Get min and max layer depth for color normalization
-    min_depth = df['layer_depth'].min()
-    max_depth = df['layer_depth'].max()
-    norm = plt.Normalize(min_depth, max_depth)
-    
+    # Create a custom colormap with 5 beautiful, distinct colors
+    # Going from early layers (blues) to late layers (reds)
+    custom_colors = ['#1A5B92', '#48A9A6', '#F9DB6D', '#E07A5F', '#D62246']
+
     # Plot each model's layers as points
     for i, model in enumerate(sorted_models):
         model_data = df[df['model'] == model]
@@ -70,16 +69,42 @@ def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
         # Sort by layer depth
         model_data = model_data.sort_values('layer_depth')
         
-        # Create scatter plot
-        scatter = plt.scatter(
-            [i] * len(model_data),    # x position = model index
-            model_data[metric],       # y position = metric value
-            c=model_data['layer_depth'],  # color = layer depth
-            s=120,                   # point size
-            cmap='turbo',          # colormap
-            norm=norm,               # normalize colors across all models
-            alpha=0.8                # transparency
-        )
+        # Get model-specific layer depths
+        model_min_depth = model_data['layer_depth'].min()
+        model_max_depth = model_data['layer_depth'].max()
+        
+        # Calculate number of colors to use (minimum 3, maximum 5)
+        n_layers = len(model_data)
+        n_colors = min(max(3, n_layers), len(custom_colors))
+        
+        # Create a mapping specific to this model's layer depths
+        # This ensures the first layer is always the first color and the last layer is always the last color
+        model_depth_bins = np.linspace(model_min_depth, model_max_depth, n_colors)
+        
+        # Plot each layer with its appropriate color
+        for _, row in model_data.iterrows():
+            # Find the closest bin for this layer depth
+            depth = row['layer_depth']
+            # Calculate which bin this depth falls into
+            if n_colors == 1:  # Edge case: only one layer
+                color_idx = 0
+            else:
+                # Find the bin index for this depth
+                bin_idx = np.digitize(depth, model_depth_bins) - 1
+                # Clip to valid range
+                color_idx = min(max(0, bin_idx), n_colors-1)
+            
+            color = custom_colors[color_idx]
+            
+            plt.scatter(
+                i,                      # x position = model index
+                row[metric],            # y position = metric value
+                c=color,                # color based on layer depth
+                s=120,                  # point size
+                alpha=0.8,              # transparency
+                edgecolor='white',      # white border
+                linewidth=0.5           # thin border
+            )
         
         # Connect the dots to show progression through layers
         plt.plot(
@@ -88,21 +113,30 @@ def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
             'k-',
             alpha=0.3
         )
+
+    # Create a custom legend
+    legend_elements = []
+    for i in range(len(custom_colors)):
+        if i >= len(custom_colors):
+            break
+            
+        if i == 0:
+            label = "Early layer"
+        elif i == len(custom_colors) - 1:
+            label = "Late layer"
+        elif i == 1:
+            label = "Early-middle layer"
+        elif i == len(custom_colors) - 2:
+            label = "Middle-late layer"
+        else:
+            label = "Middle layer"
         
-        # Add layer name labels
-        # for _, row in model_data.iterrows():
-        #     plt.text(
-        #         i + 0.1,              # x position (offset)
-        #         row[metric],          # y position
-        #         row['level_name'],    # label
-        #         fontsize=8,
-        #         ha='left',
-        #         va='center'
-        #     )
-    
-    # Add colorbar
-    cbar = plt.colorbar(scatter)
-    cbar.set_label('Layer Depth (lower = earlier layer)', fontsize=12)
+        legend_elements.append(plt.Line2D([0], [0], marker='o', color='w', 
+                                         markerfacecolor=custom_colors[i], 
+                                         markersize=10, label=label))
+
+    # Add the legend
+    plt.legend(handles=legend_elements, loc='upper right', title='Layer Depth')
     
     # Add title and labels
     metric_name = metric.replace('_', ' ').title()
