@@ -123,9 +123,9 @@ def main(args):
         print("Warning: This OpenCLIP version might not support the intermediate features API.")
         print("Proceeding with pyramid mode extraction, but results may vary.")
     
-    # File for saving features
+    # File for saving features - CHANGED: removed "openclip_" prefix to match extract_features_cloud.py
     model_name_safe = args.model_name.replace('/', '_').replace(':', '_')
-    output_file = os.path.join(args.output_dir, f"openclip_{model_name_safe}_{args.feature_mode}_features.h5")
+    output_file = os.path.join(args.output_dir, f"{model_name_safe}_{args.feature_mode}_features.h5")
     h5_file = h5py.File(output_file, 'w')
     
     # Create a mapping from scene index to padded string representation
@@ -173,10 +173,12 @@ def main(args):
         else:
             h5_file.attrs[key] = str(value)
     
-    # For pyramid mode, create a group for each layer of interest
+    # CHANGED: Use the same group structure as in extract_features_cloud.py
+    # For pyramid mode, we'll create level groups directly in the root of the h5 file
     # For non-pyramid modes, create a single features group
     if args.feature_mode == 'pyramid':
-        features_group = h5_file.create_group("image_intermediates")
+        # No need to create an intermediate group - levels will be created directly at root
+        features_group = None
     else:
         features_group = h5_file.create_group("features")
     
@@ -272,7 +274,7 @@ def main(args):
                     # This is the new API added in the OpenCLIP update
                     
                     # Determine which indices to extract
-                    if args.out_indices[0] == -1:
+                    if args.out_indices is not None and args.out_indices[0] == -1:
                         indices = None
                     elif hasattr(vision_model, 'transformer') and hasattr(vision_model.transformer, 'resblocks'):
                         num_layers = len(vision_model.transformer.resblocks)
@@ -318,15 +320,15 @@ def main(args):
                                     combined = torch.cat([prefix_data, feature.cpu()], dim=1)
                                     feature_data = combined.numpy()
                             
-                            # Create dataset name based on layer index
-                            layer_name = f"layer_{i}"
+                            # CHANGED: Create level groups directly at the root of the h5 file
+                            level_name = f"level_{i}"
                             
-                            # Create the layer group if it doesn't exist
-                            if layer_name not in features_group:
-                                features_group.create_group(layer_name)
+                            # Create the level group if it doesn't exist
+                            if level_name not in h5_file:
+                                h5_file.create_group(level_name)
                             
                             # Save the feature
-                            features_group[layer_name].create_dataset(
+                            h5_file[level_name].create_dataset(
                                 f"{padded_scene_id}_t{t}", 
                                 data=feature_data,
                                 compression="gzip"
@@ -346,9 +348,14 @@ def main(args):
                         if isinstance(features, tuple):
                             features = features[0]  # Some models return multiple outputs
                         
+                        # Create a default level_0 group directly at root
+                        level_name = "level_0"
+                        if level_name not in h5_file:
+                            h5_file.create_group(level_name)
+                        
                         # Save features
                         feature_data = features.cpu().numpy()
-                        features_group.create_dataset(
+                        h5_file[level_name].create_dataset(
                             f"{padded_scene_id}_t{t}", 
                             data=feature_data,
                             compression="gzip"
