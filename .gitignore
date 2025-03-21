@@ -32,6 +32,7 @@ MANIFEST
 dataset/
 features/
 analysis/
+open_clip/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
