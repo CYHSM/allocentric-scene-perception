@@ -292,8 +292,9 @@ def main(args):
                         outputs = model.forward_intermediates(
                             image=img_tensor,
                             image_indices=indices,
+                            normalize=False,
                             normalize_intermediates=args.normalize_intermediates,
-                            intermediates_only=True,
+                            intermediates_only=False,
                             image_output_fmt=output_fmt,
                             image_output_extra_tokens=args.pyramid_token_mode == 'all'
                         )
@@ -396,7 +397,7 @@ if __name__ == "__main__":
                       help='Feature extraction mode: pyramid (multiple layers), penultimate_unpooled, or penultimate_pooled')
     parser.add_argument('--out_indices', nargs='*', type=int, default=None, 
                         help='Indices of transformer layers to extract (only for pyramid mode)')
-    parser.add_argument('--pyramid_token_mode', type=str, default='cls', choices=['cls', 'all'],
+    parser.add_argument('--pyramid_token_mode', type=str, default='all', choices=['cls', 'all'],
                         help='For pyramid mode: extract only cls token or all tokens')
     parser.add_argument('--normalize_intermediates', action='store_true', default=False,
                         help='Apply normalization to intermediate features')

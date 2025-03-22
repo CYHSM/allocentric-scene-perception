@@ -128,7 +128,7 @@ class ASP(Dataset):
         indices = scene_rng.choice(len(self.samples_per_scene), size=self.num_timesteps, replace=False)
         selected_rows = df_scene.iloc[indices]
         
-        print(f"rand Scene: {rand_scene}, df: {selected_rows['img_path']}")
+        # print(f"rand Scene: {rand_scene}, df: {selected_rows['img_path']}")
 
         # Loop through selected rows and stack images
         for i, row in enumerate(selected_rows.iterrows()):
