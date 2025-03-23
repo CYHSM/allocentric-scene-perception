@@ -104,8 +104,8 @@ def load_single_level_features(h5_file_path, level_name):
                     # Flatten if needed
                     if len(feature.shape) > 2:
                         # print(feature.shape)
-                        feature = feature.reshape(feature.shape[0], -1)
-                        #feature = feature[0,0,:]
+                        #feature = feature.reshape(feature.shape[0], -1)
+                        feature = feature[0,0,:]
 
                     # Add to scene's feature list
                     features_by_scene[scene_idx].append(feature.squeeze())
