@@ -274,13 +274,10 @@ def main(args):
                     # This is the new API added in the OpenCLIP update
                     
                     # Determine which indices to extract
-                    if args.out_indices is not None and args.out_indices[0] == -1:
+                    if args.out_indices is None:
                         indices = None
-                    elif hasattr(vision_model, 'transformer') and hasattr(vision_model.transformer, 'resblocks'):
-                        num_layers = len(vision_model.transformer.resblocks)
-                        indices = args.out_indices or [num_layers // 4, num_layers // 2, 3 * num_layers // 4, num_layers - 1]
                     else:
-                        indices = args.out_indices or 4  # Default to last 4 layers
+                        indices = 4  # Default to last 4 layers
                     
                     # Set output format based on whether we want CLS token or full feature map
                     output_fmt = 'NLC'  # Default to NLC format for transformer models

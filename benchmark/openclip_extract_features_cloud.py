@@ -122,7 +122,6 @@ def extract_model_features(model_info, args):
         "--feature_mode", args.feature_mode,
         "--seed", str(args.seed),
         "--dataset_name", args.dataset_name,
-        "--out_indices", args.out_indices
     ]
     
     # Add pyramid-specific args if using pyramid mode
@@ -226,8 +225,6 @@ def main():
                        help='Number of top models to process')
     parser.add_argument('--all_models', action='store_true',
                        help='Process all available OpenCLIP models')
-    parser.add_argument('--out_indices', nargs='*', type=int, default=None, 
-                    help='Indices of transformer layers to extract (only for pyramid mode)')
     
     args = parser.parse_args()
     
