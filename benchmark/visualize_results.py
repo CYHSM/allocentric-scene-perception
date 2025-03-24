@@ -7,278 +7,237 @@ import numpy as np
 import seaborn as sns
 from tqdm import tqdm
 
-def collect_results(result_files):
-    """Collect results from multiple model files into a single DataFrame"""
-    all_results = []
+def collect_token_results(token_dir):
+    """Collect token-specific results from a model's token analysis directory"""
+    if not os.path.exists(token_dir):
+        print(f"Token directory {token_dir} not found")
+        return None
     
-    for model_name, result_file in result_files.items():
-        if not os.path.exists(result_file):
-            print(f"Skipping {model_name}: results file not found")
-            continue
+    # Check for token results file
+    token_results_file = os.path.join(token_dir, os.path.basename(token_dir).split('_token_analysis')[0] + '_all_token_results.json')
+    
+    if not os.path.exists(token_results_file):
+        print(f"Token results file {token_results_file} not found")
+        return None
+    
+    # Load token results
+    try:
+        with open(token_results_file, 'r') as f:
+            token_data = json.load(f)
         
-        try:
-            with open(result_file, 'r') as f:
-                data = json.load(f)
+        # Create DataFrame from token results
+        token_results = token_data.get('token_results', [])
+        
+        if not token_results:
+            print("No token results found in the file")
+            return None
             
-            # Process each level result
-            for level_result in data['level_results']:
-                # Extract layer depth from level name if possible
-                if '_' in level_result['level_name'] and level_result['level_name'].split('_')[1].isdigit():
-                    layer_depth = int(level_result['level_name'].split('_')[1])
-                else:
-                    # For non-standard level names, use index in level list
-                    layer_depth = data['level_results'].index(level_result)
-                
-                # Add model name and layer depth
-                level_result['model'] = model_name
-                level_result['layer_depth'] = layer_depth
-                
-                all_results.append(level_result)
-        except Exception as e:
-            print(f"Error processing results for {model_name}: {e}")
+        token_df = pd.DataFrame(token_results)
+        return token_df
     
-    # Convert to DataFrame
-    if all_results:
-        return pd.DataFrame(all_results)
-    else:
+    except Exception as e:
+        print(f"Error loading token results: {e}")
         return None
 
-def create_scatter_plot(df, output_dir, metric='complete_accuracy'):
-    """Create a scatter plot showing model performance across layers, sorted by best performance"""
-    if df is None or len(df) == 0:
-        print("No data to plot")
+def plot_token_performance(token_df, model_name, level_name, output_dir):
+    """Plot performance metrics for different tokens at a specific level"""
+    # Filter to the specific level
+    level_df = token_df[token_df['original_level_name'] == level_name]
+    
+    if level_df.empty:
+        print(f"No data for level {level_name}")
         return
     
-    # Get the best performance for each model
-    best_performances = df.groupby('model')[metric].max().reset_index()
+    # Extract token information
+    level_df['token_type'] = level_df.apply(
+        lambda row: 'CLS' if row['token_mode'] == 'cls' else 
+                   f"Patch {row['token_index']}" if row['token_mode'] == 'patch' else 
+                   'All', axis=1
+    )
     
-    # Sort models by their best performance (descending)
-    sorted_models = best_performances.sort_values(metric, ascending=False)['model'].tolist()
+    # Sort by token type (CLS first, then patches by index)
+    level_df['sort_key'] = level_df.apply(
+        lambda row: -1 if row['token_mode'] == 'cls' else 
+                  row['token_index'] if row['token_mode'] == 'patch' else 
+                  999, axis=1
+    )
     
-    # Create figure
-    plt.figure(figsize=(16, 10))
+    level_df = level_df.sort_values('sort_key')
     
-    # Create a custom colormap with 5 beautiful, distinct colors
-    # Going from early layers (blues) to late layers (reds)
-    custom_colors = ['#1A5B92', '#48A9A6', '#F9DB6D', '#E07A5F', '#D62246']
-
-    # Plot each model's layers as points
-    for i, model in enumerate(sorted_models):
-        model_data = df[df['model'] == model]
-        
-        # Sort by layer depth
-        model_data = model_data.sort_values('layer_depth')
-        
-        # Get model-specific layer depths
-        model_min_depth = model_data['layer_depth'].min()
-        model_max_depth = model_data['layer_depth'].max()
-        
-        # Calculate number of colors to use (minimum 3, maximum 5)
-        n_layers = len(model_data)
-        n_colors = min(max(3, n_layers), len(custom_colors))
-        
-        # Create a mapping specific to this model's layer depths
-        # This ensures the first layer is always the first color and the last layer is always the last color
-        model_depth_bins = np.linspace(model_min_depth, model_max_depth, n_colors)
-        
-        # Plot each layer with its appropriate color
-        for _, row in model_data.iterrows():
-            # Find the closest bin for this layer depth
-            depth = row['layer_depth']
-            # Calculate which bin this depth falls into
-            if n_colors == 1:  # Edge case: only one layer
-                color_idx = 0
-            else:
-                # Find the bin index for this depth
-                bin_idx = np.digitize(depth, model_depth_bins) - 1
-                # Clip to valid range
-                color_idx = min(max(0, bin_idx), n_colors-1)
-            
-            color = custom_colors[color_idx]
-            
-            plt.scatter(
-                i,                      # x position = model index
-                row[metric],            # y position = metric value
-                c=color,                # color based on layer depth
-                s=120,                  # point size
-                alpha=0.8,              # transparency
-                edgecolor='white',      # white border
-                linewidth=0.5           # thin border
-            )
-        
-        # Connect the dots to show progression through layers
-        plt.plot(
-            [i] * len(model_data),
-            model_data[metric],
-            'k-',
-            alpha=0.3
-        )
-
-    # Create a custom legend
-    legend_elements = []
-    for i in range(len(custom_colors)):
-        if i >= len(custom_colors):
-            break
-            
-        if i == 0:
-            label = "Early layer"
-        elif i == len(custom_colors) - 1:
-            label = "Late layer"
-        elif i == 1:
-            label = "Early-middle layer"
-        elif i == len(custom_colors) - 2:
-            label = "Middle-late layer"
-        else:
-            label = "Middle layer"
-        
-        legend_elements.append(plt.Line2D([0], [0], marker='o', color='w', 
-                                         markerfacecolor=custom_colors[i], 
-                                         markersize=10, label=label))
-
-    # Add the legend
-    plt.legend(handles=legend_elements, loc='upper right', title='Layer Depth')
+    # Plot metrics across tokens
+    metrics = ['complete_accuracy', 'partial_accuracy', 'roc_auc', 'cohens_d_ap_an']
+    metric_names = ['Complete Accuracy', 'Partial Accuracy', 'ROC AUC', "Cohen's d"]
     
-    # Add title and labels
-    metric_name = metric.replace('_', ' ').title()
-    plt.title(f'Model Layer Performance - {metric_name} (Sorted by Best Performance)', fontsize=16)
-    plt.xlabel('Model', fontsize=14)
-    plt.ylabel(metric_name, fontsize=14)
+    # Create a grid of subplots (2x2)
+    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    axes = axes.flatten()
     
-    # Set x-axis ticks to model names
-    plt.xticks(range(len(sorted_models)), sorted_models, rotation=45, ha='right', fontsize=5)
+    # Get token labels for x-axis
+    token_labels = level_df['token_type'].tolist()
     
-    # Add grid
-    plt.grid(alpha=0.3)
+    for i, (metric, name) in enumerate(zip(metrics, metric_names)):
+        ax = axes[i]
+        
+        # Create bar chart
+        sns.barplot(x='token_type', y=metric, data=level_df, ax=ax, palette='viridis')
+        
+        # Set titles and labels
+        ax.set_title(f'{name} by Token - {model_name} - {level_name}', fontsize=14)
+        ax.set_xlabel('Token', fontsize=12)
+        ax.set_ylabel(name, fontsize=12)
+        ax.tick_params(axis='x', rotation=45)
+        
+        # Add grid
+        ax.grid(axis='y', alpha=0.3)
     
-    # Adjust layout
     plt.tight_layout()
-    
-    # Save figure
-    output_file = os.path.join(output_dir, f'model_layer_scatter_{metric}_sorted.png')
-    plt.savefig(output_file, dpi=300)
+    plt.savefig(os.path.join(output_dir, f'{model_name}_{level_name}_token_comparison.png'), dpi=300)
     plt.close()
     
-    print(f"Sorted scatter plot saved to: {output_file}")
+    # Now create a heatmap of all tokens vs metrics
+    # Convert to wide format for heatmap
+    plt.figure(figsize=(10, 8))
+    heatmap_data = []
+    
+    for metric, name in zip(metrics, metric_names):
+        heatmap_data.append(level_df[metric].values)
+    
+    sns.heatmap(heatmap_data, annot=True, fmt='.3f', cmap='viridis',
+                xticklabels=token_labels, yticklabels=metric_names)
+    plt.title(f'Token Performance Metrics - {model_name} - {level_name}')
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f'{model_name}_{level_name}_token_heatmap.png'), dpi=300)
+    plt.close()
 
-def create_performance_heatmap(df, output_dir):
-    """Create a heatmap comparing model performance across metrics"""
-    if df is None or len(df) == 0:
-        print("No data to plot")
-        return
+def plot_level_token_matrix(token_df, model_name, output_dir, metric='complete_accuracy'):
+    """Plot a 2D matrix of level vs token performance for a specific metric"""
+    # Transform data for the heatmap
+    token_types = {}
     
-    # Get unique models
-    models = sorted(df['model'].unique())
-    
-    # For each model, get the best layer's performance
-    model_metrics = []
-    metrics = ['complete_accuracy', 'partial_accuracy', 'roc_auc']
-    
-    for model in models:
-        model_data = df[df['model'] == model]
-        best_layer = model_data.loc[model_data['complete_accuracy'].idxmax()]
+    # Identify unique levels and tokens
+    for _, row in token_df.iterrows():
+        level = row['original_level_name']
         
-        metrics_dict = {
-            'model': model,
-            'best_layer': best_layer['level_name']
-        }
+        if row['token_mode'] == 'cls':
+            token = 'CLS'
+        elif row['token_mode'] == 'patch':
+            token = f"P{row['token_index']}"
+        else:
+            token = 'All'
+            
+        token_types[token] = row['token_mode']
+    
+    # Get unique levels and tokens, sorted appropriately
+    levels = sorted(token_df['original_level_name'].unique(), 
+                  key=lambda x: int(x.split('_')[1]) if '_' in x and x.split('_')[1].isdigit() else 999)
+    
+    # Sort tokens: CLS first, then patches by index
+    tokens = []
+    if 'CLS' in token_types:
+        tokens.append('CLS')
+    
+    patch_tokens = sorted([t for t in token_types if t.startswith('P')], 
+                        key=lambda x: int(x[1:]) if x[1:].isdigit() else 999)
+    tokens.extend(patch_tokens)
+    
+    if 'All' in token_types:
+        tokens.append('All')
+    
+    # Create the matrix
+    heatmap_data = np.zeros((len(levels), len(tokens)))
+    mask = np.ones_like(heatmap_data, dtype=bool)
+    
+    # Fill in the data
+    for i, level in enumerate(levels):
+        level_data = token_df[token_df['original_level_name'] == level]
         
-        for metric in metrics:
-            metrics_dict[metric] = best_layer[metric]
-        
-        model_metrics.append(metrics_dict)
-    
-    # Create DataFrame
-    model_metrics_df = pd.DataFrame(model_metrics)
-    
-    # Sort models by complete_accuracy (descending)
-    sorted_models = model_metrics_df.sort_values('complete_accuracy', ascending=False)['model'].tolist()
-    
-    # Create heatmap data
-    heatmap_data = np.zeros((len(sorted_models), len(metrics)))
-    for i, model in enumerate(sorted_models):
-        model_row = model_metrics_df[model_metrics_df['model'] == model]
-        for j, metric in enumerate(metrics):
-            heatmap_data[i, j] = model_row[metric].values[0]
+        for j, token in enumerate(tokens):
+            if token == 'CLS':
+                token_data = level_data[level_data['token_mode'] == 'cls']
+            elif token.startswith('P'):
+                token_idx = int(token[1:])
+                token_data = level_data[(level_data['token_mode'] == 'patch') & 
+                                      (level_data['token_index'] == token_idx)]
+            else:  # 'All'
+                token_data = level_data[level_data['token_mode'] == 'all']
+            
+            if not token_data.empty:
+                heatmap_data[i, j] = token_data[metric].values[0]
+                mask[i, j] = False
     
     # Create heatmap
-    plt.figure(figsize=(12, len(sorted_models) * 0.8))
+    plt.figure(figsize=(12, 10))
     sns.heatmap(heatmap_data, annot=True, fmt='.3f', cmap='viridis',
-                xticklabels=[m.replace('_', ' ').title() for m in metrics],
-                yticklabels=sorted_models)
-    plt.title('Best Layer Performance by Model and Metric (Sorted by Complete Accuracy)')
+                xticklabels=tokens, yticklabels=levels, mask=mask)
+    
+    metric_name = metric.replace('_', ' ').title()
+    plt.title(f'{metric_name} by Level and Token - {model_name}')
     plt.tight_layout()
-    
-    # Save figure
-    output_file = os.path.join(output_dir, 'model_performance_heatmap_sorted.png')
-    plt.savefig(output_file, dpi=300)
+    plt.savefig(os.path.join(output_dir, f'{model_name}_level_token_matrix_{metric}.png'), dpi=300)
     plt.close()
+
+def visualize_token_performance(results_dir, output_dir):
+    """Find and visualize token-specific results"""
+    # Create output directory
+    os.makedirs(output_dir, exist_ok=True)
     
-    print(f"Sorted performance heatmap saved to: {output_file}")
+    # Find token analysis directories
+    token_dirs = []
+    for root, dirs, files in os.walk(results_dir):
+        for d in dirs:
+            if d.endswith('_token_analysis'):
+                token_dirs.append(os.path.join(root, d))
+    
+    if not token_dirs:
+        print("No token analysis directories found")
+        return
+    
+    print(f"Found {len(token_dirs)} token analysis directories")
+    
+    # Process each token directory
+    for token_dir in token_dirs:
+        model_name = os.path.basename(token_dir).split('_token_analysis')[0]
+        print(f"Processing token results for {model_name}")
+        
+        # Collect token results
+        token_df = collect_token_results(token_dir)
+        
+        if token_df is None:
+            continue
+        
+        # Create model-specific output directory
+        model_output_dir = os.path.join(output_dir, model_name)
+        os.makedirs(model_output_dir, exist_ok=True)
+        
+        # Get unique levels
+        levels = token_df['original_level_name'].unique()
+        
+        # For each level, create token comparison plots
+        for level in levels:
+            plot_token_performance(token_df, model_name, level, model_output_dir)
+        
+        # Create level vs token matrix plots
+        for metric in ['complete_accuracy', 'partial_accuracy', 'roc_auc', 'cohens_d_ap_an']:
+            plot_level_token_matrix(token_df, model_name, model_output_dir, metric)
+        
+        # Create token distribution visualization
+        token_types = token_df['token_mode'].value_counts()
+        print(f"Token distribution for {model_name}: {token_types.to_dict()}")
+        
+        # Save token data as CSV
+        token_df.to_csv(os.path.join(model_output_dir, f'{model_name}_token_analysis.csv'), index=False)
 
 def main():
-    parser = argparse.ArgumentParser(description='Visualize triplet analysis results')
+    parser = argparse.ArgumentParser(description='Visualize token-specific triplet analysis results')
     parser.add_argument('--results_dir', type=str, default='../results', help='Directory containing analysis results')
-    parser.add_argument('--output_dir', type=str, default='../visualizations', help='Directory to store visualizations')
-    parser.add_argument('--results_files_json', type=str, help='JSON file with list of result files')
+    parser.add_argument('--output_dir', type=str, default='../visualizations/token_analysis', help='Directory to store visualizations')
     
     args = parser.parse_args()
     
-    # Create output directory
-    os.makedirs(args.output_dir, exist_ok=True)
+    # Visualize token-specific performance
+    visualize_token_performance(args.results_dir, args.output_dir)
     
-    # Get results files
-    results_files = {}
-    
-    if args.results_files_json and os.path.exists(args.results_files_json):
-        with open(args.results_files_json, 'r') as f:
-            results_files = json.load(f)
-    else:
-        # Find all results files
-        for root, dirs, files in os.walk(args.results_dir):
-            for file in files:
-                if file.endswith('_all_results.json'):
-                    model_name = file.replace('_all_results.json', '')
-                    results_files[model_name] = os.path.join(root, file)
-    
-    print(f"Processing results for {len(results_files)} models")
-    
-    # Collect results into DataFrame
-    results_df = collect_results(results_files)
-    
-    if results_df is not None:
-        # Save combined results
-        csv_file = os.path.join(args.output_dir, 'all_models_results.csv')
-        results_df.to_csv(csv_file, index=False)
-        print(f"Combined results saved to: {csv_file}")
-        
-        # Create visualizations
-        print("Creating visualizations...")
-        
-        # Create scatter plots for different metrics
-        for metric in ['complete_accuracy', 'partial_accuracy', 'roc_auc', 'cohens_d_ap_an']:
-            if metric in results_df.columns:
-                create_scatter_plot(results_df, args.output_dir, metric)
-        
-        # Create performance heatmap
-        create_performance_heatmap(results_df, args.output_dir)
-        
-        # Create bar chart of best performing layers, sorted by performance
-        best_layers = results_df.loc[results_df.groupby('model')['complete_accuracy'].idxmax()]
-        best_layers_sorted = best_layers.sort_values('complete_accuracy', ascending=False)
-        
-        plt.figure(figsize=(14, 8))
-        sns.barplot(x='model', y='complete_accuracy', data=best_layers_sorted, palette='viridis')
-        plt.title('Best Layer Performance by Model (Sorted)')
-        plt.xlabel('Model')
-        plt.ylabel('Complete Accuracy')
-        plt.xticks(rotation=45, ha='right')
-        plt.tight_layout()
-        plt.savefig(os.path.join(args.output_dir, 'best_layer_performance_sorted.png'), dpi=300)
-        plt.close()
-        
-        print("Visualizations complete!")
-    else:
-        print("No results collected. Check input files.")
+    print(f"Token visualizations saved to: {args.output_dir}")
 
 if __name__ == "__main__":
     main()
