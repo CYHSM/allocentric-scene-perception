@@ -41,14 +41,12 @@ def collect_token_results(token_dir):
 
 def plot_token_performance(token_df, model_name, level_name, output_dir):
     """Plot performance metrics for different tokens at a specific level"""
-    # Filter to the specific level
     level_df = token_df[token_df['original_level_name'] == level_name]
     
     if level_df.empty:
         print(f"No data for level {level_name}")
         return
     
-    # Extract token information
     level_df['token_type'] = level_df.apply(
         lambda row: 'CLS' if row['token_mode'] == 'cls' else 
                    f"Patch {row['token_index']}" if row['token_mode'] == 'patch' else 
