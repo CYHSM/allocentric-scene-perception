@@ -354,16 +354,70 @@ def plot_similarity_distributions(similarity_matrices, output_dir, model_name, l
     
     return float(roc_auc)
 
+
 def compute_similarity_deltas(similarity_matrices):
-    """Compute similarity deltas for analysis"""
+    """
+    Compute similarity deltas for analysis with corrected Cohen's d calculations
+    
+    Args:
+        similarity_matrices: List of tuples containing (sim_a_p, sim_a_n, sim_p_n)
+            sim_a_p: anchor-positive similarity
+            sim_a_n: anchor-negative similarity
+            sim_p_n: positive-negative similarity
+    
+    Returns:
+        Tuple containing:
+        - ap_an_deltas: List of differences between anchor-positive and anchor-negative similarities
+        - ap_pn_deltas: List of differences between anchor-positive and positive-negative similarities
+        - same_scene_sims: List of anchor-positive similarities (same scene)
+        - diff_scene_sims: List of anchor-negative and positive-negative similarities (different scenes)
+    """
     # Delta between anchor-positive and anchor-negative
     ap_an_deltas = [s[0] - s[1] for s in similarity_matrices]
     
     # Delta between anchor-positive and positive-negative
     ap_pn_deltas = [s[0] - s[2] for s in similarity_matrices]
     
-    # Return both sets of deltas
-    return ap_an_deltas, ap_pn_deltas
+    # Extract similarity groups for Cohen's d calculation
+    same_scene_sims = [s[0] for s in similarity_matrices]  # anchor-positive similarities
+    diff_scene_sims = [s[1] for s in similarity_matrices] + [s[2] for s in similarity_matrices]  # anchor-negative + positive-negative
+    
+    # Return deltas and raw similarity lists
+    return ap_an_deltas, ap_pn_deltas, same_scene_sims, diff_scene_sims
+
+
+def calculate_cohens_d(group1, group2):
+    """
+    Calculate Cohen's d effect size with pooled standard deviation.
+    
+    Args:
+        group1: First group of values (e.g., same-scene similarities)
+        group2: Second group of values (e.g., different-scene similarities)
+    
+    Returns:
+        Cohen's d effect size
+    """
+    # Calculate means
+    mean1 = np.mean(group1)
+    mean2 = np.mean(group2)
+    
+    # Calculate sample sizes
+    n1 = len(group1)
+    n2 = len(group2)
+    
+    # Calculate variances
+    var1 = np.var(group1, ddof=1)  # Using sample variance (ddof=1)
+    var2 = np.var(group2, ddof=1)
+    
+    # Calculate pooled standard deviation
+    # Formula: sqrt(((n1-1)*s1^2 + (n2-1)*s2^2) / (n1+n2-2))
+    pooled_std = np.sqrt(((n1 - 1) * var1 + (n2 - 1) * var2) / (n1 + n2 - 2))
+    
+    # Calculate Cohen's d
+    # Add small epsilon to avoid division by zero
+    d = (mean1 - mean2) / (pooled_std + 1e-10)
+    
+    return d, pooled_std
 
 def process_token_features(token_features, args, output_dir, model_name, level_name, 
                           token_mode, token_index, rng=None, max_triplets=None, skip_visualization=False):
@@ -393,9 +447,6 @@ def process_token_features(token_features, args, output_dir, model_name, level_n
     else:
         token_suffix = "_all"
     
-    # Count valid scenes (with at least 2 images)
-    valid_scenes = [scene_idx for scene_idx, features in token_features.items() if len(features) >= 2]
-    
     # Sample triplets (one triplet per image, or up to max_triplets)
     triplets, metadata = sample_triplets_per_image(token_features, rng=rng, sample_size=max_triplets)
     
@@ -408,16 +459,19 @@ def process_token_features(token_features, args, output_dir, model_name, level_n
     # Plot similarity distributions - skip visualization for patch tokens if requested
     roc_auc = plot_similarity_distributions(sim_matrices, output_dir, model_name, level_name, token_suffix, skip_visualization)
     
-    # Compute similarity deltas for analysis
-    ap_an_deltas, ap_pn_deltas = compute_similarity_deltas(sim_matrices)
+    # Compute similarity deltas for analysis - UPDATED: also returns raw similarities
+    ap_an_deltas, ap_pn_deltas, same_scene_sims, diff_scene_sims = compute_similarity_deltas(sim_matrices)
     
     # Compute statistical significance (one-sample t-test against 0)
     t_ap_an, p_ap_an = stats.ttest_1samp(ap_an_deltas, 0)
     t_ap_pn, p_ap_pn = stats.ttest_1samp(ap_pn_deltas, 0)
     
-    # Calculate effect sizes (Cohen's d)
-    cohens_d_ap_an = np.mean(ap_an_deltas) / (np.std(ap_an_deltas) + 1e-10)
-    cohens_d_ap_pn = np.mean(ap_pn_deltas) / (np.std(ap_pn_deltas) + 1e-10)
+    # Calculate effect sizes (Cohen's d) - CORRECTED version using pooled standard deviation
+    cohens_d_ap_an, pooled_std_ap_an = calculate_cohens_d(same_scene_sims, [s[1] for s in sim_matrices])
+    cohens_d_ap_pn, pooled_std_ap_pn = calculate_cohens_d(same_scene_sims, [s[2] for s in sim_matrices])
+    
+    # Calculate overall Cohen's d (same scene vs. all different scenes)
+    cohens_d_overall, pooled_std_overall = calculate_cohens_d(same_scene_sims, diff_scene_sims)
     
     # Average of both same-scene vs different-scene comparisons
     avg_delta = np.mean(ap_an_deltas + ap_pn_deltas)
@@ -432,7 +486,7 @@ def process_token_features(token_features, args, output_dir, model_name, level_n
         'complete_accuracy': float(complete_acc),
         'partial_accuracy': float(partial_acc),
         'roc_auc': float(roc_auc),
-        'mean_same_scene_similarity': float(np.mean([s[0] for s in sim_matrices])),
+        'mean_same_scene_similarity': float(np.mean(same_scene_sims)),
         'mean_diff_scene_similarity_a_n': float(np.mean([s[1] for s in sim_matrices])),
         'mean_diff_scene_similarity_p_n': float(np.mean([s[2] for s in sim_matrices])),
         'mean_delta_ap_an': float(np.mean(ap_an_deltas)),
@@ -441,9 +495,13 @@ def process_token_features(token_features, args, output_dir, model_name, level_n
         't_statistic_ap_an': float(t_ap_an),
         'p_value_ap_an': float(p_ap_an),
         'cohens_d_ap_an': float(cohens_d_ap_an),
+        'pooled_std_ap_an': float(pooled_std_ap_an),
         't_statistic_ap_pn': float(t_ap_pn),
         'p_value_ap_pn': float(p_ap_pn),
-        'cohens_d_ap_pn': float(cohens_d_ap_pn)
+        'cohens_d_ap_pn': float(cohens_d_ap_pn),
+        'pooled_std_ap_pn': float(pooled_std_ap_pn),
+        'cohens_d_overall': float(cohens_d_overall),
+        'pooled_std_overall': float(pooled_std_overall)
     }
 
 def plot_patch_grid(num_tokens, token_results, output_dir, model_name, level_name):
