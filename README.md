@@ -50,7 +50,7 @@ conda create -n neuroscenes python=3.8
 conda install numpy matplotlib jupyter scipy seaborn
 # Check exact command for installing pytorch here: https://pytorch.org/get-started/locally/
 conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
-pip install wandb einops pytorch-lightning pandas
+pip install wandb einops pytorch-lightning==1.9.0 pandas
 pip install tensorflow-cpu tensorflow-datasets
 ```
 
