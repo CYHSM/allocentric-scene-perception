@@ -1,5 +1,6 @@
 import random
 from functools import partial
+from typing import List
 
 import pytorch_lightning as pl
 import torch
@@ -10,6 +11,7 @@ from torch.optim.lr_scheduler import LambdaLR
 from torch.nn import Conv2d
 from torch.nn import TransformerEncoder
 from torch.nn import TransformerEncoderLayer
+import torch.nn.functional as F
 
 from loss import p_loss
 from helper import PositionalEncoding3D
@@ -37,7 +39,6 @@ class Model(pl.LightningModule):
     ):
         super().__init__()
         self.learning_rate = learning_rate
-        # This saves the input args into self.hparams
         self.save_hyperparameters()
 
         self.visualcortex = VisualCortex(128)
@@ -47,25 +48,11 @@ class Model(pl.LightningModule):
         self.decoder = Decoder()
 
     def forward(self, input_videos: Tensor, full_res_decode: bool = False):
-        """The model has 5 stages:
-        --- Encoding: ---
-        - a convolutional layers that extracts features from the input video
-        - a perirhinal / parahippocampal split into space / time features + a MEC / LEC processing stage
-        - a HC layer which integrates the MEC and LEC features
-        --- Decoding: ---
-        - a MEC / LEC split into space / time features + a perirhinal / parahippocampal processing stage
-        - a reconstruction layer that reconstructs the input video
-        """
         b, t, c, h, w = input_videos.shape
-        # Encode input using visual cortex areas V1, V2, V4 and IT
         v1, v2, v4, it = self.visualcortex(input_videos)
-        # Split V4 & IT into MEC and LEC
-        (_, _), (mec, lec) = self.split_forward(v4, it)  # (ph, pr), (mec, lec)
-        # Combine MEC and LEC into HC
+        (_, _), (mec, lec) = self.split_forward(v4, it)
         hc_transformed, hc = self.hc(mec, lec)
-        # For feedback, split HC into MEC and LEC
-        (_, _), (ph, pr) = self.split_backward(hc_transformed)  # (mec, lec), (ph, pr)
-        # Decode pixelwise - most biologically unrealistic part of the model. Could be more realistic if it decodes patch/saccade wise
+        (_, _), (ph, pr) = self.split_backward(hc_transformed)
         pixels, weights, weights_softmax, weighted_pixels, time_indexes = self.decoder(
             ph, pr, full_res_decode
         )
@@ -91,11 +78,9 @@ class Model(pl.LightningModule):
     ):
         target = rearrange(target, "b t c h w -> b t h w c")
         if not full_res_decode:
-            # downsample targets to match model output
             target = target[:, :, ::2, ::2, :]
             target = target.index_select(dim=1, index=time_indexes)
 
-        # Compute the individual loss terms
         if self.hparams.p_anneal > 0:
             p = min(
                 self.hparams.p_loss,
@@ -110,42 +95,42 @@ class Model(pl.LightningModule):
         else:
             p = self.hparams.p_loss
 
-        # Combine p_loss and p_loss_prospective and p_loss_retrospective
         p_term = p_loss(
             target, weighted_pixels, p=p, reduction=self.hparams.p_reduction
         )
 
-        # L2 loss on last two latents, PH & PR
         l1o_term = latents[-1].abs().mean()
         l1f_term = latents[-2].abs().mean()
 
-        # Apply loss weights to get weighted loss terms
         losses = {
             "l2o_loss": l1o_term * self.hparams.l1o_weight,
             "l2f_loss": l1f_term * self.hparams.l1f_weight,
             "p_loss": self.hparams.p_weight * p_term.mean(),
         }
-        # Sum the weighted loss terms to get the total loss
         losses["loss"] = sum(losses.values())
         return losses
 
-    def step(self, batch, full_res_decode: bool = False):
-        videos, mask, info = batch
+    def transfer_batch_to_device(self, batch, device, dataloader_idx):
+        batch[0] = super().transfer_batch_to_device(batch[0], device, dataloader_idx)
+        return batch
+
+    def step(self, videos, full_res_decode: bool = False):
         outputs = self(videos, full_res_decode)
         losses = self.loss(videos, full_res_decode=full_res_decode, **outputs)
         return {**losses, **outputs}
 
     def training_step(self, batch: Tensor, batch_idx: int):
-        outputs = self.step(batch, full_res_decode=self.hparams.full_decode)
+        videos, masks, info = batch
+        outputs = self.step(videos, full_res_decode=self.hparams.full_decode)
         return outputs
 
     def validation_step(self, batch: Tensor, batch_idx: int):
-        outputs = self.step(batch, full_res_decode=True)
+        videos, masks, info = batch
+        outputs = self.step(videos, full_res_decode=True)
         self.log("val/loss", outputs["loss"], prog_bar=True, sync_dist=True)
         return outputs
 
     def configure_optimizers(self):
-        # return torch.optim.Adam(self.parameters(), lr=self.learning_rate)
         optimizer = torch.optim.Adam(
             self.parameters(),
             lr=self.learning_rate,
@@ -182,7 +167,7 @@ class Decoder(pl.LightningModule):
         temporal_latents: Tensor,
         full_size_decode: bool = False,
     ):
-        T = temporal_latents.shape[1]  # self.hparams.num_timesteps
+        T = temporal_latents.shape[1]
         Kd = self.hparams.K_down
         batch_size = object_latents.shape[0]
         if full_size_decode:
@@ -223,7 +208,7 @@ class Decoder(pl.LightningModule):
         x = torch.cat(
             [object_latents, temporal_latents, t_encoding, x_encoding, y_encoding],
             dim=5,
-        )  # What, When, When, Where, Where
+        )
 
         x = rearrange(
             x, "b td k h w c -> (b td k h w) c", c=2 * self.hparams.map_size + 3
@@ -256,7 +241,6 @@ class Decoder(pl.LightningModule):
 
 
 def _create_position_encoding(range: Tensor, target_shape, dim):
-    """Create a tensor of shape `target_shape` that is filled with values from `range` along `dim`."""
     assert len(range.shape) == 1
     assert len(range) == target_shape[dim]
 
@@ -276,14 +260,12 @@ def _build_xyt_indicators(
     full_size_decode: bool,
     T, xy_resolution,
 ):
-    # Form the T, X, Y indicators
-    t_linspace = torch.linspace(0, 1, T, device=device, dtype=dtype)
+    t_linspace = torch.linspace(0, 1, T, device=device, dtype=torch.float32)
     t_linspace = t_linspace.index_select(dim=0, index=time_indexes)
     t_encoding = _create_position_encoding(t_linspace, desired_shape, dim=1)
 
-    xy_linspace = torch.linspace(-1, 1, xy_resolution, device=device, dtype=dtype)
+    xy_linspace = torch.linspace(-1, 1, xy_resolution, device=device, dtype=torch.float32)
     if not full_size_decode:
-        # we decode every other pixel
         xy_linspace = xy_linspace[::2]
     x_encoding = _create_position_encoding(xy_linspace, desired_shape, dim=3)
     y_encoding = _create_position_encoding(xy_linspace, desired_shape, dim=4)
@@ -291,12 +273,9 @@ def _build_xyt_indicators(
 
 
 class VisualCortex(pl.LightningModule):
-    """The encoder is a simple stack of convolutional layers."""
-
     def __init__(self, out_channels):
         super().__init__()
         self.save_hyperparameters()
-        # Activation function
         if self.hparams.activation == "relu":
             self.activation = nn.ReLU()
         elif self.hparams.activation == "linear":
@@ -330,8 +309,6 @@ class VisualCortex(pl.LightningModule):
 
 
 class Split(pl.LightningModule):
-    """Splits into ventral and dorsal streams"""
-
     def __init__(self, in_channels, out_channels):
         super().__init__()
         self.save_hyperparameters()
@@ -354,20 +331,16 @@ class Split(pl.LightningModule):
     def forward(self, x: Tensor, x_two=None):
         b, t, k, c = x.shape
 
-        # Aggregate the temporal info to get the spatial features
         time_avg = torch.mean(x, dim=1)
         time_avg = rearrange(time_avg, "b k c -> (b k) c", b=b, k=k)
-        # Concat with rsc parameters
         time_avg = torch.cat([time_avg, self.rsc.repeat(b * k, 1)], dim=1)
 
-        # Aggregate the spatial info to get the temporal features
         if x_two is None:
             space_avg = torch.mean(x, dim=2)
         else:
             space_avg = torch.mean(x_two, dim=2)
         space_avg = rearrange(space_avg, "b t c -> (b t) c", b=b, t=t)
 
-        # Apply the MLPs
         across_space = self.linear_space(time_avg)
         across_space = rearrange(across_space, "(b k) c -> b k c", b=b, k=k)
         across_time = self.linear_time(space_avg)
@@ -377,12 +350,9 @@ class Split(pl.LightningModule):
 
 
 class Hippocampus(pl.LightningModule):
-    """Integrates MEC and LEC information"""
-
     def __init__(self, in_channels):
         super().__init__()
         self.save_hyperparameters()
-        # Activation function
         if self.hparams.activation == "relu":
             self.activation = nn.ReLU()
         elif self.hparams.activation == "linear":
@@ -398,7 +368,6 @@ class Hippocampus(pl.LightningModule):
         self.xy_after_transformer = self.xy_after_conv // 2 
 
         if self.hparams.use_transformer:
-            # this template layer will get cloned inside the TransformerEncoder modules below.
             encoder_layer_template = TransformerEncoderLayer(
                 d_model=self.out_channels,
                 nhead=5,
@@ -454,9 +423,7 @@ class Hippocampus(pl.LightningModule):
 
         hc = torch.einsum("bkc,btc->btkc", x1, x2)
 
-        # Hippocampus integrates mec and lec information
         if self.hparams.use_transformer:
-            # x = repeat(x, "b c -> b t h w c", b=b, t=t, h=xy_after_conv, w=xy_after_conv)
             x = rearrange(
                 hc,
                 "b t (h w) c -> b t h w c",
@@ -466,23 +433,20 @@ class Hippocampus(pl.LightningModule):
                 w=self.xy_after_conv,
             )
 
-            # apply linear transformation to project ENCODER_CONV_CHANNELS to TRANSFORMER_CHANNELS
             x = self.linear_layer(x)
 
-            # apply 3d position encoding before going through the first transformer
             x = x + self.position_encoding_1(x)
-            x = rearrange(x, "b t h w c -> b (t h w) c", b=b, t=t, h=self.xy_after_conv, w=self.xy_after_conv, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "b t h w c -> b (t h w) c", b=b, t=t, h=self.xy_after_conv, w=self.xy_after_conv, c=self.out_channels)
             x = self.transformer_1(x)
 
-            # Original repo scaling
-            x = rearrange(x, "b (t h w) c -> (b t) c h w", b=b, t=t, h=self.xy_after_conv, w=self.xy_after_conv, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "b (t h w) c -> (b t) c h w", b=b, t=t, h=self.xy_after_conv, w=self.xy_after_conv, c=self.out_channels)
             x = torch.nn.functional.avg_pool2d(x, kernel_size=2) * 2
-            x = rearrange(x, "(b t) c h w -> b t h w c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "(b t) c h w -> b t h w c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)
 
             x = x + self.position_encoding_2(x)
-            x = rearrange(x, "b t h w c -> b (t h w) c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "b t h w c -> b (t h w) c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)
             x = self.transformer_2(x)
-            x = rearrange(x, "b (t h w) c -> b t (h w) c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "b (t h w) c -> b t (h w) c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)
         else:
             x = rearrange(
                 hc,
@@ -493,30 +457,25 @@ class Hippocampus(pl.LightningModule):
                 w=self.xy_after_conv,
             )
 
-            # apply linear transformation to project ENCODER_CONV_CHANNELS to TRANSFORMER_CHANNELS
             x = self.linear_layer(x)
 
-            # apply 3d position encoding before going through the first transformer
             x = x + self.position_encoding_1(x)
-            x = rearrange(x, "b t h w c -> b (t h w) c", b=b, t=t, h=self.xy_after_conv, w=self.xy_after_conv, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "b t h w c -> b (t h w) c", b=b, t=t, h=self.xy_after_conv, w=self.xy_after_conv, c=self.out_channels)
             x, _ = self.recurrent_1(x)
 
-            # Original repo scaling
-            x = rearrange(x, "b (t h w) c -> (b t) c h w", b=b, t=t, h=self.xy_after_conv, w=xy_after_conv, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "b (t h w) c -> (b t) c h w", b=b, t=t, h=self.xy_after_conv, w=self.xy_after_conv, c=self.out_channels)
             x = F.avg_pool2d(x, kernel_size=2) * 2
-            x = rearrange(x, "(b t) c h w -> b t h w c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "(b t) c h w -> b t h w c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)
 
             x = x + self.position_encoding_2(x)
-            x = rearrange(x, "b t h w c -> b (t h w) c", b=b, t=t, h=xy_after_transformer, w=xy_after_transformer, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "b t h w c -> b (t h w) c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)
             x, _ = self.recurrent_2(x)
-            x = rearrange(x, "b (t h w) c -> b t (h w) c", b=b, t=t, h=xy_after_transformer, w=xy_after_transformer, c=self.out_channels)  # fmt: skip
+            x = rearrange(x, "b (t h w) c -> b t (h w) c", b=b, t=t, h=self.xy_after_transformer, w=self.xy_after_transformer, c=self.out_channels)
 
         return x, hc
 
 
 class MLP(nn.Module):
-    """Create a MLP with `len(hidden_features)` hidden layers, each with `hidden_features[i]` features."""
-
     def __init__(
         self,
         in_features: int,
@@ -541,7 +500,6 @@ class MLP(nn.Module):
             layers.append(nn.Linear(last_size, size))
             last_size = size
             layers.append(activation)
-        # Don't put an activation after the last layer
         layers.append(nn.Linear(last_size, out_features))
 
         self.sequential = torch.nn.Sequential(*layers)
