@@ -1,0 +1,369 @@
+"""
+Procedural PBR materials for the Four Mountains environment.
+
+The terrain shader is a slope- and altitude-driven biome stack (shore gravel ->
+alpine meadow -> conifer belt -> scree -> cliff rock -> snow) with a cheap
+analytic aerial-perspective term that fades distant ranges into the sky colour
+the way real atmosphere does.
+"""
+
+import bpy
+
+# Shared atmospheric tint. Keep in sync with the sky so the horizon dissolves
+# into the backdrop instead of ending in a hard cut-out edge.
+HAZE_COLOR = (0.30, 0.43, 0.66, 1.0)
+HAZE_START = 120.0      # distance before haze begins to accumulate
+HAZE_SCALE = 700.0     # distance over which it saturates
+
+
+class _Tree:
+    """Thin convenience wrapper over a material node tree."""
+
+    def __init__(self, mat):
+        self.nodes = mat.node_tree.nodes
+        self.links = mat.node_tree.links
+        self.nodes.clear()
+
+    def new(self, kind, location=(0, 0), **kwargs):
+        node = self.nodes.new(kind)
+        node.location = location
+        for key, value in kwargs.items():
+            if key.startswith("in_"):
+                node.inputs[key[3:].replace("_", " ")].default_value = value
+            else:
+                setattr(node, key, value)
+        return node
+
+    def link(self, a, b):
+        self.links.new(a, b)
+
+    def mix_rgb(self, fac, color_a, color_b, location=(0, 0)):
+        """ShaderNodeMix in RGBA mode: index 0 = Factor, 6 = A, 7 = B, out 2 = Result."""
+        node = self.nodes.new("ShaderNodeMix")
+        node.data_type = "RGBA"
+        node.location = location
+        if hasattr(fac, "bl_idname") or hasattr(fac, "node"):
+            self.links.new(fac, node.inputs[0])
+        else:
+            node.inputs[0].default_value = fac
+        for socket_index, value in ((6, color_a), (7, color_b)):
+            if hasattr(value, "node"):
+                self.links.new(value, node.inputs[socket_index])
+            else:
+                node.inputs[socket_index].default_value = value
+        return node.outputs[2]
+
+    def band(self, value_socket, lo, hi, location=(0, 0), clamp=True):
+        """Map Range: 0 below `lo`, 1 above `hi`."""
+        node = self.new("ShaderNodeMapRange", location, clamp=clamp)
+        node.inputs["From Min"].default_value = lo
+        node.inputs["From Max"].default_value = hi
+        node.inputs["To Min"].default_value = 0.0
+        node.inputs["To Max"].default_value = 1.0
+        self.link(value_socket, node.inputs["Value"])
+        return node.outputs["Result"]
+
+    def math(self, operation, a, b=None, location=(0, 0), c=None):
+        node = self.new("ShaderNodeMath", location, operation=operation)
+        for socket_index, value in ((0, a), (1, b), (2, c)):
+            if value is None:
+                continue
+            if hasattr(value, "node"):
+                self.link(value, node.inputs[socket_index])
+            else:
+                node.inputs[socket_index].default_value = value
+        return node.outputs["Value"]
+
+    def noise(self, vector, scale, detail=8.0, roughness=0.55, location=(0, 0)):
+        node = self.new("ShaderNodeTexNoise", location)
+        node.inputs["Scale"].default_value = scale
+        node.inputs["Detail"].default_value = detail
+        node.inputs["Roughness"].default_value = roughness
+        self.link(vector, node.inputs["Vector"])
+        return node.outputs["Fac"]
+
+
+def _aerial_perspective(t, color_socket, location=(0, 0)):
+    """Blend a colour toward the atmospheric haze as distance from camera grows."""
+    cam = t.new("ShaderNodeCameraData", (location[0] - 400, location[1] - 200))
+    fog = t.band(cam.outputs["View Distance"], HAZE_START,
+                 HAZE_START + HAZE_SCALE, (location[0] - 200, location[1] - 200))
+    # Ease the ramp so the near field stays crisp and only the far range washes out.
+    fog = t.math("POWER", fog, 0.75, (location[0] - 60, location[1] - 200))
+    fog = t.math("MULTIPLY", fog, 0.55, (location[0] - 60, location[1] - 320))
+    return t.mix_rgb(fog, color_socket, HAZE_COLOR, location), fog
+
+
+def create_alpine_material(snow_line=13.5, tree_line=9.5, water_level=0.0):
+    """
+    Slope + altitude biome shader.
+
+    Layer order (each one overrides the previous where its mask is 1):
+      shore gravel -> alpine meadow -> conifer belt -> scree -> cliff rock -> snow
+    """
+    mat = bpy.data.materials.new(name="AlpineTerrain")
+    mat.use_nodes = True
+    t = _Tree(mat)
+
+    out = t.new("ShaderNodeOutputMaterial", (1900, 0))
+    bsdf = t.new("ShaderNodeBsdfPrincipled", (1600, 0))
+    t.link(bsdf.outputs["BSDF"], out.inputs["Surface"])
+
+    geom = t.new("ShaderNodeNewGeometry", (-1500, 200))
+    sep = t.new("ShaderNodeSeparateXYZ", (-1300, 380))
+    t.link(geom.outputs["Position"], sep.inputs["Vector"])
+    height = sep.outputs["Z"]
+
+    # Slope as N . Z: 1 = flat, 0 = vertical wall.
+    slope = t.new("ShaderNodeVectorMath", (-1300, 120), operation="DOT_PRODUCT")
+    t.link(geom.outputs["Normal"], slope.inputs[0])
+    slope.inputs[1].default_value = (0.0, 0.0, 1.0)
+    slope = slope.outputs["Value"]
+
+    pos = geom.outputs["Position"]
+    macro = t.noise(pos, 0.030, 6.0, 0.60, (-1300, -120))    # regional variation
+    meso = t.noise(pos, 0.185, 8.0, 0.55, (-1300, -320))     # patch / outcrop scale
+    micro = t.noise(pos, 2.60, 8.0, 0.72, (-1300, -520))     # surface breakup
+
+    # Vertically squashed noise -> sedimentary strata on the cliff faces.
+    strata_map = t.new("ShaderNodeMapping", (-1300, -720))
+    strata_map.inputs["Scale"].default_value = (1.0, 1.0, 3.2)
+    t.link(pos, strata_map.inputs["Vector"])
+    strata = t.noise(strata_map.outputs["Vector"], 0.42, 7.0, 0.62, (-1080, -720))
+
+    # -- Palette -----------------------------------------------------------
+    shore_col = (0.300, 0.268, 0.212, 1.0)
+    grass_dk = (0.045, 0.105, 0.030, 1.0)
+    grass_lt = (0.165, 0.240, 0.062, 1.0)
+    forest_dk = (0.012, 0.032, 0.014, 1.0)
+    forest_lt = (0.038, 0.080, 0.030, 1.0)
+    scree_col = (0.175, 0.158, 0.132, 1.0)
+    rock_dk = (0.038, 0.036, 0.042, 1.0)
+    rock_lt = (0.200, 0.185, 0.165, 1.0)
+    rock_warm = (0.215, 0.140, 0.098, 1.0)
+    rock_pale = (0.330, 0.315, 0.285, 1.0)
+    snow_col = (0.880, 0.915, 0.975, 1.0)
+
+    grass_dry = (0.215, 0.195, 0.080, 1.0)
+    meadow = t.mix_rgb(micro, grass_dk, grass_lt, (-800, -260))
+    # Sun-bleached patches drifting across the meadow at the regional scale.
+    meadow = t.mix_rgb(t.band(macro, 0.42, 0.72, (-1000, -60)),
+                       meadow, grass_dry, (-620, -260))
+
+    forest = t.mix_rgb(micro, forest_dk, forest_lt, (-800, -460))
+
+    rock = t.mix_rgb(strata, rock_dk, rock_lt, (-800, -700))
+    # Outcrop-scale mineral banding, then broad iron staining across faces.
+    rock = t.mix_rgb(t.band(meso, 0.40, 0.66, (-1000, -640)), rock, rock_pale, (-800, -560))
+    rock = t.mix_rgb(t.math("MULTIPLY", macro, 0.45, (-1000, -820)),
+                     rock, rock_warm, (-620, -700))
+
+    # -- Masks -------------------------------------------------------------
+    # Shore: only the narrow strip just above the waterline is washed gravel.
+    shore_jitter = t.math("MULTIPLY_ADD", meso, 0.45, (-1000, 620), c=-0.22)
+    shore_jitter = t.math("ADD", shore_jitter, height, (-820, 620))
+    shore_mask = t.math("SUBTRACT", 1.0,
+                        t.band(shore_jitter, water_level + 0.15,
+                               water_level + 0.95, (-640, 620)), (-460, 620))
+
+    # Conifer belt: a noisy band that stops dead at the tree line and thins on cliffs.
+    tl_jitter = t.math("MULTIPLY_ADD", macro, 3.4, (-1000, 460), c=-1.7)
+    tl_jitter = t.math("ADD", tl_jitter, height, (-820, 460))
+    forest_alt = t.math("MULTIPLY",
+                        t.band(tl_jitter, water_level + 0.9,
+                               water_level + 2.6, (-640, 520)),
+                        t.math("SUBTRACT", 1.0,
+                               t.band(tl_jitter, tree_line - 2.2, tree_line + 1.6,
+                                      (-640, 380)), (-460, 380)),
+                        (-300, 460))
+    forest_patch = t.band(meso, 0.36, 0.60, (-640, 240))
+    forest_slope = t.band(slope, 0.52, 0.78, (-640, 100))
+    forest_mask = t.math("MULTIPLY", forest_alt, forest_patch, (-120, 460))
+    forest_mask = t.math("MULTIPLY", forest_mask, forest_slope, (60, 460))
+
+    # Scree: loose talus above the tree line, mostly on moderate slopes.
+    scree_mask = t.math("MULTIPLY",
+                        t.band(tl_jitter, tree_line - 2.5, tree_line + 2.0, (-640, -20)),
+                        t.band(macro, 0.30, 0.62, (-640, -160)), (-120, -20))
+
+    # Cliff rock: purely slope-driven, so it works at any altitude.
+    rock_mask = t.math("SUBTRACT", 1.0, t.band(slope, 0.56, 0.86, (-640, -320)), (-460, -320))
+
+    # Snow: altitude with a noisy line, suppressed on faces too steep to hold it.
+    snow_alt_in = t.math("MULTIPLY_ADD", macro, 3.2, (-1000, 300), c=-1.6)
+    snow_alt_in = t.math("ADD", snow_alt_in, height, (-820, 300))
+    snow_alt = t.band(snow_alt_in, snow_line, snow_line + 4.0, (-640, 300))
+    # Alpine summits are steep; only near-vertical walls shed their snow.
+    snow_slope = t.band(slope, 0.20, 0.55, (-640, 160))
+    snow_mask = t.math("MULTIPLY", snow_alt, snow_slope, (-300, 300))
+
+    # -- Composite ---------------------------------------------------------
+    col = t.mix_rgb(shore_mask, meadow, shore_col, (300, -200))
+    col = t.mix_rgb(forest_mask, col, forest, (460, -200))
+    col = t.mix_rgb(scree_mask, col, scree_col, (620, -200))
+    col = t.mix_rgb(rock_mask, col, rock, (780, -200))
+    col = t.mix_rgb(snow_mask, col, snow_col, (940, -200))
+
+    # Ambient-occlusion cavity shading: gullies, couloirs and crevices between
+    # boulders darken the way they do in real rock, which is most of what makes
+    # a procedural mountain stop looking like poured concrete.
+    ao = t.new("ShaderNodeAmbientOcclusion", (1000, 60))
+    ao.samples = 8
+    ao.inputs["Distance"].default_value = 3.0
+    # 0 out in the open, 1 deep inside a couloir or between boulders.
+    cavity = t.math("SUBTRACT", 1.0, ao.outputs["AO"], (1160, 60))
+    cavity = t.math("MULTIPLY", cavity, 0.60, (1300, 60))
+    shaded = t.mix_rgb(cavity, col, (0.0, 0.0, 0.0, 1.0), (1300, -140))
+
+    hazed, fog = _aerial_perspective(t, shaded, (1450, -200))
+    t.link(hazed, bsdf.inputs["Base Color"])
+
+    # Roughness: snow is satin, rock and turf are matt; haze flattens the far field.
+    rough = t.math("MULTIPLY_ADD", micro, 0.12, (940, 300), c=0.82)
+    rough = t.mix_rgb(snow_mask, rough, (0.42, 0.42, 0.42, 1.0), (1260, 300))
+    rough = t.mix_rgb(fog, rough, (0.62, 0.62, 0.62, 1.0), (1420, 300))
+    t.link(rough, bsdf.inputs["Roughness"])
+
+    bump = t.new("ShaderNodeBump", (1300, -560))
+    bump.inputs["Strength"].default_value = 1.0
+    bump.inputs["Distance"].default_value = 0.32
+    rock_h = t.mix_rgb(0.55, strata, meso, (940, -640))
+    detail_h = t.mix_rgb(rock_mask, micro, rock_h, (1100, -560))
+    t.link(detail_h, bump.inputs["Height"])
+    t.link(bump.outputs["Normal"], bsdf.inputs["Normal"])
+
+    return mat
+
+
+def create_water_material():
+    """Still alpine tarn: mirror-flat with a whisper of wind ripple."""
+    mat = bpy.data.materials.new(name="LakeWater")
+    mat.use_nodes = True
+    t = _Tree(mat)
+
+    out = t.new("ShaderNodeOutputMaterial", (700, 0))
+    bsdf = t.new("ShaderNodeBsdfPrincipled", (400, 0))
+    bsdf.inputs["Base Color"].default_value = (0.020, 0.055, 0.070, 1.0)
+    bsdf.inputs["Roughness"].default_value = 0.030
+    bsdf.inputs["IOR"].default_value = 1.333
+    if "Metallic" in bsdf.inputs:
+        bsdf.inputs["Metallic"].default_value = 0.0
+    t.link(bsdf.outputs["BSDF"], out.inputs["Surface"])
+
+    geom = t.new("ShaderNodeNewGeometry", (-400, -200))
+    ripple = t.noise(geom.outputs["Position"], 6.0, 6.0, 0.5, (-200, -200))
+    bump = t.new("ShaderNodeBump", (120, -200))
+    bump.inputs["Strength"].default_value = 0.05
+    bump.inputs["Distance"].default_value = 0.02
+    t.link(ripple, bump.inputs["Height"])
+    t.link(bump.outputs["Normal"], bsdf.inputs["Normal"])
+    return mat
+
+
+def create_tree_material():
+    """Conifer canopy: dark blue-green with per-position hue drift."""
+    mat = bpy.data.materials.new(name="ConiferFoliage")
+    mat.use_nodes = True
+    t = _Tree(mat)
+
+    out = t.new("ShaderNodeOutputMaterial", (900, 0))
+    bsdf = t.new("ShaderNodeBsdfPrincipled", (600, 0))
+    bsdf.inputs["Roughness"].default_value = 0.88
+    t.link(bsdf.outputs["BSDF"], out.inputs["Surface"])
+
+    geom = t.new("ShaderNodeNewGeometry", (-500, 0))
+    var = t.noise(geom.outputs["Position"], 0.55, 4.0, 0.5, (-300, 0))
+    col = t.mix_rgb(var, (0.016, 0.042, 0.020, 1.0), (0.048, 0.092, 0.036, 1.0), (0, 0))
+    hazed, _ = _aerial_perspective(t, col, (350, 0))
+    t.link(hazed, bsdf.inputs["Base Color"])
+    return mat
+
+
+def add_sky_clouds(world_tree, sky_color_socket, altitude=1.0, scale=0.55,
+                   coverage=(0.40, 0.61), softness=(0.13, 0.33)):
+    """
+    Composite a cumulus layer onto the sky background.
+
+    Each view ray is intersected with a virtual cloud plane at `altitude`, so
+    the clouds get true perspective: big and separated overhead, compressed
+    into a band as they approach the horizon. No geometry, no extra ray cost,
+    and it works from every camera angle -- unlike a modelled cloud plane,
+    which degenerates into a solid ceiling when viewed edge-on.
+    """
+    nodes, links = world_tree.nodes, world_tree.links
+
+    def new(kind, loc):
+        n = nodes.new(kind)
+        n.location = loc
+        return n
+
+    coord = new("ShaderNodeTexCoord", (-1600, -300))
+    sep = new("ShaderNodeSeparateXYZ", (-1420, -300))
+    links.new(coord.outputs["Generated"], sep.inputs["Vector"])
+
+    # t = altitude / ray.z  -> the plane-intersection parameter.
+    up = new("ShaderNodeMath", (-1240, -420))
+    up.operation = "MAXIMUM"
+    up.inputs[1].default_value = 0.035        # keep the division well behaved
+    links.new(sep.outputs["Z"], up.inputs[0])
+
+    t = new("ShaderNodeMath", (-1060, -420))
+    t.operation = "DIVIDE"
+    t.inputs[0].default_value = altitude
+    links.new(up.outputs["Value"], t.inputs[1])
+
+    uv = new("ShaderNodeVectorMath", (-880, -300))
+    uv.operation = "SCALE"
+    links.new(coord.outputs["Generated"], uv.inputs[0])
+    links.new(t.outputs["Value"], uv.inputs["Scale"])
+
+    mapping = new("ShaderNodeMapping", (-700, -300))
+    mapping.inputs["Scale"].default_value = (scale, scale, scale)
+    links.new(uv.outputs["Vector"], mapping.inputs["Vector"])
+
+    def noise(sc, detail, rough, loc):
+        n = new("ShaderNodeTexNoise", loc)
+        n.inputs["Scale"].default_value = sc
+        n.inputs["Detail"].default_value = detail
+        n.inputs["Roughness"].default_value = rough
+        links.new(mapping.outputs["Vector"], n.inputs["Vector"])
+        return n
+
+    def ramp(socket, lo, hi, loc):
+        n = new("ShaderNodeMapRange", loc)
+        n.inputs["From Min"].default_value = lo
+        n.inputs["From Max"].default_value = hi
+        links.new(socket, n.inputs["Value"])
+        return n
+
+    clump = ramp(noise(1.05, 4.0, 0.52, (-520, -460)).outputs["Fac"],
+                 coverage[0], coverage[1], (-340, -460))
+    billow = noise(3.30, 10.0, 0.62, (-520, -180))
+
+    body = new("ShaderNodeMath", (-160, -300))
+    body.operation = "MULTIPLY"
+    links.new(billow.outputs["Fac"], body.inputs[0])
+    links.new(clump.outputs["Result"], body.inputs[1])
+
+    alpha = ramp(body.outputs["Value"], softness[0], softness[1], (20, -300))
+
+    # Fade the deck out along the horizon, where the projection degenerates.
+    horizon = ramp(sep.outputs["Z"], 0.015, 0.13, (-1240, -620))
+    alpha_h = new("ShaderNodeMath", (200, -300))
+    alpha_h.operation = "MULTIPLY"
+    links.new(alpha.outputs["Result"], alpha_h.inputs[0])
+    links.new(horizon.outputs["Result"], alpha_h.inputs[1])
+
+    # Sunlit tops vs shaded undersides.
+    shade = new("ShaderNodeMix", (200, -60))
+    shade.data_type = "RGBA"
+    shade.inputs[6].default_value = (1.55, 1.62, 1.95, 1.0)
+    shade.inputs[7].default_value = (4.30, 4.40, 4.60, 1.0)
+    links.new(billow.outputs["Fac"], shade.inputs[0])
+
+    composite = new("ShaderNodeMix", (420, -160))
+    composite.data_type = "RGBA"
+    links.new(alpha_h.outputs["Value"], composite.inputs[0])
+    links.new(sky_color_socket, composite.inputs[6])
+    links.new(shade.outputs[2], composite.inputs[7])
+    return composite.outputs[2]

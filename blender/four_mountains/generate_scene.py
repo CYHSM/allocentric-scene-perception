@@ -1,533 +1,441 @@
 """
-Procedural Four Mountains Scene Generator for Blender 5.2+
-Generates four geomorphologically distinct mountain peaks with polar boundary clipping,
-continuous alpine valley, panoramic backdrop mountain range,
-procedural alpine PBR materials, and Nishita sky lighting.
+Procedural Four Mountains Scene Generator for Blender 5.2+.
+
+Builds a full alpine world: movable Four-Mountains-Task peaks drawn from a
+library of twelve landforms, a lake-bearing valley, layered foothills, a
+distant snow range on the horizon, a physical sky with a cumulus deck, conifer
+forests, boulder fields and atmospheric aerial perspective.
+
+    blender -b -P blender/four_mountains/generate_scene.py
+    blender -b -P blender/four_mountains/generate_scene.py -- --types horn,caldera,sawtooth,butte
 """
 
-import sys
-import os
+import argparse
 import math
+import os
+import sys
+
 import numpy as np
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+if _HERE not in sys.path:
+    sys.path.insert(0, _HERE)
+
 import bpy
-from mathutils import Vector, Euler
+from mathutils import Euler, Vector
+
+from fm_materials import (add_sky_clouds, create_alpine_material,
+                          create_tree_material, create_water_material)
+from fm_morphology import build_heightfield, morphology_names
+from fm_noise import fbm, ridged_fbm, smoothstep
+from fm_scatter import (mesh_from_arrays, mesh_from_grid, parent_keep_local,
+                        scatter_boulders, scatter_conifers)
+
+# --------------------------------------------------------------------------- #
+# World constants
+# --------------------------------------------------------------------------- #
+
+WATER_LEVEL = 0.0        # the lake surface is the vertical datum of the world
+VALLEY_FLOOR = 1.7       # meadow height above the waterline
+LAKE_RADIUS = 9.5
+VALLEY_RADIUS = 56.0
+WORLD_RADIUS = 1400.0
+SNOW_LINE = 21.0
+TREE_LINE = 13.0
+
+# Pass indices: 1 = terrain, 2 = water, 3.. = mountains (and their vegetation).
+PASS_TERRAIN = 1
+PASS_WATER = 2
+PASS_MOUNTAIN_BASE = 3
+
+DEFAULT_TYPES = ["horn", "ridge", "mesa", "dome"]
+DEFAULT_AZIMUTHS = [140.0, 40.0, 229.0, 318.0]
+DEFAULT_HEIGHTS = [34.0, 27.0, 24.0, 30.0]
+DEFAULT_RADII = [17.0, 19.0, 15.0, 18.0]
+MOUNTAIN_RING = 34.0
+MOUNTAIN_SINK = 0.45     # how deep each peak's rim is bedded into the meadow
 
 
 def clean_scene():
-    """Remove all default objects, materials, and collections."""
+    """Start from an empty file so re-runs are deterministic."""
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    if "Scene Collection" not in bpy.data.collections and len(bpy.data.collections) == 0:
-        col = bpy.data.collections.new("FourMountains")
-        bpy.context.scene.collection.children.link(col)
 
 
-def configure_render_engine(scene, engine="CYCLES", samples=64, resolution=(1024, 1024)):
-    """Configure render settings with Metal GPU acceleration and balanced physical exposure."""
+def configure_render_engine(scene, engine="CYCLES", samples=96, resolution=(1024, 1024)):
+    """Cycles with Metal GPU when available, and a neutral filmic response."""
     scene.render.engine = engine
     scene.render.resolution_x = resolution[0]
     scene.render.resolution_y = resolution[1]
     scene.render.resolution_percentage = 100
+    scene.render.film_transparent = False
 
     if engine == "CYCLES":
         scene.cycles.samples = samples
         scene.cycles.preview_samples = 32
         scene.cycles.use_denoising = True
+        scene.cycles.max_bounces = 8
+        scene.cycles.transmission_bounces = 8
+        scene.cycles.transparent_max_bounces = 12
 
         try:
             cpref = bpy.context.preferences.addons["cycles"].preferences
             cpref.get_devices()
-            metal_devices = [d for d in cpref.devices if d.type == "METAL"]
-            if metal_devices:
+            metal = [d for d in cpref.devices if d.type == "METAL"]
+            if metal:
                 cpref.compute_device_type = "METAL"
-                for d in metal_devices:
+                for d in metal:
                     d.use = True
                 scene.cycles.device = "GPU"
-                print(f"[Blender] Using Metal GPU: {[d.name for d in metal_devices]}")
+                print(f"[Blender] Metal GPU: {[d.name for d in metal]}")
             else:
                 scene.cycles.device = "CPU"
-        except Exception as e:
-            print(f"[Blender] Warning configuring Cycles device: {e}")
+        except Exception as exc:  # pragma: no cover - depends on local hardware
+            print(f"[Blender] Cycles device setup skipped: {exc}")
 
-    # Color management: AgX or Filmic
-    scene.view_settings.view_transform = "AgX" if "AgX" in [v.name for v in scene.display_settings.bl_rna.properties["display_device"].enum_items] else "Filmic"
-    scene.view_settings.look = "Medium High Contrast"
-    scene.view_settings.exposure = -4.0
+    try:
+        scene.view_settings.view_transform = "AgX"
+    except TypeError:
+        scene.view_settings.view_transform = "Filmic"
+    scene.view_settings.look = "AgX - Punchy"
+    scene.view_settings.exposure = -2.6
 
 
-def setup_lighting(scene, sun_elevation=math.radians(24), sun_rotation=math.radians(52)):
-    """Set up Nishita physical sky with low golden-hour sun for dramatic topography shadows."""
+# Blender's sky node and a sun lamp both take a rotation that leads the sun's
+# compass azimuth by 90 degrees; SUN_ROT_OFFSET keeps the two in step.
+SUN_ROT_OFFSET = 90.0
+
+
+def setup_lighting(scene, sun_elevation_deg=22.0, sun_azimuth_deg=150.0,
+                   sun_energy=75.0, haze=0.35):
+    """
+    Nishita multiple-scattering sky plus a matched directional sun.
+
+    `sun_azimuth_deg` is the compass bearing the sunlight comes *from*. The
+    default cross-lights the canonical viewpoint so topography reads in relief.
+    """
     world = bpy.data.worlds.new("AlpineWorld")
     scene.world = world
-    world_tree = world.node_tree
-    world_tree.nodes.clear()
+    world.use_nodes = True
+    tree = world.node_tree
+    tree.nodes.clear()
 
-    out_node = world_tree.nodes.new("ShaderNodeOutputWorld")
-    sky_node = world_tree.nodes.new("ShaderNodeTexSky")
-    bg_node = world_tree.nodes.new("ShaderNodeBackground")
+    out = tree.nodes.new("ShaderNodeOutputWorld")
+    out.location = (400, 0)
+    bg = tree.nodes.new("ShaderNodeBackground")
+    bg.location = (200, 0)
+    sky = tree.nodes.new("ShaderNodeTexSky")
+    sky.location = (-100, 0)
 
-    sky_node.sky_type = "MULTIPLE_SCATTERING"
-    sky_node.sun_elevation = sun_elevation
-    sky_node.sun_rotation = sun_rotation
-    sky_node.air_density = 1.0
-    sky_node.aerosol_density = 1.4
-    sky_node.ozone_density = 2.0
-    sky_node.sun_intensity = 1.0
+    sky.sky_type = "MULTIPLE_SCATTERING"
+    sky.sun_elevation = math.radians(sun_elevation_deg)
+    sky.sun_rotation = math.radians(sun_azimuth_deg + SUN_ROT_OFFSET)
+    sky.air_density = 1.0
+    sky.aerosol_density = haze
+    sky.ozone_density = 2.6
+    sky.sun_intensity = 1.0
+    # The sun disc is provided by a real Sun lamp (cleaner, less noisy shadows).
+    if hasattr(sky, "sun_disc"):
+        sky.sun_disc = False
 
-    bg_node.inputs["Strength"].default_value = 1.0
-    world_tree.links.new(sky_node.outputs["Color"], bg_node.inputs["Color"])
-    world_tree.links.new(bg_node.outputs["Background"], out_node.inputs["Surface"])
+    bg.inputs["Strength"].default_value = 1.0
+    sky_with_clouds = add_sky_clouds(tree, sky.outputs["Color"])
+    tree.links.new(sky_with_clouds, bg.inputs["Color"])
+    tree.links.new(bg.outputs["Background"], out.inputs["Surface"])
 
-    # Synchronized directional sun
     sun_data = bpy.data.lights.new(name="SunLight", type="SUN")
-    sun_data.energy = 2.5
-    sun_data.color = (1.0, 0.95, 0.88)
-    sun_data.angle = math.radians(1.0)
+    sun_data.energy = sun_energy
+    sun_data.color = (1.0, 0.94, 0.85)
+    sun_data.angle = math.radians(0.7)
 
-    sun_obj = bpy.data.objects.new(name="Sun", object_data=sun_data)
-    scene.collection.objects.link(sun_obj)
+    sun = bpy.data.objects.new("Sun", sun_data)
+    scene.collection.objects.link(sun)
+    sun.rotation_euler = Euler(
+        (math.pi / 2 - math.radians(sun_elevation_deg), 0.0,
+         math.radians(sun_azimuth_deg + SUN_ROT_OFFSET)), "XYZ")
+    sun.location = (0, 0, 200)
+    return sun
 
-    sun_rot_x = math.pi / 2 - sun_elevation
-    sun_rot_z = sun_rotation
-    sun_obj.rotation_euler = Euler((sun_rot_x, 0.0, sun_rot_z), "XYZ")
-    sun_obj.location = (0, 0, 60)
+
+# --------------------------------------------------------------------------- #
+# Terrain
+# --------------------------------------------------------------------------- #
+
+_KNOTS_R = [0.0, 45.0, VALLEY_RADIUS, 85.0, 130.0, 190.0, 290.0, 450.0, 750.0,
+            1080.0, WORLD_RADIUS]
 
 
-def create_alpine_material():
+def _terrain_profile(R):
+    """Base elevation envelope: valley -> foothills -> mid range -> horizon wall."""
+    knots_z = [VALLEY_FLOOR, VALLEY_FLOOR + 0.5, 3.4, 8.0, 15.0, 21.0,
+               26.0, 34.0, 44.0, 54.0, 58.0]
+    return np.interp(R, _KNOTS_R, knots_z)
+
+
+def _terrain_relief_amp(R):
+    """How much ridged relief rides on top of the envelope at each distance."""
+    knots_a = [0.22, 0.55, 2.20, 7.00, 16.0, 28.0, 38.0, 50.0, 62.0, 72.0, 78.0]
+    return np.interp(R, _KNOTS_R, knots_a)
+
+
+def generate_landscape(material, n_theta=420, seed=77):
     """
-    Procedural Alpine Tri-Planar PBR Material:
-    - Steep slopes (>38°): Deep charcoal/slate granite rock with sharp vertical fissures.
-    - Lowland/valley (<28° and Z < 7m): Vibrant emerald alpine grass & meadow moss.
-    - Transition scree: Gravel talus banks at the mountain bases.
-    - High summits (Z > 9.5m): Snow caps clinging to crests, arêtes, and north-facing hollows.
+    One seamless radial terrain sheet carrying every distance band:
+    lake basin, valley floor, foothills, mid range and the horizon skyline.
     """
-    mat = bpy.data.materials.new(name="AlpineMaterial")
-    nodes = mat.node_tree.nodes
-    links = mat.node_tree.links
-    nodes.clear()
+    r_near = np.linspace(0.0, VALLEY_RADIUS, 96)
+    r_far = np.geomspace(VALLEY_RADIUS, WORLD_RADIUS, 190)[1:]
+    r_vals = np.concatenate([r_near, r_far])
+    theta = np.linspace(0.0, 2.0 * np.pi, n_theta, endpoint=False)
+    R, T = np.meshgrid(r_vals, theta, indexing="ij")
 
-    output = nodes.new("ShaderNodeOutputMaterial")
-    output.location = (1500, 0)
-    bsdf = nodes.new("ShaderNodeBsdfPrincipled")
-    bsdf.location = (1200, 0)
-    links.new(bsdf.outputs["BSDF"], output.inputs["Surface"])
+    X = R * np.cos(T)
+    Y = R * np.sin(T)
 
-    geom = nodes.new("ShaderNodeNewGeometry")
-    geom.location = (-950, 200)
+    # Three ridged octave families: range structure, spurs, and gully detail.
+    coarse = ridged_fbm(X, Y, freq=0.0034, octaves=6, seed=seed)
+    medium = ridged_fbm(X, Y, freq=0.017, octaves=5, seed=seed + 300)
+    fine = ridged_fbm(X, Y, freq=0.055, octaves=4, seed=seed + 600)
+    rolling = fbm(X, Y, freq=0.05, octaves=4, seed=seed + 900) - 0.5
 
-    sep_pos = nodes.new("ShaderNodeSeparateXYZ")
-    sep_pos.location = (-750, 350)
-    links.new(geom.outputs["Position"], sep_pos.inputs["Vector"])
+    relief = 0.42 * coarse + 0.42 * medium + 0.16 * fine * np.clip(600.0 / (R + 80.0), 0.0, 1.0)
+    # Centre the relief so ridges alternate with real basins instead of piling
+    # onto one monotonic ramp -- that is what produces layered ridgelines.
+    Z = _terrain_profile(R) + _terrain_relief_amp(R) * (relief - 0.42)
+    Z += rolling * np.clip(R / 35.0, 0.12, 1.0) * 0.8
 
-    # Slope: Dot product of Normal with (0, 0, 1)
-    dot_normal = nodes.new("ShaderNodeVectorMath")
-    dot_normal.operation = "DOT_PRODUCT"
-    dot_normal.location = (-750, 100)
-    links.new(geom.outputs["Normal"], dot_normal.inputs[0])
-    dot_normal.inputs[1].default_value = (0.0, 0.0, 1.0)
+    # Lake basin: an irregular shoreline carved into the valley floor.
+    shore = LAKE_RADIUS * (0.82 + 0.36 * fbm(X * 3.2, Y * 3.2, freq=0.09,
+                                             octaves=3, seed=seed + 41))
+    u = R / shore
+    Z -= (VALLEY_FLOOR + 3.4) * (1.0 - smoothstep(0.52, 1.15, u))
 
-    # Multi-frequency procedural noise textures
-    macro_noise = nodes.new("ShaderNodeTexNoise")
-    macro_noise.location = (-750, -100)
-    macro_noise.inputs["Scale"].default_value = 0.35
-    macro_noise.inputs["Detail"].default_value = 5.0
-    macro_noise.inputs["Roughness"].default_value = 0.65
-    links.new(geom.outputs["Position"], macro_noise.inputs["Vector"])
-
-    micro_noise = nodes.new("ShaderNodeTexNoise")
-    micro_noise.location = (-750, -300)
-    micro_noise.inputs["Scale"].default_value = 2.5
-    micro_noise.inputs["Detail"].default_value = 8.0
-    micro_noise.inputs["Roughness"].default_value = 0.75
-    links.new(geom.outputs["Position"], micro_noise.inputs["Vector"])
-
-    # Vertical rock strata noise
-    strata_map = nodes.new("ShaderNodeMapping")
-    strata_map.location = (-750, -500)
-    strata_map.inputs["Scale"].default_value = (0.6, 0.6, 4.0)
-    links.new(geom.outputs["Position"], strata_map.inputs["Vector"])
-
-    strata_noise = nodes.new("ShaderNodeTexNoise")
-    strata_noise.location = (-550, -500)
-    strata_noise.inputs["Scale"].default_value = 1.2
-    strata_noise.inputs["Detail"].default_value = 6.0
-    links.new(strata_map.outputs["Vector"], strata_noise.inputs["Vector"])
-
-    # Slope Ramp: 1 = Steep cliff (Rock), 0 = Flat (Grass/Meadow)
-    slope_ramp = nodes.new("ShaderNodeValToRGB")
-    slope_ramp.location = (-480, 100)
-    slope_ramp.color_ramp.elements[0].position = 0.60  # Steep cliff
-    slope_ramp.color_ramp.elements[0].color = (1, 1, 1, 1)  # Factor 1 -> Rock
-    slope_ramp.color_ramp.elements[1].position = 0.85  # Gentle slope
-    slope_ramp.color_ramp.elements[1].color = (0, 0, 0, 1)  # Factor 0 -> Meadow
-    links.new(dot_normal.outputs["Value"], slope_ramp.inputs["Fac"])
-
-    # Rock Colors: High-contrast dark granite and slate
-    rock_dark = (0.08, 0.08, 0.09, 1.0)
-    rock_light = (0.24, 0.22, 0.20, 1.0)
-    rock_mix = nodes.new("ShaderNodeMix")
-    rock_mix.data_type = "RGBA"
-    rock_mix.location = (-220, -400)
-    rock_mix.inputs[6].default_value = rock_dark
-    rock_mix.inputs[7].default_value = rock_light
-    links.new(strata_noise.outputs["Fac"], rock_mix.inputs[0])
-
-    # Meadow Colors: Vibrant alpine moss and sunlit grass
-    grass_dark = (0.10, 0.19, 0.05, 1.0)
-    grass_light = (0.26, 0.36, 0.10, 1.0)
-    grass_mix = nodes.new("ShaderNodeMix")
-    grass_mix.data_type = "RGBA"
-    grass_mix.location = (-220, -200)
-    grass_mix.inputs[6].default_value = grass_dark
-    grass_mix.inputs[7].default_value = grass_light
-    links.new(micro_noise.outputs["Fac"], grass_mix.inputs[0])
-
-    # Scree / Talus gravel (transition slopes)
-    scree_col = (0.20, 0.18, 0.15, 1.0)
-    meadow_scree_mix = nodes.new("ShaderNodeMix")
-    meadow_scree_mix.data_type = "RGBA"
-    meadow_scree_mix.location = (40, -200)
-    links.new(macro_noise.outputs["Fac"], meadow_scree_mix.inputs[0])
-    links.new(grass_mix.outputs[2], meadow_scree_mix.inputs[6])
-    meadow_scree_mix.inputs[7].default_value = scree_col
-
-    # Blend Meadow/Scree with Cliff Rock based on Slope
-    terrain_base_mix = nodes.new("ShaderNodeMix")
-    terrain_base_mix.data_type = "RGBA"
-    terrain_base_mix.location = (300, -100)
-    links.new(slope_ramp.outputs["Color"], terrain_base_mix.inputs[0])
-    links.new(meadow_scree_mix.outputs[2], terrain_base_mix.inputs[6])
-    links.new(rock_mix.outputs[2], terrain_base_mix.inputs[7])
-
-    # Snow Mask: Altitude-dependent with slope inhibition
-    snow_z = nodes.new("ShaderNodeMath")
-    snow_z.operation = "ADD"
-    snow_z.location = (-480, 350)
-    links.new(sep_pos.outputs["Z"], snow_z.inputs[0])
-
-    z_noise_scale = nodes.new("ShaderNodeMath")
-    z_noise_scale.operation = "MULTIPLY"
-    z_noise_scale.location = (-480, 200)
-    z_noise_scale.inputs[1].default_value = 2.0
-    links.new(macro_noise.outputs["Fac"], z_noise_scale.inputs[0])
-    links.new(z_noise_scale.outputs["Value"], snow_z.inputs[1])
-
-    # Snow begins at ~10.0m, fully covering by ~14.0m
-    snow_alt_ramp = nodes.new("ShaderNodeMapRange")
-    snow_alt_ramp.location = (-220, 350)
-    snow_alt_ramp.inputs["From Min"].default_value = 10.0
-    snow_alt_ramp.inputs["From Max"].default_value = 14.0
-    snow_alt_ramp.inputs["To Min"].default_value = 0.0
-    snow_alt_ramp.inputs["To Max"].default_value = 1.0
-    links.new(snow_z.outputs["Value"], snow_alt_ramp.inputs["Value"])
-
-    # Snow slope factor: snow slides off sheer cliffs
-    snow_slope = nodes.new("ShaderNodeMapRange")
-    snow_slope.location = (-220, 150)
-    snow_slope.inputs["From Min"].default_value = 0.40
-    snow_slope.inputs["From Max"].default_value = 0.70
-    snow_slope.inputs["To Min"].default_value = 0.0
-    snow_slope.inputs["To Max"].default_value = 1.0
-    links.new(dot_normal.outputs["Value"], snow_slope.inputs["Value"])
-
-    snow_factor = nodes.new("ShaderNodeMath")
-    snow_factor.operation = "MULTIPLY"
-    snow_factor.location = (40, 250)
-    links.new(snow_alt_ramp.outputs["Result"], snow_factor.inputs[0])
-    links.new(snow_slope.outputs["Result"], snow_factor.inputs[1])
-
-    # Final Color: Blend Terrain with Snow
-    snow_color = (0.96, 0.98, 1.0, 1.0)
-    final_color_mix = nodes.new("ShaderNodeMix")
-    final_color_mix.data_type = "RGBA"
-    final_color_mix.location = (580, 0)
-    links.new(snow_factor.outputs["Value"], final_color_mix.inputs[0])
-    links.new(terrain_base_mix.outputs[2], final_color_mix.inputs[6])
-    final_color_mix.inputs[7].default_value = snow_color
-    links.new(final_color_mix.outputs[2], bsdf.inputs["Base Color"])
-
-    # Bump mapping for rock & scree surface detail
-    bump = nodes.new("ShaderNodeBump")
-    bump.location = (900, -250)
-    bump.inputs["Strength"].default_value = 0.75
-    bump.inputs["Distance"].default_value = 0.25
-    links.new(micro_noise.outputs["Fac"], bump.inputs["Height"])
-    links.new(bump.outputs["Normal"], bsdf.inputs["Normal"])
-
-    bsdf.inputs["Roughness"].default_value = 0.85
-    return mat
-
-
-def generate_mountain_mesh(name, morphology_type, height=15.0, base_radius=12.0, n_r=70, n_theta=180, seed=42):
-    """
-    Generate an authentic mountain peak using polar concentric rings.
-    At R = base_radius, elevation Z touches 0.00 exactly, eliminating any flat overlapping skirts!
-    """
-    np.random.seed(seed)
-    r_vals = np.linspace(0.0, base_radius, n_r)
-    theta_vals = np.linspace(0.0, 2 * np.pi, n_theta, endpoint=False)
-    R, Theta = np.meshgrid(r_vals, theta_vals, indexing="ij")
-
-    # 1. 2D Domain warping
-    def warp(px, py, f=0.14, s=2.0):
-        wx = np.sin(px * f * 1.4 + 1.1) * np.cos(py * f * 1.2 + 0.7) + \
-             0.5 * np.sin(px * f * 2.8 - 1.5) * np.cos(py * f * 2.4 + 1.2)
-        wy = np.cos(px * f * 1.3 + 0.8) * np.sin(py * f * 1.5 + 2.1) + \
-             0.5 * np.cos(px * f * 2.6 + 1.9) * np.sin(py * f * 2.7 - 0.9)
-        return s * wx, s * wy
-
-    X = R * np.cos(Theta)
-    Y = R * np.sin(Theta)
-
-    Wx, Wy = warp(X, Y, f=0.14, s=2.0)
-    Xw = X + Wx
-    Yw = Y + Wy
-    Rw = np.sqrt(Xw**2 + Yw**2)
-    Tw = np.arctan2(Yw, Xw)
-
-    norm_r = np.clip(R / base_radius, 0.0, 1.0)
-    # Cosine taper: exactly 0 at boundary R = base_radius
-    taper = 0.5 * (1.0 + np.cos(np.pi * norm_r))
-
-    # 2. Multi-octave sharp ridge fractal
-    def ridged_noise(px, py, octaves=5, base_f=0.20):
-        val = np.zeros_like(px)
-        amp = 1.0
-        f = base_f
-        for _ in range(octaves):
-            phase_x = np.random.uniform(0, 100)
-            phase_y = np.random.uniform(0, 100)
-            angle = np.random.uniform(0, 2 * np.pi)
-            rx = px * np.cos(angle) - py * np.sin(angle)
-            ry = px * np.sin(angle) + py * np.cos(angle)
-            n_raw = np.sin(rx * f + phase_x) * np.cos(ry * f + phase_y)
-            r_val = (1.0 - np.abs(n_raw)) ** 2.2
-            val += amp * r_val
-            f *= 2.1
-            amp *= 0.48
-        return val / 1.7
-
-    r_fbm = ridged_noise(Xw, Yw, octaves=5, base_f=0.22)
-
-    if morphology_type == "horn":
-        arête_mask = (np.abs(np.cos(2.0 * Tw + 0.3))) ** 3.5
-        cirque_carve = 0.35 * (1.0 - arête_mask) * (norm_r ** 1.3)
-        profile = (1.0 - norm_r) ** 1.9
-        Z = height * (profile * (0.50 + 0.50 * arête_mask) - cirque_carve + 0.35 * r_fbm * (1.0 - norm_r)) * taper
-
-    elif morphology_type == "ridge":
-        aspect_x = 1.55
-        aspect_y = 0.70
-        ang = np.radians(20)
-        Xr = Xw * np.cos(ang) - Yw * np.sin(ang)
-        Yr = Xw * np.sin(ang) + Yw * np.cos(ang)
-        R_ellip = np.sqrt((Xr / aspect_x)**2 + (Yr / aspect_y)**2)
-        norm_ellip = np.clip(R_ellip / base_radius, 0.0, 1.0)
-        taper_ellip = np.where(R_ellip > base_radius, 0.0, 0.5 * (1.0 + np.cos(np.pi * norm_ellip)))
-        saddle = 0.75 + 0.28 * np.cos(2.7 * Xr / base_radius)
-        spine = np.exp(-((Yr / (base_radius * 0.22)) ** 2.0))
-        profile = (1.0 - norm_ellip) ** 1.35
-        Z = height * (profile * saddle + 0.25 * spine + 0.32 * r_fbm * (1.0 - norm_ellip)) * taper_ellip
-
-    elif morphology_type == "mesa_crag":
-        profile = (1.0 - norm_r) ** 1.15
-        tiers = 0.12 * np.sin(4.5 * np.pi * profile)
-        faults = 0.10 * np.sin(3.0 * Tw)
-        Z = height * (profile + tiers + faults + 0.40 * r_fbm * (1.0 - norm_r)) * taper
-
-    elif morphology_type == "dome":
-        profile = 1.0 / (1.0 + 3.8 * (norm_r ** 1.9))
-        ravines = 0.12 * np.sin(8.0 * Tw) * (norm_r ** 1.2)
-        Z = height * (profile + ravines + 0.22 * r_fbm * (1.0 - norm_r)) * taper
-
-    else:
-        Z = height * (1.0 - norm_r) * taper
-
-    Z = np.maximum(Z, 0.0)
-
-    mesh = bpy.data.meshes.new(f"{name}_Mesh")
-    obj = bpy.data.objects.new(name, mesh)
-
-    verts = np.stack([X.ravel(), Y.ravel(), Z.ravel()], axis=-1).tolist()
-    faces = []
-    for i in range(n_r - 1):
-        r1 = i * n_theta
-        r2 = (i + 1) * n_theta
-        for j in range(n_theta):
-            next_j = (j + 1) % n_theta
-            faces.append((r1 + j, r1 + next_j, r2 + next_j, r2 + j))
-
-    mesh.from_pydata(verts, [], faces)
-    mesh.update()
-
-    for poly in mesh.polygons:
-        poly.use_smooth = True
-
-    return obj
-
-
-def generate_landscape(material, valley_radius=55.0, ring_radius=115.0, ring_height=36.0):
-    """
-    Generate a seamless terrain mesh:
-    1. Rolling alpine valley floor.
-    2. Panoramic 360° backdrop mountain horizon.
-    """
-    n_r = 90
-    n_theta = 180
-
-    r_vals = np.concatenate([
-        np.linspace(0.0, valley_radius, 55),
-        np.linspace(valley_radius, ring_radius, 35)[1:]
-    ])
-    theta_vals = np.linspace(0, 2 * np.pi, n_theta, endpoint=False)
-    R_grid, T_grid = np.meshgrid(r_vals, theta_vals, indexing="ij")
-
-    X = R_grid * np.cos(T_grid)
-    Y = R_grid * np.sin(T_grid)
-
-    # Gentle valley undulation
-    np.random.seed(77)
-    valley_z = 0.35 * np.sin(0.14 * X) * np.cos(0.12 * Y) + 0.20 * np.sin(0.28 * X + 0.22 * Y)
-    valley_z *= np.clip(R_grid / 16.0, 0.0, 1.0)
-
-    # Backdrop mountain skyline
-    r_factor = np.clip((R_grid - valley_radius) / (ring_radius - valley_radius), 0.0, 1.0) ** 1.35
-    skyline = (
-        0.48 * np.sin(3.0 * T_grid + 0.5) +
-        0.34 * np.cos(7.0 * T_grid - 1.2) +
-        0.26 * np.sin(13.0 * T_grid + 2.0) +
-        0.18 * np.cos(27.0 * T_grid) +
-        0.10 * np.sin(42.0 * T_grid)
-    )
-    skyline = (skyline - skyline.min()) / (skyline.max() - skyline.min())
-    backdrop_z = ring_height * r_factor * (0.35 + 0.65 * skyline)
-
-    Z = np.where(R_grid <= valley_radius, valley_z, valley_z + backdrop_z)
-
-    mesh = bpy.data.meshes.new("Landscape_Mesh")
-    obj = bpy.data.objects.new("Landscape", mesh)
-
-    verts = np.stack([X.ravel(), Y.ravel(), Z.ravel()], axis=-1).tolist()
-    faces = []
-    for i in range(len(r_vals) - 1):
-        r1 = i * n_theta
-        r2 = (i + 1) * n_theta
-        for j in range(n_theta):
-            next_j = (j + 1) % n_theta
-            faces.append((r1 + j, r1 + next_j, r2 + next_j, r2 + j))
-
-    mesh.from_pydata(verts, [], faces)
-    mesh.update()
-
-    for poly in mesh.polygons:
-        poly.use_smooth = True
-
+    obj = mesh_from_grid("Landscape", X, Y, Z)
     obj.data.materials.append(material)
+    obj.pass_index = PASS_TERRAIN
+    return obj, X, Y, Z
+
+
+def create_lake(material, radius=14.0, segments=160):
+    """Flat water disc filling the carved basin."""
+    ang = np.linspace(0.0, 2.0 * np.pi, segments, endpoint=False)
+    verts = [(0.0, 0.0, WATER_LEVEL)]
+    verts += [(radius * math.cos(a), radius * math.sin(a), WATER_LEVEL) for a in ang]
+    faces = [(0, 1 + j, 1 + (j + 1) % segments) for j in range(segments)]
+    obj = mesh_from_arrays("Lake", verts, faces)
+    obj.data.materials.append(material)
+    obj.pass_index = PASS_WATER
     return obj
 
 
-def setup_camera_rig(scene):
-    """Set up an orbit camera tracking an empty target at scene center."""
+# --------------------------------------------------------------------------- #
+# Mountains
+# --------------------------------------------------------------------------- #
+
+def build_mountain(cfg, alpine_mat, tree_mat, rng, n_r=140, n_theta=320):
+    """Create one peak plus the forest and boulder field that travel with it."""
+    X, Y, Z = build_heightfield(
+        cfg["type"], height=cfg["height"], base_radius=cfg["radius"],
+        n_r=n_r, n_theta=n_theta, seed=cfg["seed"], relief=cfg.get("relief", 1.0))
+
+    obj = mesh_from_grid(cfg["name"], X, Y, Z)
+    obj.location = Vector(cfg["pos"])
+    obj.rotation_euler = Euler((0.0, 0.0, cfg["rot_z"]), "XYZ")
+    obj.data.materials.append(alpine_mat)
+    obj.pass_index = cfg["pass_id"]
+
+    children = []
+    base_z = cfg["pos"][2]
+    trees = scatter_conifers(
+        f"{cfg['name']}_Forest", X, Y, Z,
+        count=cfg.get("trees", 2200), rng=rng,
+        z_min=max(0.9 - base_z, 0.4), z_max=TREE_LINE - base_z,
+        min_slope=0.56, height_range=(0.75, 1.65))
+    if trees:
+        trees.data.materials.append(tree_mat)
+        trees.pass_index = cfg["pass_id"]
+        children.append(trees)
+
+    rocks = scatter_boulders(
+        f"{cfg['name']}_Rocks", X, Y, Z,
+        count=cfg.get("boulders", 280), rng=rng,
+        z_min=0.3, z_max=cfg["height"] * 0.75, min_slope=0.42,
+        size_range=(0.10, 0.38))
+    if rocks:
+        rocks.data.materials.append(alpine_mat)
+        rocks.pass_index = cfg["pass_id"]
+        children.append(rocks)
+
+    return obj, children
+
+
+def default_mountain_configs(types=None, seed=0):
+    """Four-peak FMT layout by default; any of the twelve landforms can be used."""
+    types = list(types or DEFAULT_TYPES)
+    n = len(types)
+    azimuths = DEFAULT_AZIMUTHS if n == 4 else list(np.linspace(0, 360, n, endpoint=False) + 25.0)
+    rng = np.random.default_rng(seed + 5150)
+
+    configs = []
+    for i, kind in enumerate(types):
+        az = math.radians(azimuths[i % len(azimuths)])
+        height = DEFAULT_HEIGHTS[i] if n == 4 else float(rng.uniform(12.5, 19.0))
+        radius = DEFAULT_RADII[i] if n == 4 else float(rng.uniform(11.0, 15.0))
+        ring = MOUNTAIN_RING if n <= 6 else MOUNTAIN_RING + 12.0
+        configs.append({
+            "name": f"M{i + 1}",
+            "type": kind,
+            "height": height,
+            "radius": radius,
+            "pos": (ring * math.cos(az), ring * math.sin(az), VALLEY_FLOOR - MOUNTAIN_SINK),
+            "rot_z": float(rng.uniform(-math.pi, math.pi)),
+            "seed": 101 + 97 * i + seed,
+            "pass_id": PASS_MOUNTAIN_BASE + i,
+            "trees": 2200,
+            "boulders": 280,
+        })
+    return configs
+
+
+# --------------------------------------------------------------------------- #
+# Camera
+# --------------------------------------------------------------------------- #
+
+def setup_camera_rig(scene, lens=28.0, target_z=6.0):
     target = bpy.data.objects.new("CameraTarget", None)
-    target.location = (0, 0, 4.0)
+    target.location = (0.0, 0.0, target_z)
     scene.collection.objects.link(target)
 
     cam_data = bpy.data.cameras.new("Camera")
-    cam_data.lens = 45  # Natural 45mm perspective
+    cam_data.lens = lens
     cam_data.clip_start = 0.1
-    cam_data.clip_end = 450.0
+    cam_data.clip_end = 12000.0
 
-    cam_obj = bpy.data.objects.new("Camera", cam_data)
-    scene.collection.objects.link(cam_obj)
-    scene.camera = cam_obj
+    cam = bpy.data.objects.new("Camera", cam_data)
+    scene.collection.objects.link(cam)
+    scene.camera = cam
 
-    track = cam_obj.constraints.new(type="TRACK_TO")
+    track = cam.constraints.new(type="TRACK_TO")
     track.target = target
     track.track_axis = "TRACK_NEGATIVE_Z"
     track.up_axis = "UP_Y"
+    return cam, target
 
-    return cam_obj, target
 
-
-def position_camera_orbit(cam_obj, radius=54.0, elevation_deg=28.0, azimuth_deg=55.0):
-    """Place camera on a spherical orbit around (0, 0, 4.0)."""
+def position_camera_orbit(cam, radius=88.0, elevation_deg=11.0, azimuth_deg=55.0,
+                          target_z=6.0):
+    """Spherical orbit around the valley centre. Low elevation keeps sky in frame."""
     phi = math.radians(elevation_deg)
     theta = math.radians(azimuth_deg)
-
-    x = radius * math.cos(phi) * math.cos(theta)
-    y = radius * math.cos(phi) * math.sin(theta)
-    z = radius * math.sin(phi) + 4.0
-
-    cam_obj.location = Vector((x, y, z))
+    cam.location = Vector((
+        radius * math.cos(phi) * math.cos(theta),
+        radius * math.cos(phi) * math.sin(theta),
+        radius * math.sin(phi) + target_z,
+    ))
     bpy.context.view_layer.update()
 
 
-def build_four_mountains_scene(output_blend_path="blender/four_mountains/four_mountains.blend"):
-    """Main scene assembly function."""
-    print("=" * 60)
-    print("Building Photorealistic Four Mountains Scene in Blender 5.2...")
-    print("=" * 60)
+# --------------------------------------------------------------------------- #
+# Assembly
+# --------------------------------------------------------------------------- #
+
+def build_four_mountains_scene(output_blend_path=None, types=None, seed=0,
+                               samples=96, resolution=(1024, 1024),
+                               valley_trees=14000, valley_boulders=340):
+    if output_blend_path is None:
+        output_blend_path = os.path.join(_HERE, "four_mountains.blend")
+
+    print("=" * 68)
+    print("Building the Four Mountains alpine world (Blender 5.2)")
+    print("=" * 68)
 
     clean_scene()
     scene = bpy.context.scene
+    rng = np.random.default_rng(seed + 20250903)
 
-    # 1. Configure render engine (Cycles + Metal GPU)
-    configure_render_engine(scene, engine="CYCLES", samples=64, resolution=(1024, 1024))
-
-    # 2. Setup Nishita Sky & Sun lighting
+    configure_render_engine(scene, samples=samples, resolution=resolution)
     setup_lighting(scene)
 
-    # 3. Create procedural alpine PBR material
-    alpine_mat = create_alpine_material()
+    alpine_mat = create_alpine_material(snow_line=SNOW_LINE, tree_line=TREE_LINE,
+                                       water_level=WATER_LEVEL)
+    water_mat = create_water_material()
+    tree_mat = create_tree_material()
 
-    # 4. Generate the 4 distinct mountain peaks with polar meshes
-    mountain_configs = [
-        {"name": "M1", "type": "horn", "height": 16.0, "radius": 12.0, "pos": (-12.0, 10.0, -0.2), "rot_z": 0.40, "seed": 101, "pass_id": 3},
-        {"name": "M2", "type": "ridge", "height": 13.0, "radius": 13.5, "pos": (12.5, 10.5, -0.2), "rot_z": -0.50, "seed": 202, "pass_id": 4},
-        {"name": "M3", "type": "mesa_crag", "height": 11.5, "radius": 11.5, "pos": (-10.0, -11.5, -0.2), "rot_z": 1.15, "seed": 303, "pass_id": 5},
-        {"name": "M4", "type": "dome", "height": 14.0, "radius": 14.0, "pos": (11.0, -10.0, -0.2), "rot_z": 0.0, "seed": 404, "pass_id": 6},
-    ]
+    print("  Terrain: valley, foothills, mid range and horizon skyline...")
+    landscape, LX, LY, LZ = generate_landscape(alpine_mat, seed=77 + seed)
+    scene.collection.objects.link(landscape)
 
-    mountains = []
-    for cfg in mountain_configs:
-        print(f"  Generating {cfg['name']}: {cfg['type']} (height={cfg['height']}m, radius={cfg['radius']}m)...")
-        m_obj = generate_mountain_mesh(
-            cfg["name"],
-            morphology_type=cfg["type"],
-            height=cfg["height"],
-            base_radius=cfg["radius"],
-            n_r=70,
-            n_theta=180,
-            seed=cfg["seed"]
-        )
-        m_obj.location = Vector(cfg["pos"])
-        m_obj.rotation_euler = Euler((0, 0, cfg["rot_z"]), "XYZ")
-        m_obj.pass_index = cfg["pass_id"]
-        m_obj.data.materials.append(alpine_mat)
-        scene.collection.objects.link(m_obj)
-        mountains.append(m_obj)
+    print("  Alpine tarn...")
+    scene.collection.objects.link(create_lake(water_mat))
 
-    # 5. Generate Seamless Alpine Landscape (Valley + Horizon Backdrop Ring)
-    print("  Generating Seamless Alpine Landscape & 360° Horizon...")
-    landscape_obj = generate_landscape(alpine_mat)
-    landscape_obj.pass_index = 1
-    scene.collection.objects.link(landscape_obj)
+    configs = default_mountain_configs(types=types, seed=seed)
+    names = []
+    for cfg in configs:
+        print(f"  {cfg['name']}: {cfg['type']:9s} h={cfg['height']:.1f}m r={cfg['radius']:.1f}m")
+        peak, children = build_mountain(cfg, alpine_mat, tree_mat, rng)
+        scene.collection.objects.link(peak)
+        for child in children:
+            scene.collection.objects.link(child)
+            parent_keep_local(child, peak)
+        names.append(cfg["name"])
 
-    # 6. Setup Camera Rig
-    cam_obj, target = setup_camera_rig(scene)
-    position_camera_orbit(cam_obj, radius=54.0, elevation_deg=28.0, azimuth_deg=55.0)
+    print("  Valley forest and boulder fields...")
+    valley_forest = scatter_conifers(
+        "Valley_Forest", LX, LY, LZ, count=valley_trees, rng=rng,
+        z_min=VALLEY_FLOOR - 0.6, z_max=TREE_LINE, min_slope=0.62,
+        height_range=(0.75, 1.75), radius_limit=270.0)
+    if valley_forest:
+        valley_forest.data.materials.append(tree_mat)
+        valley_forest.pass_index = PASS_TERRAIN
+        scene.collection.objects.link(valley_forest)
 
-    # 7. Enable Render Passes for depth / segmentation
-    scene.view_layers["ViewLayer"].use_pass_z = True
-    scene.view_layers["ViewLayer"].use_pass_object_index = True
+    valley_rocks = scatter_boulders(
+        "Valley_Rocks", LX, LY, LZ, count=valley_boulders, rng=rng,
+        z_min=WATER_LEVEL - 0.2, z_max=9.0, min_slope=0.40, size_range=(0.12, 0.42),
+        radius_limit=115.0)
+    if valley_rocks:
+        valley_rocks.data.materials.append(alpine_mat)
+        valley_rocks.pass_index = PASS_TERRAIN
+        scene.collection.objects.link(valley_rocks)
 
-    # Save .blend file
+    cam, _ = setup_camera_rig(scene)
+    position_camera_orbit(cam)
+
+    view_layer = scene.view_layers[0]
+    view_layer.use_pass_z = True
+    view_layer.use_pass_object_index = True
+    view_layer.use_pass_mist = True
+
+    scene["fm_mountains"] = names
+    scene["fm_types"] = [c["type"] for c in configs]
+    scene["fm_water_level"] = WATER_LEVEL
+
     os.makedirs(os.path.dirname(output_blend_path), exist_ok=True)
     bpy.ops.wm.save_as_mainfile(filepath=output_blend_path)
-    print(f"Successfully generated and saved scene to: {output_blend_path}")
-
+    print(f"Saved scene -> {output_blend_path}")
     return output_blend_path
 
 
+def _parse_args(argv):
+    p = argparse.ArgumentParser(description="Generate the Four Mountains scene")
+    p.add_argument("--out", default=None, help="Output .blend path")
+    p.add_argument("--types", default=None,
+                   help=f"Comma-separated landforms. Available: {','.join(morphology_names())}")
+    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--samples", type=int, default=96)
+    p.add_argument("--resolution", type=int, nargs=2, default=(1024, 1024))
+    p.add_argument("--valley_trees", type=int, default=14000)
+    return p.parse_args(argv)
+
+
 if __name__ == "__main__":
-    blend_path = build_four_mountains_scene()
+    argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
+    args = _parse_args(argv)
+    build_four_mountains_scene(
+        output_blend_path=args.out,
+        types=args.types.split(",") if args.types else None,
+        seed=args.seed,
+        samples=args.samples,
+        resolution=tuple(args.resolution),
+        valley_trees=args.valley_trees,
+    )
     print("Done!")

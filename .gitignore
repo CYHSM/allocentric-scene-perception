@@ -119,3 +119,10 @@ venv.bak/
 
 .vscode
 *.blend1
+
+# Four Mountains figure staging
+_figtmp/
+
+# Four Mountains game render image assets
+game/renders/**/*.png
+game/renders/*.png

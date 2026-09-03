@@ -1,0 +1,275 @@
+{
+  "camera": {
+    "elevation_deg": 17.0,
+    "radius": 94.0,
+    "target_z": 6.0,
+    "fov_lens_mm": 28.0,
+    "step_deg": 15,
+    "angles": [
+      0,
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135,
+      150,
+      165,
+      180,
+      195,
+      210,
+      225,
+      240,
+      255,
+      270,
+      285,
+      300,
+      315,
+      330,
+      345
+    ]
+  },
+  "mountain_types": {
+    "M1": "horn",
+    "M2": "ridge",
+    "M3": "mesa",
+    "M4": "dome"
+  },
+  "valleys": {
+    "canonical": {
+      "id": "canonical",
+      "name": "Canonical Four Mountains",
+      "type": "target",
+      "description": "Original landmark arrangement",
+      "mountains": {
+        "M1": {
+          "x": -26.04551124572754,
+          "y": 21.854778289794922,
+          "z": 1.25,
+          "rot_z": 2.112313747406006
+        },
+        "M2": {
+          "x": 26.04551124572754,
+          "y": 21.854778289794922,
+          "z": 1.25,
+          "rot_z": 1.6420910358428955
+        },
+        "M3": {
+          "x": -22.306007385253906,
+          "y": -25.660125732421875,
+          "z": 1.25,
+          "rot_z": -0.8941937685012817
+        },
+        "M4": {
+          "x": 25.266923904418945,
+          "y": -22.75044059753418,
+          "z": 1.25,
+          "rot_z": -1.8072102069854736
+        }
+      },
+      "images": {
+        "0": "renders/bank/canonical_az000.png",
+        "15": "renders/bank/canonical_az015.png",
+        "30": "renders/bank/canonical_az030.png",
+        "45": "renders/bank/canonical_az045.png",
+        "60": "renders/bank/canonical_az060.png",
+        "75": "renders/bank/canonical_az075.png",
+        "90": "renders/bank/canonical_az090.png",
+        "105": "renders/bank/canonical_az105.png",
+        "120": "renders/bank/canonical_az120.png",
+        "135": "renders/bank/canonical_az135.png",
+        "150": "renders/bank/canonical_az150.png",
+        "165": "renders/bank/canonical_az165.png",
+        "180": "renders/bank/canonical_az180.png",
+        "195": "renders/bank/canonical_az195.png",
+        "210": "renders/bank/canonical_az210.png",
+        "225": "renders/bank/canonical_az225.png",
+        "240": "renders/bank/canonical_az240.png",
+        "255": "renders/bank/canonical_az255.png",
+        "270": "renders/bank/canonical_az270.png",
+        "285": "renders/bank/canonical_az285.png",
+        "300": "renders/bank/canonical_az300.png",
+        "315": "renders/bank/canonical_az315.png",
+        "330": "renders/bank/canonical_az330.png",
+        "345": "renders/bank/canonical_az345.png"
+      }
+    },
+    "foil_swap12": {
+      "id": "foil_swap12",
+      "name": "Foil: Peaks 1 & 2 Swapped",
+      "type": "foil",
+      "description": "M1 (Matterhorn) and M2 (Ridge) traded places across the northern valley.",
+      "mountains": {
+        "M1": {
+          "x": 26.04551124572754,
+          "y": 21.854778289794922,
+          "z": 1.25,
+          "rot_z": 2.112313747406006
+        },
+        "M2": {
+          "x": -26.04551124572754,
+          "y": 21.854778289794922,
+          "z": 1.25,
+          "rot_z": 1.6420910358428955
+        },
+        "M3": {
+          "x": -22.306007385253906,
+          "y": -25.660125732421875,
+          "z": 1.25,
+          "rot_z": -0.8941937685012817
+        },
+        "M4": {
+          "x": 25.266923904418945,
+          "y": -22.75044059753418,
+          "z": 1.25,
+          "rot_z": -1.8072102069854736
+        }
+      },
+      "images": {
+        "0": "renders/bank/foil_swap12_az000.png",
+        "15": "renders/bank/foil_swap12_az015.png",
+        "30": "renders/bank/foil_swap12_az030.png",
+        "45": "renders/bank/foil_swap12_az045.png",
+        "60": "renders/bank/foil_swap12_az060.png",
+        "75": "renders/bank/foil_swap12_az075.png",
+        "90": "renders/bank/foil_swap12_az090.png",
+        "105": "renders/bank/foil_swap12_az105.png",
+        "120": "renders/bank/foil_swap12_az120.png",
+        "135": "renders/bank/foil_swap12_az135.png",
+        "150": "renders/bank/foil_swap12_az150.png",
+        "165": "renders/bank/foil_swap12_az165.png",
+        "180": "renders/bank/foil_swap12_az180.png",
+        "195": "renders/bank/foil_swap12_az195.png",
+        "210": "renders/bank/foil_swap12_az210.png",
+        "225": "renders/bank/foil_swap12_az225.png",
+        "240": "renders/bank/foil_swap12_az240.png",
+        "255": "renders/bank/foil_swap12_az255.png",
+        "270": "renders/bank/foil_swap12_az270.png",
+        "285": "renders/bank/foil_swap12_az285.png",
+        "300": "renders/bank/foil_swap12_az300.png",
+        "315": "renders/bank/foil_swap12_az315.png",
+        "330": "renders/bank/foil_swap12_az330.png",
+        "345": "renders/bank/foil_swap12_az345.png"
+      }
+    },
+    "foil_swap34": {
+      "id": "foil_swap34",
+      "name": "Foil: Peaks 3 & 4 Swapped",
+      "type": "foil",
+      "description": "M3 (Tableland mesa) and M4 (Dome) traded places across the southern valley.",
+      "mountains": {
+        "M1": {
+          "x": -26.04551124572754,
+          "y": 21.854778289794922,
+          "z": 1.25,
+          "rot_z": 2.112313747406006
+        },
+        "M2": {
+          "x": 26.04551124572754,
+          "y": 21.854778289794922,
+          "z": 1.25,
+          "rot_z": 1.6420910358428955
+        },
+        "M3": {
+          "x": 25.266923904418945,
+          "y": -22.75044059753418,
+          "z": 1.25,
+          "rot_z": -0.8941937685012817
+        },
+        "M4": {
+          "x": -22.306007385253906,
+          "y": -25.660125732421875,
+          "z": 1.25,
+          "rot_z": -1.8072102069854736
+        }
+      },
+      "images": {
+        "0": "renders/bank/foil_swap34_az000.png",
+        "15": "renders/bank/foil_swap34_az015.png",
+        "30": "renders/bank/foil_swap34_az030.png",
+        "45": "renders/bank/foil_swap34_az045.png",
+        "60": "renders/bank/foil_swap34_az060.png",
+        "75": "renders/bank/foil_swap34_az075.png",
+        "90": "renders/bank/foil_swap34_az090.png",
+        "105": "renders/bank/foil_swap34_az105.png",
+        "120": "renders/bank/foil_swap34_az120.png",
+        "135": "renders/bank/foil_swap34_az135.png",
+        "150": "renders/bank/foil_swap34_az150.png",
+        "165": "renders/bank/foil_swap34_az165.png",
+        "180": "renders/bank/foil_swap34_az180.png",
+        "195": "renders/bank/foil_swap34_az195.png",
+        "210": "renders/bank/foil_swap34_az210.png",
+        "225": "renders/bank/foil_swap34_az225.png",
+        "240": "renders/bank/foil_swap34_az240.png",
+        "255": "renders/bank/foil_swap34_az255.png",
+        "270": "renders/bank/foil_swap34_az270.png",
+        "285": "renders/bank/foil_swap34_az285.png",
+        "300": "renders/bank/foil_swap34_az300.png",
+        "315": "renders/bank/foil_swap34_az315.png",
+        "330": "renders/bank/foil_swap34_az330.png",
+        "345": "renders/bank/foil_swap34_az345.png"
+      }
+    },
+    "foil_swap13": {
+      "id": "foil_swap13",
+      "name": "Foil: Peaks 1 & 3 Swapped",
+      "type": "foil",
+      "description": "M1 (Matterhorn) and M3 (Tableland mesa) traded places across the western valley.",
+      "mountains": {
+        "M1": {
+          "x": -22.306007385253906,
+          "y": -25.660125732421875,
+          "z": 1.25,
+          "rot_z": 2.112313747406006
+        },
+        "M2": {
+          "x": 26.04551124572754,
+          "y": 21.854778289794922,
+          "z": 1.25,
+          "rot_z": 1.6420910358428955
+        },
+        "M3": {
+          "x": -26.04551124572754,
+          "y": 21.854778289794922,
+          "z": 1.25,
+          "rot_z": -0.8941937685012817
+        },
+        "M4": {
+          "x": 25.266923904418945,
+          "y": -22.75044059753418,
+          "z": 1.25,
+          "rot_z": -1.8072102069854736
+        }
+      },
+      "images": {
+        "0": "renders/bank/foil_swap13_az000.png",
+        "15": "renders/bank/foil_swap13_az015.png",
+        "30": "renders/bank/foil_swap13_az030.png",
+        "45": "renders/bank/foil_swap13_az045.png",
+        "60": "renders/bank/foil_swap13_az060.png",
+        "75": "renders/bank/foil_swap13_az075.png",
+        "90": "renders/bank/foil_swap13_az090.png",
+        "105": "renders/bank/foil_swap13_az105.png",
+        "120": "renders/bank/foil_swap13_az120.png",
+        "135": "renders/bank/foil_swap13_az135.png",
+        "150": "renders/bank/foil_swap13_az150.png",
+        "165": "renders/bank/foil_swap13_az165.png",
+        "180": "renders/bank/foil_swap13_az180.png",
+        "195": "renders/bank/foil_swap13_az195.png",
+        "210": "renders/bank/foil_swap13_az210.png",
+        "225": "renders/bank/foil_swap13_az225.png",
+        "240": "renders/bank/foil_swap13_az240.png",
+        "255": "renders/bank/foil_swap13_az255.png",
+        "270": "renders/bank/foil_swap13_az270.png",
+        "285": "renders/bank/foil_swap13_az285.png",
+        "300": "renders/bank/foil_swap13_az300.png",
+        "315": "renders/bank/foil_swap13_az315.png",
+        "330": "renders/bank/foil_swap13_az330.png",
+        "345": "renders/bank/foil_swap13_az345.png"
+      }
+    }
+  }
+}
