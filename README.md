@@ -1,71 +1,151 @@
-# Allocentric Scene Perception benchmark (ASP)
-<p align="center">
-  <img src="./media/asp_gif.gif" alt="Example Gif" style="display:block; margin:auto;">
-</p>
+# Four Mountains Task: Procedural 3D Environment & Dataset Generator
 
-This repository hosts both the ASP benchmark and a biologically plausible model for unsupervised segmentation of objects. If you use the benchmark or the model in your project please cite the following paper (published at CVPR2023):
+A photorealistic, fully procedural 3D alpine environment and dataset generator built for **Allocentric Scene Perception** and the **Four Mountains Task (FMT)** in **Blender 5.2+**.
 
-- [Frey, M., Doeller, C.F. & Barry, C. (2023).
- Probing neural representations of scene perception in a hippocampally dependent task using artificial neural networks. arXiv preprint arXiv:2303.06367.](https://arxiv.org/abs/2303.06367)
+This repository is dedicated to procedural scene generation, flexible viewpoint synthesis, allocentric object manipulation, and automated ground-truth data collection (RGB, depth, and instance segmentation masks).
 
-## Variations of Dataset
-We provide several different versions of our dataset, varying both the color of the objects as well as changing the global reference frame. 
-![ASP overview](media/asp_overview.png)
+---
 
-## Datasets:
-When using the allocentric scene perception benchmark (also called asp in the code there are several dataset options: 
- - asp_surround: Uses 16 images from the scene, rendered from the outside of the environment. 
- - asp_within: Uses 16 images from the scene, rendered from the inside of the environment.
+## Visual Showcase
 
-Both of these can be combined with the following options: 
- - global_COLOR: Uses the scene with the global reference frame. 
- - noglobal_COLOR: Uses the scene without the global reference frame.
- - all_COLOR: Uses snapshots from both the global and local reference frame.
+### 1. 360° Multi-Viewpoint Orbit & Instance Segmentation
+The scene features four geomorphologically distinct mountain peaks positioned in an alpine valley surrounded by a continuous 360° mountain horizon:
 
-COLOR can be one of `['mix', 'green', 'white']`. For example, a valid dataset option would be `asp_surround_mix_ref`. Note that the snapshots are sampled randomly surrounding the center of the environment, therefore you can not assume that the snapshots are evenly distributed around the environment. 
+![Four Mountains 360 Viewpoints and Instance Masks](blender/four_mountains/four_views_collage.png)
 
-Note that the below pre-rendered images have an error in the ref column, so 'ref' refers to no reference and 'noref' to images with a global reference frame.
+*Top Row: Photorealistic Cycles renders across 4 cardinal viewpoints ($0^\circ, 90^\circ, 180^\circ, 270^\circ$). Bottom Row: Pixel-accurate ground-truth instance segmentation masks ($M_1$ Red, $M_2$ Green, $M_3$ Blue, $M_4$ Yellow, Landscape Dark Green).*
 
-## Dataset download
+---
 
-The allocentric scene perception benchmark is now part of Huggingface datasets, which we use to host the zip files (further integration coming soon). Use the following commands to download and unzip the dataset (`ASP_FixedSun.zip`). Note that we also provide two additional datasets, `ASP_RandomSunPerScene.zip` and `ASP_RandomSunPerSnapshot.zip`, which are the same as `ASP_FixedSun` but with random sun positions for each scene and snapshot respectively.
+### 2. Allocentric Position Manipulation (Distractor Foils)
+In cognitive neuroscience, the Four Mountains Test evaluates allocentric spatial memory by testing whether an observer can recognize the same mountain arrangement from a novel viewpoint while rejecting distractor foils with altered spatial configurations.
 
-``` bash
-wget https://huggingface.co/datasets/CYHSM/asp/resolve/main/ASP_FixedSun.zip
-unzip ASP_FixedSun.zip
+The Python API enables instant coordinate translations of any mountain peak to generate controlled distractor foils:
+
+![Allocentric Position Swap Comparison](blender/four_mountains/position_comparison.png)
+
+*Left: Canonical mountain configuration seen from azimuth 45°. Right: Distractor foil with Mountains 1 and 2 swapped from the exact same viewpoint.*
+
+---
+
+## How the Scene is Generated
+
+The entire environment is generated **procedurally via Python (`bpy`)** with zero external add-on dependencies.
+
+### 1. Geomorphology & Polar Mesh Clipping
+Rather than using generic cone primitives, each of the four mountains is modeled with distinct geological characteristics using 2D domain warping and multi-scale ridged multifractal noise:
+- **Mountain 1 (Horn)**: Pyramidal Matterhorn-style peak featuring 4 razor-sharp arêtes and deep glacial cirques.
+- **Mountain 2 (Ridge)**: Elongated alpine massif with a knife-edge spine, dual summits, and a saddle crest.
+- **Mountain 3 (Mesa / Crag)**: Stepped terraced rocky massif with sheer cliff bands and wide scree skirts.
+- **Mountain 4 (Dome)**: Stratovolcano with concave-up exponential flanks and radiating fluvial erosion ravines.
+
+**Polar Boundary Clipping**: Each mountain is built using concentric polar coordinates that smoothly touch $Z = 0.0$ at $R = \text{base\_radius}$. This eliminates flat zero-elevation skirts and prevents co-planar $Z$-fighting artifacts.
+
+### 2. Seamless Valley Floor & 360° Horizon
+A seamless radial terrain mesh combines the central rolling alpine valley floor with an outer panoramic mountain backdrop ring (radius $115\text{m}$, height $36\text{m}$), ensuring every camera viewpoint is enclosed by a natural mountain horizon.
+
+### 3. Procedural Alpine Tri-Planar PBR Material
+The terrain shader dynamically blends multiple geological layers based on surface slope angle ($\mathbf{n} \cdot \hat{\mathbf{z}}$) and elevation ($Z$):
+- **Steep Rock Cliffs ($\text{Slope} > 38^\circ$)**: Dark charcoal/slate granite with stratified vertical striations and micro-bump relief.
+- **Alpine Meadow ($\text{Slope} < 28^\circ, Z < 7\text{m}$)**: Vibrant emerald grass and sunlit moss.
+- **Scree / Talus ($\text{Transition slopes}$)**: Weathered gravel banks settling at mountain bases.
+- **Snow Caps ($Z > 9.5\text{m}$)**: High-altitude snow clinging to crests, arêtes, and northern hollows, with slope inhibition preventing snow from sticking to sheer cliffs.
+
+### 4. Physically-Based Atmosphere & Lighting
+- **Nishita Sky Model (`ShaderNodeTexSky`)**: Physically simulates atmospheric Rayleigh and Mie scattering, ozone absorption, and turbidity.
+- **Low Sun Elevation ($24^\circ$)**: Produces rich golden-hour illumination and long, dramatic topography shadows that reveal depth and geological relief.
+
+---
+
+## Repository Structure
+
 ```
-Then use the `--dataset_path` argument to point to the folder containing the dataset, e.g. `--dataset_path /data/ASP_FixedSun/`.
-
-## Adapt the dataset
-
-We provide a [Blender file](blender/asp.blend) which can be used to adapt the task and objects, including code for rendering across novel viewpoints. 
-
-# Model training
-
-## Installation instructions
-Clone the environment and install the dependencies:
-
-``` python
-conda create -n neuroscenes python=3.8
-conda install numpy matplotlib jupyter scipy seaborn
-# Check exact command for installing pytorch here: https://pytorch.org/get-started/locally/
-conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
-pip install wandb einops pytorch-lightning pandas
-pip install tensorflow-cpu tensorflow-datasets
+allocentric-scene-perception/
+├── README.md                                # Project documentation and roadmap
+├── LICENSE                                  # MIT License
+└── blender/
+    └── four_mountains/
+        ├── generate_scene.py                # Procedural scene generator
+        ├── render_dataset.py                # Dataset batch renderer & Python controller API
+        ├── four_mountains.blend             # Self-contained saved Blender scene
+        ├── four_views_collage.png           # 4-viewpoint demo render
+        ├── position_comparison.png          # Mountain position swap demo render
+        ├── heightmaps.png                   # Topography heightfield analysis
+        └── preview.png                      # High-resolution preview image
 ```
 
-## Examples: 
-The following will train the model on the asp_surround_mix_ref dataset with some of the default parameters. 
-``` python
-python train.py --batch_size 1 --learning_rate 0.0002 --gpus 1 --max_epochs -1 --dataset=asp_surround_mix_ref --name=asp_example1 --num_timesteps 6 --p_loss 2 --l1o_weight 0 --l1f_weight 0 --K_down 10 --transformer_layers=1 --wandb_logging=False --project='Example1' --dataset_path /data/ASP_FixedSun/
+---
+
+## Getting Started
+
+### Prerequisites
+- **Blender 4.5+ or 5.0+** (Tested with **Blender 5.2.1 LTS**).
+  - Apple Silicon Metal GPU acceleration is automatically detected and enabled.
+- Python 3.10+ (for post-processing / dataset orchestration).
+
+### 1. Rebuild the 3D Scene
+To generate or re-generate the procedural `.blend` file from scratch:
+```bash
+blender -b -P blender/four_mountains/generate_scene.py
 ```
 
-For full list of options see `train._parse_args`. 
+### 2. Batch-Render Viewpoints
+To render multiple camera viewpoints along a 360° orbit around the four mountains:
+```bash
+blender -b -P blender/four_mountains/render_dataset.py -- --num_views 16 --output_dir data/four_mountains_dataset
+```
+Outputs:
+- `sample_XXXX_azYYY_rgb.png`: Cycles RGB render.
+- `sample_XXXX_azYYY_mask.png`: Instance segmentation mask.
+- `sample_XXXX_azYYY_meta.json`: 6-DoF camera pose, mountain positions, and lighting angles.
 
-# Acknowledgements
-Thanks to the following open source projects for inspiration and code: 
-- [Pytorch](https://pytorch.org/)
-- [PyTorch Lightning](https://pytorch-lightning.readthedocs.io/en/stable/index.html)
-- [GI Simone](https://gitlab.com/generally-intelligent/simone)
-- [Kubric](https://github.com/google-research/kubric)
-- [Cater](https://rohitgirdhar.github.io/CATER/)
+---
+
+## Python API Usage
+
+You can import and control the environment in custom Python scripts:
+
+```python
+import sys
+sys.path.append("blender/four_mountains")
+from render_dataset import FourMountainsRenderer
+
+# Initialize controller
+renderer = FourMountainsRenderer("blender/four_mountains/four_mountains.blend")
+
+# 1. Translate or rotate any mountain peak
+renderer.set_mountain_position("M1", x=-10.0, y=8.0, rot_z=0.4)
+renderer.set_mountain_position("M2", x=12.0, y=10.0, rot_z=-0.5)
+
+# 2. Adjust camera orbit (azimuth in degrees, elevation, radius)
+renderer.set_camera_orbit(azimuth_deg=45.0, elevation_deg=26.0, radius=52.0)
+
+# 3. Adjust sun elevation and time-of-day
+renderer.set_sun(elevation_deg=20.0, azimuth_deg=65.0, energy=2.5)
+
+# 4. Render sample (RGB image, instance mask, and JSON metadata)
+renderer.render_sample(output_dir="output/", sample_idx=0, azimuth_deg=45.0)
+```
+
+---
+
+## Roadmap & Ideas for Future AI / Human Contributions
+
+This repository is designed as a foundation for other AI assistants and human contributors to further beautify, enrich, and scale the environment. Here are high-value areas for future improvements:
+
+1. **Vegetation & Biome Scattering (Geometry Nodes)**:
+   - Add procedural scattering of low-poly alpine fir/pine trees and shrubbery on low-elevation, low-slope valley meadows.
+   - Scatter rock boulders and scree debris at the base of cliffs using geometry proximity nodes.
+2. **Volumetric Atmosphere & Fog**:
+   - Introduce subtle volumetric ground fog / mist layers (`ShaderNodeVolumeScatter`) settling in valley basins for richer aerial perspective cues.
+   - Procedural high-altitude cirrus/cumulus clouds.
+3. **Weather & Season Presets**:
+   - Parameterize seasonal variations: summer (green valleys, minimal snow), autumn (golden larch/grass), and winter (deep snow cover).
+   - Overcast / diffuse lighting presets to test neural model invariance against shadow removal.
+4. **Hydraulic & Thermal Erosion Simulation**:
+   - Apply erosion simulation passes (e.g. sediment transport / alluvial fans) to sculpt realistic dendritic drainage valleys along the mountain flanks.
+5. **Within-Valley Walkthrough Camera**:
+   - Implement ground-level camera trajectories navigating through the mountain passes and valley floor (first-person egocentric navigation).
+6. **Additional Ground-Truth Passes**:
+   - Native 32-bit floating-point depth maps (`.exr`).
+   - Surface normals pass and optical flow vectors for video sequences.
