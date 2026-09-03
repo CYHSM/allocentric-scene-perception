@@ -113,7 +113,9 @@ to it, so a mountain carries its forest and its talus when you move it.
 
 ```
 game/
-└── odd_one_out.html      # browser game: three plates, find the odd valley
+├── odd_one_out.html      # browser game: three plates, 360° turntable, 2D orbital maps
+└── renders/bank/
+    └── manifest.json     # game metadata sidecar (camera parameters, peak coordinates)
 blender/four_mountains/
 ├── fm_noise.py           # numpy value / fBm / ridged-multifractal primitives
 ├── fm_morphology.py      # the twelve landform heightfields
@@ -121,6 +123,7 @@ blender/four_mountains/
 ├── fm_scatter.py         # mesh building, surface sampling, vegetation scatter
 ├── generate_scene.py     # scene assembly -> four_mountains.blend
 ├── render_dataset.py     # controller API + batch dataset renderer
+├── render_game_bank.py   # batch 360° viewpoint bank renderer for the web game
 ├── make_figures.py       # regenerates every image in this README
 └── four_mountains.blend  # self-contained saved scene
 ```
@@ -175,6 +178,16 @@ Per sample:
 - `sample_XXXX_azYYY_meta.json` — camera pose, sun angles, peak positions,
   landform types and the mask colour legend
 
+### Render the 360° Game Viewpoint Bank
+
+Renders 96 photorealistic Cycles frames across the canonical valley and 3 distractor foils (24 viewpoints per valley at 15° steps) with the camera orbit elevated to 17° so all peaks remain visible:
+
+```bash
+blender -b blender/four_mountains/four_mountains.blend -P blender/four_mountains/render_game_bank.py
+```
+
+Outputs are written directly to `game/renders/bank/` along with `manifest.json`.
+
 ### Regenerate the README figures
 
 ```bash
@@ -200,7 +213,7 @@ renderer.set_mountain_position("M1", x=-10.0, y=8.0, rot_z=0.4)
 renderer.swap_mountains("M1", "M2")
 
 # Camera orbit (azimuth degrees, elevation, radius, look-at height)
-renderer.set_camera_orbit(azimuth_deg=45.0, elevation_deg=11.0, radius=88.0)
+renderer.set_camera_orbit(azimuth_deg=45.0, elevation_deg=17.0, radius=94.0, target_z=6.0)
 
 # Time of day: azimuth is the bearing the light comes from
 renderer.set_sun(elevation_deg=18.0, azimuth_deg=210.0, energy=75.0)
@@ -215,33 +228,25 @@ decoding the masks.
 
 ---
 
-## Play it in the browser
+## Play it in the browser: Wrong Valley (Four Mountains Task)
 
-`game/odd_one_out.html` is a self-contained, no-build version of the task:
-three plates per trial, two showing one valley from different bearings and one
-showing somewhere else. Pick the odd one. Difficulty ramps by peak count — one
-peak, then two, then three, up to eight.
+`game/odd_one_out.html` is an interactive implementation of the Four Mountains Task powered by the **Blender Cycles 360° Viewpoint Bank**:
 
-Terrain is generated live in the browser: the noise primitives and all twelve
-landforms from `fm_noise.py` / `fm_morphology.py` are ported to JavaScript and
-meshed with three.js, so every trial is a fresh valley rather than a fixed image
-bank.
+- **Photorealistic Cycles Raytracing**: All plates display authentic Blender Cycles renders with physical Nishita lighting, conifer forest stands, talus boulder fields, water reflections, and snow summits.
+- **Fixed Constant-Radius 360° Orbit**: Camera is locked to a circular orbit at 17° elevation ($R = 94.0$, $\text{target}_z = 6.0$), ensuring all 4 landmark peaks and the central tarn remain clearly visible from every bearing without any artificial zoom variation.
+- **Interactive 360° Orbit Turntable**: Drag horizontally across any plate or scrub the slider below it to rotate smoothly around that valley through all 24 angles ($0^\circ \dots 345^\circ$).
+- **Orbital 2D Plan Views**: Answering reveals top-down maps showing the exact coordinates of M1 (Matterhorn), M2 (Knife Ridge), M3 (Table Mesa), and M4 (Ash Dome), the central tarn, and the camera's line-of-sight bearing.
+- **Classic FMT Foils**: Foils preserve the 4 landmark shapes and alter their spatial arrangement (e.g., M1 & M2 swapped across the northern rim, M3 & M4 swapped across the southern rim, or M1 & M3 swapped).
 
-Foils follow the clinical design — they keep the target's landforms and change
-the arrangement, so local feature matching fails:
+### Launching the game
 
-| Level | Foil |
-| --- | --- |
-| 1–2 | different landforms at the same positions |
-| 3–4 | one peak relocated |
-| 5+ | two peaks trade places (same shapes, same locations, different assignment) |
+Serve the `game/` folder with Python:
 
-From level 4 the light and season are re-rolled *independently per plate*, as in
-the original test, so appearance never marks the answer. Answering reveals a
-plan view under each plate showing the layout and the camera bearing.
+```bash
+python3 -m http.server 8000 --directory game
+```
 
-Open the file directly, or play the published version:
-<https://claude.ai/code/artifact/5eb3353b-a3ef-4cb1-a511-7aa03fd46d8c>
+Then open your browser to **<http://localhost:8000/odd_one_out.html>** (or run `open game/odd_one_out.html` on macOS).
 
 ---
 
