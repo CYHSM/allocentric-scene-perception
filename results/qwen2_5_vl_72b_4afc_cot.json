@@ -1,0 +1,339 @@
+{
+  "summary": {
+    "in_progress": true,
+    "done": 30,
+    "total": 500
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t00",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 15.734357595443726,
+      "reply": "When comparing the spatial layout of the peaks in the study image and the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is positioned behind the purple cone, while the yellow sphere is to the right of the green cylinder. The cyan pyramid is situated to the left of the green cylinder. Among the options, Option 1 maintains this spatial relationship but with a slight shift in perspective, suggesting a change in viewpoint rather than a completely different layout. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t01",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 13.924778461456299,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is positioned behind the teal pyramid, while the yellow sphere and purple cone are to the right. Option 3 maintains this spatial relationship, with the green cylinder still appearing behind the teal pyramid and the yellow sphere and purple cone maintaining their relative positions to the right, albeit from a slightly different angle. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t02",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 13.342006921768188,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is positioned behind the purple cone, while the yellow sphere and teal pyramid are to the right. Option 2 maintains this arrangement but shifts the perspective slightly, keeping the green cylinder behind the purple cone and the yellow sphere and teal pyramid in their respective positions to the right. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t03",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 14.112683296203613,
+      "reply": "When comparing the spatial layout of the peaks in the study image and the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is on the left, the yellow sphere is on the right, and the purple and blue pyramids are positioned behind them. Option 4 maintains this arrangement but shifts the perspective slightly, making the green cylinder appear more central while keeping the yellow sphere prominent on the right side and the pyramids still positioned behind.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t04",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 14.69484567642212,
+      "reply": "When comparing the spatial layout of the peaks in the study image and the options, it's clear that the relative positions of the shapes have been altered in most options. In the study image, the green cylinder is on the far left, the yellow sphere is slightly behind and to the right of the cylinder, the purple cone is further back and to the right, and the teal pyramid is in the foreground. Option 4 maintains this general arrangement but with a slight shift in perspective, suggesting a change in viewpoint rather than a completely different layout. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t05",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 15.696985483169556,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is on the left, the teal pyramid is slightly behind and to the right of the cylinder, the yellow sphere is further back and to the right, and the purple cone is in the foreground on the right. Option 4 maintains this spatial arrangement but appears to have been taken from a slightly different angle, giving the impression of a different lighting condition while keeping the relative positions consistent.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t06",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 14.130618572235107,
+      "reply": "When comparing the spatial layout of the peaks in the study image and the options, it's clear that the relative positions of the shapes have been altered in most options. In the study image, the green cylinder is centrally located with the yellow sphere slightly behind it, the purple cone to the right, and the cyan pyramid to the left. Option 4 maintains this general arrangement but shifts the perspective slightly, keeping the green cylinder central while repositioning the other shapes around it in a manner consistent with a rotated viewpoint. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t07",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 13.663950204849243,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is on the far left, followed by the yellow sphere, purple cone, and teal pyramid towards the right. Option 2 maintains this sequence but shifts the perspective slightly, keeping the green cylinder on the left and the pyramid on the right while adjusting the angles of the other shapes accordingly. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t08",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 16.363041400909424,
+      "reply": "When comparing the spatial layout of the peaks in the study image and the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is central and prominent, with the yellow sphere to its right, the purple cone slightly behind and to the right, and the teal pyramid further back to the left. Option 3 maintains this spatial relationship, with the green cylinder still central, the yellow sphere to its right, the purple cone slightly behind and to the right, and the teal pyramid further back to the left, indicating a similar but shifted viewpoint.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t09",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 14.238697290420532,
+      "reply": "When comparing the spatial layout of the peaks in the study image and the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the yellow sphere is positioned to the left, the purple cone is in front, the green cylinder is to the right, and the teal pyramid is further back on the right. Option 2 maintains this spatial arrangement but shifts the perspective slightly, making the yellow sphere appear more central while keeping the other shapes in their respective relative positions.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 13.3157217502594,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is positioned behind the purple cone, while the yellow dome is to the right. Option 4 maintains this spatial relationship, showing the green cylinder still behind the purple cone and the yellow dome similarly placed to the right, indicating a consistent layout but from a slightly different angle. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t11",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 14.125632524490356,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite any changes in perspective or lighting. In the study image, the green cylinder is positioned to the left, the yellow sphere is in the foreground, the purple cone is slightly to the right, and the teal pyramid is further back. Option 3 maintains this spatial arrangement but appears to have been taken from a slightly different angle, giving a consistent relative positioning of all shapes.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t12",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 13.782146453857422,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is positioned behind the cyan pyramid, while the purple cone is in front of both, and the yellow sphere is to the right. Option 3 maintains this spatial relationship, with the green cylinder still appearing behind the cyan pyramid and the purple cone in front, though the perspective has shifted slightly. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t13",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 15.097553253173828,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes have been altered in most cases. In the study image, the green cylinder is in the foreground on the left, the yellow sphere is slightly behind and to the right, the purple cone is further back on the right, and the blue pyramid is furthest back on the left. Option 1 maintains this exact spatial arrangement but appears to be viewed from a slightly different angle and under different lighting conditions, which affects the shadows and highlights.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t14",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 15.049821853637695,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is on the right side, the yellow sphere is in the foreground, and the blue pyramid and purple cone are positioned further back. Option 3 maintains this arrangement but shifts the perspective slightly, keeping the green cylinder on the right and the yellow sphere prominent in the foreground while the blue pyramid and purple cone remain in their respective positions relative to each other.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t15",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 13.77424669265747,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is on the left, the yellow sphere is on the right, and the purple and blue triangles are positioned behind them. Option 4 maintains this arrangement but shifts the perspective slightly, keeping the green cylinder on the left and the yellow sphere on the right while repositioning the triangles accordingly. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t16",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 14.119856357574463,
+      "reply": "When comparing the spatial layout of the peaks in the study image and the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is positioned towards the back-left, the teal pyramid is in the front-left, the yellow sphere is in the front-right, and the purple cone is slightly behind and to the right of the sphere. Option 3 maintains this spatial relationship but appears rotated slightly clockwise, keeping the same relative positions of the shapes.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t17",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 13.905666589736938,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the purple cone is positioned to the left, the yellow sphere is in the foreground, the green cylinder is to the right, and the blue pyramid is slightly behind the sphere. Option 3 maintains this spatial arrangement but appears to have been taken from a slightly different angle, giving a consistent relative positioning of all shapes.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t18",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 13.332193851470947,
+      "reply": "The STUDY image features a green cylinder on the left, a small purple cone behind it, a yellow sphere slightly to the right, and a teal pyramid further to the right. In Option 1, the spatial arrangement appears similar, but the green cylinder has changed color to a lighter shade, and the purple cone's position seems slightly altered. Option 2, 3, and 4 all display significant changes in the relative positions and types of shapes, indicating different landscapes. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t19",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 14.825390100479126,
+      "reply": "When comparing the spatial layout of the peaks in the study image and the options, it's clear that the relative positions of the shapes must be preserved despite any changes in perspective or lighting. In the study image, the green cylinder is positioned to the right of the yellow sphere, while the purple cone is in front of the teal pyramid. Option 4 maintains this spatial relationship, with the green cylinder still to the right of the yellow sphere and the purple cone in front of the teal pyramid, suggesting a consistent layout but from a slightly different angle. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t00",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 17.47721791267395,
+      "reply": "When comparing the spatial layout of the peaks in the study image and the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the purple cone is positioned to the left and slightly forward compared to the green cylinder, while the yellow sphere is situated behind and to the right of the green cylinder. The blue pyramid is further back and to the left. Option 4 maintains this spatial relationship, with the purple cone still appearing to the left and slightly forward of the green cylinder, and the yellow sphere remaining behind and to the right of the green cylinder, indicating a consistent layout but from a different angle. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t01",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 21.40689778327942,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes have been altered in most cases. In the study image, the green cylinder is prominent in the foreground on the left, while the yellow sphere is slightly behind and to the right, and the purple cone is further back on the right. The small blue pyramid is partially hidden behind the green cylinder. Option 1 maintains this general arrangement but shifts the perspective slightly, keeping the green cylinder in the foreground and the other shapes in similar relative positions. \n\nOption 2 and Option 3 rearrange the shapes significantly, placing the blue pyramid more prominently in the foreground, which does not match the study image. Option 4 also changes the layout by moving the purple cone closer to the center and altering the overall arrangement. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t02",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 15.713871002197266,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is on the left, the yellow sphere is in front, the purple cone is slightly behind and to the right, and the blue pyramid is further back. Option 4 maintains this spatial relationship but shifts the perspective so that the green cylinder appears more towards the back right, while the yellow sphere remains prominent in the foreground, and the purple cone and blue pyramid maintain their relative positions.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t03",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 15.2670578956604,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the yellow sphere is positioned to the left, the cyan pyramid is slightly behind and to the right of the sphere, the green cylinder is further back and to the right, and the purple cone is in the foreground on the right side. Option 2 maintains this spatial relationship but appears to have been taken from a slightly different angle, giving a similar overall arrangement of the shapes.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t04",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 14.83643913269043,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the yellow sphere is in the foreground, the green cylinder is slightly behind and to the left, the purple cone is to the right, and the cyan pyramid is further back on the left. Option 4 maintains this spatial relationship but shifts the perspective so that the green cylinder appears more prominent in the foreground while the other shapes adjust their positions accordingly around it.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t05",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 13.804268836975098,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is positioned behind the yellow sphere, while the purple cone is in front of the teal pyramid. Option 2 maintains this spatial relationship, with the green cylinder still appearing behind the yellow sphere and the purple cone in front of the teal pyramid, suggesting a consistent layout but from a different angle. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t06",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 14.225699663162231,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes have been altered in most cases. In the study image, the green cylinder is positioned to the right, the yellow sphere is in the foreground, the purple cone is slightly behind and to the left, and the blue pyramid is further back. Option 4 maintains this general arrangement but shifts the perspective slightly, keeping the green cylinder prominent on the right while repositioning the other shapes accordingly. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t07",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 15.01905632019043,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is on the left, the purple cone is in the foreground, the yellow sphere is on the right, and the teal pyramid is slightly behind the center. Option 3 maintains this spatial arrangement but shifts the perspective so that the green cylinder appears further back and the yellow sphere is more prominent in the foreground, suggesting a slight rotation and change in viewpoint.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t08",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 14.90730619430542,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the green cylinder is on the left, the yellow sphere is in the foreground, the purple cone is on the right, and the blue pyramid is slightly behind the green cylinder. Option 2 maintains this spatial arrangement but shifts the perspective so that the green cylinder appears more central while still keeping the yellow sphere prominent in the foreground and the purple cone to the right.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t09",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 18.62655210494995,
+      "reply": "When comparing the spatial layout of the peaks in the study image to the options, it's clear that the relative positions of the shapes must be preserved despite changes in perspective. In the study image, the purple cone is positioned to the left, the yellow sphere is slightly behind and to the right of the cone, the green cylinder is further back and to the right, and the small blue pyramid is partially hidden behind the cylinder. Option 3 maintains this spatial relationship, with the purple cone still to the left, the yellow sphere in a similar position relative to the cone, the green cylinder in the background, and the blue pyramid visible behind the cylinder, suggesting a slight shift in camera angle rather than a completely different layout.\n\nFinal Answer: Option 3",
+      "error": null
+    }
+  ]
+}

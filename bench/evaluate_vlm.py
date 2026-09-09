@@ -215,6 +215,52 @@ def get_prompt_text(n_options=4, style="cot"):
         )
 
 
+def get_text_prompt(n_options=2, identity_given=True, style="neutral"):
+    """
+    The wording for the text channel.
+
+    Deliberately parallel to `neutral`, clause for clause, because the point of
+    the text arm is that only the channel differs. Two things it must say and
+    the image prompt must not: that the viewing direction of each view is
+    unknown and differs between them (the picture shows this, a coordinate list
+    does not), and -- when the landmarks are anonymous -- that the numbering is
+    per-view. Neither sentence gives anything away: the turn angle itself is
+    never stated, so the rotation still has to be solved.
+    """
+    corr = ("The landmarks are named, and the same name refers to the same "
+            "landmark in every view.\n" if identity_given else
+            "The landmarks are not named. They are listed left to right as seen "
+            "from that viewpoint, and the numbering does not carry from one "
+            "view to the next.\n")
+    body = (
+        f"You will read a STUDY view of a place, then {n_options} candidate views.\n\n"
+        f"Each view lists where the landmarks are relative to the viewer who saw\n"
+        f"them. The place contains several landmarks. Exactly ONE candidate is the\n"
+        f"SAME place as the study view, seen from a different, unknown direction.\n"
+        f"The other candidates are different places, each containing the same\n"
+        f"landmarks arranged differently, seen from the same direction as the\n"
+        f"correct one.\n"
+        f"{corr}\n"
+        f"Which candidate is the same place as the study view?\n")
+    if style in REASONING_STYLES:
+        body += ("Work it out step by step, then answer on the last line as:\n"
+                 "Final Answer: Option X")
+    else:
+        body += "Answer on the last line as:\nFinal Answer: Option X"
+    return body
+
+
+def build_text_message(trial, prompt_style="neutral"):
+    """The whole trial as one string: study view, candidates, instructions."""
+    n_opts = trial["n_options"]
+    parts = ["=== STUDY VIEW ===", trial["study_text"], "", "=== CANDIDATE VIEWS ==="]
+    for i, opt in enumerate(trial["options"], 1):
+        parts += [f"\nOPTION {i}:", opt["text"]]
+    parts += ["", get_text_prompt(n_opts, trial.get("identity_given", True),
+                                  style=prompt_style)]
+    return "\n".join(parts)
+
+
 REASONING_STYLES = {"cot", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid"}
 
 
@@ -278,8 +324,33 @@ class OpenVLMBackend:
                   if part.get("type") == "image"]
         return images, None
 
+    def _predict_text(self, trial, prompt_style, max_new_tokens):
+        """Same model, no images: the text channel run locally."""
+        n_opts = trial["n_options"]
+        messages = [{"role": "user",
+                     "content": [{"type": "text",
+                                  "text": build_text_message(trial, prompt_style)}]}]
+        text = self.processor.apply_chat_template(messages, tokenize=False,
+                                                  add_generation_prompt=True)
+        # `images=[]` is not the same as no images: some processors expand it
+        # into an empty vision tower batch and fail on the concatenation.
+        inputs = self.processor(text=[text], padding=True, return_tensors="pt")
+        inputs = {k: (v.to(self.model.device) if hasattr(v, "to") else v)
+                  for k, v in inputs.items()}
+        with self.torch.inference_mode():
+            gen_ids = self.model.generate(**inputs, max_new_tokens=max_new_tokens,
+                                          do_sample=False)
+        trimmed = [o[len(i):] for i, o in zip(inputs["input_ids"], gen_ids)]
+        reply = self.processor.batch_decode(trimmed, skip_special_tokens=True,
+                                            clean_up_tokenization_spaces=False)[0]
+        choice = parse_answer(reply, n_options=n_opts,
+                              prefer="last" if prompt_style in REASONING_STYLES else "first")
+        return choice, reply.strip()
+
     def predict(self, trial, prompt_style="direct", max_new_tokens=64):
         n_opts = trial["n_options"]
+        if "study_text" in trial:
+            return self._predict_text(trial, prompt_style, max_new_tokens)
         instructions = get_prompt_text(n_opts, style=prompt_style)
 
         content = [
@@ -412,6 +483,13 @@ class APIBackend:
         import json as _json
 
         n_opts = trial["n_options"]
+        # A text trial carries no images, so it also costs no image tokens --
+        # this is the arm that can be run on a cheap text-only model.
+        if "study_text" in trial:
+            content = [{"type": "text",
+                        "text": build_text_message(trial, prompt_style)}]
+            return self._chat(content, n_opts, prompt_style, max_new_tokens)
+
         instructions = get_prompt_text(n_opts, style=prompt_style)
 
         content = [{"type": "text", "text": "=== STUDY IMAGE ==="}]
@@ -427,6 +505,11 @@ class APIBackend:
                 content.append({"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}})
 
         content.append({"type": "text", "text": f"\n{instructions}"})
+        return self._chat(content, n_opts, prompt_style, max_new_tokens)
+
+    def _chat(self, content, n_opts, prompt_style, max_new_tokens):
+        """Post one message and read the answer off it. Shared by both channels."""
+        import json as _json
 
         body = _json.dumps({
             "model": self.model_id,
