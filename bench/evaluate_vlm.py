@@ -203,7 +203,15 @@ class OpenVLMBackend:
         os.environ["HF_HOME"] = os.environ.get("HF_HOME", "/raid/nbe_tmp/markus_frey/cache/huggingface")
 
         print(f"Loading {model_id} on {device}...", flush=True)
-        self.processor = AutoProcessor.from_pretrained(model_id, max_pixels=max_pixels)
+
+        # `max_pixels` is a Qwen processor kwarg. Passing it to a processor that
+        # does not take it is a TypeError after the weights are already on the
+        # GPU, so the family is decided before anything is loaded.
+        self.family = ("qwen" if "qwen" in model_id.lower()
+                       else "internvl" if "internvl" in model_id.lower()
+                       else "generic")
+        kwargs = {"max_pixels": max_pixels} if self.family == "qwen" else {}
+        self.processor = AutoProcessor.from_pretrained(model_id, **kwargs)
 
         # Check model family
         if "qwen2.5-vl" in model_id.lower():
@@ -225,9 +233,27 @@ class OpenVLMBackend:
         self.model.eval()
         print(f"Model {model_id} loaded successfully.", flush=True)
 
-    def predict(self, trial, prompt_style="direct", max_new_tokens=64):
-        from qwen_vl_utils import process_vision_info
+    def _vision(self, messages):
+        """
+        Resolve the image paths in `messages` to whatever the processor wants.
 
+        `qwen_vl_utils.process_vision_info` also applies Qwen's smart-resize and
+        returns the (images, videos) pair its processor expects. Nothing outside
+        the Qwen family takes that pair, and importing it for an InternVL run
+        would fail on a machine that never installed it, so non-Qwen models get
+        plain PIL images and no video argument.
+        """
+        if self.family == "qwen":
+            from qwen_vl_utils import process_vision_info
+            return process_vision_info(messages)
+
+        from PIL import Image
+        images = [Image.open(part["image"]).convert("RGB")
+                  for m in messages for part in m["content"]
+                  if part.get("type") == "image"]
+        return images, None
+
+    def predict(self, trial, prompt_style="direct", max_new_tokens=64):
         n_opts = trial["n_options"]
         instructions = get_prompt_text(n_opts, style=prompt_style)
 
@@ -244,15 +270,13 @@ class OpenVLMBackend:
 
         messages = [{"role": "user", "content": content}]
         text = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-        image_inputs, video_inputs = process_vision_info(messages)
+        image_inputs, video_inputs = self._vision(messages)
 
-        inputs = self.processor(
-            text=[text],
-            images=image_inputs,
-            videos=video_inputs,
-            padding=True,
-            return_tensors="pt"
-        )
+        proc_kwargs = {"text": [text], "images": image_inputs,
+                       "padding": True, "return_tensors": "pt"}
+        if video_inputs is not None:
+            proc_kwargs["videos"] = video_inputs
+        inputs = self.processor(**proc_kwargs)
         inputs = {k: (v.to(self.model.device) if hasattr(v, "to") else v) for k, v in inputs.items()}
 
         with self.torch.inference_mode():

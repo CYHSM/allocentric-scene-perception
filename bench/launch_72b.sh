@@ -26,14 +26,14 @@ BENCHMARK="data/vlm_benchmark_4afc.json"
 PROMPT="${PROMPT_STYLE:-cot}"
 OUT="results/qwen2_5_vl_72b_4afc_${PROMPT}.json"
 LOG="logs/qwen2_5_vl_72b_4afc_${PROMPT}.log"
-LOCK="logs/.72b.lock"
+LOCK="logs/.vlm_gpu.lock"   # shared: one GPU eval at a time on this box
 
 export HF_HOME="/raid/nbe_tmp/markus_frey/cache/huggingface"
 mkdir -p results logs paper
 
 exec 9>"$LOCK"
 if ! flock -n 9; then
-    echo "another 72B evaluation already holds $LOCK -- exiting rather than racing it"
+    echo "another GPU evaluation already holds $LOCK -- exiting rather than racing it"
     exit 0
 fi
 

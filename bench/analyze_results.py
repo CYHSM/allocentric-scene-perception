@@ -65,8 +65,10 @@ def analyze_model(path, title):
     }
 
 if __name__ == "__main__":
-    analyze_model("results/qwen2_5_vl_3b_4afc_full.json", "Qwen2.5-VL-3B-Instruct (4AFC CoT)")
-    analyze_model("results/qwen2_5_vl_7b_4afc_full.json", "Qwen2.5-VL-7B-Instruct (4AFC CoT)")
-    analyze_model("results/qwen2_5_vl_32b_4afc_full.json", "Qwen2.5-VL-32B-Instruct (4AFC CoT)")
-    analyze_model("results/calib_7b_mental_rotation.json", "Qwen2.5-VL-7B-Instruct (Mental Rotation Prompt)")
-    analyze_model("results/calib_7b_2afc_mr.json", "Qwen2.5-VL-7B-Instruct (2AFC Pairwise Mental Rotation)")
+    analyze_model("results/qwen2_5_vl_3b_4afc_full.json", "1. Qwen2.5-VL-3B-Instruct (4AFC CoT)")
+    analyze_model("results/qwen2_5_vl_7b_4afc_full.json", "2. Qwen2.5-VL-7B-Instruct (4AFC CoT)")
+    analyze_model("results/qwen2_5_vl_32b_4afc_full.json", "3. Qwen2.5-VL-32B-Instruct (4AFC CoT)")
+    analyze_model("results/qwen2_5_vl_7b_mental_rot_full.json", "4. Qwen2.5-VL-7B-Instruct (4AFC Mental Rotation)")
+    analyze_model("results/qwen2_5_vl_7b_anchor_full.json", "5. Qwen2.5-VL-7B-Instruct (4AFC Landmark Anchor)")
+    analyze_model("results/qwen2_5_vl_7b_2afc_full.json", "6. Qwen2.5-VL-7B-Instruct (Pairwise 2AFC Format)")
+    analyze_model("results/qwen2_5_vl_72b_4afc_cot.json", "7. Qwen2.5-VL-72B-Instruct (4AFC CoT - Active)")
