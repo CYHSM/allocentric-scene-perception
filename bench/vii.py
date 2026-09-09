@@ -29,6 +29,8 @@ distribution would score while ignoring the images entirely, and it belongs
 beside every number VII produces.
 """
 
+import functools
+
 import numpy as np
 
 __all__ = ["pc_from_dprime", "dprime", "vii", "constant_answer_rate",
@@ -58,7 +60,23 @@ def pc_from_dprime(d, m):
     return float(np.sum(_GH_W * _phi(z) ** (m - 1)) / np.sqrt(np.pi))
 
 
+@functools.lru_cache(maxsize=200_000)
+def _dprime_cached(p_correct, m, n_trials, max_d):
+    return _dprime(p_correct, m, n_trials, max_d)
+
+
 def dprime(p_correct, m, n_trials=None, max_d=8.0):
+    """
+    Memoised wrapper. Bootstrapping VII evaluates this a few million times, and
+    a bootstrap resample of k/n takes only n+1 distinct values, so almost every
+    call after the first few is a repeat. Without the cache a single figure took
+    minutes; the numbers are identical either way.
+    """
+    return _dprime_cached(float(p_correct), int(m),
+                          int(n_trials) if n_trials else None, float(max_d))
+
+
+def _dprime(p_correct, m, n_trials=None, max_d=8.0):
     """
     Invert `pc_from_dprime`. Returns d' >= 0.
 
