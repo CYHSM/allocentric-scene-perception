@@ -176,6 +176,31 @@ def get_prompt_text(n_options=4, style="cot"):
             f"State your final decision on the last line as:\n"
             f"Final Answer: Option X"
         )
+    elif style == "neutral":
+        # The wording humans see, word for word (bench/build_human_task.py reads
+        # this function). Two things differ from `cot`/`direct` and both matter.
+        #
+        # It says "landmarks", not "mountain peaks": three of the five stimulus
+        # modes are coloured shapes standing on a bare plane, and calling those
+        # mountains told the model something false about 60% of the bank.
+        #
+        # It states what the foils actually are -- other places from the same
+        # set, photographed on the same bearing -- rather than leaving a model
+        # to assume the arrangement was perturbed. It asks for no reasoning
+        # scaffold, because the humans are not given one either; a matched
+        # comparison cannot hand one side a strategy.
+        return (
+            f"You will see a STUDY image of a place, then {n_options} options.\n\n"
+            f"The place contains several landmarks. Exactly ONE option shows the "
+            f"SAME place as the study image, photographed from a different "
+            f"direction and under different lighting.\n"
+            f"The other options show different places, each containing the same "
+            f"landmarks arranged differently, photographed from the same "
+            f"direction as the correct option.\n\n"
+            f"Which option shows the same place as the study image?\n"
+            f"Answer on the last line as:\n"
+            f"Final Answer: Option X"
+        )
     else:  # direct
         return (
             f"You are taking the Four Mountains Test of spatial perception.\n\n"
@@ -293,18 +318,98 @@ class OpenVLMBackend:
         return choice, reply.strip()
 
 
+class BudgetExceeded(RuntimeError):
+    """Raised to stop a paid run; the caller saves what has been spent on."""
+
+
 class APIBackend:
-    def __init__(self, model_id, api_base=None, api_key=None):
-        import urllib.request
+    """
+    Any OpenAI-compatible endpoint, OpenRouter included.
+
+    Three things this needs that a local backend does not.
+
+    **A budget.** Each 4AFC trial ships five 640x440 PNGs, so a run is dominated
+    by image tokens and a careless 500-trial sweep across four frontier models
+    is real money. `budget_usd` is a hard stop: the run aborts and keeps the
+    trials already paid for, rather than discovering the bill afterwards.
+
+    **Actual cost, not an estimate.** OpenRouter returns the charge for each
+    call when the request asks for it, so what is reported is what was billed --
+    including its per-model image pricing, which is not something to guess at.
+
+    **Retries.** A rate limit or a 502 partway through a paid sweep must not
+    throw away the trials already bought.
+    """
+
+    def __init__(self, model_id, api_base=None, api_key=None, budget_usd=None,
+                 max_retries=5):
         self.model_id = model_id
         self.base = (api_base or os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1")).rstrip("/")
         self.key = api_key or os.environ.get("OPENAI_API_KEY", "")
         if not self.key:
             raise ValueError("API key must be provided via --api_key or OPENAI_API_KEY env var")
+        self.budget_usd = budget_usd
+        self.max_retries = max_retries
+        self.spent = 0.0
+        self.calls = 0
+        self.tokens = {"prompt": 0, "completion": 0}
+
+    def _post(self, body):
+        import json as _json
+        import time
+        import urllib.error
+        import urllib.request
+
+        headers = {"Content-Type": "application/json",
+                   "Authorization": f"Bearer {self.key}"}
+        if "openrouter" in self.base:
+            # OpenRouter asks for these for attribution; they are not credentials.
+            headers["HTTP-Referer"] = "https://github.com/CYHSM/allocentric-scene-perception"
+            headers["X-Title"] = "Allocentric Scene Perception"
+
+        last = None
+        for attempt in range(self.max_retries):
+            try:
+                req = urllib.request.Request(f"{self.base}/chat/completions",
+                                             data=body, headers=headers)
+                with urllib.request.urlopen(req, timeout=180) as r:
+                    return _json.loads(r.read())
+            except urllib.error.HTTPError as e:
+                detail = e.read().decode("utf-8", "replace")[:300]
+                last = f"HTTP {e.code}: {detail}"
+                if e.code not in (408, 409, 429, 500, 502, 503, 504):
+                    raise RuntimeError(last) from None
+            except Exception as e:                       # timeouts, resets
+                last = f"{type(e).__name__}: {e}"
+            wait = min(60, 2 ** attempt)
+            print(f"    retry {attempt + 1}/{self.max_retries} in {wait}s -- {last}",
+                  flush=True)
+            time.sleep(wait)
+        raise RuntimeError(f"gave up after {self.max_retries} attempts: {last}")
+
+    def _charge(self, res):
+        """Record what the provider says the call cost, and stop at the budget."""
+        usage = res.get("usage") or {}
+        self.calls += 1
+        self.tokens["prompt"] += usage.get("prompt_tokens", 0) or 0
+        self.tokens["completion"] += usage.get("completion_tokens", 0) or 0
+        cost = usage.get("cost")
+        if cost is None:
+            cost = (usage.get("cost_details") or {}).get("upstream_inference_cost")
+        self.spent += float(cost or 0.0)
+        if self.budget_usd is not None and self.spent >= self.budget_usd:
+            raise BudgetExceeded(
+                f"spent ${self.spent:.4f} of a ${self.budget_usd:.4f} budget "
+                f"after {self.calls} calls")
+
+    def report(self):
+        return {"calls": self.calls, "spent_usd": round(self.spent, 6),
+                "prompt_tokens": self.tokens["prompt"],
+                "completion_tokens": self.tokens["completion"],
+                "usd_per_call": round(self.spent / self.calls, 6) if self.calls else None}
 
     def predict(self, trial, prompt_style="cot", max_new_tokens=64):
         import json as _json
-        import urllib.request
 
         n_opts = trial["n_options"]
         instructions = get_prompt_text(n_opts, style=prompt_style)
@@ -328,25 +433,54 @@ class APIBackend:
             "messages": [{"role": "user", "content": content}],
             "max_tokens": max_new_tokens,
             "temperature": 0,
+            # Ask the provider to return what the call cost. Without this the
+            # only figure available is a guess from a price list.
+            "usage": {"include": True},
         }).encode()
 
-        req = urllib.request.Request(
-            f"{self.base}/chat/completions",
-            data=body,
-            headers={"Content-Type": "application/json", "Authorization": f"Bearer {self.key}"}
-        )
+        res = self._post(body)
+        self._charge(res)
 
-        with urllib.request.urlopen(req, timeout=120) as r:
-            res = _json.loads(r.read())
-
-        reply = res["choices"][0]["message"]["content"]
+        choices = res.get("choices") or []
+        if not choices:
+            raise RuntimeError(f"no choices in response: {str(res)[:300]}")
+        reply = choices[0]["message"]["content"] or ""
         choice = parse_answer(reply, n_options=n_opts, prefer="last" if prompt_style in REASONING_STYLES else "first")
         return choice, reply.strip()
 
 
+def _stratified(trials, n, seed=0):
+    """
+    `n` trials spread evenly over the (mode, delta) cells.
+
+    `trials[:n]` walks the benchmark in file order, which is mode-major: a 20
+    trial "small run" is then 20 trials of c0 at delta 0 and 45, and says
+    nothing about the other four modes or the larger turns. On a paid endpoint
+    that is the whole budget spent on one corner of the design.
+    """
+    import random
+    rng = random.Random(seed)
+    by_cell = {}
+    for t in trials:
+        by_cell.setdefault((t["mode"], t["delta"]), []).append(t)
+    for v in by_cell.values():
+        rng.shuffle(v)
+    cells, out, i = sorted(by_cell), [], 0
+    while len(out) < n:
+        room = [c for c in cells if len(by_cell[c]) > i]
+        if not room:
+            break
+        for c in room:
+            if len(out) == n:
+                break
+            out.append(by_cell[c][i])
+        i += 1
+    return sorted(out, key=lambda t: t["id"])
+
+
 def run_evaluation(benchmark_path, model_id, out_path, prompt_style="direct",
                    api_base=None, api_key=None, max_trials=None, max_tokens=None,
-                   modes=None, resume=True):
+                   modes=None, resume=True, budget_usd=None, stratified=True):
     with open(benchmark_path) as f:
         bench = json.load(f)
 
@@ -360,8 +494,12 @@ def run_evaluation(benchmark_path, model_id, out_path, prompt_style="direct",
         trials = [t for t in trials if t["mode"] in selected_modes]
         print(f"Filtered trials to modes: {selected_modes} ({len(trials)} trials remaining)", flush=True)
 
-    if max_trials is not None:
-        trials = trials[:max_trials]
+    if max_trials is not None and max_trials < len(trials):
+        trials = (_stratified(trials, max_trials) if stratified
+                  else trials[:max_trials])
+        print(f"Subsampled to {len(trials)} trials "
+              f"({'stratified over mode x delta' if stratified else 'first N in file order'}).",
+              flush=True)
 
     results = {}
     if resume and os.path.exists(out_path):
@@ -375,7 +513,13 @@ def run_evaluation(benchmark_path, model_id, out_path, prompt_style="direct",
 
     # Initialize backend
     if api_base or "gpt" in model_id.lower() or "claude" in model_id.lower():
-        backend = APIBackend(model_id, api_base=api_base, api_key=api_key)
+        backend = APIBackend(model_id, api_base=api_base, api_key=api_key,
+                             budget_usd=budget_usd)
+        if budget_usd is None:
+            print("WARNING: paid endpoint with no --budget_usd ceiling.", flush=True)
+        else:
+            print(f"Budget ceiling: ${budget_usd:.4f}. The run stops and saves "
+                  f"when the provider's reported spend reaches it.", flush=True)
     else:
         backend = OpenVLMBackend(model_id)
 
@@ -394,6 +538,10 @@ def run_evaluation(benchmark_path, model_id, out_path, prompt_style="direct",
         try:
             choice, reply = backend.predict(trial, prompt_style=prompt_style, max_new_tokens=max_tokens)
             err = None
+        except BudgetExceeded as stop:
+            print(f"\nSTOPPING: {stop}", flush=True)
+            print(f"{len(results)} trials were paid for and are saved.", flush=True)
+            break
         except Exception as exc:
             choice, reply, err = None, "", str(exc)
             print(f"[{idx}/{len(trials)}] ERROR on {tid}: {exc}")
@@ -452,12 +600,23 @@ def run_evaluation(benchmark_path, model_id, out_path, prompt_style="direct",
         "choice_distribution": dict(choice_dist),
         "by_mode_delta": {},
     }
+    # What the run actually cost, from the provider rather than a price list.
+    # Recorded in the result file so a figure caption can state it.
+    if hasattr(backend, "report"):
+        summary["api_usage"] = backend.report()
 
     print("\n" + "=" * 65, flush=True)
     print(f"RESULTS SUMMARY: {model_id} ({prompt_style})", flush=True)
     print("=" * 65, flush=True)
     print(f"Overall Accuracy: {100 * summary['overall_accuracy']:.1f}% (Chance: {100 * chance_level:.1f}%)", flush=True)
-    print(f"Choice Distribution: {dict(choice_dist)}\n", flush=True)
+    print(f"Choice Distribution: {dict(choice_dist)}", flush=True)
+    if "api_usage" in summary:
+        u = summary["api_usage"]
+        print(f"API: {u['calls']} calls, ${u['spent_usd']:.4f} spent "
+              f"(${u['usd_per_call'] or 0:.5f}/call), "
+              f"{u['prompt_tokens']:,} prompt + {u['completion_tokens']:,} completion tokens",
+              flush=True)
+    print("", flush=True)
     print(f"{'Mode':20s} | {'Delta':5s} | {'Acc (%)':8s} | {'N':4s}", flush=True)
     print("-" * 45, flush=True)
 
@@ -488,10 +647,18 @@ def main():
     parser.add_argument("--benchmark", default="data/vlm_benchmark_4afc.json", help="Path to benchmark JSON")
     parser.add_argument("--model", required=True, help="Model ID (e.g. Qwen/Qwen2-VL-2B-Instruct)")
     parser.add_argument("--out", required=True, help="Output JSON path")
-    parser.add_argument("--prompt_style", default="cot", choices=["direct", "cot", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid"], help="Prompting style")
+    parser.add_argument("--prompt_style", default="cot", choices=["direct", "cot", "neutral", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid"], help="Prompting style")
     parser.add_argument("--api_base", default=None, help="API Base URL for OpenAI/OpenRouter")
     parser.add_argument("--api_key", default=None, help="API Key for API backend")
     parser.add_argument("--max_trials", type=int, default=None, help="Limit number of trials for testing")
+    parser.add_argument("--budget_usd", type=float, default=None,
+                        help="hard spend ceiling for a paid endpoint; the run "
+                             "stops and saves when the provider's reported cost "
+                             "reaches it")
+    parser.add_argument("--first_n", action="store_true",
+                        help="take the first N trials in file order instead of a "
+                             "stratified sample (file order is mode-major, so this "
+                             "concentrates a small run on one or two modes)")
     parser.add_argument("--max_tokens", type=int, default=None, help="Max generated tokens per trial")
     parser.add_argument("--modes", default=None, help="Comma-separated list of modes to evaluate (e.g. c0_shape_colour,c1_shape)")
     parser.add_argument("--no_resume", action="store_true", help="Do not resume previous run")
@@ -505,6 +672,8 @@ def main():
         api_base=args.api_base,
         api_key=args.api_key,
         max_trials=args.max_trials,
+        budget_usd=args.budget_usd,
+        stratified=not args.first_n,
         max_tokens=args.max_tokens,
         modes=args.modes,
         resume=not args.no_resume

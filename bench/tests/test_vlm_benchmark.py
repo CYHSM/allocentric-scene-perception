@@ -192,3 +192,122 @@ def test_the_correct_choice_index_points_at_the_target(tmp_path):
             assert sum(o["is_target"] for o in opts) == 1
             assert opts[t["correct_choice"] - 1]["is_target"]
             assert opts[t["correct_choice"] - 1]["scene_id"] == t["study_scene"]
+
+
+# --------------------------------------------------------------------------- #
+# Small paid runs, and the human slice
+# --------------------------------------------------------------------------- #
+
+def _fake_trials(n_per_cell=8):
+    modes = ["c0_shape_colour", "c1_shape", "c2_colour", "c3_peaks_bare", "c4_valley"]
+    out = []
+    for m in modes:
+        for d in (0, 45, 90, 135, 180):
+            for t in range(n_per_cell):
+                out.append({"id": f"{m}_d{d:03d}_t{t:02d}", "mode": m, "delta": d,
+                            "correct_choice": (t % 2) + 1, "n_options": 2,
+                            "options": [{"is_target": False}, {"is_target": True}]})
+    return out
+
+
+def test_a_small_run_covers_the_whole_design_not_the_top_of_the_file():
+    """
+    The bug this guards: `trials[:n]` on a mode-major benchmark spends the whole
+    budget on c0 at the two smallest turns. On a paid endpoint that is the
+    entire result -- and it would be reported as if it covered the design.
+    """
+    import importlib.util, pathlib
+    spec = importlib.util.spec_from_file_location(
+        "ev", pathlib.Path(__file__).parents[1] / "evaluate_vlm.py")
+    ev = importlib.util.module_from_spec(spec); spec.loader.exec_module(ev)
+
+    trials = _fake_trials()
+    naive = trials[:25]
+    assert len({(t["mode"], t["delta"]) for t in naive}) < 5, \
+        "the fixture is not mode-major, so this test proves nothing"
+
+    got = ev._stratified(trials, 25)
+    assert len(got) == 25
+    assert len({(t["mode"], t["delta"]) for t in got}) == 25, \
+        "a 25-trial sample must touch each of the 25 cells exactly once"
+
+    got50 = ev._stratified(trials, 50)
+    cells = collections.Counter((t["mode"], t["delta"]) for t in got50)
+    assert set(cells.values()) == {2}
+
+
+def test_the_human_slice_is_the_same_trials_the_models_run(tmp_path):
+    """
+    The human arm is only comparable if it is drawn from the model benchmark
+    without alteration. Anything regenerated rather than sliced -- new option
+    order, a redrawn distractor -- silently breaks the pairing.
+    """
+    import importlib.util, pathlib
+    spec = importlib.util.spec_from_file_location(
+        "bht", pathlib.Path(__file__).parents[1] / "build_human_task.py")
+    bht = importlib.util.module_from_spec(spec); spec.loader.exec_module(bht)
+
+    trials = _fake_trials()
+    sl = bht.balanced_slice(trials, per_cell=2, n_options=2, seed=3)
+    assert len(sl) == 50
+    by_id = {t["id"]: t for t in trials}
+    for t in sl:
+        assert t is by_id[t["id"]], "the slice must hold the benchmark's own trials"
+
+    cells = collections.Counter((t["mode"], t["delta"]) for t in sl)
+    assert set(cells.values()) == {2}
+
+
+@pytest.mark.parametrize("seed", [0, 3, 11])
+def test_the_human_slice_balances_the_answer_position_within_itself(seed):
+    """
+    The full benchmark is balanced per cell; a subsample of it is not, unless it
+    is made so. A two-trial cell with both answers at position 1 is a cell a
+    participant can score 100% on by pressing the same key twice.
+    """
+    import importlib.util, pathlib
+    spec = importlib.util.spec_from_file_location(
+        "bht", pathlib.Path(__file__).parents[1] / "build_human_task.py")
+    bht = importlib.util.module_from_spec(spec); spec.loader.exec_module(bht)
+
+    sl = bht.balanced_slice(_fake_trials(), per_cell=2, n_options=2, seed=seed)
+    per = collections.defaultdict(collections.Counter)
+    for t in sl:
+        per[(t["mode"], t["delta"])][t["correct_choice"]] += 1
+    for cell, c in per.items():
+        assert max(c.values()) - min(c.get(p, 0) for p in (1, 2)) <= 1, \
+            f"{cell}: {dict(c)}"
+
+
+def test_the_budget_stops_a_paid_run_rather_than_reporting_it():
+    """
+    A spend ceiling that merely warns is not a ceiling. It must raise, so the
+    caller breaks out and saves the trials already paid for.
+    """
+    import importlib.util, pathlib
+    spec = importlib.util.spec_from_file_location(
+        "ev", pathlib.Path(__file__).parents[1] / "evaluate_vlm.py")
+    ev = importlib.util.module_from_spec(spec); spec.loader.exec_module(ev)
+
+    b = ev.APIBackend("x/y", api_base="https://openrouter.ai/api/v1",
+                      api_key="dummy", budget_usd=0.05)
+    for _ in range(4):
+        b._charge({"usage": {"cost": 0.01, "prompt_tokens": 10, "completion_tokens": 2}})
+    assert b.spent == pytest.approx(0.04)
+    with pytest.raises(ev.BudgetExceeded):
+        b._charge({"usage": {"cost": 0.02}})
+    assert b.report()["calls"] == 5
+    assert b.report()["spent_usd"] == pytest.approx(0.06)
+
+
+def test_a_missing_cost_field_does_not_silently_become_free():
+    """A provider that reports no cost must not read as zero spend forever --
+    the call is still counted, so `usd_per_call` cannot be mistaken for a rate."""
+    import importlib.util, pathlib
+    spec = importlib.util.spec_from_file_location(
+        "ev", pathlib.Path(__file__).parents[1] / "evaluate_vlm.py")
+    ev = importlib.util.module_from_spec(spec); spec.loader.exec_module(ev)
+    b = ev.APIBackend("x/y", api_key="dummy", budget_usd=1.0)
+    b._charge({"usage": {"prompt_tokens": 100}})
+    assert b.calls == 1 and b.spent == 0.0
+    assert b.report()["prompt_tokens"] == 100

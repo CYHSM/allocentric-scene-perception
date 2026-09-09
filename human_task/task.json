@@ -1,0 +1,1625 @@
+{
+  "n_options": 2,
+  "trials_per_delta": 20,
+  "deltas": [
+    0,
+    45,
+    90,
+    135,
+    180
+  ],
+  "modes": [
+    "c0_shape_colour",
+    "c1_shape",
+    "c2_colour",
+    "c3_peaks_bare",
+    "c4_valley"
+  ],
+  "seed": 42,
+  "total_trials": 50,
+  "derived_from": "vlm_benchmark_2afc.json",
+  "per_cell": 2,
+  "slice_seed": 7,
+  "trials": [
+    {
+      "id": "c0_shape_colour_d000_t12",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "study_scene": "a055",
+      "study_azimuth": 180,
+      "target_azimuth": 180,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a055/a055_A_az180.png",
+      "study_relpath": "a055/a055_A_az180.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a055",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a055/a055_B_az180.png",
+          "rel_path": "a055/a055_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        },
+        {
+          "scene_id": "a099",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a099/a099_B_az180.png",
+          "rel_path": "a099/a099_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c0_shape_colour_d000_t05",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "study_scene": "a050",
+      "study_azimuth": 270,
+      "target_azimuth": 270,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a050/a050_A_az270.png",
+      "study_relpath": "a050/a050_A_az270.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a077",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a077/a077_B_az270.png",
+          "rel_path": "a077/a077_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        },
+        {
+          "scene_id": "a050",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a050/a050_B_az270.png",
+          "rel_path": "a050/a050_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c0_shape_colour_d045_t07",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "study_scene": "a063",
+      "study_azimuth": 315,
+      "target_azimuth": 0,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a063/a063_A_az315.png",
+      "study_relpath": "a063/a063_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a063",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a063/a063_B_az000.png",
+          "rel_path": "a063/a063_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        },
+        {
+          "scene_id": "a019",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a019/a019_B_az000.png",
+          "rel_path": "a019/a019_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c0_shape_colour_d045_t10",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "study_scene": "a088",
+      "study_azimuth": 0,
+      "target_azimuth": 45,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a088/a088_A_az000.png",
+      "study_relpath": "a088/a088_A_az000.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a096",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a096/a096_B_az045.png",
+          "rel_path": "a096/a096_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        },
+        {
+          "scene_id": "a088",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a088/a088_B_az045.png",
+          "rel_path": "a088/a088_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c0_shape_colour_d090_t07",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "study_scene": "a095",
+      "study_azimuth": 180,
+      "target_azimuth": 270,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a095/a095_A_az180.png",
+      "study_relpath": "a095/a095_A_az180.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a095",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a095/a095_B_az270.png",
+          "rel_path": "a095/a095_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        },
+        {
+          "scene_id": "a029",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a029/a029_B_az270.png",
+          "rel_path": "a029/a029_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c0_shape_colour_d090_t18",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "study_scene": "a062",
+      "study_azimuth": 45,
+      "target_azimuth": 135,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a062/a062_A_az045.png",
+      "study_relpath": "a062/a062_A_az045.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a077",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a077/a077_B_az135.png",
+          "rel_path": "a077/a077_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        },
+        {
+          "scene_id": "a062",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a062/a062_B_az135.png",
+          "rel_path": "a062/a062_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c0_shape_colour_d135_t05",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "study_scene": "a061",
+      "study_azimuth": 225,
+      "target_azimuth": 0,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a061/a061_A_az225.png",
+      "study_relpath": "a061/a061_A_az225.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a061",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a061/a061_B_az000.png",
+          "rel_path": "a061/a061_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        },
+        {
+          "scene_id": "a070",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a070/a070_B_az000.png",
+          "rel_path": "a070/a070_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c0_shape_colour_d135_t19",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "study_scene": "a033",
+      "study_azimuth": 180,
+      "target_azimuth": 315,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a033/a033_A_az180.png",
+      "study_relpath": "a033/a033_A_az180.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a097",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a097/a097_B_az315.png",
+          "rel_path": "a097/a097_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        },
+        {
+          "scene_id": "a033",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a033/a033_B_az315.png",
+          "rel_path": "a033/a033_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c0_shape_colour_d180_t10",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "study_scene": "a058",
+      "study_azimuth": 225,
+      "target_azimuth": 45,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a058/a058_A_az225.png",
+      "study_relpath": "a058/a058_A_az225.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a058",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a058/a058_B_az045.png",
+          "rel_path": "a058/a058_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        },
+        {
+          "scene_id": "a023",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a023/a023_B_az045.png",
+          "rel_path": "a023/a023_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c0_shape_colour_d180_t01",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "study_scene": "a071",
+      "study_azimuth": 315,
+      "target_azimuth": 135,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c0_shape_colour/a071/a071_A_az315.png",
+      "study_relpath": "a071/a071_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a059",
+          "is_target": false,
+          "image_path": "data/scenes_100/c0_shape_colour/a059/a059_B_az135.png",
+          "rel_path": "a059/a059_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        },
+        {
+          "scene_id": "a071",
+          "is_target": true,
+          "image_path": "data/scenes_100/c0_shape_colour/a071/a071_B_az135.png",
+          "rel_path": "a071/a071_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c1_shape_d000_t13",
+      "mode": "c1_shape",
+      "delta": 0,
+      "study_scene": "a059",
+      "study_azimuth": 180,
+      "target_azimuth": 180,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a059/a059_A_az180.png",
+      "study_relpath": "a059/a059_A_az180.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a059",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a059/a059_B_az180.png",
+          "rel_path": "a059/a059_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        },
+        {
+          "scene_id": "a090",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a090/a090_B_az180.png",
+          "rel_path": "a090/a090_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c1_shape_d000_t11",
+      "mode": "c1_shape",
+      "delta": 0,
+      "study_scene": "a036",
+      "study_azimuth": 180,
+      "target_azimuth": 180,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a036/a036_A_az180.png",
+      "study_relpath": "a036/a036_A_az180.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a057",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a057/a057_B_az180.png",
+          "rel_path": "a057/a057_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        },
+        {
+          "scene_id": "a036",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a036/a036_B_az180.png",
+          "rel_path": "a036/a036_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c1_shape_d045_t15",
+      "mode": "c1_shape",
+      "delta": 45,
+      "study_scene": "a037",
+      "study_azimuth": 315,
+      "target_azimuth": 0,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a037/a037_A_az315.png",
+      "study_relpath": "a037/a037_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a037",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a037/a037_B_az000.png",
+          "rel_path": "a037/a037_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        },
+        {
+          "scene_id": "a033",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a033/a033_B_az000.png",
+          "rel_path": "a033/a033_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c1_shape_d045_t07",
+      "mode": "c1_shape",
+      "delta": 45,
+      "study_scene": "a046",
+      "study_azimuth": 270,
+      "target_azimuth": 315,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a046/a046_A_az270.png",
+      "study_relpath": "a046/a046_A_az270.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a050",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a050/a050_B_az315.png",
+          "rel_path": "a050/a050_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        },
+        {
+          "scene_id": "a046",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a046/a046_B_az315.png",
+          "rel_path": "a046/a046_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c1_shape_d090_t04",
+      "mode": "c1_shape",
+      "delta": 90,
+      "study_scene": "a076",
+      "study_azimuth": 90,
+      "target_azimuth": 180,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a076/a076_A_az090.png",
+      "study_relpath": "a076/a076_A_az090.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a076",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a076/a076_B_az180.png",
+          "rel_path": "a076/a076_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        },
+        {
+          "scene_id": "a097",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a097/a097_B_az180.png",
+          "rel_path": "a097/a097_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c1_shape_d090_t14",
+      "mode": "c1_shape",
+      "delta": 90,
+      "study_scene": "a053",
+      "study_azimuth": 225,
+      "target_azimuth": 315,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a053/a053_A_az225.png",
+      "study_relpath": "a053/a053_A_az225.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a013",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a013/a013_B_az315.png",
+          "rel_path": "a013/a013_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        },
+        {
+          "scene_id": "a053",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a053/a053_B_az315.png",
+          "rel_path": "a053/a053_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c1_shape_d135_t13",
+      "mode": "c1_shape",
+      "delta": 135,
+      "study_scene": "a020",
+      "study_azimuth": 180,
+      "target_azimuth": 315,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a020/a020_A_az180.png",
+      "study_relpath": "a020/a020_A_az180.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a020",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a020/a020_B_az315.png",
+          "rel_path": "a020/a020_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        },
+        {
+          "scene_id": "a048",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a048/a048_B_az315.png",
+          "rel_path": "a048/a048_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c1_shape_d135_t15",
+      "mode": "c1_shape",
+      "delta": 135,
+      "study_scene": "a077",
+      "study_azimuth": 315,
+      "target_azimuth": 90,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a077/a077_A_az315.png",
+      "study_relpath": "a077/a077_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a008",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a008/a008_B_az090.png",
+          "rel_path": "a008/a008_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        },
+        {
+          "scene_id": "a077",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a077/a077_B_az090.png",
+          "rel_path": "a077/a077_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c1_shape_d180_t19",
+      "mode": "c1_shape",
+      "delta": 180,
+      "study_scene": "a030",
+      "study_azimuth": 45,
+      "target_azimuth": 225,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a030/a030_A_az045.png",
+      "study_relpath": "a030/a030_A_az045.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a030",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a030/a030_B_az225.png",
+          "rel_path": "a030/a030_B_az225.png",
+          "appearance": "B",
+          "azimuth": 225
+        },
+        {
+          "scene_id": "a068",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a068/a068_B_az225.png",
+          "rel_path": "a068/a068_B_az225.png",
+          "appearance": "B",
+          "azimuth": 225
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c1_shape_d180_t15",
+      "mode": "c1_shape",
+      "delta": 180,
+      "study_scene": "a062",
+      "study_azimuth": 180,
+      "target_azimuth": 0,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c1_shape/a062/a062_A_az180.png",
+      "study_relpath": "a062/a062_A_az180.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a096",
+          "is_target": false,
+          "image_path": "data/scenes_100/c1_shape/a096/a096_B_az000.png",
+          "rel_path": "a096/a096_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        },
+        {
+          "scene_id": "a062",
+          "is_target": true,
+          "image_path": "data/scenes_100/c1_shape/a062/a062_B_az000.png",
+          "rel_path": "a062/a062_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c2_colour_d000_t09",
+      "mode": "c2_colour",
+      "delta": 0,
+      "study_scene": "a015",
+      "study_azimuth": 0,
+      "target_azimuth": 0,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a015/a015_A_az000.png",
+      "study_relpath": "a015/a015_A_az000.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a015",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a015/a015_B_az000.png",
+          "rel_path": "a015/a015_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        },
+        {
+          "scene_id": "a085",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a085/a085_B_az000.png",
+          "rel_path": "a085/a085_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c2_colour_d000_t15",
+      "mode": "c2_colour",
+      "delta": 0,
+      "study_scene": "a064",
+      "study_azimuth": 315,
+      "target_azimuth": 315,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a064/a064_A_az315.png",
+      "study_relpath": "a064/a064_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a005",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a005/a005_B_az315.png",
+          "rel_path": "a005/a005_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        },
+        {
+          "scene_id": "a064",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a064/a064_B_az315.png",
+          "rel_path": "a064/a064_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c2_colour_d045_t08",
+      "mode": "c2_colour",
+      "delta": 45,
+      "study_scene": "a087",
+      "study_azimuth": 0,
+      "target_azimuth": 45,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a087/a087_A_az000.png",
+      "study_relpath": "a087/a087_A_az000.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a087",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a087/a087_B_az045.png",
+          "rel_path": "a087/a087_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        },
+        {
+          "scene_id": "a045",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a045/a045_B_az045.png",
+          "rel_path": "a045/a045_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c2_colour_d045_t11",
+      "mode": "c2_colour",
+      "delta": 45,
+      "study_scene": "a051",
+      "study_azimuth": 315,
+      "target_azimuth": 0,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a051/a051_A_az315.png",
+      "study_relpath": "a051/a051_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a090",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a090/a090_B_az000.png",
+          "rel_path": "a090/a090_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        },
+        {
+          "scene_id": "a051",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a051/a051_B_az000.png",
+          "rel_path": "a051/a051_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c2_colour_d090_t07",
+      "mode": "c2_colour",
+      "delta": 90,
+      "study_scene": "a030",
+      "study_azimuth": 135,
+      "target_azimuth": 225,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a030/a030_A_az135.png",
+      "study_relpath": "a030/a030_A_az135.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a030",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a030/a030_B_az225.png",
+          "rel_path": "a030/a030_B_az225.png",
+          "appearance": "B",
+          "azimuth": 225
+        },
+        {
+          "scene_id": "a015",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a015/a015_B_az225.png",
+          "rel_path": "a015/a015_B_az225.png",
+          "appearance": "B",
+          "azimuth": 225
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c2_colour_d090_t03",
+      "mode": "c2_colour",
+      "delta": 90,
+      "study_scene": "a076",
+      "study_azimuth": 45,
+      "target_azimuth": 135,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a076/a076_A_az045.png",
+      "study_relpath": "a076/a076_A_az045.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a070",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a070/a070_B_az135.png",
+          "rel_path": "a070/a070_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        },
+        {
+          "scene_id": "a076",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a076/a076_B_az135.png",
+          "rel_path": "a076/a076_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c2_colour_d135_t18",
+      "mode": "c2_colour",
+      "delta": 135,
+      "study_scene": "a004",
+      "study_azimuth": 315,
+      "target_azimuth": 90,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a004/a004_A_az315.png",
+      "study_relpath": "a004/a004_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a004",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a004/a004_B_az090.png",
+          "rel_path": "a004/a004_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        },
+        {
+          "scene_id": "a098",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a098/a098_B_az090.png",
+          "rel_path": "a098/a098_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c2_colour_d135_t03",
+      "mode": "c2_colour",
+      "delta": 135,
+      "study_scene": "a024",
+      "study_azimuth": 135,
+      "target_azimuth": 270,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a024/a024_A_az135.png",
+      "study_relpath": "a024/a024_A_az135.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a075",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a075/a075_B_az270.png",
+          "rel_path": "a075/a075_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        },
+        {
+          "scene_id": "a024",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a024/a024_B_az270.png",
+          "rel_path": "a024/a024_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c2_colour_d180_t17",
+      "mode": "c2_colour",
+      "delta": 180,
+      "study_scene": "a048",
+      "study_azimuth": 225,
+      "target_azimuth": 45,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a048/a048_A_az225.png",
+      "study_relpath": "a048/a048_A_az225.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a048",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a048/a048_B_az045.png",
+          "rel_path": "a048/a048_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        },
+        {
+          "scene_id": "a092",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a092/a092_B_az045.png",
+          "rel_path": "a092/a092_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c2_colour_d180_t09",
+      "mode": "c2_colour",
+      "delta": 180,
+      "study_scene": "a089",
+      "study_azimuth": 180,
+      "target_azimuth": 0,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c2_colour/a089/a089_A_az180.png",
+      "study_relpath": "a089/a089_A_az180.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a071",
+          "is_target": false,
+          "image_path": "data/scenes_100/c2_colour/a071/a071_B_az000.png",
+          "rel_path": "a071/a071_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        },
+        {
+          "scene_id": "a089",
+          "is_target": true,
+          "image_path": "data/scenes_100/c2_colour/a089/a089_B_az000.png",
+          "rel_path": "a089/a089_B_az000.png",
+          "appearance": "B",
+          "azimuth": 0
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c3_peaks_bare_d000_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "study_scene": "a069",
+      "study_azimuth": 315,
+      "target_azimuth": 315,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a069/a069_A_az315.png",
+      "study_relpath": "a069/a069_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a069",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a069/a069_B_az315.png",
+          "rel_path": "a069/a069_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        },
+        {
+          "scene_id": "a014",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a014/a014_B_az315.png",
+          "rel_path": "a014/a014_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c3_peaks_bare_d000_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "study_scene": "a002",
+      "study_azimuth": 135,
+      "target_azimuth": 135,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a002/a002_A_az135.png",
+      "study_relpath": "a002/a002_A_az135.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a092",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a092/a092_B_az135.png",
+          "rel_path": "a092/a092_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        },
+        {
+          "scene_id": "a002",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a002/a002_B_az135.png",
+          "rel_path": "a002/a002_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c3_peaks_bare_d045_t11",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "study_scene": "a079",
+      "study_azimuth": 135,
+      "target_azimuth": 180,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a079/a079_A_az135.png",
+      "study_relpath": "a079/a079_A_az135.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a079",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a079/a079_B_az180.png",
+          "rel_path": "a079/a079_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        },
+        {
+          "scene_id": "a042",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a042/a042_B_az180.png",
+          "rel_path": "a042/a042_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c3_peaks_bare_d045_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "study_scene": "a085",
+      "study_azimuth": 90,
+      "target_azimuth": 135,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a085/a085_A_az090.png",
+      "study_relpath": "a085/a085_A_az090.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a049",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a049/a049_B_az135.png",
+          "rel_path": "a049/a049_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        },
+        {
+          "scene_id": "a085",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a085/a085_B_az135.png",
+          "rel_path": "a085/a085_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c3_peaks_bare_d090_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "study_scene": "a017",
+      "study_azimuth": 135,
+      "target_azimuth": 225,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a017/a017_A_az135.png",
+      "study_relpath": "a017/a017_A_az135.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a017",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a017/a017_B_az225.png",
+          "rel_path": "a017/a017_B_az225.png",
+          "appearance": "B",
+          "azimuth": 225
+        },
+        {
+          "scene_id": "a073",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a073/a073_B_az225.png",
+          "rel_path": "a073/a073_B_az225.png",
+          "appearance": "B",
+          "azimuth": 225
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c3_peaks_bare_d090_t02",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "study_scene": "a077",
+      "study_azimuth": 315,
+      "target_azimuth": 45,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a077/a077_A_az315.png",
+      "study_relpath": "a077/a077_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a007",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a007/a007_B_az045.png",
+          "rel_path": "a007/a007_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        },
+        {
+          "scene_id": "a077",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a077/a077_B_az045.png",
+          "rel_path": "a077/a077_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c3_peaks_bare_d135_t17",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "study_scene": "a073",
+      "study_azimuth": 315,
+      "target_azimuth": 90,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a073/a073_A_az315.png",
+      "study_relpath": "a073/a073_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a073",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a073/a073_B_az090.png",
+          "rel_path": "a073/a073_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        },
+        {
+          "scene_id": "a091",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a091/a091_B_az090.png",
+          "rel_path": "a091/a091_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c3_peaks_bare_d135_t09",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "study_scene": "a014",
+      "study_azimuth": 315,
+      "target_azimuth": 90,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a014/a014_A_az315.png",
+      "study_relpath": "a014/a014_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a074",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a074/a074_B_az090.png",
+          "rel_path": "a074/a074_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        },
+        {
+          "scene_id": "a014",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a014/a014_B_az090.png",
+          "rel_path": "a014/a014_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c3_peaks_bare_d180_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "study_scene": "a099",
+      "study_azimuth": 315,
+      "target_azimuth": 135,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a099/a099_A_az315.png",
+      "study_relpath": "a099/a099_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a099",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a099/a099_B_az135.png",
+          "rel_path": "a099/a099_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        },
+        {
+          "scene_id": "a014",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a014/a014_B_az135.png",
+          "rel_path": "a014/a014_B_az135.png",
+          "appearance": "B",
+          "azimuth": 135
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c3_peaks_bare_d180_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "study_scene": "a024",
+      "study_azimuth": 90,
+      "target_azimuth": 270,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c3_peaks_bare/a024/a024_A_az090.png",
+      "study_relpath": "a024/a024_A_az090.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a047",
+          "is_target": false,
+          "image_path": "data/scenes_100/c3_peaks_bare/a047/a047_B_az270.png",
+          "rel_path": "a047/a047_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        },
+        {
+          "scene_id": "a024",
+          "is_target": true,
+          "image_path": "data/scenes_100/c3_peaks_bare/a024/a024_B_az270.png",
+          "rel_path": "a024/a024_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c4_valley_d000_t09",
+      "mode": "c4_valley",
+      "delta": 0,
+      "study_scene": "a077",
+      "study_azimuth": 315,
+      "target_azimuth": 315,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a077/a077_A_az315.png",
+      "study_relpath": "a077/a077_A_az315.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a077",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a077/a077_B_az315.png",
+          "rel_path": "a077/a077_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        },
+        {
+          "scene_id": "a041",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a041/a041_B_az315.png",
+          "rel_path": "a041/a041_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c4_valley_d000_t03",
+      "mode": "c4_valley",
+      "delta": 0,
+      "study_scene": "a090",
+      "study_azimuth": 180,
+      "target_azimuth": 180,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a090/a090_A_az180.png",
+      "study_relpath": "a090/a090_A_az180.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a080",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a080/a080_B_az180.png",
+          "rel_path": "a080/a080_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        },
+        {
+          "scene_id": "a090",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a090/a090_B_az180.png",
+          "rel_path": "a090/a090_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c4_valley_d045_t08",
+      "mode": "c4_valley",
+      "delta": 45,
+      "study_scene": "a018",
+      "study_azimuth": 0,
+      "target_azimuth": 45,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a018/a018_A_az000.png",
+      "study_relpath": "a018/a018_A_az000.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a018",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a018/a018_B_az045.png",
+          "rel_path": "a018/a018_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        },
+        {
+          "scene_id": "a007",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a007/a007_B_az045.png",
+          "rel_path": "a007/a007_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c4_valley_d045_t14",
+      "mode": "c4_valley",
+      "delta": 45,
+      "study_scene": "a034",
+      "study_azimuth": 45,
+      "target_azimuth": 90,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a034/a034_A_az045.png",
+      "study_relpath": "a034/a034_A_az045.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a040",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a040/a040_B_az090.png",
+          "rel_path": "a040/a040_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        },
+        {
+          "scene_id": "a034",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a034/a034_B_az090.png",
+          "rel_path": "a034/a034_B_az090.png",
+          "appearance": "B",
+          "azimuth": 90
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c4_valley_d090_t10",
+      "mode": "c4_valley",
+      "delta": 90,
+      "study_scene": "a086",
+      "study_azimuth": 225,
+      "target_azimuth": 315,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a086/a086_A_az225.png",
+      "study_relpath": "a086/a086_A_az225.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a086",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a086/a086_B_az315.png",
+          "rel_path": "a086/a086_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        },
+        {
+          "scene_id": "a058",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a058/a058_B_az315.png",
+          "rel_path": "a058/a058_B_az315.png",
+          "appearance": "B",
+          "azimuth": 315
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c4_valley_d090_t16",
+      "mode": "c4_valley",
+      "delta": 90,
+      "study_scene": "a081",
+      "study_azimuth": 90,
+      "target_azimuth": 180,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a081/a081_A_az090.png",
+      "study_relpath": "a081/a081_A_az090.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a030",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a030/a030_B_az180.png",
+          "rel_path": "a030/a030_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        },
+        {
+          "scene_id": "a081",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a081/a081_B_az180.png",
+          "rel_path": "a081/a081_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c4_valley_d135_t13",
+      "mode": "c4_valley",
+      "delta": 135,
+      "study_scene": "a049",
+      "study_azimuth": 135,
+      "target_azimuth": 270,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a049/a049_A_az135.png",
+      "study_relpath": "a049/a049_A_az135.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a049",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a049/a049_B_az270.png",
+          "rel_path": "a049/a049_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        },
+        {
+          "scene_id": "a074",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a074/a074_B_az270.png",
+          "rel_path": "a074/a074_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c4_valley_d135_t05",
+      "mode": "c4_valley",
+      "delta": 135,
+      "study_scene": "a060",
+      "study_azimuth": 135,
+      "target_azimuth": 270,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a060/a060_A_az135.png",
+      "study_relpath": "a060/a060_A_az135.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a003",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a003/a003_B_az270.png",
+          "rel_path": "a003/a003_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        },
+        {
+          "scene_id": "a060",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a060/a060_B_az270.png",
+          "rel_path": "a060/a060_B_az270.png",
+          "appearance": "B",
+          "azimuth": 270
+        }
+      ],
+      "correct_choice": 2
+    },
+    {
+      "id": "c4_valley_d180_t18",
+      "mode": "c4_valley",
+      "delta": 180,
+      "study_scene": "a026",
+      "study_azimuth": 0,
+      "target_azimuth": 180,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a026/a026_A_az000.png",
+      "study_relpath": "a026/a026_A_az000.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a026",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a026/a026_B_az180.png",
+          "rel_path": "a026/a026_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        },
+        {
+          "scene_id": "a051",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a051/a051_B_az180.png",
+          "rel_path": "a051/a051_B_az180.png",
+          "appearance": "B",
+          "azimuth": 180
+        }
+      ],
+      "correct_choice": 1
+    },
+    {
+      "id": "c4_valley_d180_t02",
+      "mode": "c4_valley",
+      "delta": 180,
+      "study_scene": "a060",
+      "study_azimuth": 225,
+      "target_azimuth": 45,
+      "study_appearance": "A",
+      "target_appearance": "B",
+      "study_image": "data/scenes_100/c4_valley/a060/a060_A_az225.png",
+      "study_relpath": "a060/a060_A_az225.png",
+      "n_options": 2,
+      "options": [
+        {
+          "scene_id": "a033",
+          "is_target": false,
+          "image_path": "data/scenes_100/c4_valley/a033/a033_B_az045.png",
+          "rel_path": "a033/a033_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        },
+        {
+          "scene_id": "a060",
+          "is_target": true,
+          "image_path": "data/scenes_100/c4_valley/a060/a060_B_az045.png",
+          "rel_path": "a060/a060_B_az045.png",
+          "appearance": "B",
+          "azimuth": 45
+        }
+      ],
+      "correct_choice": 2
+    }
+  ]
+}

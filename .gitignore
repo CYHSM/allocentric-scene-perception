@@ -154,3 +154,8 @@ paper/*.bbl
 paper/*.blg
 
 .DS_Store
+
+# The human task: the page and the trial list are the analysis inputs and are
+# committed; the staged copies of the stimuli are not (they are reproducible
+# from data/scenes_100 with bench/build_human_task.py).
+human_task*/images/
