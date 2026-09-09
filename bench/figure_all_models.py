@@ -62,7 +62,12 @@ def main():
     # Only complete forced-choice runs belong on a published axis. The 32B row
     # in the earlier table averaged three modes where the others averaged five,
     # because the run was still going when the figure was made.
-    vlms = [r for r in afc if r["arm"] == "4AFC" and r["n_total"] >= 400]
+    # The scaling series only: every point must differ in scale and nothing
+    # else. The prompt variants (mental_rotation, anchor) are the same 7B model
+    # on the same trials and belong in the ablation, not on this axis -- putting
+    # them here would read as four model sizes when it is two.
+    vlms = [r for r in afc if r["arm"] == "4AFC" and r["n_total"] >= 400
+            and re.fullmatch(r"Qwen2\.5-VL-\d+B", r["model"])]
 
     def _params(name):
         m = re.search(r"(\d+(?:\.\d+)?)\s*B", name)

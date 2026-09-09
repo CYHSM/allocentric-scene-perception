@@ -521,14 +521,14 @@
       "model": "Qwen2.5-VL-32B",
       "path": "results/qwen2_5_vl_32b_4afc_full.json",
       "m": 4,
-      "n_total": 450,
-      "n_trials": 80,
+      "n_total": 500,
+      "n_trials": 100,
       "accuracy": {
         "0": 0.67,
         "45": 0.34,
-        "90": 0.2,
-        "135": 0.1625,
-        "180": 0.15
+        "90": 0.24,
+        "135": 0.14,
+        "180": 0.18
       },
       "vii": {
         "0": 1.0,
@@ -537,21 +537,21 @@
         "135": 0.0,
         "180": 0.0
       },
-      "overall": 0.32,
+      "overall": 0.314,
       "control": {
-        "best_fixed": 0.2644444444444444,
-        "distribution": 0.24705185185185186,
+        "best_fixed": 0.264,
+        "distribution": 0.24782,
         "answer_freq": {
-          "1": 0.25333333333333335,
-          "2": 0.2577777777777778,
-          "3": 0.2644444444444444,
-          "4": 0.22444444444444445
+          "1": 0.252,
+          "2": 0.264,
+          "3": 0.258,
+          "4": 0.226
         },
         "model_prior": {
-          "1": 0.21333333333333335,
-          "2": 0.21333333333333335,
-          "3": 0.23333333333333334,
-          "4": 0.34
+          "1": 0.24,
+          "2": 0.218,
+          "3": 0.228,
+          "4": 0.314
         }
       },
       "modes": [
@@ -561,7 +561,7 @@
         "c3_peaks_bare",
         "c4_valley"
       ],
-      "incomplete": true
+      "incomplete": false
     },
     {
       "arm": "2AFC",
@@ -595,6 +595,338 @@
         "model_prior": {
           "1": 0.58,
           "2": 0.42
+        }
+      },
+      "modes": [
+        "c0_shape_colour",
+        "c1_shape",
+        "c2_colour",
+        "c3_peaks_bare",
+        "c4_valley"
+      ],
+      "incomplete": false
+    },
+    {
+      "arm": "2AFC",
+      "model": "qwen2_5_vl_7b_2afc_c0_shape_colour",
+      "path": "results/qwen2_5_vl_7b_2afc_c0_shape_colour.json",
+      "m": 2,
+      "n_total": 100,
+      "n_trials": 20,
+      "accuracy": {
+        "0": 0.8,
+        "45": 0.7,
+        "90": 0.55,
+        "135": 0.35,
+        "180": 0.2
+      },
+      "vii": {
+        "0": 1.0,
+        "45": 0.6230837481153082,
+        "90": 0.14930866979390117,
+        "135": 0.0,
+        "180": 0.0
+      },
+      "overall": 0.52,
+      "control": {
+        "best_fixed": 0.59,
+        "distribution": 0.509,
+        "answer_freq": {
+          "1": 0.59,
+          "2": 0.41
+        },
+        "model_prior": {
+          "1": 0.55,
+          "2": 0.45
+        }
+      },
+      "modes": [
+        "c0_shape_colour"
+      ],
+      "incomplete": true
+    },
+    {
+      "arm": "2AFC",
+      "model": "qwen2_5_vl_7b_2afc_c1_shape",
+      "path": "results/qwen2_5_vl_7b_2afc_c1_shape.json",
+      "m": 2,
+      "n_total": 100,
+      "n_trials": 20,
+      "accuracy": {
+        "0": 0.75,
+        "45": 0.9,
+        "90": 0.55,
+        "135": 0.4,
+        "180": 0.35
+      },
+      "vii": {
+        "0": 1.0,
+        "45": 1.900031194205751,
+        "90": 0.18630579162773464,
+        "135": 0.0,
+        "180": 0.0
+      },
+      "overall": 0.59,
+      "control": {
+        "best_fixed": 0.59,
+        "distribution": 0.518,
+        "answer_freq": {
+          "1": 0.59,
+          "2": 0.41
+        },
+        "model_prior": {
+          "1": 0.6,
+          "2": 0.4
+        }
+      },
+      "modes": [
+        "c1_shape"
+      ],
+      "incomplete": true
+    },
+    {
+      "arm": "2AFC",
+      "model": "qwen2_5_vl_7b_2afc_c2_colour",
+      "path": "results/qwen2_5_vl_7b_2afc_c2_colour.json",
+      "m": 2,
+      "n_total": 100,
+      "n_trials": 20,
+      "accuracy": {
+        "0": 0.6,
+        "45": 0.9,
+        "90": 0.45,
+        "135": 0.5,
+        "180": 0.35
+      },
+      "vii": {
+        "0": 1.0,
+        "45": 5.058481228647243,
+        "90": 0.0,
+        "135": 0.0,
+        "180": 0.0
+      },
+      "overall": 0.56,
+      "control": {
+        "best_fixed": 0.52,
+        "distribution": 0.5032,
+        "answer_freq": {
+          "1": 0.52,
+          "2": 0.48
+        },
+        "model_prior": {
+          "1": 0.58,
+          "2": 0.42
+        }
+      },
+      "modes": [
+        "c2_colour"
+      ],
+      "incomplete": true
+    },
+    {
+      "arm": "2AFC",
+      "model": "qwen2_5_vl_7b_2afc_c3_peaks_bare",
+      "path": "results/qwen2_5_vl_7b_2afc_c3_peaks_bare.json",
+      "m": 2,
+      "n_total": 100,
+      "n_trials": 20,
+      "accuracy": {
+        "0": 0.8,
+        "45": 0.5,
+        "90": 0.5,
+        "135": 0.5,
+        "180": 0.45
+      },
+      "vii": {
+        "0": 1.0,
+        "45": 0.0,
+        "90": 0.0,
+        "135": 0.0,
+        "180": 0.0
+      },
+      "overall": 0.55,
+      "control": {
+        "best_fixed": 0.53,
+        "distribution": 0.506,
+        "answer_freq": {
+          "1": 0.47,
+          "2": 0.53
+        },
+        "model_prior": {
+          "1": 0.4,
+          "2": 0.6
+        }
+      },
+      "modes": [
+        "c3_peaks_bare"
+      ],
+      "incomplete": true
+    },
+    {
+      "arm": "2AFC",
+      "model": "qwen2_5_vl_7b_2afc_c4_valley",
+      "path": "results/qwen2_5_vl_7b_2afc_c4_valley.json",
+      "m": 2,
+      "n_total": 100,
+      "n_trials": 20,
+      "accuracy": {
+        "0": 0.55,
+        "45": 0.5,
+        "90": 0.8,
+        "135": 0.6,
+        "180": 0.55
+      },
+      "vii": {
+        "0": 1.0,
+        "45": 0.0,
+        "90": 6.697534720390678,
+        "135": 2.016110040806633,
+        "180": 1.0
+      },
+      "overall": 0.6,
+      "control": {
+        "best_fixed": 0.56,
+        "distribution": 0.5336000000000001,
+        "answer_freq": {
+          "1": 0.56,
+          "2": 0.44
+        },
+        "model_prior": {
+          "1": 0.78,
+          "2": 0.22
+        }
+      },
+      "modes": [
+        "c4_valley"
+      ],
+      "incomplete": true
+    },
+    {
+      "arm": "2AFC",
+      "model": "qwen2_5_vl_7b_2afc_full",
+      "path": "results/qwen2_5_vl_7b_2afc_full.json",
+      "m": 2,
+      "n_total": 500,
+      "n_trials": 100,
+      "accuracy": {
+        "0": 0.7,
+        "45": 0.7,
+        "90": 0.57,
+        "135": 0.47,
+        "180": 0.38
+      },
+      "vii": {
+        "0": 1.0,
+        "45": 1.0,
+        "90": 0.33633484427780685,
+        "135": 0.0,
+        "180": 0.0
+      },
+      "overall": 0.564,
+      "control": {
+        "best_fixed": 0.546,
+        "distribution": 0.507544,
+        "answer_freq": {
+          "1": 0.546,
+          "2": 0.454
+        },
+        "model_prior": {
+          "1": 0.582,
+          "2": 0.418
+        }
+      },
+      "modes": [
+        "c0_shape_colour",
+        "c1_shape",
+        "c2_colour",
+        "c3_peaks_bare",
+        "c4_valley"
+      ],
+      "incomplete": false
+    },
+    {
+      "arm": "4AFC",
+      "model": "qwen2_5_vl_7b_anchor_full",
+      "path": "results/qwen2_5_vl_7b_anchor_full.json",
+      "m": 4,
+      "n_total": 500,
+      "n_trials": 100,
+      "accuracy": {
+        "0": 0.43,
+        "45": 0.27,
+        "90": 0.17,
+        "135": 0.18,
+        "180": 0.22
+      },
+      "vii": {
+        "0": 1.0,
+        "45": 0.12345047345540834,
+        "90": 0.0,
+        "135": 0.0,
+        "180": 0.0
+      },
+      "overall": 0.254,
+      "control": {
+        "best_fixed": 0.264,
+        "distribution": 0.24159999999999998,
+        "answer_freq": {
+          "1": 0.252,
+          "2": 0.264,
+          "3": 0.258,
+          "4": 0.226
+        },
+        "model_prior": {
+          "1": 0.116,
+          "2": 0.124,
+          "3": 0.246,
+          "4": 0.514
+        }
+      },
+      "modes": [
+        "c0_shape_colour",
+        "c1_shape",
+        "c2_colour",
+        "c3_peaks_bare",
+        "c4_valley"
+      ],
+      "incomplete": false
+    },
+    {
+      "arm": "4AFC",
+      "model": "qwen2_5_vl_7b_mental_rot_full",
+      "path": "results/qwen2_5_vl_7b_mental_rot_full.json",
+      "m": 4,
+      "n_total": 500,
+      "n_trials": 100,
+      "accuracy": {
+        "0": 0.49,
+        "45": 0.36,
+        "90": 0.25,
+        "135": 0.17,
+        "180": 0.2
+      },
+      "vii": {
+        "0": 1.0,
+        "45": 0.48548990467599673,
+        "90": 0.0,
+        "135": 0.0,
+        "180": 0.0
+      },
+      "overall": 0.294,
+      "control": {
+        "best_fixed": 0.264,
+        "distribution": 0.24807200000000001,
+        "answer_freq": {
+          "1": 0.252,
+          "2": 0.264,
+          "3": 0.258,
+          "4": 0.226
+        },
+        "model_prior": {
+          "1": 0.068,
+          "2": 0.312,
+          "3": 0.264,
+          "4": 0.356
         }
       },
       "modes": [
