@@ -1,0 +1,746 @@
+{
+  "summary": {
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "benchmark": "data/vlm_benchmark_calibration.json",
+    "prompt_style": "anchor",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 50,
+    "overall_accuracy": 0.24,
+    "choice_distribution": {
+      "4": 22,
+      "3": 16,
+      "2": 7,
+      "1": 5
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c0_shape_colour_d180": {
+        "mode": "c0_shape_colour",
+        "delta": 180,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c1_shape_d0": {
+        "mode": "c1_shape",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c1_shape_d45": {
+        "mode": "c1_shape",
+        "delta": 45,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c1_shape_d90": {
+        "mode": "c1_shape",
+        "delta": 90,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c1_shape_d135": {
+        "mode": "c1_shape",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d180": {
+        "mode": "c1_shape",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d0": {
+        "mode": "c2_colour",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c2_colour_d45": {
+        "mode": "c2_colour",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d90": {
+        "mode": "c2_colour",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d135": {
+        "mode": "c2_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d180": {
+        "mode": "c2_colour",
+        "delta": 180,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c3_peaks_bare_d0": {
+        "mode": "c3_peaks_bare",
+        "delta": 0,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c3_peaks_bare_d45": {
+        "mode": "c3_peaks_bare",
+        "delta": 45,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c3_peaks_bare_d90": {
+        "mode": "c3_peaks_bare",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c3_peaks_bare_d135": {
+        "mode": "c3_peaks_bare",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c3_peaks_bare_d180": {
+        "mode": "c3_peaks_bare",
+        "delta": 180,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c4_valley_d0": {
+        "mode": "c4_valley",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c4_valley_d45": {
+        "mode": "c4_valley",
+        "delta": 45,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c4_valley_d90": {
+        "mode": "c4_valley",
+        "delta": 90,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c4_valley_d135": {
+        "mode": "c4_valley",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c4_valley_d180": {
+        "mode": "c4_valley",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      }
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t00",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.557497024536133,
+      "reply": "To determine the correct option, I first identified the green cylinder as the most prominent landmark due to its size and central position in the study image. The yellow sphere is to the right, the purple cone is below and to the left, and the blue pyramid is to the left. In Option 4, the green cylinder remains in the same position, the yellow sphere is still to the right, the purple cone is below and to the left, and the blue pyramid is to the left, maintaining the same relative positions and distances. Therefore, Option 4 preserves the exact 3D spatial configuration around the green cylinder.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t01",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 4.438122272491455,
+      "reply": "To determine the correct option, I first identified the green cylinder as the most prominent landmark in the study image due to its size and central position. The pyramid, cone, and sphere are positioned around it. In Option 1, the green cylinder remains in the same location but the pyramid has moved closer to the sphere, altering the relative distances. Option 2 shifts the green cylinder to the right side, changing the spatial arrangement significantly. Option 3 maintains the original positions and distances of the pyramid, cone, and sphere around the green cylinder, just with a different camera angle. Option 4 also changes the positions of the pyramid and cone relative to the green cylinder. Therefore, Option 3 preserves the exact 3D spatial configuration around the green cylinder under the new camera angle.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t00",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.7938804626464844,
+      "reply": "To determine the correct option, I first identified the yellow sphere as the most prominent landmark due to its size and distinct shape. The purple cone is positioned to the left and slightly behind the yellow sphere, while the green cylinder is to the right and further back. The blue pyramid is situated between the yellow sphere and the green cylinder, closer to the yellow sphere than the green cylinder. \n\nWhen comparing the relative positions and distances of these landmarks in each option, Option 3 maintains the same spatial configuration as the study image. The yellow sphere remains the central anchor, with the purple cone, green cylinder, and blue pyramid maintaining their respective positions and distances from it.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t01",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.156654357910156,
+      "reply": "To determine the correct option, I first identified the yellow sphere as the most prominent landmark due to its size and central position in the study image. The green cylinder is to the left, the purple cone is to the right, and the blue pyramid is behind the yellow sphere. In Option 1, the yellow sphere remains central, but the positions of the other objects have shifted, indicating a different camera angle. Option 2 places the yellow sphere to the left, altering the spatial relationship. Option 3 keeps the yellow sphere central but changes the orientation of the blue pyramid, suggesting a different viewpoint. Option 4 maintains the same spatial relationships as the study image, with the yellow sphere still central and the other objects in their respective positions.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t00",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 5.9993510246276855,
+      "reply": "To determine the correct option, I first identified the purple cone as the most prominent landmark due to its unique color and position in the study image. The blue pyramid is to the left, the green cylinder is to the right, and the yellow sphere is behind the green cylinder. In Option 1, the purple cone remains in the same position, but the blue pyramid has moved closer to the center, and the green cylinder and yellow sphere have shifted positions. In Option 2, the purple cone is still in the same position, but the blue pyramid is now further to the left, and the green cylinder and yellow sphere have moved slightly. In Option 3, the purple cone is in the same position, but the blue pyramid is now further to the right, and the green cylinder and yellow sphere have moved closer together. In Option 4, the purple cone is in the same position, but the blue pyramid is now further to the left, and the green cylinder and yellow sphere have moved apart. None of these options maintain the exact 3D spatial configuration around the purple cone as seen in the study image. Therefore:\n\nFinal Answer: None",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t01",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.4839298725128174,
+      "reply": "To determine the correct option, I first identified the green cylinder as the most prominent landmark due to its size and distinct shape. The yellow sphere is positioned to the right of the green cylinder, the purple cone is in front of it, and the blue pyramid is to the left. When comparing the relative positions and orientations of these objects in each option, Option 3 maintains the same spatial configuration around the green cylinder when viewed from a different angle. The yellow sphere remains to the right, the purple cone stays in front, and the blue pyramid is still to the left, just rotated slightly.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t00",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 2.922257423400879,
+      "reply": "To determine the correct option, I first identified the green cylinder as the most prominent landmark due to its size and distinct shape. The yellow sphere is positioned to the right of the green cylinder, the purple cone is in front of it, and the blue pyramid is behind the green cylinder. When comparing the relative positions and orientations of these objects in each option, Option 2 maintains the same spatial configuration as the study image, despite the camera angle change and potential weather effects. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t01",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.415026426315308,
+      "reply": "To determine the correct option, I first identified the green cylinder as the most prominent landmark due to its size and central position in the study image. The blue pyramid is to the left, the purple cone is to the right, and the yellow sphere is in front. In Option 1, the green cylinder remains in the same position but the blue pyramid has moved closer to the center, altering the relative distance and bearing. Option 2 maintains the same spatial configuration but changes the lighting, making it a distractor. Option 3 shifts the positions of the blue pyramid and the purple cone, changing their relative distances from the green cylinder. Option 4 preserves the exact spatial configuration of the blue pyramid, purple cone, and yellow sphere around the green cylinder, just rotated slightly. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t00",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 4.05110239982605,
+      "reply": "To determine the correct option, I first identified the green cube as the most prominent landmark due to its size and distinct shape. The yellow sphere is positioned to the right of the green cube, the purple cone is to the left, and the teal pyramid is in front of the green cube. In Option 1, the positions of these objects remain consistent with the study image, but the lighting and shadows have changed, indicating a weather change. Options 2, 3, and 4 show different configurations of the objects, which do not match the original spatial arrangement. Therefore, Option 1 is the only one that maintains the same 3D spatial configuration under a rotated camera angle and weather change.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t01",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.68206787109375,
+      "reply": "To determine the correct option, I first identified the yellow sphere as the most prominent landmark due to its size and central position in the study image. The purple cone is to the left, the green cylinder is to the right, and the blue pyramid is behind the green cylinder. In Option 1, the yellow sphere remains central, but the positions of the other objects have changed significantly, indicating a different camera angle. Option 2 maintains the same relative positions and distances between the objects, suggesting it is the correct option. Option 3 and Option 4 show different configurations of the objects, indicating they are not the correct answer.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t00",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 2.9239041805267334,
+      "reply": "To determine the correct option, I first identified the most prominent landmark peak in the study image, which appears to be the large sphere. The other three peaks (the cylinder, the smaller pyramid, and the larger pyramid) are positioned relative to this sphere. In Option 2, the relative positions of these peaks around the sphere remain consistent with the study image, despite the change in camera angle and lighting conditions. The shadows and the overall spatial arrangement match the study image closely.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t01",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 3.4715261459350586,
+      "reply": "To determine the correct option, I first identified the pyramid as the most distinctive landmark due to its sharp edges and pointed top. The sphere, cylinder, and cone are more rounded and less distinct in comparison. In the study image, the pyramid is positioned to the right of the sphere, slightly behind it, and to the left of the cone. When comparing the options, only Option 4 maintains the same relative positions and distances between the pyramid, sphere, cylinder, and cone as seen in the study image. The shadows also align correctly, indicating that the lighting conditions have not changed.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t00",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 4.442783355712891,
+      "reply": "To determine the correct option, I first identified the most prominent landmark peak in the study image, which appears to be the large cylinder. The other three peaks (the sphere, the smaller pyramid, and the larger pyramid) are positioned relative to this cylinder. In Option 1, the cylinder remains in the same position, but the relative positions of the other peaks have changed, indicating a different camera angle. Option 2 also shows a different arrangement of the peaks, suggesting a different camera angle. Option 3 maintains the same relative positions of the peaks around the cylinder, indicating that it is the correct option that preserves the exact 3D spatial configuration under a camera viewpoint rotation. Option 4 shows a different arrangement of the peaks, further confirming that it is not the correct option.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t01",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.417012929916382,
+      "reply": "To determine the correct option, I first identified the most prominent landmark, which appears to be the cone in the foreground due to its size and position. The pyramid is the second most prominent, followed by the cylinder, and then the sphere. By tracing the relative positions and distances of these peaks, I can see that Option 2 maintains the same spatial configuration around the cone when compared to the study image. The pyramid, cylinder, and sphere are all in the same relative positions and distances from the cone, indicating no change in the landscape's layout despite the camera angle shift.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t00",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 3.950218677520752,
+      "reply": "To determine the correct option, I first identified the most prominent landmark peak in the study image, which appears to be the large sphere. The other peaks are positioned relative to this sphere. In Option 1, the large sphere remains in the same position, but the cone that was originally behind it is now in front, indicating a rotation. Option 2 shows a similar rotation but also includes a shift in the pyramid's position, making it a distractor. Option 3 maintains the original positions of all peaks, suggesting no rotation or change in perspective. Option 4 shows a different arrangement where the large sphere is not the central anchor anymore, indicating a significant change in the scene.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t01",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 3.942021369934082,
+      "reply": "To determine the correct option, I first identified the most prominent landmark peak, which appears to be the large sphere in the study image. The cone, pyramid, and cylinder are positioned around it. In Option 1, the large sphere remains in the same position, but the cone and pyramid have swapped places, indicating a rotation. Option 2 shows the large sphere in a different location, suggesting a significant shift in perspective. Option 3 maintains the relative positions of the cone, pyramid, and cylinder around the large sphere, but the large sphere itself has moved, indicating a different viewpoint. Option 4 also shows the large sphere in a different position, further altering the spatial configuration.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t00",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.2394251823425293,
+      "reply": "To determine the correct option, I first identified the most prominent landmark peak, which appears to be the cone in the foreground due to its size and position. Next, I traced the relative bearings and distances of the other three peaks: the sphere to the left, the cylinder behind, and the pyramid to the right. The cone's shadow and the overall spatial arrangement confirm that it remains the central point. Comparing the options, Option 4 maintains the same spatial configuration around the cone when rotated, despite the change in lighting and shadows. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t01",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.962288856506348,
+      "reply": "To determine the correct option, I first identified the most prominent landmark peak in the study image, which appears to be the large sphere on the right side. The other three peaks (the cylinder, the cone, and the pyramid) are positioned relative to this sphere. In Option 1, the large sphere remains in the same position, but the other peaks have been rotated and repositioned, altering their relative distances and bearings. Option 2 also maintains the large sphere's position and orientation, but the other peaks are similarly rotated and repositioned. Option 3 places the large sphere in a different location, changing its bearing and distance from the other peaks. Option 4, however, keeps the large sphere in the same position and orientation, while the other peaks maintain their relative distances and bearings. Therefore, Option 4 preserves the exact 3D spatial configuration around the anchor peak.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t00",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.805094003677368,
+      "reply": "To determine the correct option, I first identified the most prominent landmark peak in the study image, which appears to be the large sphere. The pyramid, cone, and cylinder are positioned around it. In each option, I traced the relative positions of these three peaks in relation to the sphere. Option 4 maintains the same spatial configuration of the peaks around the sphere when compared to the study image, despite the change in camera angle and lighting conditions. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t01",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.907776117324829,
+      "reply": "To determine the correct option, I first identified the most prominent landmark peak in the study image, which appears to be the large sphere. The other three peaks (the cylinder, the smaller pyramid, and the larger pyramid) are positioned relative to this sphere. In Option 4, the relative positions of these peaks around the sphere remain consistent with the study image, despite the change in camera angle and lighting. The shadows and the overall spatial arrangement match the study image closely.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t00",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 6.3649046421051025,
+      "reply": "To determine the correct option, I first identified the purple peak as the most prominent landmark in the study image. The green peak is to the left, the blue peak is behind and slightly to the right, and the yellow peak is in front and to the right of the purple peak. In Option 1, the green peak is now in front, the blue peak is behind and to the left, and the yellow peak is in front and to the right, which does not match the original configuration. In Option 2, the green peak is in front, the blue peak is behind and to the right, and the yellow peak is in front and to the left, which also does not match. In Option 3, the green peak is in front, the blue peak is behind and to the left, and the yellow peak is in front and to the right, which matches the original configuration. In Option 4, the green peak is in front, the blue peak is behind and to the right, and the yellow peak is in front and to the left, which does not match. Therefore, the correct option that preserves the exact 3D spatial configuration around the purple peak is:\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t01",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 4.0158820152282715,
+      "reply": "To determine the correct option, I first identified the green mountain as the most prominent landmark in the study image. The blue mountain is to its right, the yellow mountain is in front, and the purple mountain is to the left. In Option 1, the green mountain remains the same, but the positions of the other mountains have changed significantly, indicating a different camera angle. Option 2 also changes the positions of the mountains, making it a distractor. Option 3 maintains the same relative positions of the mountains as in the study image, suggesting that the camera angle has not changed. Option 4 changes the positions of the mountains, similar to Option 1. Therefore, the correct option is:\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t00",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 4.323132276535034,
+      "reply": "To determine the correct option, I first identified the purple peak as the most prominent landmark in the study image. The green peak is to the right and slightly behind, the yellow peak is to the left and slightly behind, and the blue peak is directly in front and to the left of the purple peak. In Option 1, the relative positions of these peaks remain consistent with the study image, but the colors have changed. Option 2 and Option 3 show different configurations of the peaks, indicating a change in their spatial arrangement. Option 4 also shows a different configuration, with the green peak being in a different position compared to the study image. Therefore, Option 1 is the only one that maintains the same 3D spatial configuration around the purple peak.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t01",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 5.500673055648804,
+      "reply": "To determine the correct option, I first identified the purple peak as the most prominent landmark in the study image. The green peak is to its left, the yellow peak is to its right, and the teal peak is behind it. In Option 1, the purple peak remains the same, but the green and yellow peaks have swapped positions, and the teal peak has moved closer to the purple peak. In Option 2, the purple peak is still the anchor, but the green and yellow peaks have switched places again, and the teal peak is now further away. In Option 3, the purple peak is still the anchor, but the green and yellow peaks have switched places once more, and the teal peak is positioned differently. In Option 4, the purple peak is still the anchor, and the green and yellow peaks have switched places, but the teal peak is positioned similarly to the study image. Therefore, Option 4 maintains the exact 3D spatial configuration around the purple peak under the new camera angle.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t00",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.016777515411377,
+      "reply": "To determine the correct option, I first identified the purple peak as the most prominent landmark in the study image. The green peak is to its right, the yellow peak is directly behind it, and the teal peak is to its left. In Option 2, the relative positions of these peaks match those in the study image, indicating that the exact same landscape is shown but from a different camera angle. The other options either change the relative positions of the peaks or introduce additional peaks, making them incorrect.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t01",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.8736727237701416,
+      "reply": "To determine the correct option, I first identified the purple peak as the most prominent landmark due to its size and position in the study image. The yellow peak is to the right of the purple peak, the green peak is to the left, and the blue peak is behind the purple peak. In Option 3, the relative positions of these peaks match the study image's configuration, indicating that it maintains the same 3D spatial arrangement despite the camera angle change. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t00",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.9634933471679688,
+      "reply": "To determine the correct option, I first identified the purple peak as the most prominent landmark in the study image. The green peak is to the left, the yellow peak is to the right, and the blue peak is in front. In Option 1, the green peak is now in front, the yellow peak is to the left, and the blue peak is to the right, which does not match the original configuration. Option 2 places the green peak behind the purple peak, which also changes the spatial relationship. Option 3 maintains the same relative positions but rotates the entire scene, preserving the original spatial configuration. Option 4 changes the positions of the green and yellow peaks, making it incorrect.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t01",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.366640329360962,
+      "reply": "To determine the correct option, I first identified the teal-colored cone as the most prominent landmark due to its size and distinct color. The purple cone is positioned to the right and slightly behind the teal cone, while the green cone is to the left and slightly in front, and the yellow cone is to the right and further back. When comparing the relative positions and angles of these cones in each option, Option 2 maintains the same spatial configuration as the study image, despite the change in camera angle and lighting conditions. The shadows and the overall arrangement of the cones remain consistent.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t00",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 6.568187952041626,
+      "reply": "To determine the correct option, I first identified the green mountain as the most prominent landmark in the study image due to its size and position. The yellow mountain is to the right of the green one, the purple mountain is behind it, and the cyan mountain is in front of the green one. In Option 1, the cyan mountain is now in the back, the green mountain is in the front, the yellow mountain is to the left, and the purple mountain is to the right. This rearrangement does not match the original spatial configuration. In Option 2, the cyan mountain is in the back, the green mountain is in the front, the yellow mountain is to the right, and the purple mountain is to the left, which also does not match. In Option 3, the cyan mountain is in the back, the green mountain is in the front, the yellow mountain is to the left, and the purple mountain is to the right, which again does not match. In Option 4, the cyan mountain is in the back, the green mountain is in the front, the yellow mountain is to the right, and the purple mountain is to the left, which matches the original spatial configuration. Therefore, the correct option is:\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t01",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.932891607284546,
+      "reply": "To determine the correct option, I first identified the green mountain as the most prominent landmark due to its size and position in the study image. The relative positions of the other mountains around it were then traced. In Option 4, the green mountain remains in the same position, and the other mountains maintain their relative distances and angles from the green mountain, indicating that the exact 3D spatial configuration has been preserved. The other options show different configurations of the mountains' positions and distances.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.4177637100219727,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the left side of the image and has a distinctive, sharp shape that makes it stand out from the others. By tracing the relative positions of the other three peaks around this anchor, I noted their distances and directions. In Option 4, the peaks maintain the same relative distances and directions as seen in the study image, despite the change in camera angle and lighting conditions. The shadows and lighting have altered, but the spatial relationships between the peaks remain consistent.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 5.4759767055511475,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the left side of the image and has a distinctive jagged shape. The other three peaks are positioned around it, with varying distances and angles from the anchor.\n\nOption 1 shows a similar arrangement of peaks but with a different lighting condition, making it appear more illuminated and detailed. However, the relative positions of the peaks remain consistent with the study image.\n\nOption 2 also maintains the same relative positions of the peaks but appears slightly more spread out, suggesting a different camera angle or perspective.\n\nOption 3 presents a completely different arrangement of peaks, indicating a significant change in the spatial configuration.\n\nOption 4 shows a similar arrangement of peaks as the study image but with a different lighting effect that makes the peaks appear more defined and detailed.\n\nGiven these observations, Option 1 preserves the exact 3D spatial configuration of the peaks around the anchor under a camera viewpoint rotation and weather change.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 3.178734302520752,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the left side of the image and has a distinctive, sharp shape that makes it stand out. The other three peaks are positioned around this anchor, with varying distances and angles.\n\nWhen comparing the subsequent images, Option 4 maintains the same relative positions and distances between the peaks as seen in the study image. The peaks' shapes and shadows also align correctly, indicating no significant changes in the landscape's configuration.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 3.4911317825317383,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the left side of the image. The other three peaks are positioned relative to this anchor. In Option 1, the peaks maintain their relative positions and distances from the anchor peak, but the overall landscape appears brighter and more detailed, suggesting a change in lighting and possibly weather conditions. Options 2, 3, and 4 show different configurations of the peaks, indicating that they do not preserve the same 3D spatial relationship as seen in Image 1.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.393083333969116,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the bottom left and has a distinctive jagged structure compared to the others. By tracing the relative positions of the other three peaks around this anchor, I noted their distances and angles from it. In Option 4, the peaks maintain the same relative distances and angles from the anchor peak as seen in Image 1, despite the change in camera angle and lighting conditions. The shadows and lighting effects also align with those observed in the study image.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.3753578662872314,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the left side of the image. The other three peaks are positioned relative to this anchor. In Option 4, the peaks maintain their relative positions and distances from the anchor peak, even though the camera angle has changed. The shadows also align correctly with the new perspective, indicating that the lighting conditions have been adjusted accordingly. Therefore, Option 4 is the one that shows the exact same mountain landscape under a camera viewpoint rotation and weather change.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.5082571506500244,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the left side of the image and has a distinctive, sharp peak that stands out from the others. By tracing the relative positions of the other three peaks around this anchor, I noted their distances and angles. In Option 4, the peaks maintain the same relative distances and angles around the anchor peak as seen in Image 1, despite the change in camera angle and lighting conditions. The shadows and lighting have altered, but the spatial relationships between the peaks remain consistent.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.458350419998169,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the left side of the image and has a distinctive shape that makes it stand out. By tracing the relative positions of the other three peaks around this anchor, I noted their distances and angles from the anchor peak. \n\nWhen comparing the subsequent images, Option 4 maintains the same relative positions and angles of the peaks around the anchor peak as seen in Image 1. The shadows and lighting also appear consistent, suggesting a similar camera angle and time of day.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 3.385895013809204,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the left side of the image. The other three peaks are positioned relative to this anchor. In Option 2, the peaks maintain their relative positions and distances from the anchor peak, even though the camera angle has changed. The shadows also align correctly with the new perspective, indicating that the lighting conditions have been adjusted accordingly. Therefore, Option 2 is the one that shows the exact same mountain landscape under a camera viewpoint rotation and weather change.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.433762550354004,
+      "reply": "To determine the correct option, I first identified the most prominent peak in Image 1 as the anchor. This peak is located towards the left side of the image and has a distinctive shape that makes it stand out. By tracing the relative positions of the other three peaks around this anchor, I noted their distances and directions. In Option 4, the peaks maintain the same relative positions and distances from the anchor peak as seen in Image 1, despite the change in camera angle and lighting conditions. The shadows and lighting have altered, but the spatial relationships between the peaks remain consistent.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t00",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 3.5936925411224365,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor. This peak is located in the center-left of Image 1. Next, I traced the relative positions of the other three peaks around it. In Image 1, the peak to the right of the anchor is slightly higher and more distant, while the two peaks to the left are lower and closer. Comparing these relationships in Options 1 through 4, only Option 3 maintains the same spatial configuration and distance from the anchor peak. The camera angle and lighting also match closely between Image 1 and Option 3.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t01",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.2630441188812256,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor, which is the one on the left side of the image. Then, I traced the relative positions of the other three peaks in relation to this anchor. The key feature to look for is the alignment of these peaks around the anchor when the camera rotates. In Option 4, the peaks maintain their relative positions and distances from the anchor peak, even though the camera angle has changed. This indicates that the landscape's spatial configuration remains consistent across the different views.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t00",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.9189467430114746,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor. This peak is located in the center-left of Image 1. Next, I traced the relative positions of the other three peaks around this anchor. In Image 1, the peak on the right has a distinct triangular shape and is positioned further away from the anchor compared to the other two peaks. When comparing the other images, only Option 3 maintains the same relative bearing and distance of these peaks around the anchor peak, despite the change in camera angle and lighting conditions. Therefore, Option 3 is the one that shows the exact same mountain landscape under a camera viewpoint rotation and weather change.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t01",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 3.677708864212036,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor. This peak is located in the center-left of Image 1. Next, I traced the relative positions of the other three peaks around this anchor. In Image 1, the peak on the right has a distinctively different shape compared to the others, making it easy to identify. When comparing the relative positions of these peaks in Options 1 through 4, only Option 3 maintains the same spatial configuration around the anchor peak. The rest of the options show variations in the positioning of the peaks, indicating a different camera angle or perspective.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t00",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 3.0221009254455566,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor, which is the one in the center-left of the study image. Then, I traced the relative positions of the other three peaks around it. In Option 4, the peaks maintain their relative positions and distances from the central anchor peak, even though the camera angle has changed and the lighting appears different. The other options show variations in the positioning or distance of the peaks from the anchor, making them incorrect.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t01",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.0832955837249756,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor. This peak is located in the center-left of the study image and has a distinctive shape that makes it stand out. In the subsequent options, I traced the relative positions of the other three peaks around this anchor. Option 3 maintains the same spatial configuration of the peaks around the anchor, even though the camera angle and lighting have changed. The other options show variations in the positioning of the peaks relative to the anchor.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t00",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.8394603729248047,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor. This peak is located in the center-left of Image 1. Next, I traced the relative positions of the other three peaks around it. In Image 1, the peak on the right has a distinctively sharp, triangular shape that stands out from the others. Comparing the relative positions of these peaks in Options 1 through 4, only Option 4 maintains the same spatial configuration around the anchor peak, despite the change in camera angle and lighting conditions. The sharp triangular peak on the right side of the image remains in the same position relative to the other peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t01",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.4525201320648193,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor, which is the one in the center-left of Image 1. Then, I traced the relative positions of the other three peaks around it. In Option 3, the peaks maintain their relative distances and angles from the central peak, even though the camera angle has changed. The lighting and shadows also match those in Image 1, indicating that the weather conditions have not changed. Therefore, Option 3 is the correct choice because it preserves the exact 3D spatial configuration around the anchor peak.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t00",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.4991729259490967,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor. This peak is located in the center-left of Image 1. Next, I traced the relative positions of the other three peaks around it. In Image 1, the peak on the right has a distinct triangular shape and is positioned at a specific distance from the central peak. Comparing this to Options 1 through 4, only Option 3 maintains the same relative bearing and distance of the peaks around the central anchor peak. The rest of the options either distort the spatial relationship or show different configurations.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t01",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.5250813961029053,
+      "reply": "To determine the correct option, I first identified the most prominent peak as the anchor. This peak is located in the center-left of Image 1. Next, I traced the relative positions of the other three peaks around it. In Image 1, the peak on the right has a distinctively sharp, pointed shape that stands out from the others. When comparing the other images, only Option 3 maintains the same spatial relationship between the peaks and the river, despite the change in camera angle and lighting conditions. The river's path and the positioning of the peaks relative to each other remain consistent.\n\nFinal Answer: Option 3",
+      "error": null
+    }
+  ]
+}

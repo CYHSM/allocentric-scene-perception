@@ -1,0 +1,18 @@
+[project]
+name = "four-mountains-bench"
+version = "0.1.0"
+description = "Parametric Four Mountains Task benchmark for LLMs, VLMs and humans"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "pillow>=10.0",
+    "scipy>=1.10",
+]
+
+[project.optional-dependencies]
+eval = ["anthropic>=0.40", "httpx>=0.27"]
+dev = ["pytest>=8.0", "matplotlib>=3.7"]
+
+[tool.pytest.ini_options]
+testpaths = ["bench/tests"]
+pythonpath = ["blender/four_mountains", "bench", "."]

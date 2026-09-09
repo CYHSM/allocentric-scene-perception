@@ -1,0 +1,192 @@
+% ---------------------------------------------------------------------------
+% Allocentric scene perception: how many metres is a degree?
+%
+% Numbers marked \TODO come from committed scripts, not by hand:
+%   bench/merge_bank.py      dataset checks
+%   bench/metrics.py         retrieval / NVM / RSA
+%   bench/exchange.py        lambda
+%   bench/figure_dataset.py  Figure 1
+% ---------------------------------------------------------------------------
+\documentclass{article}
+
+\usepackage[dblblindworkshop]{neurips_2026}
+\workshoptitle{WORKSHOP TITLE}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\newcommand{\TODO}[1]{\textcolor{red}{[#1]}}
+\newcommand{\dpos}{d_{\mathrm{pos}}}
+\newcommand{\dbind}{d_{\mathrm{bind}}}
+\newcommand{\did}{d_{\mathrm{id}}}
+
+\title{How many metres is a degree? Measuring allocentric scene
+representation in frozen vision encoders}
+
+\author{%
+  \TODO{authors}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\TODO{Written last.} Two images of a place can differ for two reasons: the place
+changed, or the observer moved. We render a dataset in which both are varied
+independently and measure them in the same currency---distance in a frozen
+encoder's embedding---which lets them be traded against one another. The
+resulting quantity, $\lambda(\Delta)$, is the distance landmarks must physically
+move to cost a model as much as walking $\Delta$ degrees around the scene, and it
+is reported in metres.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+\TODO{$\sim$0.75 page.} The Four Mountains Test asks a person to recognise a
+place from a new viewpoint, and dissociates allocentric from egocentric spatial
+memory. Image benchmarks cannot make that dissociation, because ``the same
+place'' and ``the same picture'' are confounded whenever the viewpoint is held
+fixed. Our contribution is a dataset in which the two are orthogonal by
+construction, and a read-out with units.
+
+\section{The benchmark}
+\label{sec:benchmark}
+
+\paragraph{One set of scenes, rendered five ways.}
+Each scene is sampled once---landmark positions, uniform sizes, one camera
+rig---and rendered in five stimulus modes (Figure~\ref{fig:dataset}, top).
+Scene \texttt{a007} in \texttt{c0} and in \texttt{c4} is the same place from the
+same spot; only the cues that distinguish landmarks, and the surrounding world,
+differ. Mode is therefore a within-scene factor and every cross-mode comparison
+is paired. \TODO{cite/describe the five modes.}
+
+\paragraph{Scene distance.}
+A scene is a set of (identity, position) pairs. Two scenes differ along three
+coordinates, each computed under an optimal assignment between landmark sets:
+$\dpos$, the largest distance a landmark must move, in metres; $\dbind$, the
+fraction of places whose occupant changed; and $\did$, how different the sets of
+landmarks are. The three are orthogonal by construction---a permutation gives
+$\dpos = 0$ exactly---which a slot-matched displacement measure does not
+achieve. We sweep $\dpos$, because it is the coordinate with units; identity is
+varied by the mode ladder instead.
+
+\paragraph{Anchors and probes.}
+\TODO{$N$} mutually distinct anchor scenes form the retrieval gallery.
+\TODO{$K$} of them additionally carry a probe ladder: the same scene with one
+landmark displaced $1, 2, 4, 8, 16, 24$ m (Figure~\ref{fig:dataset}, bottom).
+Every scene---anchor or probe---is rendered identically under two appearances at
+eight bearings, so nothing is a distractor at render time and all analyses are
+post hoc.
+
+\paragraph{$\lambda$: trading metres against degrees.}
+Let $D_{\text{view}}(\Delta)$ be the embedding distance between an anchor and
+itself seen $\Delta$ degrees away, and $D_{\text{scene}}(d)$ the distance between
+an anchor and its probe at $\dpos = d$, at the same bearing. Both use the same
+appearance contrast. Then
+\begin{equation}
+  \lambda(\Delta) = \{\, d : D_{\text{scene}}(d) = D_{\text{view}}(\Delta) \,\},
+  \label{eq:lambda}
+\end{equation}
+the distance the landmarks must move to cost the model as much as the turn.
+Small $\lambda$ is the good end: a representation that survives the turn pays
+little for it, so a small displacement suffices to match the cost. A
+$\lambda$ of tens of metres indicates appearance matching. Where the crossing
+falls outside the probe ladder we report $\lambda$ as unmeasured rather than
+clamping it to an endpoint.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{../figures/fig1_dataset.png}
+  \caption{\textbf{The dataset.} Top: one scene in all five modes---the same
+  place, the same camera, differing only in what tells the landmarks apart.
+  Bottom: the probe ladder, the same scene with one landmark displaced $d$
+  metres, labelled with the fraction of the frame that changed. The smallest
+  rung already moves $5.5\%$ of the pixels and the ladder is monotone, so the
+  bottom of the ladder sits above the renderer's floor: a flat
+  $D_{\text{scene}}(1\,\text{m})$ would be a fact about the model.}
+  \label{fig:dataset}
+\end{figure}
+
+\section{Experiments}
+\label{sec:results}
+
+\paragraph{Models.} \TODO{DINOv2-B/14, SigLIP-so400m, CLIP-B/16, ResNet-50,
+frozen; one embedding pass each.}
+
+\paragraph{Sanity check.} At $\Delta = 0$ with appearance held constant the query
+is the byte-identical file, so Recall@1 must be exactly $1.000$; we gate on this
+before reporting any cell. \TODO{report pass.}
+
+\paragraph{Results.} \TODO{Read off Table~\ref{tab:main} once scored.}
+Figure~\ref{fig:lambda} gives $\lambda(45^\circ)$ for every model in every mode.
+Where $\lambda$ falls outside the probe ladder it is drawn at the end it fell
+off rather than omitted: below the ladder the turn costs less than a $1$~m
+displacement, above it the turn costs more than any scene change we rendered,
+and for a saturated model that is the finding. Figure~\ref{fig:curves} shows the
+two curves $\lambda$ is read from, which is what distinguishes an interpolated
+$\lambda$ from an extrapolated one.
+
+\begin{figure}[t]
+  \centering
+  \IfFileExists{../figures/fig2_lambda.png}
+    {\includegraphics[width=\linewidth]{../figures/fig2_lambda.png}}
+    {\TODO{Figure 2 --- run \texttt{bench/figure\_results.py}}}
+  \caption{\textbf{$\lambda(45^\circ)$, in metres.} Lower is more
+  viewpoint-invariant. Bars are $95\%$ bootstrap intervals over anchors; hollow
+  arrows mark cells whose crossing lies outside the $1$--$24$~m ladder.}
+  \label{fig:lambda}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \IfFileExists{../figures/fig3_curves.png}
+    {\includegraphics[width=\linewidth]{../figures/fig3_curves.png}}
+    {\TODO{Figure 3 --- run \texttt{bench/figure\_results.py}}}
+  \caption{\textbf{Where the curves cross.} $D_{\text{scene}}(d)$ against the
+  cost of a $45^\circ$ turn, one panel per mode. \TODO{model}}
+  \label{fig:curves}
+\end{figure}
+
+\begin{table}[t]
+  \centering
+  \caption{$\lambda$ at three turn sizes, with cross-view Recall@1 and RSA at
+  $45^\circ$. $<\!1$ and $>\!24$ mark crossings outside the probe ladder.}
+  \label{tab:main}
+  \IfFileExists{table1.tex}{\input{table1.tex}}
+    {\TODO{Table 1 --- run \texttt{bench/figure\_results.py}}}
+\end{table}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\TODO{$\sim$0.75 page. What/where dissociation; the structural null for
+nearest-neighbour read-outs; limitations---synthetic stimuli, no human data
+collected here, azimuth-only viewpoint change, $\lambda$ assumes the two curves
+cross once.}
+
+\paragraph{The top of the ladder occludes.} Displacing a landmark can move it in
+front of another. $\did$ and $\dbind$ remain exactly $0$, so the scene changed
+only in position, but the image lost an object, and $D_{\text{scene}}$ at the
+largest $d$ is therefore not purely a displacement. \TODO{rate per rung from the
+occlusion census.} A $\lambda$ resting only on the top rungs should be read
+against Figure~\ref{fig:curves} rather than taken at face value.
+
+\section*{Reproducibility}
+Every number is produced by a committed script and no figure is drawn by hand;
+the dataset plan is a deterministic function of a single seed, and the five modes
+are checked to hold the same scenes at the same places before anything is scored.
+
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}

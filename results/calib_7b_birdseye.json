@@ -1,0 +1,746 @@
+{
+  "summary": {
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "benchmark": "data/vlm_benchmark_calibration.json",
+    "prompt_style": "birdseye",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 50,
+    "overall_accuracy": 0.18,
+    "choice_distribution": {
+      "4": 22,
+      "3": 16,
+      "2": 9,
+      "1": 3
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c0_shape_colour_d180": {
+        "mode": "c0_shape_colour",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d0": {
+        "mode": "c1_shape",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c1_shape_d45": {
+        "mode": "c1_shape",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d90": {
+        "mode": "c1_shape",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d135": {
+        "mode": "c1_shape",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d180": {
+        "mode": "c1_shape",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d0": {
+        "mode": "c2_colour",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c2_colour_d45": {
+        "mode": "c2_colour",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d90": {
+        "mode": "c2_colour",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d135": {
+        "mode": "c2_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d180": {
+        "mode": "c2_colour",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c3_peaks_bare_d0": {
+        "mode": "c3_peaks_bare",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c3_peaks_bare_d45": {
+        "mode": "c3_peaks_bare",
+        "delta": 45,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c3_peaks_bare_d90": {
+        "mode": "c3_peaks_bare",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c3_peaks_bare_d135": {
+        "mode": "c3_peaks_bare",
+        "delta": 135,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c3_peaks_bare_d180": {
+        "mode": "c3_peaks_bare",
+        "delta": 180,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c4_valley_d0": {
+        "mode": "c4_valley",
+        "delta": 0,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c4_valley_d45": {
+        "mode": "c4_valley",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c4_valley_d90": {
+        "mode": "c4_valley",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c4_valley_d135": {
+        "mode": "c4_valley",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c4_valley_d180": {
+        "mode": "c4_valley",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      }
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t00",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.294658422470093,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 4, the same relative positions of the peaks are maintained, but the camera angle has shifted to a more direct overhead perspective, aligning perfectly with the bird's-eye map of the study image. The shadows and lighting remain consistent, confirming the geometric consistency.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t01",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 3.325556755065918,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 3, the relative positions of the peaks match the study image's layout, with the same triangular formation and the tallest peak isolated. The camera angle in Option 3 is consistent with the study image, as it captures the same spatial relationships and shadows. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t00",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.3039019107818604,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another peak being the tallest, and the remaining two forming a smaller triangle around it. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the objects. In Option 2, the peaks maintain the same relative positions but are rotated 90 degrees clockwise, aligning perfectly with the bird's-eye map layout. The other options alter the spatial relationships between the peaks, making them inconsistent with the study image's layout.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t01",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.0355100631713867,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another peak to its right, and two peaks forming a smaller triangle to the left. The tallest peak is positioned slightly behind the others. When viewing the options from a top-down perspective, Option 3 maintains the same relative positions and distances between the peaks as seen in the study image. Therefore, the camera viewpoint for Option 3 is consistent with the study image's layout.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t00",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.3222649097442627,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera is positioned such that it captures this layout from a slightly elevated angle, providing a clear view of all peaks. In Option 3, the camera appears to be positioned similarly, maintaining the same relative distances and angles between the peaks as seen in the study image. Therefore, Option 3 is geometrically consistent with the study scene's top-down layout.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t01",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.3517863750457764,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 3, the same relative positions of the peaks are maintained, but the camera angle has shifted to a more direct overhead perspective, aligning perfectly with the bird's-eye map of the study image. The other options alter the spatial relationships or the overall configuration of the peaks.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t00",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.472131013870239,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera is positioned such that it captures this layout from a slightly elevated angle, providing a clear view of all peaks. In Option 1, the camera appears to be positioned further back and to the left, maintaining the same relative positions but with a wider field of view. Option 2 shifts the camera closer to the right side, altering the perspective significantly. Option 3 places the camera closer to the front, changing the spatial relationships between the peaks. Option 4 maintains a similar perspective to the study image, with the same relative distances and angles, just from a slightly different angle. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t01",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.0789365768432617,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle. The camera is positioned such that it captures this layout from a slightly elevated angle, providing a clear view of all peaks. In Option 4, the camera appears to be positioned similarly, maintaining the same relative distances and angles between the peaks as seen in the study image. Therefore, the bird's-eye spatial layout remains consistent.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t00",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.121737480163574,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera is positioned such that it captures this layout from a slightly elevated angle, providing a clear view of all peaks. In Option 4, the camera appears to be positioned similarly, maintaining the same relative distances and angles between the peaks as seen in the study image. Therefore, Option 4 is the correct choice.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t01",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.5049800872802734,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another peak being the tallest, and the remaining two forming a smaller triangle around it. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the objects. In Option 4, the peaks maintain the same relative positions and distances as in the study image, indicating that this option is taken from a similar camera angle but with a slight rotation or shift. The other options show significant changes in the spatial configuration of the peaks, making them inconsistent with the study image.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t00",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.0080742835998535,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the foreground, another slightly behind it, and two smaller peaks positioned further back. The tallest peak is on the right side of the triangle. When viewing the options from a top-down perspective, Option 2 maintains the same relative positions and distances between the peaks as seen in the study image. The camera angle appears to be slightly rotated compared to the study image but still captures the same spatial relationships.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t01",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 4.281004428863525,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 1, the camera seems to be positioned further back and to the right, maintaining the triangular formation but altering the perspective and shadow direction. Option 2 shifts the camera closer to the left side, changing the relative angles and shadow patterns. Option 3 places the camera closer to the front, altering the overall spatial relationship between the peaks. Option 4 maintains a similar camera position and angle as the study image, preserving the same relative distances and shadow directions. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t00",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 2.7414169311523438,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the background. The tallest peak is positioned towards the right, while the smallest peak is in the foreground on the left. The middle-sized peak is slightly behind the largest peak, and the smallest peak is further back. When viewing the options, the one that maintains this exact triangular formation and relative positioning of the peaks is Option 1. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t01",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.3409006595611572,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 2, the peaks maintain the same relative positions but are viewed from a different angle, preserving the triangular formation and the isolation of the central peak. The shadows and lighting remain consistent with the study image, indicating that this option is geometrically consistent with the original layout.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t00",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 2.7714571952819824,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another peak slightly to the left, and two peaks forming a smaller triangle to the right. The tallest peak is positioned towards the back right. When viewing the options from a top-down perspective, Option 2 maintains the same relative positions and distances between the peaks as seen in the study image, indicating it is the correct viewpoint. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t01",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 2.8496901988983154,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the background. The tallest peak is positioned towards the right, while the other three form a smaller triangle to its left. The cylinder is placed to the far right, slightly behind the cone. When viewing the options, Option 1 maintains the same relative positions but shifts the entire scene to the left, keeping the same triangular formation and the cylinder's position. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t00",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.2789835929870605,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 1, the camera seems to be positioned further back and to the right, maintaining the triangular formation but altering the perspective. Option 2 shifts the camera closer to the left side, changing the relative angles of the peaks. Option 3 places the camera closer to the front, altering the depth and angle of the peaks. Option 4 maintains a similar angle and distance as the study image, preserving the triangular arrangement and the relative heights of the peaks. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t01",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.721367597579956,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another slightly taller peak to its right, and two smaller peaks forming a smaller triangle to the left. The camera appears to be positioned above and slightly behind this arrangement, capturing the shadows cast by the mountains. In Option 4, the peaks maintain the same relative positions and shadows, indicating it is the correct viewpoint. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t00",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.0724539756774902,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, another being the tallest, and the remaining two forming a smaller triangle around it. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 4, the peaks maintain the same relative positions and distances as seen in the study image, indicating that the camera angle has not changed significantly. The shadows and lighting remain consistent, suggesting this is the correct option.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t01",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.3010528087615967,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the background, another slightly taller peak to its left, and two smaller peaks closer together in the foreground. The camera appears to be positioned slightly to the right of the center, looking down at this configuration. In Option 4, the peaks maintain the same relative positions and distances as seen in the study image, just rotated slightly to the left. This rotation aligns perfectly with the bird's-eye view of the study image, making it the correct option.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t00",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.1221067905426025,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 3, the peaks maintain the same relative positions and distances as seen in the study image, suggesting it was taken from a similar camera angle but possibly rotated or translated slightly. The other options show altered configurations, indicating they were not captured from the same viewpoint.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t01",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 3.266585350036621,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 3, the peaks maintain the same relative positions and distances as seen in the study image, suggesting it was taken from a similar camera angle but possibly with a slight rotation or zoom adjustment. The other options show significant changes in the spatial layout, indicating they were captured from different viewpoints.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t00",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.227146863937378,
+      "reply": "In the study image, the four cones form a triangular arrangement with one peak being the tallest and isolated in the center, while the others are positioned around it. The camera appears to be positioned slightly to the left and behind this central peak when viewing from above. In Option 4, the cones maintain the same relative positions but are rotated such that the tallest peak is now on the right side of the frame, and the camera angle is consistent with the study image. This rotation aligns perfectly with the top-down cognitive mapping strategy.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t01",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.061821460723877,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 4, the peaks maintain the same relative positions and distances as in the study image, indicating that the camera angle has not changed significantly. The shadows and lighting remain consistent, suggesting this is the correct option that aligns with the original study view.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t00",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.0556797981262207,
+      "reply": "In the study image, the four cones form a triangular arrangement with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the cones. In Option 2, the cones maintain the same relative positions but are viewed from a different angle, preserving the triangular formation and the isolation of the central peak. The tallest peak still aligns with the bottom right position, indicating consistency with the study image's layout.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t01",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.0574820041656494,
+      "reply": "In the study image, the four cones form a triangular arrangement with one peak isolated in the center, and the tallest peak positioned towards the bottom left. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the cones. In Option 3, the cones maintain the same relative positions and distances as in the study image, suggesting it was taken from a similar camera angle but possibly rotated or translated slightly. The other options show altered configurations, indicating they were not captured from the same viewpoint.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t00",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.0976147651672363,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, and the tallest peak positioned towards the bottom left. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 3, the peaks maintain the same relative positions and distances as seen in the study image, suggesting it was taken from a similar camera angle but possibly rotated or translated slightly. The other options show altered configurations, indicating they were not captured from the same viewpoint.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t01",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 4.088250160217285,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera viewpoint appears to be slightly angled, capturing the shadows cast by the mountains. In Option 1, the peaks maintain the same triangular formation but are rotated clockwise, aligning with the study image's layout. Option 2 introduces a significant change in the mountain configuration, altering the triangle's shape and position. Option 3 shifts the peaks in a way that changes the relative height and distance between them, making it inconsistent with the study image. Option 4 also alters the mountain arrangement, changing the triangle's orientation and the positioning of the tallest peak.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t00",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 3.330132484436035,
+      "reply": "In the study image, the four cones form a triangular arrangement with one peak being the tallest and isolated in the center, while the other three form a smaller triangle around it. The camera appears to be positioned slightly above and to the side of this arrangement, capturing the shadows cast by the cones. In Option 4, the cones maintain the same relative positions and distances as in the study image, but the camera angle has shifted to a position that aligns with the bird's-eye view described. The shadows and the overall spatial relationship between the cones remain consistent.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t01",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 3.2946338653564453,
+      "reply": "In the study image, the four cones form a triangular arrangement with one peak being the tallest and isolated in the center, while the other three form a smaller triangle around it. The camera appears to be positioned slightly above and to the side of this arrangement, capturing the scene with shadows cast accordingly. In Option 2, the cones maintain the same relative positions but are viewed from a perspective that aligns perfectly with the study image's top-down layout, suggesting the camera is in the same position but rotated to show the scene from a different angle. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.0925021171569824,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the bottom left. The camera in the study image appears to be positioned slightly above and to the right of this layout. In Option 4, the peaks maintain the same relative distances and positions as seen in the study image, indicating that the camera viewpoint has not changed significantly. Therefore, Option 4 is geometrically consistent with the study scene's top-down layout.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 2.9785680770874023,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera in the study image appears to be positioned slightly above and to the left of this layout. In Option 2, the camera viewpoint remains consistent with the study image, maintaining the same relative positions and angles. The other options alter the spatial relationships between the peaks, making them inconsistent with the study image's layout.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.833134651184082,
+      "reply": "In the study image, the four mountain peaks form a triangular arrangement with one peak isolated in the center and the others forming a smaller triangle around it. The tallest peak is positioned towards the bottom right. When viewing the options, the camera angle appears to shift slightly to the left, maintaining the triangular formation but altering the perspective. Option 3 maintains this geometric consistency, placing the camera in a position that aligns with the study image's top-down layout.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 3.104003667831421,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera in the study image appears to be positioned slightly above and to the left of this layout. In Option 4, the peaks maintain the same relative distances and positions as seen in the study image, indicating that the camera viewpoint has not changed significantly. Therefore, Option 4 is geometrically consistent with the study scene's top-down layout.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.1013436317443848,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera in the study image appears to be positioned slightly above and to the left of this layout. In Option 4, the peaks maintain the same relative distances and positions as seen in the study image, indicating that the camera viewpoint has not changed significantly. Therefore, Option 4 is geometrically consistent with the study scene's top-down layout.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.09660267829895,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera in the study image appears to be positioned slightly above and to the left of this layout. In Option 4, the peaks maintain the same relative distances and positions as seen in the study image, indicating that the camera viewpoint has not changed significantly. Therefore, Option 4 is geometrically consistent with the study scene's top-down layout.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.0998241901397705,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the bottom right. The camera in the study image appears to be positioned slightly above and to the left of this layout. In Option 4, the peaks maintain the same relative distances and positions as seen in the study image, indicating that the camera viewpoint has not changed significantly. Therefore, Option 4 is geometrically consistent with the study scene's top-down layout.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 4.955249071121216,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangular formation with one peak isolated in the center and the tallest peak positioned to the right. The camera in the study image appears to be positioned slightly to the left of the tallest peak, looking towards the right side of the triangle. \n\nIn Option 1, the camera seems to have moved further to the left, creating a more elongated triangle with the tallest peak now closer to the center. In Option 2, the camera has shifted to the right, making the triangle appear more compact and the tallest peak more central. Option 3 places the camera closer to the base of the tallest peak, altering the triangle's shape significantly. Option 4 maintains a similar triangular formation but with the tallest peak still to the right, suggesting a slight shift in the camera's position to the right compared to the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 3.098979949951172,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the left side. The camera in the study image appears to be positioned slightly above and to the right of this central peak. In Option 2, the camera viewpoint remains consistent with the study image, maintaining the same relative positions and angles between the peaks. The other options show significant changes in the spatial arrangement of the peaks, making them inconsistent with the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.600392580032349,
+      "reply": "The bird's-eye view of the study image shows three mountain peaks forming a triangular pattern with one peak isolated in the center and the tallest peak positioned to the right. The camera in the study image appears to be positioned slightly to the left of the central peak, looking towards the right. \n\nIn Option 1, the camera seems to have moved further to the left, creating a more elongated triangle with the central peak now closer to the left edge. In Option 2, the camera has shifted to the right, making the central peak appear smaller and the tallest peak more prominent. Option 3 maintains a similar triangular formation but with the camera positioned slightly higher, altering the shadows and angles. Option 4 aligns perfectly with the original layout, maintaining the same triangular formation and camera position as in the study image.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t00",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.7263550758361816,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the right. The camera in the study image appears to be positioned slightly to the left of the central peak, looking down at it. In Option 4, the camera viewpoint aligns perfectly with this description, maintaining the same relative positions and angles as seen in the study image. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t01",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.960367202758789,
+      "reply": "The bird's-eye view of the study image shows four mountain peaks forming a roughly triangular shape, with one peak being more isolated and another being the tallest. The river flows through the valley between these peaks. In Option 4, the camera appears to be positioned in a similar location as in the study image, maintaining the same relative positions and distances between the peaks. The lighting and shadows also align well with those in the study image, indicating that this is the correct option.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t00",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.7564101219177246,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the foreground, and the tallest peak positioned towards the right. The camera in the study image appears to be positioned slightly to the left of the center, looking down at an angle. In Option 3, the camera viewpoint matches this description, maintaining the same relative positions and angles as seen in the study image. Therefore, the correct answer is:\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t01",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.5497782230377197,
+      "reply": "The bird's-eye view of the study image shows four mountain peaks forming a triangular shape with one peak being the tallest and isolated in the center. The camera in the study image appears to be positioned slightly to the left of the tallest peak, looking down at it. In Option 4, the camera viewpoint matches this description, maintaining the same relative positions and angles as seen in the study image. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t00",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.7875137329101562,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the right. The camera viewpoint for the study image places it slightly above and to the left of this configuration. In Option 3, the camera appears to be positioned similarly, maintaining the same relative distances and angles between the peaks as seen in the study image. Therefore, Option 3 is the correct choice.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t01",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.598432779312134,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the foreground, and the tallest peak positioned towards the right. The camera viewpoint for the study image places it slightly above and to the left of this layout. Option 3 maintains the same relative positions and distances between the peaks as seen in the study image, indicating that the camera angle and lighting remain consistent. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t00",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.0319325923919678,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the right. The river flows around these peaks, curving around them. In Option 3, the camera appears to be positioned similarly to the study image, maintaining the same relative distances and angles between the peaks and the river. The layout of the peaks and the river in Option 3 matches the study image's layout perfectly when viewed from this perspective.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t01",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.6400372982025146,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the foreground, and the tallest peak positioned centrally. The camera viewpoint for the study image places it directly above this layout. In Option 3, the camera appears to be positioned similarly, maintaining the same relative distances and angles between the peaks as seen in the study image. Therefore, Option 3 is the correct choice.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t00",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.833270311355591,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the right side of the triangle. The camera viewpoint for the study image places it slightly above and to the left of this configuration. Option 3 maintains the same relative positions and distances between the peaks as seen in the study image, indicating that the camera angle and lighting remain consistent. Therefore, the correct answer is:\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t01",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.0772666931152344,
+      "reply": "The bird's-eye view of the study image shows three peaks forming a triangle with one peak isolated in the center, and the tallest peak positioned towards the right. The river flows around these peaks, curving around them before continuing into the distance. In Option 3, the camera appears to be positioned similarly to the study image, maintaining the same relative distances and angles between the peaks and the river. The lighting and shadows also align closely with those in the study image, indicating that this is the correct option.\n\nFinal Answer: Option 3",
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,746 @@
+{
+  "summary": {
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "benchmark": "data/vlm_benchmark_calibration.json",
+    "prompt_style": "elimination",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 50,
+    "overall_accuracy": 0.28,
+    "choice_distribution": {
+      "4": 19,
+      "3": 18,
+      "2": 12,
+      "1": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c0_shape_colour_d180": {
+        "mode": "c0_shape_colour",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d0": {
+        "mode": "c1_shape",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c1_shape_d45": {
+        "mode": "c1_shape",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d90": {
+        "mode": "c1_shape",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d135": {
+        "mode": "c1_shape",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d180": {
+        "mode": "c1_shape",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d0": {
+        "mode": "c2_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c2_colour_d45": {
+        "mode": "c2_colour",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d90": {
+        "mode": "c2_colour",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d135": {
+        "mode": "c2_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d180": {
+        "mode": "c2_colour",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c3_peaks_bare_d0": {
+        "mode": "c3_peaks_bare",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c3_peaks_bare_d45": {
+        "mode": "c3_peaks_bare",
+        "delta": 45,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c3_peaks_bare_d90": {
+        "mode": "c3_peaks_bare",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c3_peaks_bare_d135": {
+        "mode": "c3_peaks_bare",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c3_peaks_bare_d180": {
+        "mode": "c3_peaks_bare",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c4_valley_d0": {
+        "mode": "c4_valley",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c4_valley_d45": {
+        "mode": "c4_valley",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c4_valley_d90": {
+        "mode": "c4_valley",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c4_valley_d135": {
+        "mode": "c4_valley",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c4_valley_d180": {
+        "mode": "c4_valley",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      }
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t00",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 1.5592942237854004,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t01",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 0.6233055591583252,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t00",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 0.6244385242462158,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t01",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6218357086181641,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t00",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6216232776641846,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t01",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6284515857696533,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t00",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 0.6216492652893066,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t01",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6334884166717529,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t00",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 0.6272997856140137,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t01",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6229016780853271,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t00",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 0.6269068717956543,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t01",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 0.6233072280883789,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t00",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 0.6234686374664307,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t01",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 0.6267094612121582,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t00",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 0.6390888690948486,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t01",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 0.6302013397216797,
+      "reply": "Final Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t00",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6237707138061523,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t01",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6235222816467285,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t00",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6256132125854492,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t01",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6233839988708496,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t00",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 0.6247873306274414,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t01",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 0.6211960315704346,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t00",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6197583675384521,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t01",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6239218711853027,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t00",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 0.6255919933319092,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t01",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6245114803314209,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t00",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6237714290618896,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t01",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 0.6236398220062256,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t00",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 0.6223218441009521,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t01",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 0.6236164569854736,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6224863529205322,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 0.6244771480560303,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6270360946655273,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 0.6258907318115234,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6227548122406006,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6177470684051514,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6165544986724854,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6135118007659912,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 0.6119461059570312,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 0.6275379657745361,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t00",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 0.6358792781829834,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t01",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 0.6385490894317627,
+      "reply": "Final Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t00",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 0.6312253475189209,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t01",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 0.6352458000183105,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t00",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6352896690368652,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t01",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6327979564666748,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t00",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6346304416656494,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t01",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6325817108154297,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t00",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.641869306564331,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t01",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 0.6355278491973877,
+      "reply": "Final Answer: Option 3",
+      "error": null
+    }
+  ]
+}

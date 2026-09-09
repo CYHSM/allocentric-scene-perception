@@ -9,7 +9,25 @@ __pycache__/
 *.onnx
 lightning*
 wandb/
-data/
+# Data. The rendered bank is ~8 GB of PNG and does not belong in git, but the
+# manifests it is read through are small and *are* the analysis inputs: without
+# them a committed script cannot reproduce a committed number.
+data/**
+!data/scenes/
+!data/scenes/*/
+!data/scenes/*/bank.json
+!data/scenes/*/metrics.json
+!data/scenes/*/exchange.json
+# The 100-anchor bank is the current analysis input. Its manifests were ignored
+# by the block above -- the whitelist was written for `data/scenes/` and never
+# extended -- so every encoder result and every VLM benchmark file was invisible
+# to git while the comment above claimed the opposite.
+!data/scenes_100/
+!data/scenes_100/*/
+!data/scenes_100/*/bank.json
+!data/scenes_100/*/metrics.json
+!data/scenes_100/*/exchange.json
+!data/vlm_benchmark_*.json
 checkpoints/
 # Distribution / packaging
 .Python
@@ -126,3 +144,13 @@ _figtmp/
 # Four Mountains game render image assets
 game/renders/**/*.png
 game/renders/*.png
+
+# LaTeX build products
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.pdf
+paper/*.bbl
+paper/*.blg
+
+.DS_Store
