@@ -1,0 +1,1312 @@
+{
+  "summary": {
+    "model": "OpenGVLab/InternVL3_5-30B-A3B-HF",
+    "benchmark": "data/vlm_benchmark_4afc_hard.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 100,
+    "overall_accuracy": 0.29,
+    "choice_distribution": {
+      "1": 19,
+      "2": 41,
+      "4": 10,
+      "3": 30
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c0_shape_colour_d180": {
+        "mode": "c0_shape_colour",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c1_shape_d0": {
+        "mode": "c1_shape",
+        "delta": 0,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c1_shape_d45": {
+        "mode": "c1_shape",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c1_shape_d90": {
+        "mode": "c1_shape",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c1_shape_d135": {
+        "mode": "c1_shape",
+        "delta": 135,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c1_shape_d180": {
+        "mode": "c1_shape",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c2_colour_d0": {
+        "mode": "c2_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c2_colour_d45": {
+        "mode": "c2_colour",
+        "delta": 45,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c2_colour_d90": {
+        "mode": "c2_colour",
+        "delta": 90,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c2_colour_d135": {
+        "mode": "c2_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c2_colour_d180": {
+        "mode": "c2_colour",
+        "delta": 180,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c3_peaks_bare_d0": {
+        "mode": "c3_peaks_bare",
+        "delta": 0,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c3_peaks_bare_d45": {
+        "mode": "c3_peaks_bare",
+        "delta": 45,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c3_peaks_bare_d90": {
+        "mode": "c3_peaks_bare",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c3_peaks_bare_d135": {
+        "mode": "c3_peaks_bare",
+        "delta": 135,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c3_peaks_bare_d180": {
+        "mode": "c3_peaks_bare",
+        "delta": 180,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c4_valley_d0": {
+        "mode": "c4_valley",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c4_valley_d45": {
+        "mode": "c4_valley",
+        "delta": 45,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c4_valley_d90": {
+        "mode": "c4_valley",
+        "delta": 90,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c4_valley_d135": {
+        "mode": "c4_valley",
+        "delta": 135,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c4_valley_d180": {
+        "mode": "c4_valley",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      }
+    },
+    "run_config": {
+      "benchmark_path": "data/vlm_benchmark_4afc_hard.json",
+      "benchmark_sha256_12": "5e64a7575cb7",
+      "prompt_style": "cot_anyview",
+      "prompt_sha256_12": "269bd7e9dbe4",
+      "reasoning_effort": "medium",
+      "max_tokens": 8000,
+      "workers": 1,
+      "max_trials": 100,
+      "sampling": "stratified_mode_x_delta",
+      "modes": null,
+      "n_options": 4,
+      "resumed_from_existing_output": 0,
+      "git_commit": null,
+      "finished_utc": "2026-09-10T15:27:14+00:00"
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 9.593394756317139,
+      "reply": "The study image shows four distinct shapes: a green cylinder, a purple cone, a yellow hemisphere, and a blue triangular pyramid. In Option 1, the arrangement is similar, with the green cylinder on the left, the yellow hemisphere in the center, the purple cone to the left of the hemisphere, and the blue pyramid to the right. The relative positions and spatial layout match the study image. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t14",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 10.643121719360352,
+      "reply": "The study image shows four distinct shapes: a yellow sphere, a purple cone, a blue triangle, and a green cylinder. The purple cone is in the foreground on the left, the yellow sphere is slightly behind it, the blue triangle is in the background, and the green cylinder is to the right.\n\nOption 2 matches this arrangement closely, with the purple cone in the foreground on the left, the yellow sphere behind it, the blue triangle in the background, and the green cylinder to the right. The relative positions and spatial layout are consistent with the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t16",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 11.54389476776123,
+      "reply": "The study image shows four geometric shapes arranged in a specific spatial layout: a yellow sphere on the left, a blue triangular pyramid in the foreground, a purple triangular pyramid in the background, and a green cylinder to the right. \n\nOption 1 has the same arrangement, with the yellow sphere on the left, the blue triangular pyramid in the front, the purple triangular pyramid in the back, and the green cylinder on the right, maintaining the same relative positions as the study image.\n\nOption 2, Option 3, and Option 4 show different arrangements, with the shapes not matching the relative positions in the study image.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t18",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 9.05489993095398,
+      "reply": "The study image shows four geometric shapes: a teal pyramid on the left, a purple pyramid slightly to the right and behind, a green cylinder in the front right, and a yellow sphere behind the green cylinder. \n\nOption 2 has the same arrangement, with the teal pyramid on the left, the purple pyramid to the right and behind, the green cylinder in front right, and the yellow sphere behind the green cylinder. The relative positions match those in the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t00",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 11.402676582336426,
+      "reply": "The study image shows a green cylinder, a yellow sphere, a purple cone, and a blue pyramid arranged on a flat surface. The relative positions are such that the green cylinder is on the left, the yellow sphere is slightly behind and to the right of the cylinder, the purple cone is further to the right, and the blue pyramid is in front of the cone.\n\nOption 2 matches this arrangement, with the green cylinder on the left, the yellow sphere behind and to the right, the purple cone further right, and the blue pyramid in front of the cone. The other options have different spatial arrangements of the objects.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t11",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 11.021750688552856,
+      "reply": "The study image shows four distinct shapes: a yellow oval on the left, a green cylinder behind it, a blue triangle to the right of the cylinder, and a purple cone further to the right. \n\nOption 1 has the same arrangement, with the yellow oval on the left, the green cylinder behind it, the blue triangle to the right of the cylinder, and the purple cone further right, matching the spatial layout of the study image.\n\nOption 2, 3, and 4 show different arrangements, with the shapes not aligning in the same relative positions as in the study image.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t13",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 8.1880943775177,
+      "reply": "The study image shows four peaks: a yellow dome on the left, a cyan pyramid slightly behind it, a green cylinder to the right, and a purple cone in the foreground. \n\nOption 4 has the same arrangement, with the yellow dome on the left, the cyan pyramid behind it, the green cylinder to the right, and the purple cone in the front, matching the spatial layout of the study image.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t16",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 8.3928861618042,
+      "reply": "The study image shows four geometric shapes: a purple pyramid on the left, a green cube in the back, a yellow sphere in the front, and a blue pyramid on the right. \n\nOption 3 has the same arrangement, with the yellow sphere in the front, the purple pyramid to its left, the blue pyramid to its right, and the green cube in the back. The relative positions match those in the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t07",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 9.13477373123169,
+      "reply": "The study image shows four distinct shapes: a purple cone on the left, a green cylinder in the middle, a yellow hemisphere on the right, and a blue pyramid in the foreground. Option 3 has the same arrangement, with the purple cone on the left, the green cylinder in the middle, the yellow hemisphere on the right, and the blue pyramid in the front. The other options either change the positions or the types of shapes, disrupting the original spatial layout. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t17",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 8.419217348098755,
+      "reply": "The study image shows four geometric shapes: a green cylinder on the left, a purple cone behind it, a blue triangular prism in front, and a yellow sphere to the right. \n\nOption 2 matches this arrangement, with the green cylinder in the center, the purple cone to its left, the yellow sphere behind, and the blue triangular prism to the right. The relative positions and spatial layout are consistent with the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t18",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 10.820246696472168,
+      "reply": "The study image shows four geometric shapes arranged in a specific spatial layout: a green cylinder, a yellow sphere, a purple cone, and a blue pyramid. The purple cone is positioned to the left of the yellow sphere, the green cylinder is behind the yellow sphere, and the blue pyramid is to the right of the yellow sphere.\n\nOption 2 matches this layout closely. The purple cone is to the left of the yellow sphere, the green cylinder is behind the sphere, and the blue pyramid is to the right. The other options either change the relative positions or the arrangement of the shapes.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t19",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 9.680896520614624,
+      "reply": "The study image shows four distinct shapes: a green cylinder, a blue triangular pyramid, a purple triangular pyramid, and a yellow sphere. In comparing the options, Option 4 maintains the same relative positions of these shapes: the yellow sphere is on the left, the blue pyramid is slightly behind and to the right of the sphere, the green cylinder is further back on the right, and the purple pyramid is in the foreground on the right. The spatial arrangement of the shapes in Option 4 matches the study image.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t00",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 8.700061798095703,
+      "reply": "The study image shows four geometric shapes: a green cylinder on the left, a blue triangular pyramid behind it, a yellow hemisphere to the right of the pyramid, and a purple cone in the foreground. \n\nOption 2 matches this arrangement, with the green cylinder on the left, the blue pyramid behind it, the yellow hemisphere to the right, and the purple cone in the front. The relative positions and spatial layout are identical to the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t02",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 9.735800743103027,
+      "reply": "The study image shows four distinct shapes: a purple cone on the left, a yellow dome in the middle, a green cylinder to the right, and a blue pyramid further to the right. Comparing this to the options, Option 3 maintains the same relative positions: the blue pyramid is on the far left, the green cylinder is in the center, the purple cone is slightly behind and to the right of the cylinder, and the yellow dome is on the far right. This matches the original spatial arrangement.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t07",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 8.382069110870361,
+      "reply": "The study image shows four distinct shapes: a purple cone, a green cylinder, a yellow sphere, and a blue pyramid. In Option 3, the shapes are arranged similarly, with the purple cone on the left, the green cylinder slightly behind it, the yellow sphere to the right, and the blue pyramid in front. The relative positions and spatial arrangement match those in the study image, even though the viewpoint may differ slightly.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t12",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 13.502115726470947,
+      "reply": "The study image shows four geometric shapes: a teal pyramid, a purple cone, a green cylinder, and a yellow oval. In Option 1, the shapes are rearranged with the green cylinder and yellow oval closer together, and the purple cone and teal pyramid positioned differently. Option 2 places the green cylinder prominently in the foreground with the yellow oval behind it, and the teal pyramid and purple cone to the right. Option 3 has the green cylinder and yellow oval in the foreground, with the teal pyramid and purple cone to the right, similar to the study image but not identical. Option 4 shows the green cylinder and yellow oval in the foreground, with the teal pyramid and purple cone to the right, maintaining the same relative positions as the study image.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t06",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 10.336735248565674,
+      "reply": "The study image shows four geometric shapes: a green cylinder on the left, a blue triangular pyramid behind it, a yellow sphere to the right, and a purple cone in the foreground. \n\nOption 1 has the same arrangement: the green cylinder is on the left, the blue triangular pyramid is behind it, the yellow sphere is to the right, and the purple cone is in the foreground, matching the spatial layout of the study image.\n\nThe other options either change the positions of the shapes or rotate the layout, which does not match the original arrangement.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t13",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 13.795613527297974,
+      "reply": "The study image shows four distinct shapes: a green cylinder, a yellow sphere, a blue triangle, and a purple cone. The green cylinder is in the foreground on the left, the yellow sphere is slightly behind it, and the blue triangle and purple cone are to the right of the sphere.\n\nOption 1 has the green cylinder in the same position on the left, with the yellow sphere behind it. The blue triangle and purple cone are to the right, maintaining the same relative positions as in the study image.\n\nOption 2 and Option 3 have different arrangements, with the yellow sphere and blue triangle in different positions relative to the green cylinder and purple cone.\n\nOption 4 also shows a different arrangement, with the blue triangle and purple cone positioned differently compared to the study image.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t17",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 9.4664626121521,
+      "reply": "The study image shows four distinct shapes: a yellow dome on the left, a purple cone, a blue triangle, and a green cylinder on the right. Comparing the options, Option 2 maintains the same relative positions: the yellow dome is in the center, the purple cone is to its left, the blue triangle is slightly behind and to the right of the dome, and the green cylinder is on the far right. The spatial arrangement matches the study image despite a slight change in viewing angle.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t18",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 13.167073488235474,
+      "reply": "The study image shows four geometric shapes: a yellow sphere, a green cylinder, a blue triangle, and a purple triangle. The yellow sphere is in the foreground, with the green cylinder to its right. The blue and purple triangles are in the background, with the blue triangle to the left of the purple one.\n\nOption 1 has the green cylinder and yellow sphere in the same relative positions, with the blue and purple triangles in the background. The arrangement matches the study image.\n\nOption 2 and Option 3 have different arrangements of the shapes, with the triangles and cylinder not matching the relative positions in the study image.\n\nOption 4 also has a different layout, with the shapes not aligning with the study image's arrangement.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t00",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 9.372772932052612,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a sphere on the left, a small cone behind it, a larger cone in front, and a cylinder to the right. \n\nOption 2 matches this arrangement closely, maintaining the relative positions of the peaks as seen in the study image. The sphere remains on the left, the small cone is behind it, the large cone is in front, and the cylinder is to the right, just as in the study view.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t01",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 8.33704686164856,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a cylinder on the left, a rounded peak in the back center, a cone to the right, and a pyramid in the front center. Option 3 matches this arrangement, with the cylinder on the left, the rounded peak in the back center, the cone to the right, and the pyramid in the front center, maintaining the same relative positions.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t18",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 9.990071058273315,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a cylinder on the left, a sphere behind it, a cone in front of the sphere, and a pyramid to the right of the cone. \n\nOption 2 matches this arrangement closely, maintaining the relative positions of the peaks. The cylinder remains on the left, the sphere behind it, the cone in front, and the pyramid to the right.\n\nOther options either change the positions or the shapes of the peaks, making them different from the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t19",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 9.974616765975952,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a large oval peak in the foreground on the left, a smaller triangular peak slightly behind and to the right, a cylindrical peak further back on the right, and another triangular peak in the middle right.\n\nOption 1 presents the same arrangement, with the large oval peak in the foreground left, the smaller triangular peak behind it, the cylindrical peak to the right, and the other triangular peak in the middle right, matching the spatial layout of the study image.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t08",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 8.914235591888428,
+      "reply": "The study image shows a landscape with four mountain peaks: a large cylinder in the foreground, a smaller cylinder to its left, and two pyramids to the right. Option 2 has the same arrangement, with the large cylinder in the front, a smaller cylinder to its left, and the two pyramids to the right, matching the relative positions in the study image. The other options have different spatial arrangements, with peaks positioned in varying orders and orientations.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t12",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 9.481981992721558,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square-like pattern, with a cylinder in the center, a cone to the left, an oval on the right, and a pyramid behind them. Option 3 presents the same arrangement, maintaining the relative positions of each shape: the cylinder remains central, the cone is to the left, the oval is on the right, and the pyramid is behind. The other options alter the positions of these shapes, making Option 3 the correct match.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t13",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 8.861223459243774,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a large dome-like peak in the foreground, a smaller rounded peak to its right, a cube-like peak in the background, and a pyramid-like peak to the left.\n\nOption 4 matches this layout closely, with the same dome-like peak in the foreground, the rounded peak to the right, the cube-like peak in the background, and the pyramid-like peak to the left.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t16",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 10.36535382270813,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a large rounded peak on the left, a smaller triangular peak slightly behind it, a cylindrical peak to the right of the triangular peak, and another rounded peak in the foreground on the right. \n\nOption 3 matches this layout closely, maintaining the same relative positions of the peaks. The large rounded peak is on the left, with the smaller triangular peak behind it, followed by the cylindrical peak to the right, and the rounded peak in the foreground on the right.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t04",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 8.4208505153656,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a cylinder in the foreground, a sphere to its right, and two pyramids in the background. Option 3 matches this arrangement, with the cylinder in the front left, the sphere to its right, and the pyramids positioned similarly in the background. The other options alter the positions of these elements, making Option 3 the correct match.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t07",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 8.67734980583191,
+      "reply": "The study image shows four mountain peaks: a large cylinder on the left, a smaller cylinder on the right, a sphere behind the large cylinder, and a cone in front of the smaller cylinder. \n\nOption 3 has the same arrangement: a large cylinder on the left, a smaller cylinder on the right, a sphere in the middle back, and a cone in the front. The relative positions match those in the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t08",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 9.609211444854736,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a cone on the left, a pyramid in the front, a cylinder in the back, and a hemisphere to the right. Option 1 presents the same arrangement, with the cone on the left, the pyramid in the front, the cylinder behind, and the hemisphere to the right, maintaining the relative positions. The other options alter the positions of these peaks, either by changing their order or the spatial relationships between them.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t12",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 11.31417179107666,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a cylinder on the left, a small pyramid behind it, a sphere to the right of the pyramid, and a larger pyramid in the foreground on the right. \n\nOption 2 matches this arrangement closely, maintaining the relative positions of the peaks. The cylinder remains on the left, the small pyramid is behind it, the sphere is to the right of the pyramid, and the larger pyramid is in the foreground on the right.\n\nOther options alter the positions or the arrangement of the peaks, making them different from the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t07",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 9.066237211227417,
+      "reply": "The study image shows four peaks: a large sphere on the left, a smaller cone behind it, a cylinder to the right of the cone, and a pyramid further to the right. Option 4 has the same arrangement, with the large sphere on the left, a smaller sphere behind it, a cylinder in the middle, and a pyramid to the right. The other options rearrange the positions of these peaks, making Option 4 the correct match.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t10",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 8.960237503051758,
+      "reply": "The study image shows four mountain peaks: a cylinder on the left, a small cone behind it, a larger cone to the right, and an oblong shape in the foreground. Option 3 matches this arrangement, with the oblong shape in the front, the cylinder to the back left, a small cone behind the cylinder, and a larger cone to the right. The other options rearrange the positions of these shapes, making them different from the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t14",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 9.869112491607666,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a large rounded peak on the left, a smaller rounded peak in the back, a triangular peak on the right, and a larger triangular peak in the foreground. \n\nOption 4 presents the same arrangement, with the large rounded peak on the left, the smaller rounded peak in the back, and the triangular peaks positioned similarly in the foreground and right side. The other options alter the positions or orientations of the peaks, making them different from the study view.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t18",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 9.407306432723999,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a cylinder on the left, a cone in the front, a sphere on the right, and a pyramid behind the sphere. \n\nOption 3 matches this arrangement, with the cylinder on the left, the cone in the front, the sphere on the right, and the pyramid behind the sphere, maintaining the same relative positions.\n\nOther options either change the positions or the types of peaks, making them different from the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t08",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 9.495900869369507,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a cylinder on the left, a small pyramid behind it, a larger pyramid to the right, and an oblong shape in the foreground. Comparing this to the options, Option 2 maintains the same relative positions: the cylinder is on the left, the small pyramid is behind it, the larger pyramid is to the right, and the oblong shape is in the foreground. The other options alter the arrangement of these peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t10",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 9.938020944595337,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a cone on the left, a cylinder slightly behind and to the right of the cone, a sphere further to the right of the cylinder, and a pyramid in front of the cone. \n\nOption 3 matches this layout closely, with the cone on the left, the cylinder behind and to the right, the sphere to the right of the cylinder, and the pyramid in front of the cone. The relative positions and spatial arrangement are consistent with the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t13",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 8.247238874435425,
+      "reply": "The study image shows four mountain peaks: a cone on the left, a pyramid in the front, a cylinder in the back, and a hemisphere on the right. Option 3 has the same arrangement, with the cone on the left, the pyramid in the front, the cylinder behind, and the hemisphere on the right, maintaining the same relative positions. The other options either change the positions or the types of peaks.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t15",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 9.266104936599731,
+      "reply": "The study image shows four mountain peaks arranged in a specific spatial layout: a large cone on the left, a smaller cone slightly behind and to the right, a hemisphere in the middle, and a cylinder further back on the right. \n\nOption 3 matches this arrangement closely, with the large cone on the left, the smaller cone near the center, the hemisphere slightly behind the cone, and the cylinder on the right. The relative positions and spatial relationships are consistent with the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t02",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 10.22721242904663,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with the blue peak on the left, the green peak slightly behind it, the yellow peak in front of the green, and the purple peak on the right. \n\nOption 2 has a similar arrangement, with the blue peak on the left, the green peak behind it, the yellow peak in front, and the purple peak on the right, maintaining the same relative positions as the study image.\n\nOther options either change the positions of the peaks or alter their arrangement significantly. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t11",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 8.089141845703125,
+      "reply": "The study image shows four cone-shaped mountains arranged in a roughly square pattern. Upon examining the options, Option 2 maintains the same relative positions of the peaks as the study image. The green cone is on the bottom left, the blue cone is on the top left, the purple cone is on the top right, and the yellow cone is on the bottom right, matching the arrangement in the study view.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t12",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 10.79154896736145,
+      "reply": "The study image shows four cone-shaped mountains arranged in a roughly square pattern, with the cyan cone on the left, the green cone slightly behind it, the yellow cone in front of the green, and the purple cone to the right. \n\nOption 4 presents the same arrangement: the cyan cone is on the left, the green cone is behind it, the yellow cone is in front, and the purple cone is to the right, matching the spatial layout of the study image.\n\nOther options alter the positions of the cones, either changing their order or their relative placement. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t19",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 9.777038335800171,
+      "reply": "The study image shows four cone-shaped mountains in a specific arrangement: a purple cone on the left, a green cone slightly behind and to the right of the purple one, a yellow cone further to the right, and a blue cone near the yellow one. \n\nOption 3 matches this arrangement closely, with the purple cone on the left, the green cone behind and to the right, and the yellow and blue cones positioned similarly to the right. The relative positions and spatial layout are consistent with the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t00",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 10.787542343139648,
+      "reply": "The study image shows four cone-shaped mountains arranged in a roughly square pattern, with the yellow cone in the foreground on the left, the purple cone slightly behind it to the right, the cyan cone further back to the right, and the green cone in the foreground on the right.\n\nOption 3 matches this arrangement, maintaining the same relative positions of the mountains. The yellow cone is on the left, the purple cone is behind and to the right of the yellow, the cyan cone is further back to the right, and the green cone is in the foreground on the right.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t06",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 9.82639741897583,
+      "reply": "The study image shows four cones arranged in a roughly square pattern, with the cyan cone on the bottom left, green in the top center, purple on the right, and yellow in the bottom center. Option 3 has the same arrangement, with the cyan cone on the bottom left, yellow in the center, green to the right, and purple on the far right, indicating the same spatial layout despite a slight change in perspective. The other options have different arrangements, with the cones positioned in varying relative locations.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t18",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 7.54470157623291,
+      "reply": "The study image shows four cones arranged in a line with the purple cone on the left, followed by the cyan, green, and yellow cones. Option 1 presents the same spatial arrangement, maintaining the order of purple, cyan, green, and yellow from left to right. The other options rearrange the cones, either changing the order or the relative positions. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t19",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 10.587886571884155,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern with the blue peak on the left, the yellow peak slightly behind it, the purple peak to the right, and the green peak in the front. \n\nOption 2 presents the same arrangement, maintaining the relative positions of the peaks as in the study image. The blue peak is on the left, the yellow is behind it, the green is in front, and the purple is to the right.\n\nOther options alter the spatial arrangement, either by changing the positions or the order of the peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t01",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 10.405264377593994,
+      "reply": "The study image shows four cone-shaped mountains arranged in a roughly square pattern, with the green cone on the left, the yellow cone slightly in front of the green, the blue cone towards the back right, and the purple cone further back on the right. \n\nOption 3 has the same arrangement: the green cone is on the left, the yellow cone is in front, and the blue and purple cones are positioned similarly in the back right. The other options have different spatial arrangements, with the cones not matching the relative positions in the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t02",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 9.928914546966553,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with the yellow peak on the left, the purple peak slightly behind it, the blue peak to the right, and the green peak in front. Option 1 maintains this arrangement, with the yellow peak on the left, the purple peak behind it, the blue peak to the right, and the green peak in front, matching the spatial layout of the study image. The other options alter the positions of the peaks, either rotating or shifting their relative locations.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t08",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 9.963605880737305,
+      "reply": "The study image shows four cones arranged in a specific spatial layout: a yellow cone on the left, a green cone slightly behind and to the right of the yellow, a purple cone in front of the green, and a cyan cone to the right of the purple.\n\nOption 3 matches this layout closely, with the yellow cone on the left, the green cone behind and to the right, the purple cone in front, and the cyan cone to the right. The relative positions and spatial arrangement are consistent with the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t12",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 16.795324087142944,
+      "reply": "The study image shows four cone-shaped mountains with the purple cone on the left, the cyan cone in the middle, the green cone in front, and the yellow cone on the right. \n\nOption 1 has the purple cone in the center, the cyan cone on the right, the green cone on the left, and the yellow cone in front, which is a different arrangement. Option 2 has the green cone in the center, the purple cone on the right, the yellow cone on the left, and the cyan cone in front, which also differs. Option 3 has the yellow cone in the center, the green cone to the right, the cyan cone in front, and the purple cone on the far right, which is not the same. Option 4 has the yellow cone on the left, the green cone to the right, the cyan cone in front, and the purple cone on the far right, maintaining the same relative positions as the study image.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t01",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 10.091917514801025,
+      "reply": "The study image shows four cone-shaped mountains in a specific arrangement: a blue cone on the left, a yellow cone slightly to the right and behind, a purple cone further to the right, and a green cone in front of the yellow and blue cones. \n\nOption 2 matches this arrangement closely, with the blue cone on the left, the yellow cone behind and to the right of the blue, the green cone in front, and the purple cone to the right. The relative positions and spatial layout are consistent with the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t04",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 7.512518882751465,
+      "reply": "The study image shows four mountains arranged in a roughly square pattern, with the purple mountain on the left, green in front, yellow to the right, and blue further right. Option 3 has the same arrangement, with the purple mountain on the left, green in front, yellow to the right, and blue further right, matching the spatial layout of the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t11",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 7.1643548011779785,
+      "reply": "The study image shows four cone-shaped mountains in green, yellow, purple, and blue, arranged in a roughly square formation. Option 2 presents the same four mountains with identical colors and relative positions, maintaining the spatial arrangement seen in the study image. The other options either change the positions or the colors of the mountains, disrupting the original layout.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t15",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 9.876016855239868,
+      "reply": "The study image shows four cone-shaped mountains in a specific arrangement: a purple cone on the left, a yellow cone slightly to the right and behind, a green cone further to the right, and a blue cone in front of the yellow and green cones. \n\nOption 3 matches this arrangement closely, with the purple cone on the left, the yellow cone to the right and behind it, the green cone further right, and the blue cone in front. The relative positions and spatial layout are consistent with the study image.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t13",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 9.918686628341675,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with the green peak on the left, the purple peak slightly behind it, the blue peak in front of the purple, and the yellow peak to the right. \n\nOption 1 presents the peaks in a similar diamond arrangement, maintaining the relative positions: green on the left, purple behind it, blue in front, and yellow to the right. \n\nThe other options either change the relative positions or the configuration, making Option 1 the correct match.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t14",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 8.786451816558838,
+      "reply": "The study image shows four cones arranged in a roughly square pattern, with the purple cone on the bottom left, green in the middle left, cyan on the top right, and yellow on the bottom right. \n\nOption 4 has the same arrangement: the blue cone is in the bottom left, yellow in the middle, green on the bottom right, and purple on the top right, which corresponds to the same spatial layout when accounting for rotation.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t15",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 8.36298131942749,
+      "reply": "The study image shows four cone-shaped mountains in green, blue, yellow, and purple, arranged in a roughly square formation. Option 1 presents the same arrangement, with the green cone on the left, the blue cone slightly behind it, the yellow cone to the right, and the purple cone in the foreground. The other options rearrange the cones differently, either changing their relative positions or the order of colors. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t18",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 11.120948314666748,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with the blue peak on the left, the purple peak slightly behind it, the yellow peak in front of the blue, and the green peak to the right. \n\nOption 2 has the same arrangement: the green peak is on the left, the yellow is slightly behind, the blue is in front of the green, and the purple is to the right, maintaining the relative positions of the peaks in the study image.\n\nOther options either change the positions or the colors of the peaks, making them different from the study image.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 5.592166185379028,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape. Upon examining the options, Option 2 maintains this diamond arrangement with the peaks in similar relative positions. The other options either change the arrangement or the number of peaks. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t10",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 5.835782051086426,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape. Upon examining the options, Option 3 maintains this diamond arrangement, with the peaks positioned similarly relative to each other. The other options either change the relative positions or the number of peaks. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t16",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.922634601593018,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak slightly higher and more central. Comparing this to the options, Option 2 maintains the same relative positions and arrangement of the peaks, just viewed from a slightly different angle. The other options either change the positions or the number of peaks. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 5.872526168823242,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape. Upon examining the options, Option 2 maintains this diamond arrangement with the peaks positioned similarly in relation to each other. The other options either change the relative positions or the number of peaks. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 6.255033254623413,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern with one peak in the center. Option 1 presents a similar layout, maintaining the central peak with the others surrounding it in a comparable spatial arrangement. The other options either change the relative positions or the number of peaks.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t05",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 7.450815439224243,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape. Upon examining the options, Option 2 maintains this diamond arrangement with similar relative positions: one peak in the front, two in the middle, and one at the back. The other options alter the spatial arrangement of the peaks, either by changing their relative positions or the overall shape they form. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t12",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 5.54474401473999,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape. Upon examining the options, Option 2 maintains this diamond arrangement with similar relative positions of the peaks. The other options either change the arrangement or the number of peaks. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 7.135375499725342,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak in the center and the others surrounding it. Option 2 presents the same arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options alter the spatial layout, changing the perceived positions of the peaks relative to one another.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 8.21810245513916,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak in the front left, one in the front right, one in the back left, and one in the back right. Option 2 displays the same arrangement, maintaining the relative positions of the peaks as in the study image. The other options alter the spatial layout, changing the positions of the peaks in relation to each other.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 6.664822578430176,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak in the front and three slightly behind it. Option 3 presents the same arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options either change the positions or the number of peaks. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 6.394332408905029,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape. Upon examining the options, Option 3 maintains this diamond arrangement, with the peaks positioned similarly in relation to each other. The other options alter the spatial arrangement, either by changing the relative positions or the number of peaks. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t17",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 7.1552722454071045,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak in the front and three in the back. Option 2 displays the same arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options alter the spatial layout, changing the positions of the peaks in relation to one another. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 8.114726781845093,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak in the front left, one in the front right, one in the back left, and one in the back right. Option 3 presents the same arrangement, maintaining the relative positions of the peaks as in the study image. The other options alter the spatial arrangement, either by changing the positions or the number of peaks.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.403605222702026,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape. Upon examining the options, Option 2 maintains this diamond arrangement, with the peaks positioned similarly in relation to each other. The other options alter the spatial arrangement, either by changing the relative positions or the number of peaks. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t12",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 8.214359760284424,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak in the front left, one in the front right, one in the back left, and one in the back right. Option 2 presents the same arrangement, maintaining the relative positions of the peaks as in the study image. The other options alter the spatial arrangement, either by changing the positions or the number of peaks. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 6.477348327636719,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern with one peak in the foreground and three in the background. Option 1 presents the same arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options either change the positions or the number of peaks.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 7.11300253868103,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak in the foreground and the others slightly behind. Option 3 presents the same arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options alter the spatial layout, changing the perceived positions of the peaks relative to one another.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t08",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 6.006481170654297,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape. Upon examining the options, Option 3 maintains this diamond arrangement, with the peaks in the same relative positions as the study image. The other options either change the arrangement or the number of peaks. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t09",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 12.324862718582153,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak slightly larger and more central. Comparing this to the options:\n\n- **Option 1** has a similar arrangement, but the central peak is more pronounced compared to the study image.\n- **Option 2** shows a similar layout, but the peaks are more clustered towards the center.\n- **Option 3** has a different arrangement, with peaks positioned more towards the corners of the image.\n- **Option 4** maintains the square-like arrangement, with the peaks in similar relative positions as in the study image.\n\nAfter analyzing the spatial arrangement, the correct option is:\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 8.467297792434692,
+      "reply": "The study image shows four mountain peaks arranged in a roughly square pattern, with one peak in the front left, one in the front right, one in the back left, and one in the back right. Option 2 presents the same arrangement, maintaining the relative positions of the peaks as in the study image. The other options alter the spatial layout, changing the perceived positions of the peaks relative to one another. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t05",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.646610736846924,
+      "reply": "The study image shows four mountain peaks arranged in a roughly triangular pattern with one peak slightly set apart to the left. Option 2 presents the same arrangement, maintaining the relative positions of the peaks, though the perspective and lighting differ. The other options either change the spatial arrangement or the number of peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t11",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 6.388007402420044,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with a river running between them. Option 1 presents the same arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options either alter the spatial arrangement or the number of peaks.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t12",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 6.463691711425781,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with two peaks closer together in the foreground and two slightly further back. Option 2 matches this layout, maintaining the same relative positions of the peaks. The other options either change the arrangement or the number of peaks. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t17",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 6.694603443145752,
+      "reply": "The study image shows four mountain peaks arranged in a roughly triangular pattern with one peak slightly to the left and three clustered towards the right. Option 1 maintains this arrangement, with the peaks in a similar triangular formation and relative positions. The other options either change the spatial arrangement or the number of peaks. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t02",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 6.797069787979126,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with a river flowing between them. Option 2 presents the same four peaks in the same relative positions, maintaining the spatial arrangement seen in the study image. The other options either change the positions of the peaks or alter their arrangement significantly. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t04",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 6.785475969314575,
+      "reply": "The study image shows four mountain peaks arranged in a roughly triangular pattern with one peak slightly set apart. Option 1 presents a similar arrangement, maintaining the relative positions of the peaks in a comparable spatial layout. The other options either alter the positions or the number of peaks, making them different from the study view.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t06",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 6.872776985168457,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with two peaks closer together in the foreground and two slightly further back. Option 3 presents the same arrangement, maintaining the relative positions of the peaks in a similar diamond layout. The other options either change the relative positions or the number of peaks.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t19",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 6.9768760204315186,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with a river flowing between them. Option 2 presents the same four peaks in the same relative positions, maintaining the diamond arrangement and the placement of the river. The other options either change the positions of the peaks or the layout of the landscape. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t00",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 7.4345831871032715,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with two peaks closer together in the foreground and two slightly further back. Option 2 presents the same diamond arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options alter the spatial layout, positioning the peaks differently in relation to each other. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t10",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 8.132786750793457,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with one peak slightly to the left and another to the right, and two more in the background. Option 2 presents the same diamond arrangement, maintaining the relative positions of the peaks as seen in the study image, though the perspective appears slightly rotated. The other options either change the relative positions or the number of peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t12",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.871165990829468,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with two peaks closer together in the center and one on each side. Option 2 has the same arrangement, with the peaks forming a similar diamond shape and maintaining the same relative positions. The other options either change the arrangement or the number of peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t15",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 6.633974075317383,
+      "reply": "The study image shows four mountain peaks arranged in a roughly triangular pattern with one peak to the left, one to the right, and two in the center. Option 3 matches this layout, maintaining the same relative positions of the peaks. The other options either change the arrangement or the number of peaks. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t01",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.992047071456909,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with two peaks closer together in the foreground and two slightly further back. Option 2 presents the same diamond arrangement of peaks, maintaining the relative positions of the mountains as seen in the study image. The other options either change the arrangement or the number of peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t03",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.61515736579895,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with two peaks closer together in the center and one on each side. Option 2 presents the same four peaks in the same relative positions, maintaining the diamond arrangement. The other options either change the arrangement or the number of peaks. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t09",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.900678873062134,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with a central pond and a winding river. Option 2 presents the same four peaks in a similar diamond arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options either alter the spatial arrangement or the number of peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t10",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 5.724148273468018,
+      "reply": "The study image shows four mountain peaks arranged in a roughly triangular pattern with one peak slightly set apart. Option 3 matches this layout, maintaining the same relative positions of the peaks. The other options either change the arrangement or the number of peaks. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t09",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 6.414229154586792,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with a small lake in the center. Option 1 presents the same arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options either change the spatial arrangement or the number of peaks. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t10",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.873599529266357,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with a river and a lake in the center. Option 2 displays the same four peaks in a similar diamond arrangement, maintaining the relative positions of the peaks as seen in the study image. The other options either change the arrangement or the number of peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t12",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 7.798579216003418,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with one peak slightly to the left and another to the right, and two more in the background. Option 2 has the same diamond arrangement, maintaining the relative positions of the peaks as in the study image, though the perspective is slightly rotated. The other options either change the relative positions or the number of peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t13",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 9.92024827003479,
+      "reply": "The study image shows four mountain peaks arranged in a roughly diamond shape, with two peaks closer together on the left and two on the right. The central peaks are connected by a winding river and surrounded by sparse vegetation. \n\nOption 1 maintains this diamond arrangement, with the peaks in similar relative positions. The river and vegetation also appear consistent with the study image. \n\nOptions 2, 3, and 4 show different arrangements, with peaks shifted or grouped differently, breaking the diamond layout seen in the study image.\n\nFinal Answer: Option 1",
+      "error": null
+    }
+  ]
+}

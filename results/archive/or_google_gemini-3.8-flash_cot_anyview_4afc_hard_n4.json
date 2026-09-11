@@ -1,0 +1,98 @@
+{
+  "summary": {
+    "model": "google/gemini-3.8-flash",
+    "benchmark": "data/vlm_benchmark_4afc_hard.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 4,
+    "overall_accuracy": 0.75,
+    "choice_distribution": {
+      "4": 3,
+      "1": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 1
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "api_usage": {
+      "calls": 4,
+      "spent_usd": 0.105798,
+      "prompt_tokens": 22434,
+      "completion_tokens": 23726,
+      "usd_per_call": 0.02645
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d090_t18",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 18.838006019592285,
+      "reply": "To determine the correct landscape, we analyze the relative 3D positions of the four shapes:\n* In the **Study image**, the yellow dome and green cylinder form a central front-to-back axis (dome in the near foreground, cylinder directly behind it). Relative to this axis, the purple cone lies to the left (closer to the front) and the blue pyramid lies to the right (further back).\n* Viewing this scene from the right (near the blue pyramid) places the pyramid in the immediate foreground, the yellow dome to the left, the green cylinder to the right, and the purple cone in the background just behind the dome.\n* **Option 4** represents this exact spatial configuration viewed from this rotated angle.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 36.472484827041626,
+      "reply": "The spatial layout of the four objects consists of the purple cone in the front-left foreground, the green cylinder situated directly behind it in the rear-left, the yellow hemisphere in the rear-center, and the teal pyramid in the mid-right. **Option 1** presents the exact same spatial arrangement viewed from the original camera angle, matching all relative positions and distances under altered lighting and material shading. In contrast, the other options alter the relative geometry between the objects (for example, placing the yellow dome behind the green cylinder).\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t13",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 40.75156903266907,
+      "reply": "Based on the study image, the four objects are arranged such that the yellow hemisphere and cyan pyramid are on the left (with the hemisphere directly in front of the pyramid), while the green cylinder and purple cone are on the right, with the purple cone positioned in the foreground to the right of the cylinder. \n\nViewing the scene from the right side places the foreground objects on the left and the background objects on the right. Because the purple cone is the farthest to the right in the original layout, it is closest to the camera in this perspective, with the green cylinder slightly further back on the right, and the hemisphere and pyramid appearing in the background (with the pyramid further to the right). **Option 4** correctly captures these relative depths, distances, and spatial alignments.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t07",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 58.54419779777527,
+      "reply": "To determine the correct match, we analyze the relative 3D spatial layout of the four shapes in the study image:\n- **Cyan pyramid** is in the foreground (South).\n- **Green cylinder** is in the background (North).\n- **Purple cone** is to the left (West).\n- **Yellow dome** is to the right (East).\n\nIn this configuration, the vector from the green cylinder to the purple cone is parallel to the vector from the yellow dome to the cyan pyramid (both running along the North-East to South-West diagonal). When viewed from the North-East looking South-West:\n- The **green cylinder** and **yellow dome** appear in the foreground (with the dome on the left and cylinder on the right).\n- The **cyan pyramid** sits directly behind the yellow dome, and the **purple cone** sits directly behind the green cylinder.\n\n**Option 4** accurately captures this alignment and perspective, whereas the other options alter the spatial layout or shift the objects.\n\nFinal Answer: Option 4",
+      "error": null
+    }
+  ]
+}

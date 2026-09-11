@@ -1,0 +1,18 @@
+key,label,family,access,params_b,role,eligible,n,acc,acc_lo,acc_hi,acc_d0,n_d0,acc_drot,n_drot,dprime_d0,vii_180,prior_best_fixed,prior_distribution,prior_rot,excess_rot,top_choice_share_rot,blocking,gaps
+human_p01,Human,human,human,,primary,1,100,0.8600,0.7786,0.9147,1.0000,20,0.8250,80,3.322,0.506,0.2900,0.2549,0.2586,+0.5664,0.2875,,no run_config block (predates provenance stamping)
+luna,GPT-5.6 Luna,openai,api,,primary,1,100,0.4500,0.3561,0.5476,1.0000,20,0.3125,80,3.322,0.205,0.2900,0.2475,0.2464,+0.0661,0.3000,,"config recovered from the launch script, not stamped by the run"
+gemini38,Gemini 3.8 Flash,gemini,api,,primary,1,100,0.4400,0.3467,0.5377,0.6500,20,0.3875,80,1.319,0.516,0.2900,0.2368,0.2375,+0.1500,0.3291,,"config recovered from the launch script, not stamped by the run"
+qwen3vl_235b_it,Qwen3-VL-235B (i),qwen,api,235.0,primary,1,100,0.3300,0.2456,0.4269,0.9000,20,0.1875,80,2.452,0.000,0.2900,0.2269,0.2167,-0.0292,0.4800,,"config recovered from the launch script, not stamped by the run; 7/100 replies did not parse and are scored wrong"
+qwen3vl_235b_th,Qwen3-VL-235B (t),qwen,api,235.0,reasoning_control,1,100,0.3000,0.2189,0.3959,0.7500,20,0.1875,80,1.682,0.000,0.2900,0.2621,0.2648,-0.0773,0.4000,,"config recovered from the launch script, not stamped by the run"
+qwen25vl_3b,Qwen2.5-VL-3B,qwen,local,3.0,primary,1,100,0.2900,0.2101,0.3854,0.3000,20,0.2875,80,0.186,0.000,0.2900,0.2690,0.2733,+0.0142,0.4250,,"config recovered from the launch script, not stamped by the run"
+qwen25vl_7b,Qwen2.5-VL-7B,qwen,local,7.0,primary,1,100,0.3600,0.2727,0.4576,0.5500,20,0.3125,80,0.994,0.525,0.2900,0.2624,0.2705,+0.0420,0.5500,,"config recovered from the launch script, not stamped by the run"
+qwen25vl_32b,Qwen2.5-VL-32B,qwen,local,32.0,primary,1,100,0.2900,0.2101,0.3854,0.7500,20,0.1750,80,1.682,0.000,0.2900,0.2439,0.2414,-0.0664,0.3250,,"config recovered from the launch script, not stamped by the run"
+qwen25vl_72b,Qwen2.5-VL-72B,qwen,local,72.0,primary,1,100,0.3100,0.2278,0.4063,0.7500,20,0.2000,80,1.682,0.000,0.2900,0.2556,0.2555,-0.0555,0.3000,,"config recovered from the launch script, not stamped by the run"
+internvl3_38b,InternVL3-38B,internvl,local,38.0,primary,1,100,0.3400,0.2546,0.4372,0.8500,20,0.2125,80,2.140,0.000,0.2900,0.2435,0.2372,-0.0247,0.4000,,"config recovered from the launch script, not stamped by the run"
+internvl35_1b,InternVL3.5-1B,internvl35,local,1.0,primary,1,100,0.2300,0.1584,0.3215,0.3500,20,0.2000,80,0.358,0.000,0.2900,0.2049,0.1937,+0.0063,0.5942,,12/100 replies did not parse and are scored wrong
+internvl35_2b,InternVL3.5-2B,internvl35,local,2.0,primary,1,100,0.2100,0.1417,0.2998,0.2500,20,0.2000,80,0.000,,0.2900,0.2348,0.2392,-0.0392,0.3625,,
+internvl35_4b,InternVL3.5-4B,internvl35,local,4.0,primary,1,100,0.1700,0.1089,0.2555,0.3500,20,0.1250,80,0.358,0.000,0.2900,0.2222,0.2131,-0.0881,0.5000,,
+internvl35_8b,InternVL3.5-8B,internvl35,local,8.0,primary,1,100,0.2800,0.2014,0.3749,0.5500,20,0.2125,80,0.994,0.000,0.2900,0.2554,0.2544,-0.0419,0.3500,,
+internvl35_14b,InternVL3.5-14B,internvl35,local,14.0,primary,1,100,0.3100,0.2278,0.4063,0.5000,20,0.2625,80,0.837,0.222,0.2900,0.2684,0.2716,-0.0091,0.3250,,
+internvl35_38b,InternVL3.5-38B,internvl35,local,38.0,primary,1,100,0.2800,0.2014,0.3749,0.6500,20,0.1875,80,1.319,0.000,0.2900,0.2186,0.2089,-0.0214,0.5250,,
+internvl35_30b_a3b,InternVL3.5-30B-A3B,internvl35,local,30.0,moe_control,1,100,0.2900,0.2101,0.3854,0.5500,20,0.2250,80,0.994,0.000,0.2900,0.2623,0.2664,-0.0414,0.3750,,

@@ -1,0 +1,43 @@
+{
+  "summary": {
+    "model": "google/gemini-3.8-flash",
+    "benchmark": "human_task/task.json",
+    "prompt_style": "neutral",
+    "n_options": 2,
+    "chance_level": 0.5,
+    "total_trials": 1,
+    "overall_accuracy": 0.0,
+    "choice_distribution": {
+      "2": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 1
+      }
+    },
+    "api_usage": {
+      "calls": 1,
+      "spent_usd": 0.009737,
+      "prompt_tokens": 3358,
+      "completion_tokens": 1925,
+      "usd_per_call": 0.009737
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t12",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 18.29654598236084,
+      "reply": "Final Answer: Option 2",
+      "error": null
+    }
+  ]
+}

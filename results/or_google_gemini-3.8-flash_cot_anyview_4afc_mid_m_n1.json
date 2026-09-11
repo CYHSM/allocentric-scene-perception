@@ -1,0 +1,59 @@
+{
+  "summary": {
+    "model": "google/gemini-3.8-flash",
+    "benchmark": "data/vlm_benchmark_4afc_mid_m.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 1,
+    "overall_accuracy": 1.0,
+    "choice_distribution": {
+      "1": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "run_config": {
+      "benchmark_path": "data/vlm_benchmark_4afc_mid_m.json",
+      "benchmark_sha256_12": "d12d72cc5ad4",
+      "prompt_style": "cot_anyview",
+      "prompt_sha256_12": "269bd7e9dbe4",
+      "reasoning_effort": "medium",
+      "max_tokens": 8000,
+      "workers": 16,
+      "max_trials": 1,
+      "sampling": "stratified_mode_x_delta",
+      "modes": null,
+      "n_options": 4,
+      "resumed_from_existing_output": 0,
+      "git_commit": "e69a9f7",
+      "finished_utc": "2026-09-09T19:12:27+00:00"
+    },
+    "api_usage": {
+      "calls": 1,
+      "spent_usd": 0.020027,
+      "prompt_tokens": 5608,
+      "completion_tokens": 4219,
+      "usd_per_call": 0.020027
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 35.66719889640808,
+      "reply": "In the study image, the green cylinder is at the rear-left with the purple cone positioned directly in front of it, while the yellow hemisphere is in the middle-rear and the cyan pyramid is to its right in the mid-foreground. \n\nComparing this layout to the options, **Option 1** preserves the exact same relative 3D positions and viewing perspective of all four objects (cylinder and cone aligned on the left, hemisphere in the center-right, and pyramid on the far right), differing only in the lighting direction and surface shading. The other options alter the spatial layout (for instance, placing the pyramid between objects or swapping foreground/background relations).\n\nFinal Answer: Option 1",
+      "error": null
+    }
+  ]
+}

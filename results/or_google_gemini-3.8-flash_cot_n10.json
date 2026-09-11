@@ -1,0 +1,206 @@
+{
+  "summary": {
+    "model": "google/gemini-3.8-flash",
+    "benchmark": "human_task/task.json",
+    "prompt_style": "cot",
+    "n_options": 2,
+    "chance_level": 0.5,
+    "total_trials": 10,
+    "overall_accuracy": 0.9,
+    "choice_distribution": {
+      "2": 3,
+      "1": 7
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 1
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c0_shape_colour_d180": {
+        "mode": "c0_shape_colour",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c1_shape_d0": {
+        "mode": "c1_shape",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c1_shape_d45": {
+        "mode": "c1_shape",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c1_shape_d90": {
+        "mode": "c1_shape",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c1_shape_d135": {
+        "mode": "c1_shape",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c1_shape_d180": {
+        "mode": "c1_shape",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "api_usage": {
+      "calls": 10,
+      "spent_usd": 0.124996,
+      "prompt_tokens": 34241,
+      "completion_tokens": 26484,
+      "usd_per_call": 0.0125
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t12",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 35.047141790390015,
+      "reply": "Based on the 3D spatial arrangement in the study image:\n* The **yellow dome** is in the foreground (front-center).\n* The **purple cone** is to the left, slightly behind the yellow dome.\n* The **blue pyramid** is in the back-left, positioned between the cone and the dome in depth.\n* The **green cylinder** is in the back-right.\n\n**Option 2** shows this exact same landscape viewed from a rotated perspective (viewed from the back-left, behind the blue pyramid looking toward the yellow dome). From this viewpoint, the blue pyramid is in the near foreground, the green cylinder is in the background to the right, and the purple cone correctly sits in front of the yellow",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t07",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 29.85478901863098,
+      "reply": "In the study view, the peaks arranged in clockwise order around the center are: green cylinder, purple cone, yellow hemisphere, and blue pyramid (forming a quadrilateral with the green cylinder opposite the yellow hemisphere, and the purple cone opposite the blue pyramid). \n\nOption 1 presents this same scene rotated so that the blue pyramid is in the foreground, with the green cylinder to its left, the purple cone behind it, and the yellow hemisphere to its right, correctly preserving the clockwise arrangement. Option 2 reverses this cyclic order (placing the purple cone and yellow dome on the left with the green cylinder on the right), which represents a mirrored layout.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t18",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 18.25202202796936,
+      "reply": "In the study view, the purple cone is diagonally opposite the yellow dome, while the cyan pyramid is diagonally opposite the green cylinder. Option 2 captures this exact spatial layout from a viewpoint positioned near the green cylinder looking toward the cyan pyramid, correctly placing the purple cone to the left and the yellow dome to the right. In contrast, Option 1 alters the layout by placing the cone opposite the pyramid.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t05",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 20.88551926612854,
+      "reply": "In the study layout, the four objects form a perimeter that, viewed clockwise from above, follows the sequence: purple cone, yellow dome, cyan pyramid, and green cylinder. \n\n**Option 1** correctly preserves this exact spatial relationship, viewing the scene from near the yellow dome looking across toward the green cylinder, with the cyan pyramid behind the dome on the left and the purple cone to the right. In contrast, Option 2 places the purple cone and yellow dome on opposite, mirrored sides of the cylinder-pyramid axis.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t10",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 16.91916537284851,
+      "reply": "In the study image, the four objects are arranged in clockwise order: yellow hemisphere, green cylinder, purple cone, and cyan pyramid, with the green cylinder diagonally opposite the cyan pyramid and the yellow hemisphere diagonally opposite the purple cone. \n\nOption 1 shows the scene viewed from behind the green cylinder looking toward the cyan pyramid; from this viewpoint, the purple cone correctly lies to the left and the yellow hemisphere to the right. Option 2 depicts a mirrored arrangement where the relative clockwise ordering of the objects is reversed.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t13",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 20.74657106399536,
+      "reply": "To determine which option represents the identical landscape, we can analyze the relative spatial arrangement (chirality) of the four objects:\n\n1. **Study Image Layout:** From the study viewpoint, the low cylinder, central dome, and pyramid form an arc from left to right, with the cone positioned directly in front of the pyramid (closer to the camera). \n2. **Option 2:** Here, the pyramid is in front of the cone, which would require viewing the scene from the opposite side. However, viewed from the opposite side, the dome and cylinder would necessarily appear to the right of the pyramid and cone, whereas Option 2 places them on the left. Thus, Option 2 is a laterally inverted (mirrored) distractor.\n3. **Option 1:** Preserves the exact true spatial layout and relative distances of all four objects, shown under an altered lighting condition.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t15",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 18.810397386550903,
+      "reply": "Based on the study image, the four peaks form a distinct layout: with the flat-topped cylinder in the foreground, the dome/hemisphere is to its right, the cone is to its left, and the pyramid is situated in the background between the cone and cylinder. When viewing along the axis from the pyramid toward the cylinder, the cone lies to the right and the hemisphere lies to the left. \n\n**Option 1** represents this exact spatial configuration viewed from a perspective rotated roughly 45\u00b0 to the right (viewing from the front-right), placing the hemisphere and cylinder in the foreground with the cone directly behind the cylinder on the left and the pyramid further back toward the right.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t04",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 27.49462914466858,
+      "reply": "In the study image, the dome sits in the foreground-left with the pyramid directly behind it, while the cone is in the foreground-right with the flat cylinder behind it. Option 1 correctly captures this layout from a rotated viewpoint (looking from the right side), placing the cone in the near-left foreground directly in front of the dome, with the cylinder in the near-right foreground and the pyramid correctly positioned in the background. In Option 2, the relative alignment and perspective spacing between the cone and dome are distorted compared to the true rigid arrangement.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t13",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 11.92223596572876,
+      "reply": "In the study image, the four objects form a quadrilateral with the cylinder diagonally opposite the pyramid, and the cone diagonally opposite the hemisphere; clockwise from the top-left, the arrangement is cone, cylinder, hemisphere, pyramid. \n\nViewing the scene from near the cylinder looking toward the pyramid (as in Option 1) places the cylinder closest in the foreground, the pyramid in the background, the hemisphere to the left, and the cone to the right, perfectly preserving this layout. In contrast, Option 2 places the cylinder on the opposite side relative to the pyramid and cone.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t15",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 17.15956401824951,
+      "reply": "In the study image, the cylinder and dome are in the foreground (left and right, respectively), with the cone hidden behind the cylinder on the back-left and the pyramid behind the dome on the back-right. \n\nOption 2 depicts the exact same layout viewed from the opposite side (a 180\u00b0 rotation), where the pyramid and cone now occupy the foreground (pyramid on the front-left in front of the dome, and cone on the front-right in front of the cylinder).\n\nFinal Answer: Option 2",
+      "error": null
+    }
+  ]
+}

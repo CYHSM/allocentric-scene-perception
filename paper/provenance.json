@@ -1,0 +1,25 @@
+{
+  "_comment": [
+    "Run configuration for result files written before evaluate_vlm.py stamped a",
+    "run_config block into its own output. Each entry names where the value came",
+    "from. Nothing here is a guess: a value is recorded only when a launch script",
+    "in this repository fixes it, and collate.py marks every run that leans on",
+    "this file so no number silently claims provenance it does not have.",
+    "",
+    "Delete an entry once that observer has been re-run under the current code,",
+    "which stamps the real values."
+  ],
+  "_source": {
+    "local_models": "bench/launch_hard_queue.sh sets MAX_TOKENS=8000 and PROMPT=cot_anyview for every model in the queue",
+    "api_models": "bench/run_openrouter.sh invoked with MAX_TOKENS=8000 WORKERS=16; the value is not otherwise attested in the result file"
+  },
+  "luna":            {"run_config": {"max_tokens": 8000, "workers": 16, "source": "api_models"}},
+  "gemini38":        {"run_config": {"max_tokens": 8000, "workers": 16, "source": "api_models"}},
+  "qwen3vl_235b_it": {"run_config": {"max_tokens": 8000, "workers": 16, "source": "api_models"}},
+  "qwen3vl_235b_th": {"run_config": {"max_tokens": 8000, "workers": 16, "source": "api_models"}},
+  "qwen25vl_3b":     {"run_config": {"max_tokens": 8000, "workers": 1, "source": "local_models"}},
+  "qwen25vl_7b":     {"run_config": {"max_tokens": 8000, "workers": 1, "source": "local_models"}},
+  "qwen25vl_32b":    {"run_config": {"max_tokens": 8000, "workers": 1, "source": "local_models"}},
+  "qwen25vl_72b":    {"run_config": {"max_tokens": 8000, "workers": 1, "source": "local_models"}},
+  "internvl3_38b":   {"run_config": {"max_tokens": 8000, "workers": 1, "source": "local_models"}}
+}

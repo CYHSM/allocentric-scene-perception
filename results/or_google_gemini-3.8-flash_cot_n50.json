@@ -1,0 +1,751 @@
+{
+  "summary": {
+    "model": "google/gemini-3.8-flash",
+    "benchmark": "human_task/task.json",
+    "prompt_style": "cot",
+    "n_options": 2,
+    "chance_level": 0.5,
+    "total_trials": 50,
+    "overall_accuracy": 0.8,
+    "choice_distribution": {
+      "1": 25,
+      "2": 25
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c0_shape_colour_d180": {
+        "mode": "c0_shape_colour",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c1_shape_d0": {
+        "mode": "c1_shape",
+        "delta": 0,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c1_shape_d45": {
+        "mode": "c1_shape",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c1_shape_d90": {
+        "mode": "c1_shape",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c1_shape_d135": {
+        "mode": "c1_shape",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c1_shape_d180": {
+        "mode": "c1_shape",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c2_colour_d0": {
+        "mode": "c2_colour",
+        "delta": 0,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c2_colour_d45": {
+        "mode": "c2_colour",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c2_colour_d90": {
+        "mode": "c2_colour",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c2_colour_d135": {
+        "mode": "c2_colour",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c2_colour_d180": {
+        "mode": "c2_colour",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c3_peaks_bare_d0": {
+        "mode": "c3_peaks_bare",
+        "delta": 0,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c3_peaks_bare_d45": {
+        "mode": "c3_peaks_bare",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 2
+      },
+      "c3_peaks_bare_d90": {
+        "mode": "c3_peaks_bare",
+        "delta": 90,
+        "accuracy": 0.5,
+        "correct": 1,
+        "total": 2
+      },
+      "c3_peaks_bare_d135": {
+        "mode": "c3_peaks_bare",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c3_peaks_bare_d180": {
+        "mode": "c3_peaks_bare",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c4_valley_d0": {
+        "mode": "c4_valley",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c4_valley_d45": {
+        "mode": "c4_valley",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c4_valley_d90": {
+        "mode": "c4_valley",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c4_valley_d135": {
+        "mode": "c4_valley",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      },
+      "c4_valley_d180": {
+        "mode": "c4_valley",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 2,
+        "total": 2
+      }
+    },
+    "api_usage": {
+      "calls": 50,
+      "spent_usd": 0.593134,
+      "prompt_tokens": 171201,
+      "completion_tokens": 123929,
+      "usd_per_call": 0.011863
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t12",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 18.591243982315063,
+      "reply": "In the study image, the yellow dome is positioned in the foreground, with the purple cone to its back-left, the blue pyramid further back behind the cone, and the green cylinder to the back-right (moving clockwise: cone, pyramid, cylinder, dome). \n\nOption 2 alters this layout by placing the dome between the cone and cylinder while bringing the pyramid to the foreground. Option 1 correctly maintains the true spatial configuration and relative distances between all four objects, viewed from a slightly shifted perspective under different lighting conditions.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t05",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 20.854103088378906,
+      "reply": "In the study image, the layout features the blue pyramid behind the green cylinder on the left, while the yellow hemisphere is in the background and the purple cone is in the foreground on the right (maintaining a clockwise arrangement: pyramid \u2192 hemisphere \u2192 cone \u2192 cylinder). \n\nOption 1 incorrectly scrambles this arrangement (placing the hemisphere in the front left and the green cylinder on the far right, which reverses their relative spatial order). Option 2 preserves the correct 3D spatial layout of all four objects, viewed from a slightly shifted perspective under different lighting conditions.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t07",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 31.354307174682617,
+      "reply": ".\nPurple is at (0, 1) [Back].\nGreen -> Blue -> Yellow -> Purple:\n(-1, 0) -> (0, -1) -> (1, 0) -> (0, 1):\nFrom -x to -y is clockwise!\nWait! It's CLOCKWISE! Option 1 is a MIRROR REFLECTION!\nLet's double check this:\nIn Option 1, if you stand at the center and look at Green, Blue is to your left (front).\nIn Study, if you stand at the center and look at Green (front-left), Blue (front-right) is to your LEFT?\nWait!\nStand at (0,0)",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t10",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 28.075037002563477,
+      "reply": "In the study view, the green cylinder and purple cone are positioned toward the back-left, the blue pyramid is in the front-center, and the yellow hemisphere is on the right. \n\nViewing the scene from the right side (near the hemisphere) places the hemisphere in the foreground, with the front-positioned pyramid appearing to the left, while the cylinder and cone recede into the background on the right. Option 2 accurately preserves these relative positions, whereas Option 1 incorrectly places the pyramid in front of the cylinder when viewed from behind the cone.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t07",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 13.967221021652222,
+      "reply": "In the study view, the green cylinder and yellow hemisphere form the rear pair, while the cyan pyramid and purple cone are positioned in the foreground, with the pyramid situated between the cylinder and cone on the left. \n\nOption 2 incorrectly places the cone and pyramid on opposite sides of the cylinder\u2013hemisphere axis (with the hemisphere in the front and cylinder in the back). Option 1 correctly maintains the relative geometry and cyclic arrangement, viewed from the right side where the yellow hemisphere is closest in the foreground and the cyan pyramid sits between the cone and cylinder in the background.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t18",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 20.993077993392944,
+      "reply": "In the study view, the teal pyramid (left) and green cylinder (right) sit opposite each other, while the yellow dome (rear) and purple cone (front) form the perpendicular opposite pair. \n\n**Option 2** shows this exact same configuration viewed from the east (near the green cylinder, looking toward the teal pyramid), placing the green cylinder in the foreground, the teal pyramid directly behind it in the background, the purple cone to the left, and the yellow dome to the right.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t05",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 21.8401300907135,
+      "reply": "In the study view, the peaks form a clockwise loop: purple cone (back-left), yellow hemisphere (back-right), cyan pyramid (front-right), and green cylinder (front-left). \n\nViewing the scene from the opposite side in Option 1 preserves this clockwise order (yellow hemisphere in the foreground, cyan pyramid behind it to the left, green cylinder in the background, and purple cone to the right). Option 2 incorrectly places the cyan pyramid directly opposite the green cylinder with the yellow hemisphere and purple cone swapped.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t19",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 15.544983148574829,
+      "reply": "In the study image, the yellow hemisphere (front-left) and the blue pyramid (back-right) sit diagonally opposite each other, while the purple cone (back-left) and green cylinder (front-right) form the other diagonal pair. \n\n**Option 2** represents this exact same spatial layout viewed from the opposite side (near the blue pyramid looking toward the yellow hemisphere), correctly placing the blue pyramid in the foreground, the yellow hemisphere in the background, the green cylinder to the left, and the purple cone to the right. In contrast, Option 1 incorrectly places the yellow hemisphere and blue pyramid directly adjacent to one another in the foreground/midground.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t10",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 18.534534215927124,
+      "reply": "In the study view, the peaks form a counter-clockwise loop: green cylinder (back-left) $\\rightarrow$ yellow dome (front-left) $\\rightarrow$ cyan pyramid (front-right) $\\rightarrow$ purple cone (back-right). \n\nViewing this configuration from behind the green cylinder (roughly a 180\u00b0 rotation) places the green cylinder in the foreground, the purple cone to the left, the yellow dome to the right, and the cyan pyramid in the background, which precisely matches **Option 1**. Option 2 incorrectly swaps the relative positions of the yellow dome and purple cone, creating a mirrored layout.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t01",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 20.97092914581299,
+      "reply": "In the study layout, the green cylinder (back-left) and yellow dome (back-right) form the rear row, while the teal pyramid (front-left) and purple cone (front-right) form the front row, placing the cylinder diagonally opposite the cone, and the pyramid opposite the dome. \n\n**Option 2** accurately preserves this spatial configuration viewed from the opposite side (rotated roughly 180\u00b0), placing the yellow dome and green cylinder in the foreground with their respective counterparts\u2014the purple cone and teal pyramid\u2014visible directly behind them.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t13",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 15.168385028839111,
+      "reply": "In the study image, the cone is positioned in the foreground on the right with the pyramid directly behind it, the dome is located in the middle-back, and the cylinder is on the left. \n\nOption 1 maintains this exact relative spatial arrangement of all four objects (cylinder on the left, dome in the center-rear, cone in the right foreground, and pyramid behind the cone) under a different lighting angle with elongated shadows. Option 2 erroneously swaps the front-to-back positions of the cone and pyramid while keeping them on the right, which is spatially inconsistent.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t11",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 35.4362678527832,
+      "reply": "In the study image, the layout features the dome-like hemisphere in the right-foreground, the pyramid on the left, the cylinder in the center-background, and the cone to the right-background. \n\n**Option 1** represents the exact same spatial arrangement viewed from a camera angle shifted approximately 45\u201360 degrees clockwise around the scene, placing the hemisphere in the front-right, the cylinder behind it to the right, the pyramid toward the center-rear, and the cone on the far left, preserving all relative distances and counter-clockwise ordering among the four shapes. In contrast, Option 2 retains the exact original camera perspective but alters the shape/features, failing the required change of viewpoint.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t15",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 22.48509120941162,
+      "reply": "In the study image, the cone is in the left foreground, the cylinder in the center foreground, the dome in the right foreground/midground, and the pyramid sits behind the cone and cylinder in the background. \n\nViewing this arrangement from the left side (a roughly 90\u00b0 clockwise rotation) places the pyramid (originally back-left) and cone (originally front-left) in the foreground, with the pyramid on the left and the cone on the right, while the cylinder and dome shift into the background. **Option 2** accurately preserves these relative 3D positions and distances.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t07",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 36.027827978134155,
+      "reply": "In the study image, the hemisphere and cone form the foreground pair (with the hemisphere being closer to the camera and to the right of the cone), while the cylinder and pyramid form the background pair (with the cylinder situated further back and to the left of the pyramid). \n\nViewing the scene from the left side (looking across from the cone's side toward the pyramid) places the foreground pair on the right and the background pair on the left. From this perspective, the cone is in front of the hemisphere on the right, and the cylinder is in front of the pyramid on the left, which precisely matches **Option 1** (whereas Option 2 incorrectly places the hemisphere in front of the cone on the left).\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t04",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 29.93741798400879,
+      "reply": "In the study view, the hemisphere and cone are in the foreground, with the pyramid positioned directly behind the hemisphere and the cylinder behind the cone. Viewing the scene from approximately 90 degrees to the right places the cone in the left foreground directly aligned in depth with the hemisphere in the left background, while the cylinder and pyramid form the right side of the layout. Option 1 accurately preserves this direct alignment between the cone and hemisphere, whereas in Option 2 the cone is shifted far to the left and out of alignment.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t14",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 15.482660055160522,
+      "reply": "In the study image, arranged clockwise from above, the objects appear in the order: dome, cone, cylinder, and pyramid. \n\nIn **Option 2**, the viewpoint is rotated so that the cone is in the foreground, with the cylinder to the left, the pyramid in the background, and the dome to the right, precisely preserving this clockwise arrangement. In contrast, Option 1 mirrors the layout, placing the cylinder clockwise from the pyramid instead of counter-clockwise.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t13",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 14.933340072631836,
+      "reply": "In the study view, the shapes form a quadrilateral layout where the pyramid is diagonally opposite the cylinder, and the cone is diagonally opposite the hemisphere (moving clockwise: cone, cylinder, hemisphere, pyramid). \n\nOption 1 views this scene from behind the cylinder looking toward the pyramid, correctly placing the hemisphere on the left and the cone on the right. Option 2 incorrectly places the cone to the right and the cylinder to the left when viewed from the pyramid, which mirrors the relative positions.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t15",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 11.693818807601929,
+      "reply": "In the study image, the cone is directly in front of the hemisphere, with the cylinder situated to their right in the foreground and the pyramid positioned further back between them. Option 1 incorrectly flips this spatial arrangement across the left-right axis (presenting a mirror image). Option 2 correctly captures the layout from a vantage point to the right, placing the cylinder on the near left, the pyramid on the near right, the hemisphere behind the pyramid, and the cone behind the cylinder.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t19",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 9.318742036819458,
+      "reply": "In the study image, the four shapes arranged clockwise from the top (back) are the pyramid, the hemisphere (right), the cylinder (front), and the cone (left). Option 1 views this scene from the opposite perspective (behind the pyramid looking toward the cylinder), placing the pyramid closest to the camera, the cylinder furthest away in the center background, the hemisphere to the left, and the cone to the right. In contrast, Option 2 alters the relative positions, incorrectly pushing the cylinder into the background while keeping the cone in the foreground.\n\nFinal Answer: OPTION 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t15",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 23.447585105895996,
+      "reply": "In the study image, the cylinder and dome occupy the foreground (left and right, respectively), while the cone is positioned directly behind the cylinder and the pyramid sits behind the dome. This establishes that the cylinder is diagonally opposite the pyramid, and the cone is diagonally opposite the dome. \n\nOption 2 correctly preserves these spatial relationships (seen from the opposite side, where the pyramid and cone are now in the foreground, with the dome behind the pyramid and the cylinder behind the cone), whereas Option 1 incorrectly pairs the dome opposite the pyramid.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t09",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 21.607507944107056,
+      "reply": "In the study image, the four peaks form a rectangular layout consisting of a left pair (cyan in front, purple in back) and a right pair (green in front, yellow in back), with clockwise order around the perimeter being Purple \u2192 Yellow \u2192 Green \u2192 Cyan. \n\nViewing the scene from the right side (a 90\u00b0 perspective rotation looking toward the left) places the Green and Yellow peaks in the foreground (Green on the left, Yellow on the right) and the Cyan and Purple peaks in the background (Cyan on the left, Purple on the right), which precisely matches **Option 2**.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t15",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 29.081517934799194,
+      "reply": "In the study image, the four peaks form a quadrilateral where the purple cone is at the front-left, the green cone is directly behind it (back-left), the yellow cone is at the back-right, and the cyan/blue cone is at the front-right. \n\nOption 1 shows this exact layout from a rotated viewpoint positioned behind the yellow cone looking back across the landscape: the yellow peak is now in the foreground, with the blue peak to its left, the green peak in the center-distance, and the pink/purple peak to the right. Option 2 merely reproduces the initial study perspective rather than the required rotated viewpoint.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t08",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 29.68801999092102,
+      "reply": "In the study image, the four peaks form a convex layout with a clockwise ordering of purple, yellow, blue, and green, where purple, yellow, and green form a tighter cluster opposite the more distant blue peak. \n\n**Option 1** correctly preserves this identical spatial configuration viewed from a shifted camera angle, maintaining the relative positions and distances between all four peaks. In contrast, **Option 2** incorrectly alters the layout by placing the purple and blue peaks directly adjacent to each other.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t11",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 17.51797080039978,
+      "reply": "In the study image, the green and cyan peaks are positioned very close together as a distinct pair on the right, with the purple peak in the foreground on the left and the yellow peak further back. **Option 2** maintains this exact spatial geometry, viewing the scene from a slightly shifted angle where the cyan peak is now closest to the camera in the foreground, with the green peak just behind it, while the yellow and purple peaks preserve their correct relative distances and layout. In contrast, Option 1 incorrectly pairs the purple and cyan peaks together while isolating the green peak.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t07",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 17.19610285758972,
+      "reply": "In the study image, the four cones form a clockwise loop around the center: **Yellow (front) $\\rightarrow$ Green (left) $\\rightarrow$ Purple (rear) $\\rightarrow$ Cyan (right)**. \n\nOption 1 shows this exact spatial layout viewed with the cyan cone in the foreground; looking past the cyan cone toward the green cone across from it, the yellow cone lies to the left and the purple cone lies to the right. In contrast, Option 2 reflects the positions of the cones, resulting in an inverted chiral layout.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t03",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 12.455378293991089,
+      "reply": "In the study image, the four peaks form a layout where the green and yellow peaks are diagonally opposite each other, and the cyan and purple peaks are diagonally opposite each other. Option 2 maintains these identical opposite pairings and relative orientations, viewing the scene from a perspective facing between the yellow peak (front-left) and purple peak (front-right), with cyan and green correctly situated in the background. In contrast, Option 1 swaps the pairings, placing yellow opposite purple.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t18",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 16.245376110076904,
+      "reply": "In the study image, the four peaks form a clockwise loop: dark green (front-left) to purple (back-left), yellow (back-right), and teal-blue (front-right). \n\nOption 1 shows this exact spatial configuration viewed from a camera rotated approximately 90\u00b0 clockwise, maintaining the identical clockwise arrangement (blue $\\rightarrow$ green $\\rightarrow$ purple $\\rightarrow$ yellow). Option 2 presents a mirrored layout where the relative positions of the yellow and green peaks are reversed.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t03",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 22.757704973220825,
+      "reply": "In the study view, the counter-clockwise layout of the four peaks is Yellow (back-left) $\\rightarrow$ Green (front-left) $\\rightarrow$ Cyan (front-right) $\\rightarrow$ Purple (back-right). \n\nOption 1 simply swaps the left and right positions while keeping the front-to-back depth identical, which represents an impossible mirror reflection rather than a physical camera rotation. Option 2 correctly preserves the true 3D spatial arrangement and chirality from a viewpoint rotated roughly $120^\\circ$ to $140^\\circ$ clockwise, placing the purple cone in the near foreground with cyan to its left, green in the background, and yellow to the right.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t17",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 11.21855115890503,
+      "reply": "In the study image, the mountains form a diamond-like layout: Green is in the front, Yellow is in the back, Purple is on the left, and Cyan is on the right, establishing a clockwise order of Green \u2192 Purple \u2192 Yellow \u2192 Cyan. Option 1 represents this identical arrangement viewed from the opposite side (rotated roughly 180\u00b0), placing Yellow in the foreground, Green in the background, Cyan on the left, and Purple on the right, which maintains the same clockwise relative orientation. Option 2 incorrectly alters the spatial relationships between the peaks.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t09",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 16.1617169380188,
+      "reply": "In the study view, the green and yellow cones form a pair on the left (with yellow in the foreground and green behind it), while the teal and purple cones form a pair on the right (with purple in the foreground and teal behind it). \n\nOption 2 depicts the exact same spatial layout viewed from the opposite side (approximately 180\u00b0 rotation), placing the teal cone in the front-left with the purple cone behind it, and the green cone in the front-right with the yellow cone behind it. In contrast, Option 1 is an incorrect, laterally inverted (mirrored) representation of the scene.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 33.8983371257782,
+      "reply": "In the study view, the landscape consists of four distinct mountains: a bulky, broad mountain on the left, a sharp central-peaked mountain in the background, a ridged peak on the right, and a cluster of tall vertical spires in the foreground right. \n\nOption 1 retains the identical spatial configuration and camera perspective (merely under altered lighting), whereas Option 2 shifts the camera to a new viewpoint to view the same 3D configuration: the needle-cluster mountain is seen in the foreground on the left, while maintaining the correct relative spatial relationships with the other surrounding peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 32.174314975738525,
+      "reply": "In the study image, the four mountains form a layout with a multi-ridged mountain in the front, a pyramidal peak in the back, the needle-spire mountain on the left, and the broad craggy massif on the right. \n\nOption 2 is an egocentric foil viewed from the identical camera angle as the study image, but with altered mountain geometry (most noticeably the flattened, altered topography of the right-hand peak). Option 1 correctly preserves the original landscape and the spatial relationships among the four distinct peaks, viewed from a rotated viewpoint under altered lighting.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t11",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 35.44597411155701,
+      "reply": "In the study view, the landscape consists of a smooth pyramidal mountain in the near left, a sharp peak in the far left, a broad craggy massif in the far background, and a slender columnar spire cluster in the near right. \n\nOption 1 keeps essentially the same viewpoint but replaces the foreground mountain with an incorrect, heavily serrated peak. Option 2 correctly preserves the original four mountains and their relative spatial configuration viewed from a rotated perspective (viewed from the opposite side, placing the spire cluster and broad massif in the background).\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 36.35997200012207,
+      "reply": "Study foreground mountain again!\nDoes Study foreground mountain have a single peak?\nWait! In Study:\nForeground mountain: look at the top.\nThere is a high peak on the right of its summit, and a lower ridge on the left?\nWait, no, look at Option 1, the mountain on the right:\nIt has two peaks! It has the EXACT crater/twin peaks of the Study foreground mountain!\nLook at Option 1, mountain on the right:\nIt has a ridge on the left, a cleft in the middle, and peaks!\nWait, look at Option 1, the mountain in the BACK:\nWait, let's look at all 4 mountains in Study:\n1. Mountain on the disc at (x=0",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 32.13991403579712,
+      "reply": "To determine which option shows the same landscape, we can track the relative positions of the four distinct mountains: the needle-like spires (front-left in the study view), the craggy flat-topped dome (back-left), the conical twin-peaked volcano (back-right), and the large ridged mountain (front-right). \n\nIn the study image, standing behind the flat-topped dome and looking across the terrain toward the ridged mountain places the needle-like spires to the right and the twin-peaked volcano to the left. **Option 2** perfectly captures this exact spatial layout from this perspective, showing the flat-topped dome in the immediate foreground, the ridged mountain directly behind it, the needle-like sp",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t02",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 24.66032099723816,
+      "reply": "In the study image, the four peaks form a quadrilateral where the broad, crater-like mountain is diagonally opposite the sharp pyramid peak, and the needle-like spire mountain is diagonally opposite the cone-shaped mountain. \n\nOption 1 incorrectly places the cone-shaped mountain directly opposite the broad crater mountain, altering the spatial layout. Option 2 correctly preserves the diagonal pairings and relative layout, showing the scene viewed from the right side (with the crater mountain and needle-spire mountain in the foreground on the left and right, respectively, and the cone and pyramid mountains in the background).\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t17",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 31.23229193687439,
+      "reply": "Based on the spatial arrangement in the study image, the four mountains form a diamond layout: the multi-spired pinnacle mountain (**S**) is in the front, the broad/blocky mountain (**B**) is on the left, the pointy pyramid mountain (**P**) is in the back, and the ridged mountain (**R**) is on the right. \n\nViewing the scene from the opposite perspective (looking toward the south-west):\n- **S** and **B** are in the background (with **S** on the left and **B** on the right).\n- **R** and **P** are in the foreground, maintaining their correct relative opposite and adjacent positions to **S** and **B**.\n\n**Option 1** accurately preserves this relative",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t09",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 28.259026050567627,
+      "reply": "To determine the matching landscape, we track the four unique peaks and their relative arrangement:\n- The **study image** features a distinct needle-spired cluster in the left foreground paired closely with a tall, sharp-pointed peak directly behind it, a broad multi-ridged massif in the right foreground, and a third distinct peak in the distant background.\n- Viewing the layout from a vantage point rotated to the other side (near the background peak), the broad massif shifts to the foreground left, the needle-spired cluster and the sharp-pointed peak appear as a closely spaced pair in the background, and the background peak now sits in the foreground right.\n- **Option 2** preserves this exact 3D spatial geometry and the individual morphology of all four peaks, whereas Option 1 alters peak identities and relative distances.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 21.193860054016113,
+      "reply": "In the study image, the four peaks form a quadrilateral with the volcano-like peak (front-left) adjacent to the tall spiky peak (back-left), while the sharp conical peak (back-right) and craggy peak (front-right) sit opposite them on the right. \n\n**Option 1** represents the same scene viewed from behind the conical peak (rotated roughly 120\u2013140\u00b0 clockwise), placing the conical peak in the left foreground with the craggy peak behind it, while the volcano-like peak appears in the middle distance and the spiky peak sits on the right.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t01",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 16.83767819404602,
+      "reply": "In the study image, viewing from the original perspective places the broad, fluted rim mountain in the foreground, the sharp conical peak on the left, the craggy spired mountain on the right, and the jagged-topped peak in the far background. \n\nOption 1 keeps essentially the same viewpoint as the study image but replaces the background peak with a completely different, towering spire formation. In contrast, **Option 2** shows the identical landscape rotated approximately 180 degrees: the conical peak now appears on the right, the craggy mountain on the left, the former background peak in the foreground, and the broad fluted mountain in the distance.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t09",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 33.080487966537476,
+      "reply": "Based on a spatial analysis of the four mountains surrounding the central lake:\n\n* In the **Study Image**, the layout consists of a flat-topped mesa (front-right), a conical ridged mountain (front-left), a sharp triangular peak (back-left), and a cluster of Gothic spires (back-right). Diagonally across the lake, the conical mountain sits opposite the spires, while the flat-topped mesa sits opposite the sharp triangular peak. \n* In **Option 2**, the spatial arrangement is incorrect: the flat-topped mesa and the conical mountain are placed directly opposite each other across the central lake, altering the true relative topology of the landscape.\n* **Option 1** correctly preserves the exact relative spatial layout",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t03",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 30.054781913757324,
+      "reply": "In the study image, the four peaks encircle a central lake in the following clockwise arrangement: the twin-peaked saddle mountain (rear right), the jagged crown/spire (front right), the triangular ridged mountain (foreground/front left), and the large craggy mountain (rear left). \n\n- **Option 1** alters the fundamental spatial relationships between the peaks (placing the saddle mountain to the left of the triangular peak and opposite the craggy mountain), representing an incorrect or mirrored topography.\n- **Option 2** preserves the exact same 3D spatial layout and relative positions of all four peaks and the central lake/river system under altered lighting conditions.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t08",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 9.839247941970825,
+      "reply": "In the study image, the four peaks surround a central pond: a tall slender spire stands in the background, a sharp pointed peak is to the right, a bulky mountain occupies the foreground-right, and a ridged peak sits to the left (proceeding clockwise: spire, pointed peak, bulky mountain, ridged peak). **Option 1** preserves this exact clockwise arrangement from a slightly rotated viewpoint facing the bulky mountain directly in the foreground, with the ridged peak on the left, the needle-like spire behind the pond, and the pointed peak on the right. In contrast, Option 2 alters the relative layout of these distinct mountain profiles.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t14",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 28.549614191055298,
+      "reply": "In the study image, the landscape features a central lake surrounded by four distinct mountains: a large blocky dome (front-left), a twin-peaked mountain (back-left), a multi-spired/castle-like crag (back-right), and a triangular peak (front-right). \n\n**Option 2** shows this exact same spatial arrangement viewed from an angle rotated approximately 30\u00b0 to the left (bringing the dome further left, the twin peaks toward the center, and aligning the spired crag behind the front-right triangular peak). In contrast, Option 1 alters the mountain models and their relative arrangement.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t10",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 9.514072895050049,
+      "reply": "In the study view, the four mountains surround a central lake in the following clockwise order: a tall cathedral-like spiky peak, a broad bulky mountain, a mountain with sharp jagged teeth along its ridge, and a triangular pyramidal peak. Option 1 maintains this exact relative spatial configuration and individual mountain shapes when viewed from a vantage point rotated approximately 60\u201390 degrees counter-clockwise, with the cathedral peak in the background and the toothed mountain in the foreground.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t16",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 18.672190189361572,
+      "reply": "In the study image, a central lake is surrounded by four distinct mountains arranged in clockwise order: the broad, blocky peak in the north (background), the jagged spire peak in the east (right), the two-horned wedge peak in the south (foreground), and the conical peak in the west (left). \n\n**Option 2** captures this exact landscape viewed from the east (looking down the road toward the lake), placing the spire peak in the foreground right, the broad blocky peak in the background right, the conical peak in the background center, and the two-horned wedge peak to the left. In contrast, Option 1 incorrectly alters the relative cyclic arrangement of the peaks (swapping the positions of the wedge peak and the spire peak).\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t13",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 26.243496894836426,
+      "reply": "In the study image, the four peaks surround a central lake such that the pyramid peak (north) is situated directly opposite the narrow, multi-spired peak (south), while the conical peak (west) sits opposite the broad, craggy mountain (east), establishing the clockwise sequence **Pyramid \u2192 Broad \u2192 Spired \u2192 Conical**. \n\n**Option 1** correctly preserves these opposing pairs and circular ordering, depicting the scene rotated to a viewpoint looking from the south-east (placing the broad and pyramid peaks in the foreground, and the spired and conical peaks in the background). In contrast, Option 2 incorrectly places the spired peak adjacent to the pyramid peak rather than across the lake from it.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t05",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 18.69171118736267,
+      "reply": "In the study view, tracing counter-clockwise around the central lake reveals the sequence of mountains as: multi-pinnacled cathedral peak (south) $\\rightarrow$ pointed horn peak (east) $\\rightarrow$ conical peak (north) $\\rightarrow$ massive bulky peak (west). \n\n**Option 2** accurately preserves this spatial layout viewed from an angle looking toward the north-west, with the cathedral peak at the rear-left, the bulky peak at the rear-right, the horn peak at the front-left, and the conical peak at the front-right. In contrast, Option 1 reverses the relative positions of the peaks (a mirror reflection), incorrectly placing the cathedral peak to the right of the bulky peak.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t18",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 24.805876970291138,
+      "reply": "In the study view, tracing the mountains clockwise around the central lake gives the sequence: the multi-spire tower (front-left) $\\rightarrow$ the broad flat-topped dome (back-left) $\\rightarrow$ the sharp triangular peak (back-center) $\\rightarrow$ the conical rocky peak (right). \n\n- **Option 1** correctly preserves this layout viewed from the opposite side (looking from behind the sharp peak towards the south), maintaining the identical clockwise arrangement (spire tower $\\rightarrow$ broad dome $\\rightarrow$ sharp peak $\\rightarrow$ conical peak).\n- **Option 2** reverses the relative positions of the spire tower and the broad dome, resulting in an incorrect spatial layout.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t02",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 14.732898712158203,
+      "reply": "In the study image, the four mountains surrounding the central lake are arranged clockwise as a pointed multi-peaked mountain (foreground), a jagged needle-like spire mountain (left), a broad blocky massif (rear), and a single pyramidal peak (right). \n\n**Option 2** shows this exact same landscape viewed from the opposite side (rotated roughly 180\u00b0), placing the broad blocky massif in the foreground, the pyramidal peak on the left, the needle-like spires on the right, and the pointed mountain in the background. In contrast, Option 1 is taken from the original viewpoint but alters the shapes of the peaks (particularly substituting the right-hand peak).\n\nFinal Answer: Option 2",
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+key,label,family,access,bank,complete,median_foil_m,pct_lo,pct_hi,n,acc,acc_d0,n_d0,acc_drot,n_drot,path
+human_p01,Human,human,human,hard,1,6.8,0,10,100,0.86,1.0,20,0.825,80,human_task_hard/human_p01_4afc.json
+luna,GPT-5.6 Luna,openai,api,hard,1,6.8,0,10,100,0.45,1.0,20,0.3125,80,results/or_openai_gpt-5.6-luna_cot_anyview_4afc_hard_n100.json
+luna,GPT-5.6 Luna,openai,api,mid,1,31.4,40,60,100,0.64,1.0,20,0.55,80,results/or_openai_gpt-5.6-luna_cot_anyview_4afc_mid_m_n100.json
+luna,GPT-5.6 Luna,openai,api,easy,1,42.8,90,100,100,0.59,1.0,20,0.4875,80,results/or_openai_gpt-5.6-luna_cot_anyview_4afc_easy_m_n100.json
+gemini38,Gemini 3.8 Flash,gemini,api,hard,1,6.8,0,10,100,0.44,0.65,20,0.3875,80,results/or_google_gemini-3.8-flash_cot_anyview_4afc_hard_n100.json
+gemini38,Gemini 3.8 Flash,gemini,api,mid,1,31.4,40,60,100,0.87,0.95,20,0.85,80,results/or_google_gemini-3.8-flash_cot_anyview_4afc_mid_m_n100.json
+gemini38,Gemini 3.8 Flash,gemini,api,easy,1,42.8,90,100,100,0.84,0.9,20,0.825,80,results/or_google_gemini-3.8-flash_cot_anyview_4afc_easy_m_n100.json
+qwen3vl_235b_it,Qwen3-VL-235B (i),qwen,api,hard,1,6.8,0,10,100,0.33,0.9,20,0.1875,80,results/or_qwen_qwen3-vl-235b-a22b-instruct_cot_anyview_4afc_hard_n100.json
+qwen3vl_235b_it,Qwen3-VL-235B (i),qwen,api,mid,1,31.4,40,60,100,0.41,1.0,20,0.2625,80,results/or_qwen_qwen3-vl-235b-a22b-instruct_cot_anyview_4afc_mid_m_n100.json
+qwen3vl_235b_it,Qwen3-VL-235B (i),qwen,api,easy,1,42.8,90,100,100,0.39,1.0,20,0.2375,80,results/or_qwen_qwen3-vl-235b-a22b-instruct_cot_anyview_4afc_easy_m_n100.json
+qwen3vl_235b_th,Qwen3-VL-235B (t),qwen,api,hard,1,6.8,0,10,100,0.3,0.75,20,0.1875,80,results/or_qwen_qwen3-vl-235b-a22b-thinking_cot_anyview_4afc_hard_n100.json
+qwen25vl_3b,Qwen2.5-VL-3B,qwen,local,hard,1,6.8,0,10,100,0.29,0.3,20,0.2875,80,results/qwen_qwen2.5-vl-3b-instruct_4afc_hard_cot_anyview_n100.json
+qwen25vl_3b,Qwen2.5-VL-3B,qwen,local,mid,1,31.4,40,60,100,0.32,0.6,20,0.25,80,results/qwen_qwen2.5-vl-3b-instruct_4afc_mid_m_cot_anyview_n100.json
+qwen25vl_3b,Qwen2.5-VL-3B,qwen,local,easy,1,42.8,90,100,100,0.29,0.5,20,0.2375,80,results/qwen_qwen2.5-vl-3b-instruct_4afc_easy_m_cot_anyview_n100.json
+qwen25vl_7b,Qwen2.5-VL-7B,qwen,local,hard,1,6.8,0,10,100,0.36,0.55,20,0.3125,80,results/qwen_qwen2.5-vl-7b-instruct_4afc_hard_cot_anyview_n100.json
+qwen25vl_7b,Qwen2.5-VL-7B,qwen,local,mid,1,31.4,40,60,100,0.33,0.65,20,0.25,80,results/qwen_qwen2.5-vl-7b-instruct_4afc_mid_m_cot_anyview_n100.json
+qwen25vl_7b,Qwen2.5-VL-7B,qwen,local,easy,1,42.8,90,100,100,0.35,0.6,20,0.2875,80,results/qwen_qwen2.5-vl-7b-instruct_4afc_easy_m_cot_anyview_n100.json
+qwen25vl_32b,Qwen2.5-VL-32B,qwen,local,hard,1,6.8,0,10,100,0.29,0.75,20,0.175,80,results/qwen_qwen2.5-vl-32b-instruct_4afc_hard_cot_anyview_n100.json
+qwen25vl_32b,Qwen2.5-VL-32B,qwen,local,mid,1,31.4,40,60,100,0.39,0.85,20,0.275,80,results/qwen_qwen2.5-vl-32b-instruct_4afc_mid_m_cot_anyview_n100.json
+qwen25vl_32b,Qwen2.5-VL-32B,qwen,local,easy,1,42.8,90,100,100,0.35,0.8,20,0.2375,80,results/qwen_qwen2.5-vl-32b-instruct_4afc_easy_m_cot_anyview_n100.json
+qwen25vl_72b,Qwen2.5-VL-72B,qwen,local,hard,1,6.8,0,10,100,0.31,0.75,20,0.2,80,results/qwen_qwen2.5-vl-72b-instruct_4afc_hard_cot_anyview_n100.json
+qwen25vl_72b,Qwen2.5-VL-72B,qwen,local,mid,1,31.4,40,60,100,0.37,0.9,20,0.2375,80,results/qwen_qwen2.5-vl-72b-instruct_4afc_mid_m_cot_anyview_n100.json
+qwen25vl_72b,Qwen2.5-VL-72B,qwen,local,easy,1,42.8,90,100,100,0.42,0.85,20,0.3125,80,results/qwen_qwen2.5-vl-72b-instruct_4afc_easy_m_cot_anyview_n100.json
+internvl3_38b,InternVL3-38B,internvl,local,hard,1,6.8,0,10,100,0.34,0.85,20,0.2125,80,results/opengvlab_internvl3-38b-hf_4afc_hard_cot_anyview_n100.json
+internvl3_38b,InternVL3-38B,internvl,local,mid,1,31.4,40,60,100,0.32,0.9,20,0.175,80,results/opengvlab_internvl3-38b-hf_4afc_mid_m_cot_anyview_n100.json
+internvl3_38b,InternVL3-38B,internvl,local,easy,1,42.8,90,100,100,0.39,1.0,20,0.2375,80,results/opengvlab_internvl3-38b-hf_4afc_easy_m_cot_anyview_n100.json
+internvl35_1b,InternVL3.5-1B,internvl35,local,hard,1,6.8,0,10,100,0.23,0.35,20,0.2,80,results/opengvlab_internvl3_5-1b-hf_4afc_hard_cot_anyview_n100.json
+internvl35_2b,InternVL3.5-2B,internvl35,local,hard,1,6.8,0,10,100,0.21,0.25,20,0.2,80,results/opengvlab_internvl3_5-2b-hf_4afc_hard_cot_anyview_n100.json
+internvl35_4b,InternVL3.5-4B,internvl35,local,hard,1,6.8,0,10,100,0.17,0.35,20,0.125,80,results/opengvlab_internvl3_5-4b-hf_4afc_hard_cot_anyview_n100.json
+internvl35_8b,InternVL3.5-8B,internvl35,local,hard,1,6.8,0,10,100,0.28,0.55,20,0.2125,80,results/opengvlab_internvl3_5-8b-hf_4afc_hard_cot_anyview_n100.json
+internvl35_14b,InternVL3.5-14B,internvl35,local,hard,1,6.8,0,10,100,0.31,0.5,20,0.2625,80,results/opengvlab_internvl3_5-14b-hf_4afc_hard_cot_anyview_n100.json
+internvl35_38b,InternVL3.5-38B,internvl35,local,hard,1,6.8,0,10,100,0.28,0.65,20,0.1875,80,results/opengvlab_internvl3_5-38b-hf_4afc_hard_cot_anyview_n100.json
+internvl35_30b_a3b,InternVL3.5-30B-A3B,internvl35,local,hard,1,6.8,0,10,100,0.29,0.55,20,0.225,80,results/opengvlab_internvl3_5-30b-a3b-hf_4afc_hard_cot_anyview_n100.json

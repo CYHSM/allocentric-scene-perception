@@ -23,6 +23,7 @@ import os
 import re
 import sys
 import time
+import concurrent.futures as cf
 from collections import defaultdict
 
 import numpy as np
@@ -176,6 +177,29 @@ def get_prompt_text(n_options=4, style="cot"):
             f"State your final decision on the last line as:\n"
             f"Final Answer: Option X"
         )
+    elif style == "cot_anyview":
+        # `cot` asserts that the correct option is "simply viewed from a
+        # different viewpoint". That is false for every delta=0 trial, where the
+        # target sits at the study's own azimuth -- and it is not a harmless
+        # inaccuracy: Gemini 3.8 Flash eliminated the true target on delta=0
+        # trials in so many words ("Option 2 merely reproduces the initial study
+        # perspective rather than the required rotated viewpoint"), scoring 5/10
+        # while scoring 20/20 at 135 and 180. The clause below states the
+        # viewpoint may or may not have changed, which is what the bank actually
+        # contains. Everything else is `cot` word for word, so the two are a
+        # controlled pair.
+        return (
+            f"You are taking the Four Mountains Test of spatial allocentric perception.\n\n"
+            f"Image 1 is the STUDY view of a landscape with four mountain peaks.\n"
+            f"The subsequent {n_options} images are OPTION 1 to OPTION {n_options}.\n"
+            f"Exactly ONE option shows the EXACT SAME mountain landscape (the same four peaks in the same relative spatial arrangement). "
+            f"It may be viewed from the same direction as the study image or from a different one, and the lighting/weather may differ.\n"
+            f"The other options show different mountain landscapes.\n\n"
+            f"In 2-4 sentences, compare the 3D spatial layout of the peaks (e.g. relative positions such as in front, behind, left, right) "
+            f"between the study view and the options, accounting for any camera rotation. Avoid lengthy itemized lists.\n\n"
+            f"State your final decision on the last line as:\n"
+            f"Final Answer: Option X"
+        )
     elif style == "neutral":
         # The wording humans see, word for word (bench/build_human_task.py reads
         # this function). Two things differ from `cot`/`direct` and both matter.
@@ -194,6 +218,25 @@ def get_prompt_text(n_options=4, style="cot"):
             f"The place contains several landmarks. Exactly ONE option shows the "
             f"SAME place as the study image, photographed from a different "
             f"direction and under different lighting.\n"
+            f"The other options show different places, each containing the same "
+            f"landmarks arranged differently, photographed from the same "
+            f"direction as the correct option.\n\n"
+            f"Which option shows the same place as the study image?\n"
+            f"Answer on the last line as:\n"
+            f"Final Answer: Option X"
+        )
+    elif style == "neutral_anyview":
+        # `neutral` with the same correction `cot_anyview` makes: it claimed the
+        # matching option was "photographed from a different direction", which is
+        # false for every delta=0 trial and cost Gemini 3.8 Flash 5 of 10 of them.
+        # The human arm has to read the corrected wording too, or the people and
+        # the models are no longer doing the same task.
+        return (
+            f"You will see a STUDY image of a place, then {n_options} options.\n\n"
+            f"The place contains several landmarks. Exactly ONE option shows the "
+            f"SAME place as the study image. It may be photographed from the same "
+            f"direction as the study image or from a different one, and the "
+            f"lighting may differ.\n"
             f"The other options show different places, each containing the same "
             f"landmarks arranged differently, photographed from the same "
             f"direction as the correct option.\n\n"
@@ -261,7 +304,7 @@ def build_text_message(trial, prompt_style="neutral"):
     return "\n".join(parts)
 
 
-REASONING_STYLES = {"cot", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid"}
+REASONING_STYLES = {"cot", "cot_anyview", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid"}
 
 
 class OpenVLMBackend:
@@ -414,6 +457,9 @@ class APIBackend:
 
     def __init__(self, model_id, api_base=None, api_key=None, budget_usd=None,
                  max_retries=5):
+        import threading
+        # Guards the spend/token counters once --workers > 1.
+        self._lock = threading.Lock()
         self.model_id = model_id
         self.base = (api_base or os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1")).rstrip("/")
         self.key = api_key or os.environ.get("OPENAI_API_KEY", "")
@@ -459,6 +505,12 @@ class APIBackend:
         raise RuntimeError(f"gave up after {self.max_retries} attempts: {last}")
 
     def _charge(self, res):
+        # Called from several worker threads once --workers > 1; spend, call
+        # count and the token totals are the only shared mutable state here.
+        with self._lock:
+            return self._charge_locked(res)
+
+    def _charge_locked(self, res):
         """Record what the provider says the call cost, and stop at the budget."""
         usage = res.get("usage") or {}
         self.calls += 1
@@ -511,7 +563,7 @@ class APIBackend:
         """Post one message and read the answer off it. Shared by both channels."""
         import json as _json
 
-        body = _json.dumps({
+        payload = {
             "model": self.model_id,
             "messages": [{"role": "user", "content": content}],
             "max_tokens": max_new_tokens,
@@ -519,16 +571,56 @@ class APIBackend:
             # Ask the provider to return what the call cost. Without this the
             # only figure available is a guess from a price list.
             "usage": {"include": True},
-        }).encode()
+            # Thinking models spend the token budget on hidden reasoning and
+            # hand back a `content` that is empty or cut off mid-sentence --
+            # Gemini 3.8 Flash burned 1,996 completion tokens and returned 265
+            # characters of truncated working with no digit in it. Two things
+            # are needed. `exclude: False` puts the trace in the response, so
+            # the fallback below can read the answer out of it when `content`
+            # never arrives. And effort tracks the prompt: the non-reasoning
+            # styles end in "Do not explain" and only want the digit, so they
+            # ask for the least thinking the endpoint allows. Turning it off
+            # outright is not available -- Gemini 3.8 Flash answers `400
+            # Reasoning is mandatory for this endpoint and cannot be disabled`
+            # -- so "low" is the floor, not "off".
+            "reasoning": {
+                "effort": "medium" if prompt_style in REASONING_STYLES else "low",
+                "exclude": False,
+            },
+        }
 
-        res = self._post(body)
+        try:
+            res = self._post(_json.dumps(payload).encode())
+        except RuntimeError as exc:
+            # Not every provider accepts the unified `reasoning` field, and it
+            # comes back as a hard 400 rather than a retryable code. Drop it and
+            # try once more, so a non-thinking model is not locked out by a
+            # parameter it has no use for.
+            if "reasoning" not in str(exc).lower():
+                raise
+            payload.pop("reasoning")
+            res = self._post(_json.dumps(payload).encode())
+
         self._charge(res)
 
         choices = res.get("choices") or []
         if not choices:
             raise RuntimeError(f"no choices in response: {str(res)[:300]}")
-        reply = choices[0]["message"]["content"] or ""
-        choice = parse_answer(reply, n_options=n_opts, prefer="last" if prompt_style in REASONING_STYLES else "first")
+        msg = choices[0]["message"]
+        reply = msg.get("content") or ""
+        prefer = "last" if prompt_style in REASONING_STYLES else "first"
+        choice = parse_answer(reply, n_options=n_opts, prefer=prefer)
+        # A provider that keeps thinking in a separate field leaves `content`
+        # empty when the budget runs out mid-thought. The answer is often still
+        # in the trace, so read it from there rather than scoring the trial as
+        # unparsed -- but only as a fallback, so a model that answered in
+        # `content` is still read from `content` exactly as before.
+        if choice is None:
+            trace = msg.get("reasoning") or ""
+            if trace:
+                choice = parse_answer(trace, n_options=n_opts, prefer="last")
+                if choice is not None:
+                    reply = (reply + "\n[read from reasoning trace]\n" + trace).strip()
         return choice, reply.strip()
 
 
@@ -561,9 +653,68 @@ def _stratified(trials, n, seed=0):
     return sorted(out, key=lambda t: t["id"])
 
 
+def _run_config(benchmark_path, prompt_style, max_tokens, parallel, stratified,
+                max_trials, modes, resumed, n_options):
+    """
+    Everything about a run that is not the model, recorded in the run's own
+    output.
+
+    A number in this paper is only comparable to another number if the two runs
+    agree on all of this. They have not always agreed: a random-foil arm ran at
+    max_tokens=4000 while the hard-foil arm ran at 8000, and half of that arm's
+    c4 replies were truncated mid-reasoning -- which read as a difficulty effect
+    until the config was compared by hand. The benchmark digest is here for the
+    same reason: two different foil banks once wrote to one filename.
+
+    `resumed` is not cosmetic. run_evaluation resumes from its own output file,
+    so a re-run of a model whose result already exists can spend nothing, call
+    nothing, and report the previous run's numbers as if they were new.
+    """
+    import hashlib, subprocess, datetime
+    try:
+        with open(benchmark_path, "rb") as f:
+            digest = hashlib.sha256(f.read()).hexdigest()[:12]
+    except OSError:
+        digest = None
+    try:
+        commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"],
+                                capture_output=True, text=True, timeout=5,
+                                cwd=os.path.dirname(os.path.abspath(__file__)),
+                                ).stdout.strip() or None
+    except Exception:
+        commit = None
+    # Hash the literal instruction string, not the style name. The one bug that
+    # invalidated a whole arm was a clause inside the prompt text ("the scene is
+    # shown from a different viewpoint", asserted on trials where it was false),
+    # and the style name did not change when it was fixed.
+    try:
+        prompt_text = get_prompt_text(n_options=n_options, style=prompt_style)
+    except Exception:
+        prompt_text = None
+    return {
+        "benchmark_path": benchmark_path,
+        "benchmark_sha256_12": digest,
+        "prompt_style": prompt_style,
+        "prompt_sha256_12": (hashlib.sha256(prompt_text.encode()).hexdigest()[:12]
+                             if prompt_text else None),
+        "reasoning_effort": "medium" if prompt_style in REASONING_STYLES else "low",
+        "max_tokens": max_tokens,
+        "workers": parallel,
+        "max_trials": max_trials,
+        "sampling": "stratified_mode_x_delta" if stratified else "first_n",
+        "modes": modes,
+        "n_options": n_options,
+        "resumed_from_existing_output": resumed,
+        "git_commit": commit,
+        "finished_utc": datetime.datetime.now(datetime.timezone.utc)
+                                .replace(microsecond=0).isoformat(),
+    }
+
+
 def run_evaluation(benchmark_path, model_id, out_path, prompt_style="direct",
                    api_base=None, api_key=None, max_trials=None, max_tokens=None,
-                   modes=None, resume=True, budget_usd=None, stratified=True):
+                   modes=None, resume=True, budget_usd=None, stratified=True,
+                   parallel=1):
     with open(benchmark_path) as f:
         bench = json.load(f)
 
@@ -585,12 +736,14 @@ def run_evaluation(benchmark_path, model_id, out_path, prompt_style="direct",
               flush=True)
 
     results = {}
+    _resumed = 0
     if resume and os.path.exists(out_path):
         try:
             with open(out_path) as f:
                 old = json.load(f)
                 results = {r["trial_id"]: r for r in old.get("results", [])}
                 print(f"Resuming: found {len(results)} previously evaluated trials.", flush=True)
+                _resumed = len(results)
         except Exception as e:
             print(f"Could not load previous results for resume: {e}", flush=True)
 
@@ -612,53 +765,78 @@ def run_evaluation(benchmark_path, model_id, out_path, prompt_style="direct",
     print(f"\nEvaluating {model_id} on {len(trials)} trials ({benchmark_path})...", flush=True)
     t_start = time.time()
 
-    for idx, trial in enumerate(trials, 1):
-        tid = trial["id"]
-        if tid in results:
-            continue
-
+    def _one(trial):
+        """One trial. BudgetExceeded propagates and stops the run."""
         t0 = time.time()
-        try:
-            choice, reply = backend.predict(trial, prompt_style=prompt_style, max_new_tokens=max_tokens)
-            err = None
-        except BudgetExceeded as stop:
-            print(f"\nSTOPPING: {stop}", flush=True)
-            print(f"{len(results)} trials were paid for and are saved.", flush=True)
-            break
-        except Exception as exc:
-            choice, reply, err = None, "", str(exc)
-            print(f"[{idx}/{len(trials)}] ERROR on {tid}: {exc}")
-
-        dur = time.time() - t0
-        correct = (choice == trial["correct_choice"]) if choice is not None else False
-
-        results[tid] = {
-            "trial_id": tid,
-            "mode": trial["mode"],
-            "delta": trial["delta"],
-            "correct_choice": trial["correct_choice"],
-            "model_choice": choice,
-            "is_correct": correct,
-            "latency": dur,
-            "reply": reply,
-            "error": err,
+        choice, reply = backend.predict(trial, prompt_style=prompt_style,
+                                        max_new_tokens=max_tokens)
+        return {
+            "trial_id": trial["id"], "mode": trial["mode"], "delta": trial["delta"],
+            "correct_choice": trial["correct_choice"], "model_choice": choice,
+            "is_correct": (choice == trial["correct_choice"]) if choice is not None else False,
+            "latency": time.time() - t0, "reply": reply, "error": None,
         }
 
-        if idx % 5 == 0 or idx == len(trials):
-            n_done = len(results)
-            n_corr = sum(1 for r in results.values() if r["is_correct"])
-            acc = 100.0 * n_corr / max(n_done, 1)
-            print(f"[{idx:3d}/{len(trials):3d}] {tid:20s} | pred={choice} (gt={trial['correct_choice']}) "
-                  f"| Acc={acc:5.1f}% (chance={100 * chance_level:.1f}%) | {dur:.2f}s", flush=True)
+    def _checkpoint():
+        os.makedirs(os.path.dirname(os.path.abspath(out_path)) or ".", exist_ok=True)
+        with open(out_path, "w") as f:
+            json.dump({"summary": {"in_progress": True, "done": len(results),
+                                   "total": len(trials)},
+                       "results": list(results.values())}, f, indent=2)
 
-        # Periodic intermediate saving
-        if idx % 10 == 0 or idx == len(trials):
-            os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
-            with open(out_path, "w") as f:
-                json.dump({
-                    "summary": {"in_progress": True, "done": len(results), "total": len(trials)},
-                    "results": list(results.values())
-                }, f, indent=2)
+    pending = [t for t in trials if t["id"] not in results]
+
+    # A GPU backend holds one model on one set of devices, so its trials stay
+    # serial. An API run is pure latency -- ~24 s per trial of provider thinking
+    # -- so waiting for each reply before sending the next made a 100-trial run
+    # take 45 minutes of almost entirely idle time. Threads suit it: the work is
+    # I/O bound and the only shared mutable state is the spend counter.
+    workers = int(parallel or 1) if isinstance(backend, APIBackend) else 1
+    workers = max(1, min(workers, len(pending) or 1))
+    if workers > 1:
+        print(f"Sending {workers} requests in parallel.", flush=True)
+        if budget_usd is not None:
+            print(f"  budget note: up to {workers} calls can be in flight when the "
+                  f"ceiling trips, so the final spend may overshoot by that many.",
+                  flush=True)
+
+    stop_reason, done_n = None, 0
+    with cf.ThreadPoolExecutor(max_workers=workers) as pool:
+        futs = {pool.submit(_one, t): t for t in pending}
+        for fut in cf.as_completed(futs):
+            trial = futs[fut]
+            tid = trial["id"]
+            done_n += 1
+            try:
+                rec = fut.result()
+            except BudgetExceeded as stop:
+                if stop_reason is None:
+                    stop_reason = str(stop)
+                    for f in futs:
+                        f.cancel()
+                continue
+            except cf.CancelledError:
+                continue
+            except Exception as exc:
+                rec = {"trial_id": tid, "mode": trial["mode"], "delta": trial["delta"],
+                       "correct_choice": trial["correct_choice"], "model_choice": None,
+                       "is_correct": False, "latency": 0.0, "reply": "", "error": str(exc)}
+                print(f"[{done_n}/{len(pending)}] ERROR on {tid}: {exc}", flush=True)
+            results[tid] = rec
+
+            if done_n % 5 == 0 or done_n == len(pending):
+                n_corr = sum(1 for r in results.values() if r["is_correct"])
+                acc = 100.0 * n_corr / max(len(results), 1)
+                print(f"[{done_n:3d}/{len(pending):3d}] {tid:20s} | "
+                      f"pred={rec['model_choice']} (gt={trial['correct_choice']}) | "
+                      f"Acc={acc:5.1f}% (chance={100 * chance_level:.1f}%) | "
+                      f"{rec['latency']:.2f}s", flush=True)
+            if done_n % 10 == 0:
+                _checkpoint()
+
+    if stop_reason:
+        print(f"\nSTOPPING: {stop_reason}", flush=True)
+        print(f"{len(results)} trials were paid for and are saved.", flush=True)
 
     # Aggregate metrics
     by_mode_delta = defaultdict(lambda: {"correct": 0, "total": 0})
@@ -682,6 +860,9 @@ def run_evaluation(benchmark_path, model_id, out_path, prompt_style="direct",
         "overall_accuracy": float(sum(r["is_correct"] for r in results.values()) / max(len(results), 1)),
         "choice_distribution": dict(choice_dist),
         "by_mode_delta": {},
+        "run_config": _run_config(benchmark_path, prompt_style, max_tokens,
+                                  parallel, stratified, max_trials, modes,
+                                  _resumed, n_options),
     }
     # What the run actually cost, from the provider rather than a price list.
     # Recorded in the result file so a figure caption can state it.
@@ -730,10 +911,16 @@ def main():
     parser.add_argument("--benchmark", default="data/vlm_benchmark_4afc.json", help="Path to benchmark JSON")
     parser.add_argument("--model", required=True, help="Model ID (e.g. Qwen/Qwen2-VL-2B-Instruct)")
     parser.add_argument("--out", required=True, help="Output JSON path")
-    parser.add_argument("--prompt_style", default="cot", choices=["direct", "cot", "neutral", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid"], help="Prompting style")
+    parser.add_argument("--prompt_style", default="cot", choices=["direct", "cot", "neutral", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid", "cot_anyview", "neutral_anyview"], help="Prompting style")
     parser.add_argument("--api_base", default=None, help="API Base URL for OpenAI/OpenRouter")
     parser.add_argument("--api_key", default=None, help="API Key for API backend")
     parser.add_argument("--max_trials", type=int, default=None, help="Limit number of trials for testing")
+    parser.add_argument("--workers", type=int, default=1,
+                        help="parallel in-flight API requests. API backends only "
+                             "-- a local GPU backend ignores it and stays serial. "
+                             "The work is provider latency, not compute, so this "
+                             "scales almost linearly until the provider rate "
+                             "limits; 8 is a safe default for OpenRouter.")
     parser.add_argument("--budget_usd", type=float, default=None,
                         help="hard spend ceiling for a paid endpoint; the run "
                              "stops and saves when the provider's reported cost "
@@ -756,6 +943,7 @@ def main():
         api_key=args.api_key,
         max_trials=args.max_trials,
         budget_usd=args.budget_usd,
+        parallel=args.workers,
         stratified=not args.first_n,
         max_tokens=args.max_tokens,
         modes=args.modes,

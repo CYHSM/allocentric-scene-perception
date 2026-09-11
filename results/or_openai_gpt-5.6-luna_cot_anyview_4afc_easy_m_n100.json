@@ -1,0 +1,1319 @@
+{
+  "summary": {
+    "model": "openai/gpt-5.6-luna",
+    "benchmark": "data/vlm_benchmark_4afc_easy_m.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 100,
+    "overall_accuracy": 0.59,
+    "choice_distribution": {
+      "1": 19,
+      "3": 25,
+      "4": 33,
+      "2": 23
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c0_shape_colour_d180": {
+        "mode": "c0_shape_colour",
+        "delta": 180,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c1_shape_d0": {
+        "mode": "c1_shape",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c1_shape_d45": {
+        "mode": "c1_shape",
+        "delta": 45,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c1_shape_d90": {
+        "mode": "c1_shape",
+        "delta": 90,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c1_shape_d135": {
+        "mode": "c1_shape",
+        "delta": 135,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c1_shape_d180": {
+        "mode": "c1_shape",
+        "delta": 180,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c2_colour_d0": {
+        "mode": "c2_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c2_colour_d45": {
+        "mode": "c2_colour",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c2_colour_d90": {
+        "mode": "c2_colour",
+        "delta": 90,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c2_colour_d135": {
+        "mode": "c2_colour",
+        "delta": 135,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c2_colour_d180": {
+        "mode": "c2_colour",
+        "delta": 180,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c3_peaks_bare_d0": {
+        "mode": "c3_peaks_bare",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c3_peaks_bare_d45": {
+        "mode": "c3_peaks_bare",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c3_peaks_bare_d90": {
+        "mode": "c3_peaks_bare",
+        "delta": 90,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c3_peaks_bare_d135": {
+        "mode": "c3_peaks_bare",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c3_peaks_bare_d180": {
+        "mode": "c3_peaks_bare",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c4_valley_d0": {
+        "mode": "c4_valley",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c4_valley_d45": {
+        "mode": "c4_valley",
+        "delta": 45,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c4_valley_d90": {
+        "mode": "c4_valley",
+        "delta": 90,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c4_valley_d135": {
+        "mode": "c4_valley",
+        "delta": 135,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c4_valley_d180": {
+        "mode": "c4_valley",
+        "delta": 180,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      }
+    },
+    "run_config": {
+      "benchmark_path": "data/vlm_benchmark_4afc_easy_m.json",
+      "benchmark_sha256_12": "c863b9eb8f3c",
+      "prompt_style": "cot_anyview",
+      "prompt_sha256_12": "269bd7e9dbe4",
+      "reasoning_effort": "medium",
+      "max_tokens": 8000,
+      "workers": 16,
+      "max_trials": 100,
+      "sampling": "stratified_mode_x_delta",
+      "modes": null,
+      "n_options": 4,
+      "resumed_from_existing_output": 0,
+      "git_commit": "e69a9f7",
+      "finished_utc": "2026-09-09T19:26:53+00:00"
+    },
+    "api_usage": {
+      "calls": 100,
+      "spent_usd": 0.218674,
+      "prompt_tokens": 189100,
+      "completion_tokens": 142845,
+      "usd_per_call": 0.002187
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t14",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 12.513504981994629,
+      "reply": "The study shows the purple peak in front of the yellow rounded peak on the left, and the green peak in front of and to the right of the cyan pyramid. Option 1 preserves these same pairwise relationships, with the yellow behind the purple and the cyan pyramid behind/left of the green, while the other options alter the ordering or adjacency.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t18",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 13.302824974060059,
+      "reply": "The study view shows the cyan pyramid in the left foreground, with the purple peak behind it near the center. The green cylinder is in the right foreground, partially occluding the yellow dome behind it; Option 3 preserves this same spatial arrangement, unlike the others.  \nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 13.5868980884552,
+      "reply": "The study view shows the cone in front of the cylinder on the left, with the dome behind and to the right of them, and the pyramid farther right. Option 1 preserves these same relative positions and depth relationships, despite differences in lighting and color.  \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t16",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 14.48316216468811,
+      "reply": "The study view shows the cyan pyramid in the foreground, with the green cylinder to its right, while the yellow dome and purple cone lie farther back. Option 4 preserves this same arrangement: the dome is back-left, the cone is back-center, the pyramid is front-left, and the cylinder is on the right.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t17",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 17.73701810836792,
+      "reply": "The blue pyramid is the closest peak in the study view, with the green cylinder, purple cone, and yellow rounded peak behind it. Option 4 preserves this depth relationship while showing the scene from a rotated viewpoint: the yellow peak shifts to the left, the green cylinder to the right, and the purple cone remains farther back. The other options place a different peak in the foreground.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t07",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 17.75141406059265,
+      "reply": "The study view shows the purple peak in the front-left, the blue peak in the front-right, and the green and yellow peaks farther back, with yellow to the right of green. Option 3 preserves this same four-peak arrangement, whereas the other options substantially change the relative front/back or side-to-side relationships.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t13",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 21.07859516143799,
+      "reply": "The study view has the yellow rounded peak at the front-left and the purple peak at the front-right, with the cyan peak behind the yellow and the green peak behind/right near the purple. Option 1 preserves these pairings and the same diamond-like arrangement, allowing for a slight change in viewpoint and apparent depth.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t00",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 22.207958936691284,
+      "reply": "The study view shows the green rounded peak in the front-left, with the yellow dome behind it, the purple peak farther back to the right, and the blue pyramid in the front-right. Option 4 preserves this same relative arrangement, allowing for a slight change in viewing angle.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t11",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 22.916817903518677,
+      "reply": "The study view has the yellow peak in the front-left, the purple peak in the front-right, and the green and blue peaks positioned behind them from left to right. Option 2 preserves this same relative arrangement, with only a modest change in viewpoint and apparent scale.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t17",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 9.723208904266357,
+      "reply": "In the study view, the yellow dome and green cylinder are in the front, with the purple peak behind-left and the blue pyramid behind-right. Option 4 matches this arrangement under a roughly 180\u00b0 camera rotation: the yellow dome and purple peak move to the back/right and front/right respectively, while the blue pyramid and green cylinder appear on the left.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t16",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 23.334448099136353,
+      "reply": "In the study view, the yellow dome is closest in front, with the purple peak behind-left, the green cylinder farther back, and the teal pyramid to the right. Option 3 preserves this same cyclic arrangement under a camera rotation: the yellow dome shifts left/front, the purple peak remains behind it, the green cylinder is back-right, and the teal pyramid moves to the foreground/right.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t00",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 5.915678262710571,
+      "reply": "The study view shows a pyramid in the foreground, with the rounded dome to its left, the cylinder to its right and slightly behind, and the smaller cone farther back between them. Option 2 preserves this same arrangement, with only a slight change in camera angle. The other options change the relative ordering and positions of the four peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t01",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 7.649374961853027,
+      "reply": "The study view shows the cylinder on the left, the rounded peak toward the rear center, the cone on the right, and the pyramid in the foreground between them. Option 3 preserves this same relative arrangement and spacing, whereas the other options reposition the peaks substantially.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t18",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 5.430665969848633,
+      "reply": "The study view shows the rounded cylinder on the left, the dome behind it, the large cone in the foreground, and the pyramid farther back to the right. Option 2 preserves this same spatial arrangement, whereas the other options reposition one or more peaks relative to the others.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t19",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 4.386810064315796,
+      "reply": "The study view shows a large rounded peak in the front-left, a broad conical peak in the front-right, a small pyramid behind them toward the left, and a cylindrical peak in the back-right. Option 4 preserves this same relative arrangement and spacing, whereas the other options relocate the pyramid, dome, or cylinder.  \nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t02",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 26.738126754760742,
+      "reply": "The study view has the peaks arranged cyclically as purple, yellow, green, then cyan around the scene, with purple and cyan toward the viewer and yellow and green farther back. Option 4 preserves this same ordering under a camera rotation: cyan shifts to the left, purple to the rear-center, yellow to the right, and green to the foreground.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t18",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 13.523301839828491,
+      "reply": "In the study view, the yellow dome and green cylinder form the foreground pair, with the teal cone behind the yellow dome and the purple cone behind the cylinder. Option 4 matches this arrangement after an approximately 180\u00b0 camera rotation: the cones are in front, while the cylinder and dome are behind in the corresponding reversed positions.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t13",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 15.824748754501343,
+      "reply": "The study view has the peaks arranged cyclically as yellow, blue, purple, and green around the landscape, with green and purple forming the nearer pair. Option 4 preserves this same arrangement after a camera rotation, placing purple/green opposite yellow/blue while maintaining their relative order.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t12",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 32.302443981170654,
+      "reply": "The study view places the pyramid in front of the purple peak on the left, while the yellow dome is in front of the green cylinder on the right. Option 4 preserves these two paired relationships while reversing the front\u2013back viewing direction, unlike the other options.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t19",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 32.43394494056702,
+      "reply": "In the study view, the cyan pyramid, green cylinder, purple cone, and yellow dome form a consistent four-point arrangement, with the pyramid and dome nearer the viewer and the cylinder and cone farther back. Option 2 preserves the same circular ordering and relative front/back relationships after a change in viewing direction; the other options alter the ordering of the peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t08",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 10.653602123260498,
+      "reply": "The study view shows the large rounded cylinder in the foreground, with the hemisphere behind-left, the smooth cone farther back near the center, and the angular pyramid to the right. Option 3 preserves this same cyclic arrangement under a change in viewpoint: the cylinder shifts to the left foreground, the hemisphere remains behind it, and the cone and pyramid occupy the rear-right and front-right positions respectively.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t13",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 11.402491092681885,
+      "reply": "The study view shows the rounded peak in the front-left, the cylinder behind it, the curved cone to the right/front, and the pointed pyramid farther back/left. Option 2 preserves this same cyclic arrangement under a change in viewpoint: rounded peak, pyramid, cylinder, and cone occupy the corresponding relative positions.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t00",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 36.93388891220093,
+      "reply": "The study view has the green cylinder on the left, with the cyan pyramid behind it, the yellow dome farther right, and the purple cone in the front-right. Option 4 preserves this same four-point arrangement under a change in viewing direction, while the other options alter the relative ordering of the peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t16",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 15.909981966018677,
+      "reply": "The study view shows the rounded peak and cone forming the nearer pair, with the pyramid behind them to the left and the cylindrical peak behind to the right. Option 4 preserves this same four-point arrangement under a changed camera angle: the rounded peak is left, the cone is front-center, the pyramid is farther back, and the cylinder is right.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t07",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 15.308675050735474,
+      "reply": "The study view has the cylinder and pyramid in the nearer pair, with the dome behind the cylinder and the cone behind the pyramid. Option 2 preserves this same cyclic arrangement after a roughly 90-degree camera rotation: the pyramid and cone form the nearer pair, while the cylinder and dome are behind them, with the same left-right relationships around the landscape.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t14",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 10.661697149276733,
+      "reply": "Option 3 preserves the same spatial arrangement: the rounded peak is to the left, the cylindrical peak is to the right and behind, the pointed cone is in the foreground, and the smaller rear cone sits behind the rounded peak. The view is rotated relative to the study image, but the relative depth and left-right relationships match.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t12",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 17.208664178848267,
+      "reply": "The study view has the cylinder and pyramid in the foreground, with the cone behind them to the left and the dome behind them to the right. Option 4 preserves this same arrangement under a camera rotation: the pyramid shifts to the front-left, the cylinder to the right, and the cone and dome remain behind.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t07",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 44.866753578186035,
+      "reply": "In the study view, the cyan pyramid is in front, with the green cylinder behind it, while the purple cone and yellow dome lie to the left and right. Option 2 preserves this same four-point arrangement under an approximately 90-degree camera rotation: the cyan pyramid shifts left, the green cylinder right, and the purple and yellow peaks occupy the nearer and farther central positions.  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t18",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 45.09814405441284,
+      "reply": "The study view has the yellow dome in front, with the green cylinder behind it, while the purple peak is to the left and the blue pyramid is farther right. Option 2 preserves these same relationships under a change in viewing direction: the yellow dome remains foreground, while the green and blue peaks shift to the rear and the purple peak appears on the opposite side.  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t06",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 36.0103600025177,
+      "reply": "The study view has the green cylinder and yellow dome forming the rear-left and rear-right positions, with the blue pyramid farther back between them and the purple cone closest in front. Option 1 preserves this same four-point arrangement under a change in viewpoint, whereas the other options alter the relative ordering of the peaks.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t12",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 4.777180194854736,
+      "reply": "In the study view, the cyan peak is in the front-left, the yellow peak is in the front-right, the green peak is behind them near the center, and the purple peak is behind/right of the yellow peak. Option 4 preserves this same four-peak arrangement, with only minor changes in viewing angle and lighting.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t18",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 16.5527081489563,
+      "reply": "In the study view, the cylinder and pyramid form the rear pair, while the cone and dome form the front pair. Option 4 preserves this same four-point arrangement after a camera rotation: the cone and dome become the foreground pair, with the cylinder and pyramid behind them in the corresponding left/right order.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t11",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 7.588108777999878,
+      "reply": "The study view shows a large green peak in the front-left, with a blue/cyan peak behind it, a purple peak farther right, and a yellow peak in the front-right. Option 2 preserves this same relative arrangement and spacing, whereas the other options rearrange the peaks or place the larger foreground peaks differently.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t02",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 9.460586071014404,
+      "reply": "In the study view, the largest yellow peak is in the foreground, with the cyan/blue peak to the left, the purple peak to the right, and the smaller green peak behind them near the center. Option 2 preserves this same front-to-back and left-to-right arrangement, with only the lighting and colors appearing different.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t19",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 7.486356973648071,
+      "reply": "The study view shows the purple peak at front-left, the yellow peak at front-right, and the green and blue peaks farther back near the center and right. Option 3 preserves this same relative arrangement and overlap pattern, whereas the other options substantially rearrange which peaks are in front or behind.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t08",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 26.164761066436768,
+      "reply": "The study layout has the cylinder behind the pyramid, with the dome to the right and the cone to the left. Option 3 preserves this same cyclic arrangement under a camera rotation: the cone shifts to the rear, the cylinder to the right, the dome to the front, and the pyramid to the left.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t08",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 19.359578132629395,
+      "reply": "In the study view, the cylinder and pyramid are the nearer left and right peaks, with the cone and rounded hemisphere behind them. Option 3 shows the same arrangement from roughly the opposite viewing direction: the rear peaks become the foreground pair and the original foreground peaks move behind, with the left-right order reversed.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t04",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 27.56947684288025,
+      "reply": "The study view has the rounded cylinder and dome close together, with the cone behind/between them and the pyramidal peak set farther to the left. Option 3 preserves these same relationships under a change in viewpoint: the cylinder and dome remain adjacent, the cone is behind them, and the pyramid appears on the opposite side due to camera rotation.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t10",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 26.383023023605347,
+      "reply": "Option 4 preserves the same spatial arrangement: the rounded dome is in front, the cone is behind it, and the cylinder and pyramid flank the scene on opposite sides. The changed camera angle reverses the apparent left-right placement of the cylinder and pyramid while maintaining their relative distances and depth relationships.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t06",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 9.285952091217041,
+      "reply": "The study view has the cyan peak in front-left, the yellow peak in front-right, the purple peak behind/right, and the green peak behind/left. Option 3 preserves this same cyclic and depth arrangement under a camera rotation, whereas the other options swap the relative positions of the colored peaks.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t07",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 33.345853090286255,
+      "reply": "The study has the rounded mound, cone, cylinder, and pyramid arranged sequentially around the scene, with the mound and pyramid nearer the viewer and the cone and cylinder farther back. Option 4 preserves this same cyclic arrangement after a change in viewing direction, whereas the other options swap the relative order of the peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t12",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 39.56758999824524,
+      "reply": "The study view has the cylinder and pyramid toward the rear, with the cone and dome in front; the cone is left of the dome, while the pyramid is behind and to the right. Option 3 preserves these relationships under a change in viewing direction, placing the rear pair behind the front pair and maintaining the same cyclic order of the four peaks.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t02",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 12.096822023391724,
+      "reply": "In the study view, the yellow and green peaks form the nearer pair, with purple behind yellow and teal behind green. Option 2 preserves this same four-peak arrangement under a roughly 90-degree camera rotation: green becomes the nearest peak, yellow is to the right, purple is behind, and teal is to the left.  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t01",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 13.647645950317383,
+      "reply": "The study layout has the green and cyan peaks forming the rear pair, with the yellow and purple peaks forming the nearer pair; around the four-peak arrangement, the colors follow green\u2013cyan\u2013purple\u2013yellow. Option 2 preserves this same cyclic adjacency and relative spacing after a change in viewing direction, whereas the other options alter which peaks are neighbors.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t00",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 19.541265964508057,
+      "reply": "Option 2 preserves the same four-peak arrangement under a change in viewpoint: the green peak is nearest, purple is farthest, and yellow and blue occupy the left and right sides. The other options alter the relative ordering or adjacency of the peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t13",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 29.098508834838867,
+      "reply": "In the study view, the pyramid is in front with the cylinder behind it, while the cone is on the left and the rounded peak is on the right. Option 4 matches this arrangement after an approximately 180\u00b0 viewpoint rotation: the cylinder moves to the foreground, the pyramid to the rear, and the left/right positions of the cone and rounded peak reverse accordingly.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t10",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 31.335150718688965,
+      "reply": "The study view has the cylinder and dome positioned behind the two foreground peaks, with the curved cone in front-left and the pyramid in front-right. Option 3 preserves this same front/back grouping while reversing the apparent left-right orientation, consistent with a rotated viewpoint.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t13",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 6.965311050415039,
+      "reply": "In the study view, the cyan peak is in front, the purple peak is behind it, with the green peak to the left and the yellow peak to the right. Option 2 matches this arrangement after a roughly 180\u00b0 camera rotation: cyan moves to the rear, purple to the front, green to the right, and yellow to the left.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t04",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 15.679795265197754,
+      "reply": "The study view has the peaks arranged cyclically as purple\u2013yellow\u2013teal\u2013green, with purple and yellow behind the teal and green peaks. Option 2 preserves this same cyclic order under camera rotation, while the other options alter the relative arrangement.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t15",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 32.074462890625,
+      "reply": "The study view has the cone and pyramid in the foreground, with the hemisphere and cylinder behind them; the cone is left of the pyramid, while the hemisphere is left of the cylinder. Option 4 preserves these relationships under an approximately 180\u00b0 camera rotation, placing the cylinder and hemisphere in front and the pyramid and cone behind, with the corresponding left-right reversal.  \nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t12",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 20.896297931671143,
+      "reply": "The study view has the cyan peak at the rear, the green peak closest in front, with the purple and yellow peaks forming the left and right sides. Option 4 preserves this four-peak spatial relationship under a change in viewpoint: the same peaks appear rotated, with purple now nearest and yellow farthest. The other options alter the relative ordering of the peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t16",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 9.379243850708008,
+      "reply": "Option 4 preserves the same layout: a smaller peak sits at the rear left, a rounded peak is behind near the center, the tallest jagged peak is in the foreground, and the broad peak is to the right. The relative front/back and left/right relationships match the study view without requiring a substantial camera rotation.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 11.020714044570923,
+      "reply": "The study landscape has one large peak in the foreground, with broad peaks to the left and right behind it, and a narrow, more distant peak centered at the back. Option 2 preserves this same four-peak arrangement and relative spacing, whereas the other options alter the foreground and side-peak relationships.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 13.003168106079102,
+      "reply": "Option 1 preserves the same four distinctive peaks: the broad jagged peak, the large rugged foreground peak, the small sharp rear peak, and the isolated pointed peak on the right. Their apparent positions shift due to a camera rotation, but their front/back and left/right relationships match the study landscape better than the other options.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t12",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 10.434820175170898,
+      "reply": "The study view has one large peak in the foreground, with three peaks arranged behind it in a broad left\u2013center\u2013right spread. Option 4 preserves this same spatial structure, including the rear central peak and the left/right flanking peaks, while the other options alter the relative depth and ordering of the mountains.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t15",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 27.447067260742188,
+      "reply": "The study view has the peaks arranged cyclically as purple, yellow, green, and cyan, with cyan closest and yellow farthest. Option 1 preserves this same four-peak spatial order under a change in viewpoint, whereas the other options reverse or rearrange the relative positions.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t11",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 30.91041612625122,
+      "reply": "In the study view, the green and cyan peaks form the nearer pair, with yellow and purple behind them. Option 4 matches this layout under a diagonal camera rotation: green is the nearest peak, purple is farthest, and cyan and yellow occupy the corresponding left/right side positions.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t10",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 23.531935930252075,
+      "reply": "Option 1 preserves the same spatial arrangement: the largest mountain is in the foreground, with a second large peak to its right and two smaller, jagged peaks positioned behind them to the left and right. The other options alter these front/back and left/right relationships rather than merely rotating the viewpoint.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t15",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 27.28120493888855,
+      "reply": "In the study view, the purple peak is in front, with the green, cyan, and yellow peaks arranged behind it from left to right. Option 2 preserves the same four-peak cyclic layout under a camera rotation: the cyan peak becomes the foreground peak, while the purple moves to the rear and the yellow and green shift to the left and right sides.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 7.6738011837005615,
+      "reply": "The study view shows one large rugged peak in the foreground, with a lower peak to its left and two peaks set farther back, including one near the center and one behind/right of the foreground peak. Option 2 preserves this same depth ordering and relative arrangement, with only a slight change in viewing angle. The other options reposition the largest peak or alter which peaks are behind one another.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t18",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 28.36890697479248,
+      "reply": "The study view has the yellow peak in front, with the teal and purple peaks behind/left of it and the green peak set apart to the right. Option 4 preserves this same four-point arrangement under a camera rotation: teal and purple form the rear pair, yellow is foreground, and the blue-green peak remains the far-right peak.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t05",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 20.972465991973877,
+      "reply": "The study view has two dominant foreground peaks\u2014a broad, rounded peak on the left and a taller, sharply spired peak on the right\u2014with two smaller peaks receding behind them. Option 1 preserves this same depth and left-to-right arrangement after a change in viewpoint, whereas the other options alter which peaks are in front or behind.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t08",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 41.37014818191528,
+      "reply": "The study view has green and cyan in the rear, with yellow and purple in front. Option 3 preserves the same cyclic arrangement after a roughly 90-degree camera rotation: yellow and green shift to the rear-left/rear-right, while purple and cyan become the nearer pair. The other options alter the relative ordering of the peaks.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t18",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 45.062647104263306,
+      "reply": "In the study view, the peaks form a four-point arrangement with purple, cyan, green, and yellow following that order around the landscape, with yellow and purple appearing closer to the viewer. Option 4 preserves this same cyclic arrangement under a change in viewpoint, whereas the other options alter the relative ordering of the peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t01",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 43.36979413032532,
+      "reply": "In the study view, the peaks form a clockwise sequence of yellow, purple, green, and cyan, with cyan toward the foreground and yellow/purple farther back. Option 3 preserves this same cyclic arrangement under a change in viewpoint, with cyan toward the rear, purple in front, green to the left, and yellow to the right.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 21.75139021873474,
+      "reply": "The study landscape has a dominant broad peak in front, a long jagged peak to its right, a smaller compact peak behind, and a narrow spired peak toward the left. Option 3 preserves these identities and their cyclic arrangement under a camera rotation: the dominant peak shifts to the front-right, the jagged peak lies behind it to the right, the compact peak is farther back-left, and the spired peak is front-left.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 8.160171031951904,
+      "reply": "The study view places the four peaks in a roughly front-left, back-left, back-right, front-right arrangement: a narrow spiky peak, a smaller rounded peak, a medium jagged peak, and a broad massive peak. Option 1 preserves this same relative layout and distinctive peak identities, whereas the other options rearrange which peaks are in front versus behind.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 18.765925884246826,
+      "reply": "The study view has a tall, narrow spiky peak in the foreground, with a triangular peak to the left, a smaller peak behind it, and a broader jagged peak to the right. Option 4 preserves this same four-peak arrangement and relative depth, allowing for a slight camera rotation; the other options rearrange the distinctive peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 25.63511610031128,
+      "reply": "The study view shows two larger peaks in the foreground, with a smaller sharp peak behind them toward the center and another peak farther back on the right. Option 4 preserves this same arrangement, with the distinctive tall foreground peak shifted toward the center by camera rotation and the rear peaks maintaining their relative positions.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t19",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 52.462125062942505,
+      "reply": "The study view has the cyan peak front-left and green peak front-right, with yellow behind cyan and purple behind green. Option 1 preserves this same cyclic arrangement after a camera rotation, while the other options alter the relative ordering of the peaks.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t17",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 16.95923113822937,
+      "reply": "The study shows one large peak in the front-right, with two peaks spread across the rear-left and rear-right and a smaller peak farthest back near the center. Option 4 preserves this four-peak arrangement under a change in viewpoint: the prominent foreground peak shifts to the right, while the other three maintain the same relative rear grouping.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t11",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 6.570230007171631,
+      "reply": "The study landscape matches Option 2: the broad foreground peak lies closest to the viewer, with the narrower peak on the left, the rounded peak behind near the center, and the darker peak to the right. Their relative spacing and the river\u2019s path between the peaks remain consistent, indicating the same layout rather than a different arrangement viewed from another angle.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t05",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 9.270482063293457,
+      "reply": "Option 1 preserves the same spatial arrangement: the twin-peaked mountain is on the left, the broad central peak lies behind the lake, the narrower peak is to the right, and the tallest pointed peak is in the foreground on the right. The other options alter these relative positions and depth relationships rather than simply rotating the viewpoint.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 12.429654836654663,
+      "reply": "Option 3 preserves the same arrangement: the broadest mountain is in the foreground, with a sharper peak behind-left, a narrower peak farther back near the center, and the broad ridged peak to the right. The apparent shifts in horizontal position are consistent with a slight camera rotation rather than a different spatial layout.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t12",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 10.786371231079102,
+      "reply": "The study view shows a large foreground peak, with a lower peak to the left, a tall peak to the right, and a narrow spired peak behind them near the center. Option 2 preserves this same four-peak arrangement and the river\u2019s position threading between the peaks, unlike the other options.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t14",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 46.145262718200684,
+      "reply": "In the study view, the purple and yellow peaks are in front, with green behind-left and cyan behind-right. Option 3 matches this arrangement after a 180\u00b0 camera rotation: cyan and green appear in front, while yellow and purple are behind, with the left-right relationships correspondingly reversed.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 17.723268270492554,
+      "reply": "The study view has one large peak in the foreground, a jagged peak to the left, a smaller rounded peak behind them, and a narrow spire on the right. Option 2 preserves this same relative arrangement and corresponding peak shapes, whereas the other options reposition the peaks around one another.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 25.981056928634644,
+      "reply": "The study view shows a highly jagged, broad peak in the front, a second peak to its left, and two smaller peaks receding behind them, with the more rugged rear peak on the right. Option 2 preserves this same arrangement: the jagged foreground mountain, the spired mountain to the left, the compact peak behind, and the craggy peak on the right align under a slight camera rotation.  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t04",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 13.452733993530273,
+      "reply": "The study view shows two nearer peaks in the foreground, with two peaks farther back forming a staggered cluster behind them. Option 1 preserves this same four-peak arrangement after accounting for a change in viewing direction: the paired foreground peaks and paired rear peaks maintain the same relative geometry, unlike the other options.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t02",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 14.838632822036743,
+      "reply": "The study landscape has one large peak in the foreground, with a peak to the left, a smaller peak behind the central lake, and a tall peak to the right. Option 3 preserves this same arrangement: the foreground peak lies left of the river, the left and rear peaks remain behind it around the lake, and the tall right-hand peak stays on the opposite side. The apparent shifts are consistent with a rotated camera view.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t17",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 17.27365732192993,
+      "reply": "The study view shows a paired cluster of peaks in the left foreground, a smaller peak set behind them near the center, and a large dominant peak on the right, with the lake and river running between these formations. Option 1 preserves this same near/far and left/right arrangement, while the other options place the dominant and rear peaks in different spatial relationships.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 26.140130043029785,
+      "reply": "The study view has the large foreground peak, the narrow peak to the left, a smaller peak farther behind, and a broader peak to the right. Option 4 preserves this same cyclic arrangement under a rotated viewpoint: the foreground peak shifts left, the left peak moves to the rear-left, the rear peak to the rear-right, and the right peak becomes the front-right peak.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t09",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 29.61508870124817,
+      "reply": "The study landscape has a dominant rugged peak in the foreground, a single pointed peak to the left, a smaller peak behind near the center, and a broader double-peaked massif to the right/rear. Option 3 preserves these same four peaks and their relative arrangement, with the view rotated so the dominant foreground peak is more central.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t08",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 32.27238202095032,
+      "reply": "Option 1 preserves the study layout: the broad rugged peak is closest in front, with the sharper peak to the left and the jagged multi-spired peak to the right. The narrow isolated spire remains behind the other three, with only a slight camera rotation shifting the foreground peak toward the center.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t03",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 17.88736915588379,
+      "reply": "The study landscape has one large peak in the foreground, with a broad peak to the left and two peaks farther back near the center and right. Option 4 preserves this same arrangement and the corresponding spacing of the lake and river, while the other options shift the foreground peak and alter the relative ordering of the peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t09",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 13.603662014007568,
+      "reply": "The study view shows two nearer peaks forming a left-right pair, with a slender peak farther back near the center and another peak farther back on the right. Option 1 preserves this same four-peak arrangement and the relative spacing, with only a slight change in viewpoint and scale. The other options alter which peaks are in front or shift the distinctive spires into different positions.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t12",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 23.486921072006226,
+      "reply": "The study view has a broad peak to the left, a taller peak behind the central lake, and two peaks on the right\u2014one farther back and one prominent in the foreground. Option 3 preserves this same arrangement, with the foreground/right cluster, rear/right spires, and central rear peak matching after accounting for the changed river perspective and camera angle.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t06",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 31.93394708633423,
+      "reply": "The study view has one large peak in the foreground, with a smaller jagged peak to the left, a taller peak behind it, and another peak to the right. Option 1 preserves this same depth and left-to-right arrangement, including the foreground mountain masking part of the central rear peak; the other options shift the rear and side peaks into different relative positions.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t10",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 29.237253189086914,
+      "reply": "Option 1 preserves the same overall arrangement: the broad foreground mountain remains closest, with the other three peaks distributed behind it from left through center to right. The distinctive narrow, jagged peak remains on the right side, while the smaller rear peaks shift slightly due to the changed viewing angle. The other options alter the relative depth and ordering of the four peaks.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t13",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 12.31480598449707,
+      "reply": "The study view shows a broad peak on the left, a taller isolated peak behind the lake, a large jagged peak in the foreground-right, and another peak farther right. Option 4 preserves this same four-peak arrangement and the same lake/river relationships, with only a slight change in camera angle. The other options alter the relative placement and prominence of the foreground and rear peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t15",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 32.893348932266235,
+      "reply": "The study shows two prominent foreground mountains flanking the lake, with a jagged peak behind and slightly left of the water, plus another peak farther to the right. Option 3 preserves this same depth arrangement and river/lake relationship, viewed from a rotated angle; the other options place the rear peaks or foreground pair differently.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t12",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 52.65305995941162,
+      "reply": "Option 3 preserves the same arrangement: the two large foreground peaks remain together, with the jagged peak shifting to the right and the broader peak to the left under a lateral camera rotation. The two smaller peaks remain behind them, also exchanging left-right positions while retaining their distinctive shapes and relative spacing.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t19",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 40.79136371612549,
+      "reply": "The study landscape has a narrow peak on the left, two larger peaks behind the central lake, and a prominent peak in the foreground, with the stream extending toward the right. Option 4 preserves this same front-to-back and left-to-right arrangement, including the foreground peak blocking part of the lake and the rightward stream.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t10",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 27.078670740127563,
+      "reply": "The study landscape has two nearer peaks flanking the lake, with a broad massif on the left and a sharper, narrower peak on the right; two additional peaks sit farther back on the left and right. Option 1 preserves this same front\u2013back and left\u2013right arrangement, with the central lake and winding stream also occupying the corresponding position, whereas the other options rearrange the peaks.  \nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t09",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 33.61612796783447,
+      "reply": "The study view shows one dominant peak in the foreground, with a second peak behind it and two additional peaks arranged to the right around the lake. Option 3 preserves this same four-peak configuration after accounting for a change in viewing direction: the dominant foreground peak shifts to the right, while the rear peak and the paired side peaks maintain their relative arrangement.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t00",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 44.21494770050049,
+      "reply": "The study view shows two nearer peaks in the left and right foreground, with two farther peaks arranged behind them around the central lake. Option 4 preserves this same front-left/front-right and back-left/back-center structure, with the river and lake fitting the rotated viewpoint. The other options alter the relative ordering of the peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t12",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 26.928957223892212,
+      "reply": "Option 1 matches the study landscape: the jagged peak remains to the left, the narrow spire is behind the lake, and the broad foreground massif and isolated conical peak occupy the corresponding neighboring positions after accounting for a camera rotation. The other options alter the relative ordering and spacing of these distinctive peaks.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t10",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 38.32667088508606,
+      "reply": "The study view shows one peak to the left of the lake, a taller peak behind the lake, and a large peak to the right/front. Option 3 preserves this same triangular arrangement, with the right-hand formation appearing larger due to the changed viewing angle, while the lake and surrounding terrain align consistently.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 92.18397903442383,
+      "reply": "The study view has two larger peaks in the foreground, with the narrower ridge on the left and the broad mass on the right; behind them are the rounded peak on the left and the sharper peak on the right. Option 4 preserves this same left-right and front-back arrangement, whereas the other options alter the relative placement of the peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t01",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 59.093024015426636,
+      "reply": "Option 2 preserves the same four-peak arrangement: the narrow peak remains to the left, the smaller jagged peak lies behind it, the broad peak is on the right, and the largest foreground massif shifts toward the right due to the changed camera angle. The river and wooded valleys also maintain the same relationships among the peaks.  \nFinal Answer: Option 2",
+      "error": null
+    }
+  ]
+}

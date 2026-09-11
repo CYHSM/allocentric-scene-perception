@@ -240,12 +240,28 @@ def _stale(res, benchmark):
     return bad > 0
 
 
+def _infer_m(res):
+    """
+    How many alternatives a run had, when nothing recorded it.
+
+    A run still in progress has no `n_options` in its summary yet, and the old
+    fallback was a bare `4`. That is not a harmless default: it puts a 2AFC run
+    on a 25% chance level, which inflates every d' and sends VII off the top --
+    the half-finished Gemini 2AFC run collated at VII(90) = 5.19. Read it off
+    the answers instead, which are present from the first trial.
+    """
+    seen = {r.get("correct_choice") for r in res}
+    seen |= {r.get("model_choice") for r in res}
+    seen.discard(None)
+    return max(seen) if seen else 4
+
+
 def _afc_record(path, blob, per_mode):
     res = blob["results"]
     summary = blob.get("summary", {})
     model_id = summary.get("model") or os.path.splitext(os.path.basename(path))[0]
     style = summary.get("prompt_style")
-    m = summary.get("n_options") or res[0].get("n_options") or 4
+    m = summary.get("n_options") or res[0].get("n_options") or _infer_m(res)
     is_human = str(model_id).startswith("human")
 
     groups = ([(mo, [r for r in res if r["mode"] == mo]) for mo in MODES]

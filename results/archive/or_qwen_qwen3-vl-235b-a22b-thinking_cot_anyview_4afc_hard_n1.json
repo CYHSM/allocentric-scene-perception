@@ -1,0 +1,43 @@
+{
+  "summary": {
+    "model": "qwen/qwen3-vl-235b-a22b-thinking",
+    "benchmark": "data/vlm_benchmark_4afc_hard.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 1,
+    "overall_accuracy": 1.0,
+    "choice_distribution": {
+      "1": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "api_usage": {
+      "calls": 1,
+      "spent_usd": 0.001664,
+      "prompt_tokens": 1621,
+      "completion_tokens": 254,
+      "usd_per_call": 0.001664
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 7.4845099449157715,
+      "reply": "The study image features a green cylinder on the left, a purple cone in front-left, a yellow hemisphere behind the cylinder, and a cyan pyramid on the right. Option 1 maintains the same relative spatial arrangement: the green cylinder (slightly altered in shade) remains left, the purple cone (lighter shade) in front-left, the yellow hemisphere (lighter) behind the cylinder, and the cyan pyramid (lighter) on the right. Other options show significant rearrangements of the objects\u2019 positions, indicating different spatial layouts.\n\nFinal Answer: Option 1",
+      "error": null
+    }
+  ]
+}

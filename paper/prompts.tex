@@ -1,0 +1,173 @@
+\subsection{The instructions, verbatim}
+\label{app:prompts}
+
+Every model saw one of these, followed by the study image and the four options.
+The sweep in Figure~\ref{fig:landmarks} runs the first six on Qwen2.5-VL-32B;
+every other run in the paper uses \texttt{cot\_anyview}. Lines are wrapped to fit the page.
+
+\paragraph{\texttt{cot\_anyview}} chain of thought, viewpoint unstated.
+
+\begin{footnotesize}
+\begin{verbatim}
+You are taking the Four Mountains Test of spatial allocentric perception.
+
+Image 1 is the STUDY view of a landscape with four mountain peaks.
+The subsequent 4 images are OPTION 1 to OPTION 4.
+Exactly ONE option shows the EXACT SAME mountain landscape (the same four peaks in
+  the same relative spatial arrangement). It may be viewed from the same direction
+  as the study image or from a different one, and the lighting/weather may differ.
+The other options show different mountain landscapes.
+
+In 2-4 sentences, compare the 3D spatial layout of the peaks (e.g. relative
+  positions such as in front, behind, left, right) between the study view and the
+  options, accounting for any camera rotation. Avoid lengthy itemized lists.
+
+State your final decision on the last line as:
+Final Answer: Option X
+\end{verbatim}
+\end{footnotesize}
+
+\paragraph{\texttt{cot}} chain of thought, viewpoint asserted.
+
+\begin{footnotesize}
+\begin{verbatim}
+You are taking the Four Mountains Test of spatial allocentric perception.
+
+Image 1 is the STUDY view of a landscape with four mountain peaks.
+The subsequent 4 images are OPTION 1 to OPTION 4.
+Exactly ONE option shows the EXACT SAME mountain landscape (the same four peaks in
+  the same relative spatial arrangement), simply viewed from a different viewpoint
+  and under different lighting/weather.
+The other options show different mountain landscapes.
+
+In 2-4 sentences, compare the 3D spatial layout of the peaks (e.g. relative
+  positions such as in front, behind, left, right) between the study view and the
+  options, accounting for camera rotation. Avoid lengthy itemized lists.
+
+State your final decision on the last line as:
+Final Answer: Option X
+\end{verbatim}
+\end{footnotesize}
+
+\paragraph{\texttt{mental\_rotation}} instructed to mentally rotate.
+
+\begin{footnotesize}
+\begin{verbatim}
+You are taking the Four Mountains Test of allocentric spatial perception.
+
+Image 1 is the STUDY view of a landscape with four distinct mountain peaks.
+The subsequent 4 images are OPTION 1 to OPTION 4.
+Exactly ONE option shows the EXACT SAME mountain landscape (the same four peaks in
+  the same relative geometric layout), viewed from a shifted camera viewpoint and
+  under different weather/lighting.
+The other options are distractors where the relative 3D spatial arrangement of the
+  peaks has been altered.
+
+To determine the matching scene, perform mental rotation:
+1. Estimate the camera perspective shift (rotation angle) between the study image
+  and candidate options.
+2. Mentally rotate the four peaks to verify if topological handedness (e.g.
+  clockwise/counterclockwise order of peaks, which peak is opposite or between
+  others) matches the study scene.
+3. Ignore superficial differences in sunlight, shadows, fog, and seasonal color.
+
+In 2-4 sentences, explain your mental rotation reasoning, then conclude on the last
+  line:
+Final Answer: Option X
+\end{verbatim}
+\end{footnotesize}
+
+\paragraph{\texttt{anchor}} instructed to pick an anchor landmark.
+
+\begin{footnotesize}
+\begin{verbatim}
+You are taking the Four Mountains Test of allocentric spatial perception.
+
+Image 1 is the STUDY view of a landscape with four distinct mountain peaks.
+The subsequent 4 images are OPTION 1 to OPTION 4.
+Exactly ONE option shows the EXACT SAME mountain landscape under a camera viewpoint
+  rotation and weather change.
+The remaining options are distractors.
+
+Spatial Strategy:
+1. Select the single most prominent or unique landmark peak as an anchor (origin).
+2. Trace the relative bearings and distances of the other 3 peaks surrounding this
+  anchor.
+3. Identify which option preserves this exact 3D spatial configuration around the
+  anchor under the new camera angle.
+
+In 2-4 concise sentences, explain your reasoning and conclude on the last line:
+Final Answer: Option X
+\end{verbatim}
+\end{footnotesize}
+
+\paragraph{\texttt{birdseye}} instructed to imagine a plan view.
+
+\begin{footnotesize}
+\begin{verbatim}
+You are taking the Four Mountains Test of allocentric spatial perception.
+
+Image 1 is the STUDY view of a landscape with four mountain peaks.
+The subsequent 4 images are OPTION 1 to OPTION 4.
+Exactly ONE option shows the EXACT SAME mountain landscape viewed from a different
+  camera viewpoint and lighting.
+The other options are distractors with altered 3D mountain configurations.
+
+Top-Down Cognitive Mapping Strategy:
+1. Imagine looking down at the four peaks from directly above (a 2D bird's-eye map).
+  Note their relative positions (which forms a triangle, which is isolated, which is
+  tallest).
+2. For each candidate option, determine where the camera would be standing on that
+  same bird's-eye map.
+3. Verify which option is geometrically consistent with the study scene's top-down
+  layout under the new camera angle.
+
+In 2-4 sentences, describe the bird's-eye spatial layout and conclude on the last
+  line:
+Final Answer: Option X
+\end{verbatim}
+\end{footnotesize}
+
+\paragraph{\texttt{elimination}} instructed to eliminate alternatives.
+
+\begin{footnotesize}
+\begin{verbatim}
+You are taking the Four Mountains Test of allocentric spatial perception.
+
+Image 1 is the STUDY view of a landscape with four mountain peaks.
+The subsequent 4 images are OPTION 1 to OPTION 4.
+Exactly ONE option shows the EXACT SAME mountain landscape viewed from a different
+  camera angle and lighting.
+The other options are geometric distractors.
+
+Falsification Strategy:
+1. Inspect each candidate option one by one to find geometric contradictions with
+  the study scene (e.g. impossible relative peak heights, wrong peak ordering, or
+  missing ridges).
+2. Eliminate the distractor options that cannot possibly match the study landscape
+  under any viewpoint rotation.
+3. Select the remaining single candidate that has no geometric contradictions.
+
+Briefly eliminate the distractors and conclude on the last line:
+Final Answer: Option X
+\end{verbatim}
+\end{footnotesize}
+
+\paragraph{\texttt{neutral\_anyview}} the human arm, and the only wording a person saw.
+
+\begin{footnotesize}
+\begin{verbatim}
+You will see a STUDY image of a place, then 4 options.
+
+The place contains several landmarks. Exactly ONE option shows the SAME place as the
+  study image. It may be photographed from the same direction as the study image or
+  from a different one, and the lighting may differ.
+The other options show different places, each containing the same landmarks arranged
+  differently, photographed from the same direction as the correct option.
+
+Which option shows the same place as the study image?
+Answer on the last line as:
+Final Answer: Option X
+\end{verbatim}
+\end{footnotesize}
+

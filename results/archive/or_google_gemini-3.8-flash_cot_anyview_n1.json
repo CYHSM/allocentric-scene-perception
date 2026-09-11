@@ -1,0 +1,43 @@
+{
+  "summary": {
+    "model": "google/gemini-3.8-flash",
+    "benchmark": "data/vlm_benchmark_4afc_ctrl.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 1,
+    "overall_accuracy": 1.0,
+    "choice_distribution": {
+      "4": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "api_usage": {
+      "calls": 1,
+      "spent_usd": 0.014492,
+      "prompt_tokens": 5608,
+      "completion_tokens": 2743,
+      "usd_per_call": 0.014492
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 26.596949100494385,
+      "reply": "In the study view, the layout consists of the purple cone in the front, the blue pyramid to the left, the green cylinder in the background, and the yellow hemisphere to the right, forming two opposite pairs (cone opposite cylinder, pyramid opposite hemisphere). Options 1, 2, and 3 all alter these relative pairings and cyclic layout (e.g., placing the cylinder opposite the pyramid or flipping the arrangement). Option 4 preserves the exact same spatial layout and viewpoint as the study image, differing only in the lighting direction (casting shadows to the right instead of the left).\n\nFinal Answer: Option 4",
+      "error": null
+    }
+  ]
+}

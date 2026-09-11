@@ -158,29 +158,48 @@ def print_table(enc, afc):
                   f"{floor:.3f} against this model's {r['overall']:.3f}")
 
 
-DEFAULT_AFC = {
-    "Qwen2.5-VL-3B": "results/qwen2_5_vl_3b_4afc_full.json",
-    "Qwen2.5-VL-7B": "results/qwen2_5_vl_7b_4afc_full.json",
-    "Qwen2.5-VL-32B": "results/qwen2_5_vl_32b_4afc_full.json",
-}
+def _afc_paths(results_dir):
+    """
+    Every primary forced-choice run, discovered through `agents.py`.
+
+    This used to be a hardcoded dict of three Qwen paths plus a glob for
+    `*_full*` / `*2afc*`. Both parts silently dropped runs: 72B lands as
+    `qwen2_5_vl_72b_4afc_cot.json` and the OpenRouter runs as
+    `or_<model>_<style>_n<N>.json`, neither of which matches either rule, so a
+    finished 500-trial run was simply absent from the table with nothing said.
+
+    `agents.py` exists to be the one discovery layer every figure reads, and it
+    already classifies these correctly, so defer to it and keep only the
+    ablations out -- they are the same 7B model on the same trials and would
+    show up here as extra models.
+    """
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import agents
+
+    paths = {}
+    for rec in agents.afc_records(dirs=(results_dir, "human_task")):
+        if rec.get("role") != "primary":
+            continue
+        # The arm is always in the label, never only when two runs collide. 7B
+        # has both a 4AFC and a 2AFC run, and whichever was discovered first was
+        # keeping the bare name -- so the same string meant a different chance
+        # level depending on directory order.
+        label = f"{rec['label']} {rec['arm']}"
+        if not rec.get("complete"):
+            label += " [partial]"
+        paths[label] = rec["path"]
+    return paths
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--root", default="data/scenes_100")
     ap.add_argument("--results", default="results",
-                    help="directory scanned for extra *_4afc_full.json / *_2afc*.json")
+                    help="directory scanned for forced-choice runs")
     ap.add_argument("--json", help="write the collated rows here")
     args = ap.parse_args()
 
-    paths = dict(DEFAULT_AFC)
-    for f in sorted(os.listdir(args.results)) if os.path.isdir(args.results) else []:
-        full = os.path.join(args.results, f)
-        if full in paths.values() or not f.endswith(".json"):
-            continue
-        if "_full" in f or "2afc" in f:
-            paths.setdefault(os.path.splitext(f)[0], full)
-
+    paths = _afc_paths(args.results)
     enc, afc = encoder_rows(args.root), afc_rows(paths)
     print_table(enc, afc)
 

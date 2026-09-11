@@ -1,0 +1,59 @@
+{
+  "summary": {
+    "model": "qwen/qwen3-vl-235b-a22b-instruct",
+    "benchmark": "data/vlm_benchmark_4afc_mid_m.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 1,
+    "overall_accuracy": 1.0,
+    "choice_distribution": {
+      "1": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "run_config": {
+      "benchmark_path": "data/vlm_benchmark_4afc_mid_m.json",
+      "benchmark_sha256_12": "d12d72cc5ad4",
+      "prompt_style": "cot_anyview",
+      "prompt_sha256_12": "269bd7e9dbe4",
+      "reasoning_effort": "medium",
+      "max_tokens": 8000,
+      "workers": 8,
+      "max_trials": 1,
+      "sampling": "stratified_mode_x_delta",
+      "modes": null,
+      "n_options": 4,
+      "resumed_from_existing_output": 0,
+      "git_commit": "e69a9f7",
+      "finished_utc": "2026-09-11T05:50:05+00:00"
+    },
+    "api_usage": {
+      "calls": 1,
+      "spent_usd": 0.000644,
+      "prompt_tokens": 1619,
+      "completion_tokens": 160,
+      "usd_per_call": 0.000644
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 5.06872820854187,
+      "reply": "The study image shows four distinct geometric shapes arranged in a specific spatial configuration: a green cylinder, a purple cone, a yellow hemisphere, and a cyan pyramid. In Option 1, the shapes are identical in form and relative positioning \u2014 the cone is in front-left, the cylinder behind it, the hemisphere to the right, and the pyramid further right \u2014 with only a slight shift in lighting and hue, suggesting a different viewing angle or atmospheric condition, not a rearrangement. Options 2, 3, and 4 all alter the spatial relationships: for example, in Option 2 the pyramid is partially hidden behind the cylinder, and in Options 3 and 4 the pyramid and hemisphere swap relative positions. Only Option 1 preserves the original spatial layout.\n\nFinal Answer: Option 1",
+      "error": null
+    }
+  ]
+}

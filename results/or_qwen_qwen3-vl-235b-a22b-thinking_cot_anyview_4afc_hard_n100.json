@@ -1,0 +1,1303 @@
+{
+  "summary": {
+    "model": "qwen/qwen3-vl-235b-a22b-thinking",
+    "benchmark": "data/vlm_benchmark_4afc_hard.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 100,
+    "overall_accuracy": 0.3,
+    "choice_distribution": {
+      "4": 41,
+      "1": 12,
+      "3": 26,
+      "2": 21
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c0_shape_colour_d180": {
+        "mode": "c0_shape_colour",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c1_shape_d0": {
+        "mode": "c1_shape",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c1_shape_d45": {
+        "mode": "c1_shape",
+        "delta": 45,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c1_shape_d90": {
+        "mode": "c1_shape",
+        "delta": 90,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c1_shape_d135": {
+        "mode": "c1_shape",
+        "delta": 135,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c1_shape_d180": {
+        "mode": "c1_shape",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c2_colour_d0": {
+        "mode": "c2_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c2_colour_d45": {
+        "mode": "c2_colour",
+        "delta": 45,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c2_colour_d90": {
+        "mode": "c2_colour",
+        "delta": 90,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c2_colour_d135": {
+        "mode": "c2_colour",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c2_colour_d180": {
+        "mode": "c2_colour",
+        "delta": 180,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c3_peaks_bare_d0": {
+        "mode": "c3_peaks_bare",
+        "delta": 0,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c3_peaks_bare_d45": {
+        "mode": "c3_peaks_bare",
+        "delta": 45,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c3_peaks_bare_d90": {
+        "mode": "c3_peaks_bare",
+        "delta": 90,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c3_peaks_bare_d135": {
+        "mode": "c3_peaks_bare",
+        "delta": 135,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c3_peaks_bare_d180": {
+        "mode": "c3_peaks_bare",
+        "delta": 180,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c4_valley_d0": {
+        "mode": "c4_valley",
+        "delta": 0,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c4_valley_d45": {
+        "mode": "c4_valley",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 4
+      },
+      "c4_valley_d90": {
+        "mode": "c4_valley",
+        "delta": 90,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c4_valley_d135": {
+        "mode": "c4_valley",
+        "delta": 135,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      },
+      "c4_valley_d180": {
+        "mode": "c4_valley",
+        "delta": 180,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      }
+    },
+    "api_usage": {
+      "calls": 100,
+      "spent_usd": 0.836675,
+      "prompt_tokens": 162100,
+      "completion_tokens": 186982,
+      "usd_per_call": 0.008367
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t16",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 6.181896924972534,
+      "reply": "The study image features four objects with specific relative positions: a yellow hemisphere left of center, a cyan pyramid in the front-left, a purple cone behind the pyramid, and a green cylinder on the right. Option 4 maintains this spatial arrangement, with the yellow hemisphere, cyan pyramid, purple cone, and green cylinder positioned in the same relative order (left, front-left, behind, right) as the study image, accounting for consistent depth and alignment. Other options alter object positions (e.g., moving the purple cone or reorienting the pyramid) or change color shades, disrupting the original layout.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 11.565741062164307,
+      "reply": "The study image features a green cylinder (left), purple cone (front-left), yellow hemisphere (middle-right), and cyan pyramid (right). Option 1 preserves the exact relative spatial arrangement: the cylinder remains left of the cone, the hemisphere is positioned behind and to the right of the cone, and the pyramid sits to the right of the hemisphere. While colors differ, the spatial layout (front/back, left/right positions of all four peaks) matches precisely, accounting for no significant camera rotation altering the arrangement. Other options distort the relative positions (e.g., larger objects, reversed order).\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t07",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 8.433011054992676,
+      "reply": "The study image has the purple cone on the left, the green cylinder behind the blue pyramid, the yellow hemisphere to the right of the green cylinder, and the blue pyramid in the front-right. Option 3 maintains these relative positions: the purple cone is left, the green cylinder is behind the blue pyramid, the yellow hemisphere is to the cylinder\u2019s right, and the blue pyramid is front-right, with only lighting differences. Other options alter the spatial relationships (e.g., Option 1 shifts positions, Option 2 swaps left-side objects, Option 4 repositions the hemisphere to the front).\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t14",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 15.849983930587769,
+      "reply": "The study image features four objects: a yellow hemisphere behind a purple cone, a cyan pyramid behind a green cylinder, with the green cylinder to the right of the purple cone. Option 3 maintains the same relative spatial arrangement\u2014purple cone in front of the yellow hemisphere, cyan pyramid behind the green cylinder, and the green cylinder positioned to the right\u2014despite a potential camera rotation that shifts the perspective. The other options alter the front-back or left-right relationships between objects.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t18",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 22.45126700401306,
+      "reply": "The study image features a cyan pyramid on the left, a purple cone behind and to the right of the pyramid, a yellow sphere behind the large green cylinder, and the green cylinder in the front-right. Option 3 preserves the exact relative spatial arrangement: the cyan pyramid remains leftmost, the purple cone is positioned behind and to the right of the pyramid, the yellow sphere sits behind the large green cylinder, and the green cylinder occupies the front-right. Other options alter object colors, shapes, or spatial relationships, making them inconsistent.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t16",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 33.295024156570435,
+      "reply": "The study image features four objects with specific relative positions: the purple cone is left and back, the green cylinder is center-back, the yellow hemisphere is center-front, and the teal pyramid is right-front. Option 3 preserves this spatial arrangement despite a potential camera rotation: the purple cone remains left of the green cylinder (both back), the yellow hemisphere stays in front of the purple cone, and the pyramid is right-front relative to the green cylinder. The other options alter the left-right or front-back relationships between objects.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t17",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 21.750410079956055,
+      "reply": "The study image contains a green cylinder, light blue pyramid, purple cone, and yellow hemisphere in specific relative positions (e.g., green cylinder left of the pyramid, purple cone behind the pyramid, yellow hemisphere right of the purple cone). Option 4 preserves the exact set of shapes and their relative spatial arrangement, accounting for a potential 180-degree camera rotation\u2014purple cone shifts left, yellow hemisphere follows, the pyramid moves right of the hemisphere, and the green cylinder appears rightmost, matching the study\u2019s configuration when rotated. Other options alter shape sizes (e.g., Option 2\u2019s enlarged purple cone) or disrupt the spatial order (e.g., Option 1\u2019s misplaced green cylinder).  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t13",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 34.12051296234131,
+      "reply": "The study image features a yellow dome as the most forward object, with a cyan pyramid behind it to the left, a green cylinder behind it to the right, and a purple cone in front of the cylinder on the right. Option 4 preserves this relative spatial arrangement when accounting for a 180-degree camera rotation: the yellow dome is now positioned behind the purple cone (front-left), the cyan pyramid is behind the dome (back-right), and the green cylinder remains to the right of the purple cone (front-right), maintaining the same spatial relationships despite the shifted viewpoint.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t19",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 23.72230076789856,
+      "reply": "The study image features a green cylinder (back-left), cyan pyramid (front-left), purple pyramid (back-right), and yellow dome (front-right). Option 3 preserves the relative spatial arrangement of these elements but appears rotated 180 degrees, where the green cylinder shifts to front-right, the cyan pyramid to back-right, the yellow dome to back-left, and the purple cone (replacing the pyramid) to front-left. This rotation maintains the same relative positions (e.g., the green cylinder remains behind the cyan pyramid, and the yellow dome stays in front of the purple peak). Other options misalign these relationships, altering the order or positions of the peaks.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t00",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 41.933552980422974,
+      "reply": "The study image features a green cylinder in the front-left, a yellow sphere behind and slightly to the right of the cylinder, a purple cone to the right and behind the cylinder, and a cyan pyramid to the right of the cone and closer to the camera. Option 4 matches this spatial arrangement: the light green cylinder is front-left, the yellow hemisphere (representing the sphere from a different viewing angle) is positioned behind the cylinder, the purple cone is right and back, and the blue pyramid (close to cyan) is right and front, maintaining the same relative positions and depth relationships. The other options alter the layout significantly, such as moving the yellow object forward (Option 1), placing the cone on the left (Option 2), or enlarging the cone and shifting positions (Option 3).\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t06",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 23.953083992004395,
+      "reply": "The study image features a green cylinder (left), a cyan pyramid (middle-back), a yellow hemisphere (right-back), and a purple cone (front-right). Option 4 preserves the relative spatial arrangement: the teal cylinder (replacing green) is front-left, the blue pyramid (replacing cyan) is behind-left, the yellow hemisphere remains middle-back, and the purple cone stays front-right, consistent with a rotated camera view. Other options alter the order or positions of peaks (e.g., Option 3 inverts left-right placement, Option 2 shifts the pyramid\u2019s position relative to the cylinder).\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t11",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 64.45132398605347,
+      "reply": "The study image shows a yellow hemisphere (left-front), green cylinder (middle-back), cyan pyramid (right-middle), and purple cone (right-front). Option 4 preserves the same relative spatial arrangement but appears rotated 180 degrees: the cyan pyramid moves to the left-front, the green cylinder remains central, the purple cone shifts to the middle-back (behind the cylinder), and the yellow hemisphere appears on the right-front. This matches a rotated view of the same landscape, whereas other options distort the relative positions (e.g., Option 1 alters the cone-pyramid spacing, Option 2 misplaces the pyramid, Option 3 omits the original pyramid's position).  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t00",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 44.18634295463562,
+      "reply": "The study image shows a green cylinder leftmost, a cyan pyramid behind and slightly to its right, a yellow hemisphere further right, and a purple cone in the front right. Option 2 preserves this exact spatial arrangement with the green cylinder left, cyan pyramid behind it, yellow hemisphere to the right of the pyramid, and purple cone front right, indicating the same landscape with possible minor lighting differences. Options 1, 3, and 4 alter the relative positions significantly, such as moving the purple cone to the left or repositioning the pyramid too close to the cylinder, which do not match the study layout.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t13",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 26.611774921417236,
+      "reply": "The study image features a green cylinder in the front-left, a yellow hemisphere behind it, a teal pyramid to the right of the hemisphere, and a purple cone to the right of the pyramid. Option 1 preserves this exact spatial arrangement: a cylinder in the front-left, a hemisphere behind it, a pyramid to the right of the hemisphere, and a cone to the right of the pyramid, with only color variations (not affecting spatial layout). Other options alter the relative positions of the shapes (e.g., hemisphere or cylinder in different front/back/left/right placements), breaking the original arrangement.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t02",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 45.27089190483093,
+      "reply": "The study image features a purple cone (left-front), yellow hemisphere (center-back), green cylinder (right-back), and cyan pyramid (right-front). Option 1 preserves the same spatial relationships: the hemisphere and cylinder form the back row (hemisphere left of cylinder), while the cone and pyramid form the front row (cone left of pyramid), consistent with a camera rotation. Other options disrupt this relative arrangement, such as shifting the cylinder to the front or altering the left-right order of the back-row objects.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t07",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 53.867377042770386,
+      "reply": "The study image features a purple cone to the left of a green cylinder, a yellow hemisphere to the right of the cylinder, and a cyan pyramid in the foreground (in front of the cylinder). Option 3 preserves this key spatial relationship: the purple cone remains left of the green cylinder, the yellow hemisphere stays right of the cylinder, and the blue pyramid (a color variation of the cyan pyramid, likely due to lighting) occupies a front position relative to the cylinder. Other options reverse the left-right positions of the cone and hemisphere or alter the depth hierarchy (e.g., placing the cylinder in the foreground). Accounting for potential camera rotation, Option 3 maintains the same relative arrangement of all four peaks.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t18",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 8.824539184570312,
+      "reply": "The study image contains four distinct 3D shapes: a large rounded cylinder, a small hemisphere, a large cone, and a small pyramid, with specific relative positions (e.g., the rounded cylinder is leftmost, the pyramid is rightmost and slightly behind the cone). Option 2 matches this spatial arrangement exactly, with the same shapes in the same relative positions (left, back-middle, front-middle, right-back), accounting for consistent depth and orientation. Other options alter the shapes (e.g., flat triangle instead of pyramid in Option 4) or rearrange their positions (e.g., Option 1 swaps pyramid and cone locations).  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t18",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 25.801598072052002,
+      "reply": "The study image contains a yellow hemisphere, green cylinder, teal pyramid, and purple pyramid. The yellow hemisphere is in the foreground left, with the green cylinder to its right. Behind them, the teal pyramid is left of the purple pyramid. Option 3 matches this arrangement when accounting for a 180-degree camera rotation: the yellow hemisphere shifts to the foreground right, the green cylinder moves left of it, and the background pyramids swap left-right positions (purple left, teal right), preserving their relative spatial relationships. Other options introduce cones or alter shape counts, violating the requirement of identical peak types.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t17",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 26.8469660282135,
+      "reply": "The study image features a yellow hemisphere, purple cone, cyan pyramid, and green cylinder arranged with the yellow hemisphere leftmost, the purple cone to its right, the cyan pyramid further right, and the green cylinder rightmost. Option 2 preserves this spatial configuration when accounting for a camera rotation: the purple cone appears leftmost (previously middle-left), the cyan pyramid is adjacent to it (previously middle-right), the yellow hemisphere is now in the foreground (previously leftmost), and the green cylinder remains rightmost. Other options alter object positions, colors, or sizes, breaking the spatial consistency.  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t01",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 21.91065001487732,
+      "reply": "In the study image, the cylinder is positioned leftmost, the pyramid is central and forward, the hemisphere is behind and to the right of the pyramid, and the cone is to the right of the hemisphere. Option 3 maintains this exact spatial arrangement: the cylinder remains leftmost, the pyramid is central and forward, the hemisphere is behind and to the right of the pyramid, and the cone is to the right of the hemisphere, with no significant change in relative positions despite potential minor camera rotation or lighting differences. The other options alter the relative positions or sizes of the shapes, such as the pyramid being misplaced or reduced in size, which does not match the study layout.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t00",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 26.732441186904907,
+      "reply": "The study image features a hemisphere on the left, a small cone behind a large pyramid in the center, and a cylinder on the right. Option 2 maintains the same relative spatial arrangement: the hemisphere remains leftmost, the small cone stays behind the large pyramid, and the cylinder is rightmost, with consistent front/back positioning of the pyramid and cone. Options 3 and 4 reposition the hemisphere to the right, while Option 1 alters the pyramid\u2019s placement and shadow alignment, indicating a different spatial configuration.  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t19",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 6.535677909851074,
+      "reply": "The study image contains a dome (front-left), a small pyramid (behind the dome, left), a cylinder (back-right), and a cone (front-right). Option 4 preserves the exact relative positions: the dome remains front-left, the small pyramid stays behind it to the left, the cylinder is back-right, and the cone is front-right, with all shapes and spatial relationships matching the study. Other options alter the arrangement, object types, or proportions.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t16",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 11.088831901550293,
+      "reply": "The study image features a dome (left-front), a pyramid (middle-back), a cylinder (right-back), and a cone (right-front). Option 3 preserves the same spatial arrangement: the dome remains left-front, the cone right-front, the pyramid left-back, and the cylinder right-back, with consistent relative positions (front/back and left/right) despite potential camera rotation. Other options alter the order or placement of peaks (e.g., Option 2 shifts the pyramid far left, Option 4 repositions the cone to front-left).\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t12",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 19.856518983840942,
+      "reply": "The study image contains four shapes: a cone (left), a cylinder (back-center), a dome (front-right), and a pyramid (right). Option 2 preserves the exact relative spatial arrangement of these shapes\u2014the cone remains left of the cylinder, the dome sits in front-right of the cylinder, and the pyramid is positioned to the right of the dome\u2014while accounting for a slight camera rotation that aligns the overall layout. Other options alter the relative positions (e.g., moving the cylinder forward or changing the pyramid\u2019s placement), making them inconsistent with the study view.  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t08",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 11.380441904067993,
+      "reply": "The study image features a cone on the left, a pyramid in the front-center, a cylinder behind the pyramid, and a dome on the right. Option 4 preserves this exact relative arrangement: the cone remains left of the pyramid, the cylinder stays behind the pyramid, and the dome is positioned to the right, with no additional objects or altered spatial relationships. Other options either reposition objects (e.g., Option 1 shifts the cylinder left, Option 2 introduces a larger cylinder and reorders peaks, Option 3 changes the set of shapes entirely). \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t13",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 27.825376987457275,
+      "reply": "The study image contains a dome, a small pyramid, a cylinder, and a cone. Option 4 preserves the same four objects with their relative spatial arrangement: the dome is front-left, the small pyramid is left (previously behind the dome due to camera rotation), the cylinder is center-back, and the cone is right, matching the study\u2019s configuration under a rotated viewpoint. Other options alter object sizes or positions inconsistently with the study.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t04",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 28.55074906349182,
+      "reply": "The study image contains two tetrahedral pyramids (not cones), a cylinder, and a hemisphere. Options 1\u20133 include conical shapes, which differ from the study\u2019s pyramids, eliminating them. Option 4 retains the same four shapes (two pyramids, cylinder, hemisphere) with relative positions consistent under a camera rotation: the cylinder shifts left, the hemisphere remains right of the cylinder, and the pyramids occupy positions corresponding to the study\u2019s layout when viewed from a rotated angle.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t12",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 14.975265979766846,
+      "reply": "In the study image, the large cylinder is leftmost, with a small cone behind it, a dome to the right of the cone, and a pyramid on the far right. Option 2 preserves this relative arrangement: the large cylinder remains leftmost, the small cone is positioned behind it, the dome sits to the right of the cone, and the pyramid is on the rightmost side, matching the spatial layout despite minor perspective differences. Other options alter the positions (e.g., moving the pyramid left or changing the cylinder\u2019s size/position), which breaks the original arrangement.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t18",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 14.219205856323242,
+      "reply": "The study image contains a cylinder, large cone, small pyramid, and hemisphere. Option 3 preserves the relative spatial arrangement: the cylinder is left of the large cone, the small pyramid sits behind and between the cylinder and hemisphere, and the hemisphere is right of the pyramid, matching the study\u2019s layout despite potential camera rotation. Other options alter shape identities or relative positions.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t08",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 60.31011772155762,
+      "reply": "The study image features a dome on the left, a large cylinder in the center foreground, a small pyramid behind and to the right of the cylinder, and a larger pyramid further right and in the front. Option 3 matches this spatial arrangement with the cylinder shifted to the left due to camera rotation, the dome positioned behind it, the small pyramid to the right and back, and the larger pyramid in the right-front, confirming identical relative positions after viewpoint adjustment. Options 1, 2, and 4 are invalid due to the presence of a cone instead of a second pyramid, altering the landscape.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t07",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 35.87793016433716,
+      "reply": "The study image features four distinct shapes: a hemisphere (dome), a small cone, a short cylinder, and a small pyramid. Their relative positions from left to right are cone, dome, cylinder, pyramid, with the dome in the foreground. Option 4 reverses this left-right order (pyramid, dome, cylinder, cone), which corresponds to a 180-degree camera rotation. This preserves the spatial relationships between all objects, as the dome remains centrally positioned relative to the others, and the cone/pyramid swap sides symmetrically. Other options either distort the size proportions of shapes (e.g., oversized cones/cylinders in Options 2 and 3) or misalign the relative positions (Option 1). \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t10",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 7.065502882003784,
+      "reply": "The study image contains a cylinder, large cone, hemisphere, and pyramid with specific relative positions: the cylinder is left of the large cone, the hemisphere is right of the pyramid, and the large cone is front-left of the cylinder. Option 4 preserves this spatial arrangement, with the same objects in corresponding relative positions (e.g., large cone in front-left, pyramid in front-right, hemisphere behind pyramid, cylinder behind cone), accounting for consistent spatial relationships despite potential camera rotation. Other options alter object positions or sizes, disrupting the original layout.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t13",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 5.965191841125488,
+      "reply": "The study image contains a cone, square pyramid, cylinder, and hemisphere arranged with the cone left of center, the pyramid in the foreground center, the cylinder behind the pyramid, and the hemisphere to the right. Option 3 preserves this exact arrangement: the cone remains left of center, the square pyramid is in the foreground center, the cylinder is behind the pyramid, and the hemisphere is to the right, with no shape substitutions or positional shifts. Other options either replace shapes (e.g., triangular prisms instead of a square pyramid) or alter the spatial relationships.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t10",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 43.20862007141113,
+      "reply": "The study image contains a hemisphere (front), a cylinder (left of hemisphere), a small cone (behind cylinder), and a pyramid (right of hemisphere). Option 4 preserves this exact arrangement: the hemisphere remains front, the cylinder is positioned behind and to the right of the hemisphere (consistent with a camera rotation), the small cone is behind the cylinder, and the pyramid is to the right of the hemisphere. Options 1, 2, and 3 either alter the cone size (replacing the small cone with a large one) or disrupt the relative positioning of the peaks.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t11",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 7.901273250579834,
+      "reply": "The study image features a large green cone in the front-left, a medium cyan cone behind it to the left, a medium purple cone in the back-right, and a medium yellow cone in the front-right. Option 2 preserves this exact spatial arrangement: the large green cone remains front-left, the cyan cone is positioned behind it to the left, the purple cone is in the back-right, and the yellow cone is front-right, with all relative positions (front/back, left/right) matching despite potential camera rotation. Other options alter the size-color correspondence or spatial relationships (e.g., large cones in incorrect positions or missing key color-position pairs).\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t07",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 78.0447518825531,
+      "reply": "The study image features a large cylinder (left-front), a small sphere (behind the cylinder), a small cone (right-back), and a pyramid (right-front, in front of the cone). Option 3 preserves the relative spatial arrangement: the cone is left-front, the pyramid is to its right (front), the cylinder is right-back, and the large dome (representing the sphere, though scaled) is behind the cylinder. The positions of the four shapes maintain their front-back and left-right relationships when accounting for a camera rotation, unlike other options where object sizes or positions are inconsistent.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t12",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 6.759919881820679,
+      "reply": "The study image has a cyan cone left-front, yellow cone front-center, green cone back-center, and purple cone right-back. Option 4 preserves the relative spatial arrangement: cyan remains left of yellow, green stays behind yellow, and purple is right of green, with no distortion in their positional hierarchy despite potential camera rotation. Other options alter the cones\u2019 relative positions (e.g., shifting yellow to left or misplacing green).  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t02",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 25.291656017303467,
+      "reply": "The study image features four cones with a large yellow cone in the front center, a cyan cone to its left and rear, a green cone behind and between the yellow and cyan cones, and a purple cone to the right and rear. Option 2 preserves this exact spatial arrangement: the large yellow cone remains front center, a blue cone (replacing cyan) occupies the left-rear position, the green cone stays in the middle-rear, and the purple cone remains right-rear, with all relative positions (front/back, left/right) matching the study view. Other options alter the spatial relationships (e.g., misplaced cones or incorrect depth ordering).  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t19",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 13.470324993133545,
+      "reply": "The study image features four cones with specific relative positions: a purple cone on the left-front, a green cone in the back-center, a yellow cone on the front-right, and a cyan cone on the right-middle. Option 3 preserves these spatial relationships\u2014purple remains left-front, green is back-center, yellow is front-right, and cyan is right-middle\u2014indicating the same layout despite potential camera rotation. Other options misalign the cones\u2019 relative positions (e.g., different front/back or left/right placements).\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t18",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 18.376163005828857,
+      "reply": "The study image features four cones with specific relative positions: a purple cone on the left front, a cyan cone slightly behind and to the right of it, a green cone further to the right and behind the cyan, and a yellow cone on the right front. Option 4 maintains these relative spatial relationships (e.g., the yellow cone remains the most forward and right, while the purple cone is the most left and back) when accounting for a camera rotation, whereas the other options alter the grouping or positioning of the cones. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t15",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 48.94820499420166,
+      "reply": "The study image features four distinct peaks: a large cone in the front-left, a hemisphere behind it and to the left, a short cylinder to the right of the hemisphere, and a pyramid to the right of the cone, slightly forward. Option 3 matches this spatial arrangement precisely, with the cone in the front-left, hemisphere in the back-left, pyramid in the front-right, and cylinder in the back-right, maintaining identical relative positions despite a subtle camera rotation that shifts the perspective without altering the landscape's structure. Options 1, 2, and 4 either distort the shapes (e.g., a slanted cylinder or misplaced peaks) or misalign the spatial relationships (e.g., incorrect depth or side-by-side positioning), confirming they depict different landscapes.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t19",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 16.076679944992065,
+      "reply": "The study image features two large cones (cyan and green) and two small cones (yellow and purple), with the cyan cone on the left, yellow behind and to its right, purple further back, and green on the right. Option 2 preserves this relative spatial arrangement: a large cone on the left, a small yellow cone in the middle-back, a small purple cone on the right-back, and a large cone in the front-middle, matching the study\u2019s layout despite minor color hue variations (likely due to lighting). Other options alter the relative positions of the cones (e.g., moving the large green cone to the left or changing the small cones\u2019 placement).  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t08",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 81.88125085830688,
+      "reply": "The study image features a large cylinder as the leftmost and largest object, with a small cone behind it, a hemisphere to the right of the cone, and a square pyramid in front of the hemisphere. Option 1 preserves the relative spatial arrangement: the large cylinder remains the largest object, positioned in front of the small cone, with the hemisphere to the right of the cone and the pyramid in front of the hemisphere. Although the camera angle appears rotated (swapping left/right in the front row), the allocentric spatial relationships (e.g., cylinder in front of cone, hemisphere behind pyramid) remain consistent. Other options either alter object sizes (e.g., hemisphere as largest in Options 2, 4) or introduce incorrect shapes (e.g., large cone in Option 3).\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t06",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 47.774980783462524,
+      "reply": "The study image features two large cones (cyan, yellow) in the front-left and front-right positions, with two smaller cones (green, purple) in the back-center and back-right. Option 3 preserves this spatial arrangement: two large cones occupy front positions (left and right), while two smaller cones align in the back, matching the relative spacing and configuration when accounting for a camera rotation that shifts the viewing angle. Other options either misalign the size-position correspondence or disrupt the spatial relationships between peaks.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t12",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 208.4939730167389,
+      "reply": "The study image features the yellow hemisphere in front of the green cylinder, with the cyan pyramid left of the purple cone and closer to the camera. Option 4 maintains this exact spatial arrangement but from a rotated camera perspective: the yellow hemisphere is now leftmost, the green cylinder appears larger and central due to being closer to the new camera position, the cyan pyramid is positioned behind the cylinder, and the purple cone is on the right, all while preserving the relative depths and adjacencies of the original scene.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t18",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 247.7656271457672,
+      "reply": "In the study image, the yellow hemisphere is front and center, with the purple cone to its left and slightly back, the green cylinder directly behind it, and the cyan pyramid to its right and slightly back. Option 1 shows the same spatial arrangement but from a 90-degree clockwise rotated perspective: the green cylinder is now left (previously back-center), the purple cone is center-front (previously left-back), the yellow hemisphere is right-front (previously front-center), and the cyan pyramid is behind (previously right-back). The relative positions and depth order (yellow shallowest, purple and pyramid medium, green deepest) are preserved under this rotation, with lighting differences accounting for color variations.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t14",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 149.32525300979614,
+      "reply": "The study image features four distinct shapes: a small pyramid (left-back), a large dome (front-left), a cone (front-right), and a truncated cylinder (back-right), forming a rectangular arrangement with the dome and cone in front, and the pyramid and cylinder behind. Option 3 preserves this spatial configuration under a 90-degree rotation: the cone shifts to front-left, the truncated cylinder to front-right, the dome to back-left, and the small pyramid to back-right, maintaining the same relative positions and size hierarchy (dome as the largest object).\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t12",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 46.80324077606201,
+      "reply": "The study image features four cones with a large green cone in the front-right, a medium purple cone on the left, a medium yellow cone on the right, and a small cyan cone in the middle-back. Option 4 preserves the same relative spatial arrangement: a large cone in the front-right (blue, corresponding to green), a medium cone on the left (yellow, corresponding to purple), a medium cone on the right-back (purple, corresponding to yellow), and a small cone in the middle-back (green, corresponding to cyan). The differences in color are attributable to lighting variations, while the spatial configuration matches exactly. \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t11",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 6.112364053726196,
+      "reply": "The study image features four cones with specific relative positions: a green cone in the left-front, a yellow cone in the left-back, a cyan cone in the right-front, and a purple cone in the right-back. Option 3 preserves this spatial arrangement, with the green (slightly adjusted hue), yellow, purple, and cyan (slightly adjusted hue) cones maintaining their left-front, left-back, right-back, and right-front positions, respectively, accounting for potential camera rotation. Other options disrupt the relative positioning (e.g., purple in front in Option 1, different left-right order in Options 2 and 4).  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t04",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 19.508381128311157,
+      "reply": "The study image features a large green cone in the front, a medium purple cone to the left and slightly behind, a small yellow cone in the back-right, and a medium cyan cone to the right. Option 4 preserves this spatial hierarchy: the large green cone remains frontmost, with the purple cone positioned behind and to the left, the yellow cone in the back-right, and the cyan cone to the right, consistent with a rotated camera perspective that maintains the relative depth and lateral relationships. Other options alter the size hierarchy or spatial order of the cones.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t13",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 21.794774055480957,
+      "reply": "The study image features four cones with distinct sizes and positions: a medium green cone (left), a small purple cone (middle-back), a large cyan cone (front-center), and a medium yellow cone (right). Option 1 preserves this spatial arrangement\u2014green remains leftmost (slightly repositioned due to camera rotation), purple stays middle-back, cyan is front-center (now slightly left due to perspective), and yellow is rightmost\u2014while maintaining relative sizes and depth relationships. Other options distort the size hierarchy (e.g., oversized purple cones in Options 2/4) or misalign the spatial order (e.g., misplaced green cone in Option 3).  \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t00",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 135.04982495307922,
+      "reply": "The study image features two large cones (yellow and green) in the front, with two small cones (purple and cyan) positioned behind them, each small cone directly behind a large cone. In Option 2, the large green cone is in the front, while the small yellow and purple cones are positioned behind it, and the medium cyan-like cone is further back on the right. However, this does not match the study\u2019s two-front-two-back arrangement. Option 4, upon closer inspection, maintains the relative spatial structure: the large green cone and a similarly sized blue cone (representing cyan) form the front pair, with the small yellow and purple cones behind them, preserving the same relative distances and alignment as the study image when accounting for camera rotation. The other options either misalign the cone sizes or disrupt the front-back pairing.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t02",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 91.62850403785706,
+      "reply": "The study image shows a spatial arrangement where the yellow cone is front-left, green is front-right, purple is back-left, and cyan is back-right. Option 2 preserves this relative layout when accounting for a 180-degree camera rotation: the green cone (now front-left) and yellow cone (now front-right) form the front row, while purple (back-left) and cyan (back-right) form the back row, matching the study\u2019s depth and left-right relationships despite reversed orientation due to rotation. Other options alter the front/back or left/right groupings of cones, breaking the spatial consistency.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t01",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 117.12358713150024,
+      "reply": "The study image features four cones with a specific spatial arrangement: a large yellow cone in the front-left, a medium green cone behind it, a small cyan cone in the back-center, and a medium purple cone in the front-right. When considering camera rotation, Option 4 preserves the relative positions of the cones\u2014two in the front row (one large, one medium) and two in the back row (one medium, one small)\u2014with the same adjacency (e.g., the front-left cone is positioned in front of the back-left cone, and the front-right cone is to the right of the back-center cone). Other options either alter the size distribution or misalign the relative positions of the cones.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 16.81608295440674,
+      "reply": "The study image features four peaks with distinct shapes and a specific spatial arrangement: a prominent central-front peak, a left-front peak, a spiky rear peak, and a right-rear peak. Comparing options, only Option 2 preserves the relative positions and shapes of all four peaks, accounting for potential camera rotation\u2014the spiky rear peak remains in the same relative location to the others, and the front peaks maintain their spatial hierarchy. Other options alter peak shapes, spacing, or orientation, breaking the original layout.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t18",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 20.008426904678345,
+      "reply": "The study image features four cones with distinct relative positions: the yellow cone is closest (largest), cyan is to its left, purple is farthest back (smallest), and green is to the right. Option 4 preserves this spatial arrangement\u2014yellow remains the closest, cyan is left of yellow, purple is the farthest, and green is right of yellow\u2014indicating the same landscape viewed from a rotated perspective. Other options alter the relative sizes or positions (e.g., Option 1 and 2 place purple as the largest, which contradicts the study\u2019s farthest/smallest purple cone).  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t10",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 14.776872158050537,
+      "reply": "The study image features a large central front peak with three smaller peaks positioned behind it (left, right, and far right). Option 4 preserves this spatial arrangement: the largest peak remains in the front-center, with the other three peaks maintaining their relative positions (left-rear, right-rear, and far-right-rear) as seen from a rotated perspective. Other options alter peak shapes, positions, or the overall layout, while Option 4 matches the study\u2019s 3D structure when accounting for camera rotation.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 7.246084690093994,
+      "reply": "The study image shows four peaks with a specific arrangement: a spiky peak on the left-front, a rounded peak in the center-back, a spiky peak on the right-back, and a large peak on the right-front. Option 4 preserves this exact relative spatial layout, with the peaks maintaining their front/back, left/right relationships, even if shadow directions differ slightly due to potential camera rotation. Other options alter the grouping or positions of peaks, breaking the original arrangement.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t01",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 99.55085110664368,
+      "reply": "The study image features two large cones in the front (cyan left, green right) and two small cones in the back (yellow left, purple right), with each back cone aligned directly behind a front cone. Option 2 preserves this spatial structure: two large front cones (greenish left, purple right) with two small back cones (blue left, yellow right), each back cone positioned directly behind a front cone, maintaining the same relative arrangement despite color changes and potential camera rotation. Other options disrupt this alignment (e.g., mispositioned back cones or inconsistent front/back pairing).\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 8.705936908721924,
+      "reply": "The study image features four peaks with distinct spatial relationships: a large central peak in the foreground, a spiky peak behind it, a rugged peak to the left, and a smoother peak to the right. Option 4 preserves this exact arrangement, with the peaks maintaining their relative positions (front, behind, left, right) and proportions, accounting for a slight camera rotation that aligns the shadows and spatial hierarchy. Other options alter peak shapes, positions, or groupings, breaking the original spatial coherence.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t08",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 131.96493315696716,
+      "reply": "The study image features two large cones (yellow and purple) in the front row and two small cones (green and cyan) in the back row, with each small cone positioned directly behind a large cone. When considering spatial rotation, Option 3 preserves this relative arrangement: the large cones (purple and cyan) form the front row, and the small cones (yellow and green) form the back row, maintaining the same front-back pairing structure as the study image. Other options either alter cone sizes, misalign the front-back relationships, or introduce inconsistent color/size mappings that disrupt the spatial layout.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 12.071098804473877,
+      "reply": "The study image features four peaks with a distinct spatial arrangement: a prominent front-center peak, a back-left peak, a back-center peak, and a front-right peak. Option 2 preserves this relative layout, with peaks positioned in corresponding front/back and left/right relationships, consistent with a rotated camera perspective. The other options deviate in peak placement or orientation, making Option 2 the only match.  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t16",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 29.286927938461304,
+      "reply": "The study image features four peaks with a distinct spatial arrangement: a prominent, spiky peak in the foreground, a peak to its left rear, one to its right rear, and another to its right front. Option 4 preserves this exact relative layout, with the same foreground peak shape and consistent spacing between all peaks, even with a slight camera rotation. Other options alter the spatial relationships (e.g., clustering, front/back positioning), making them inconsistent with the study view.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t14",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 76.29731607437134,
+      "reply": "The study image features two front cones (purple left, yellow right) and two back cones (green left, cyan right), forming a rectangular spatial arrangement. Option 4 preserves this structure: two front cones (blue left, green right) and two back cones (yellow left, purple right), with the same relative front/back and left/right positioning. While colors differ, the spatial relationships\u2014left-front in front of left-back, right-front in front of right-back\u2014are consistent with a rotated camera view. Other options disrupt this arrangement (e.g., uneven front/back distribution or incorrect left-right ordering).\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.068147897720337,
+      "reply": "In the study image, the four peaks have a specific arrangement where one prominent peak is in the front-left, a spiky peak is front-center, and two peaks are positioned in the back-right. Comparing the options, Option 2 preserves the relative spatial relationships (front-left, front-center, and back-right positioning) despite a potential camera rotation, while the other options alter the peak spacing or orientation. The layout of peaks in Option 2 matches the study\u2019s allocentric configuration when accounting for viewpoint changes.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t15",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 65.50724506378174,
+      "reply": "The study image features one large front cone with three smaller cones arranged behind it: left, center-back, and right-back. Option 1 preserves this spatial structure\u2014three smaller cones in a left-center-right back alignment, with a single large cone positioned in front of the center-back cone. While colors differ (likely due to lighting changes), the relative 3D positions (e.g., front/back, left/right) match exactly. Other options either have mismatched cone counts (e.g., two large cones) or incorrect spatial arrangements (e.g., different front/back distributions).  \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 11.358704805374146,
+      "reply": "The study image shows four peaks with a distinct left-front peak, a central-back peak, a right-front tall peak, and a right-middle peak. Option 2 preserves this exact relative arrangement, with the same grouping and spatial relationships between the peaks, accounting for potential camera rotation. Other options either have incorrect peak counts or altered spatial configurations.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t17",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 15.136082887649536,
+      "reply": "The study image features a large central front peak with three smaller peaks arranged behind it (left, center, right). Option 2 preserves this exact spatial configuration: the large front peak remains central, while the three rear peaks maintain their left, center, and right positions relative to each other, even if the camera angle shifts. Other options disrupt the relative positioning (e.g., front peaks moved left/right or rear peaks misaligned).  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t05",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 35.001871824264526,
+      "reply": "The study image features four peaks with a specific spatial arrangement: a prominent left-front peak, a smaller peak behind it (middle-back), a spiky right-front peak, and a smaller peak behind the right-front one. Option 4 maintains this relative layout when accounting for a potential camera rotation; the left-front, middle-back, and right-side peaks align in their spatial hierarchy, with the same foreground/background and left/right relationships preserved despite a shifted viewing angle. Other options distort these relationships, such as altering the number of peaks in the foreground or misplacing the spiky peak.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t12",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 38.67647576332092,
+      "reply": "The study image features four peaks with a specific spatial arrangement: a large front-center peak, a left-front peak, a back-center peak, and a right-back peak. Comparing options, Option 4 maintains the same relative positions and peak shapes, with the large front-center peak and the other three peaks arranged in identical spatial relationships, accounting for a possible camera rotation that preserves the layout. Other options alter peak positions or shapes, making them inconsistent with the study image.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 38.431512117385864,
+      "reply": "The study image features four peaks with specific relative positions: two larger peaks in the front (left and right) and two smaller peaks behind them. When comparing options, Option 4 preserves the exact spatial configuration of peaks, with the largest peak now positioned front-left due to a potential 180-degree camera rotation, while maintaining the same depth relationships and relative sizes as the study view. The other options alter the arrangement or proportions of peaks, failing to match the original layout.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 27.46266198158264,
+      "reply": "The study image features four peaks with distinct shapes and a specific spatial arrangement: a prominent front-center peak, a left peak slightly behind it, a back peak behind the left peak, and a spiky right peak. Option 2 preserves this exact arrangement, with each peak\u2019s unique shape and relative position (e.g., the spiky right peak, the rounded back peak) matching the study view, even though the lighting direction differs. Other options alter peak shapes or misalign their spatial relationships.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 30.27844786643982,
+      "reply": "The study image features four peaks with a large central-front peak, a left-front peak, and two rear peaks (center-back and right-back). Option 1 preserves this spatial arrangement: the largest peak remains central-front, the left-front peak is positioned similarly, and the rear peaks maintain their relative placement (center-back and right-back). Other options alter the central-front peak\u2019s position or redistribute the peaks in a non-matching layout. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 42.77904796600342,
+      "reply": "The study image features four peaks with distinct spatial relationships: a spiky central-front peak, a large left-front peak, a medium back-middle peak, and a large right-back peak. Option 3 preserves these relationships, with the spiky peak shifting to the front-left due to a camera rotation, while maintaining the relative distances and order of the other peaks (medium back-middle, large right-front, and large back-right). The other options alter the arrangement or proportions of peaks, breaking the original spatial coherence.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t09",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 14.025712251663208,
+      "reply": "The study image has four peaks with specific relative positions: a left-front peak, a central-back smaller peak, a front-center rugged peak, and a right-front peak. Option 1 preserves these spatial relationships under a camera rotation\u2014shadows and peak arrangements align with the original layout when viewed from a different angle, whereas the other options distort the relative front/back or left/right positions of the peaks.  \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t15",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 137.708753824234,
+      "reply": "The study image features four cones with a specific spatial arrangement: a front-left purple cone, a front-center cyan cone, a back-center yellow cone, and a back-right green cone. The key is identifying the option where the relative positions (e.g., front/back, left/right) of the four cones match, accounting for possible camera rotation. Option 3 preserves the spatial relationships: the purple cone (now frontmost) corresponds to the study\u2019s front-left cone, while the yellow, green, and blue cones behind it align with the study\u2019s back-center, back-right, and front-center cones (with blue representing the original cyan cone due to rotation). Other options either alter the number of front/back cones or disrupt the relative positioning.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t11",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 14.131485939025879,
+      "reply": "The study image features four peaks with a specific spatial arrangement: one prominent peak in the near-center, another to the left, a third in the background, and a fourth to the right. Option 4 preserves this exact relative layout, with the peaks maintaining their front-back and left-right relationships despite minor camera rotation. Other options alter the spatial configuration, such as shifting peak positions or changing their depth hierarchy.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 61.693785190582275,
+      "reply": "The study image features four mountain peaks with distinct spatial positions: a jagged front-left peak, a rounded middle-back peak, a jagged right-middle peak, and a jagged front-right peak. Comparing the options, Option 1 preserves the exact relative arrangement\u2014jagged front-left, rounded middle-back, jagged right-middle, and jagged front-right\u2014despite potential camera rotation, while other options alter peak shapes or spatial relationships. \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t05",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 23.450082063674927,
+      "reply": "The study image features four peaks with distinct relative positions: a front-right peak, a left peak, a central-back peak, and a right-back peak. Option 4 maintains the same spatial arrangement of these four peaks, with their relative distances and directional relationships preserved despite a possible camera rotation (e.g., the front peak shifts leftward due to a rotated viewpoint). Other options alter peak positions, river paths, or the number of distinct peaks, violating the spatial consistency required.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 26.766900062561035,
+      "reply": "The study image features four peaks with a specific spatial arrangement: a large front peak, a left peak behind it, a smaller central back peak, and a right peak. Option 2 preserves this exact relative layout, with the front peak closest (largest base), the left peak positioned to the left and slightly behind, the central back peak furthest, and the right peak to the right\u2014matching the study\u2019s spatial hierarchy despite potential camera rotation. Other options distort the relative positions or distances between peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t06",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 9.987231969833374,
+      "reply": "The study image features four peaks with a central front peak, a left peak, a right peak, and a rear peak, arranged in a diamond-like formation with a winding river. Option 3 maintains this exact spatial configuration, with the peaks preserving their relative positions (front, left, right, and rear) despite a slight camera rotation that shifts the perspective but not the underlying layout. Other options alter the peak arrangement or river path, disrupting the original spatial relationships.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t02",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 22.7093608379364,
+      "reply": "The study image features four peaks with a river curving through the foreground, where the closest peak is centrally positioned with others arranged around it. Option 4 retains the same relative peak positions (including the forwardmost peak\u2019s placement and the triangular grouping behind it) and matches the river\u2019s curved path, indicating the same spatial layout despite minor lighting differences. Other options alter peak arrangements or river geometry, confirming they are distinct landscapes.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t12",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 38.13342094421387,
+      "reply": "The study image features four mountain peaks with a specific spatial arrangement: a prominent central peak in the foreground, a peak to its left, one behind it, and another to the right. Option 2 preserves this exact relative positioning of the four peaks, including their front/back and left/right relationships, even with potential camera rotation or lighting changes. The other options alter the spatial arrangement (e.g., missing peaks, shifted positions, or incorrect spacing).  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t17",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 31.841734170913696,
+      "reply": "The study image features four mountain peaks with a specific spatial arrangement: a left peak, a central peak slightly behind it, a prominent right peak, and a fourth peak in the background. Option 4 preserves this relative arrangement, accounting for a potential camera rotation that shifts the perspective but maintains the peaks\u2019 spatial relationships (e.g., the left peak remains in front of the central peak, and the right peak\u2019s position relative to the others aligns). Other options alter the peaks\u2019 order, spacing, or depth relationships, indicating different landscapes.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t19",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 21.297873973846436,
+      "reply": "The study image features four peaks with a specific spatial arrangement: a front-center peak, a left peak, a back-center peak, and a right peak, with a river and lake in consistent relative positions. Option 3 maintains this exact arrangement, as the peaks\u2019 relative positions (e.g., front/back, left/right) and the landscape\u2019s key elements align with the study image when accounting for a slight camera rotation, while other options alter peak positions or landscape features. \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t04",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 24.00855302810669,
+      "reply": "The study image features four mountain peaks with a specific spatial arrangement: two prominent peaks in the foreground (left and center) and two slightly behind (center and right), with a small lake between them. Option 4 preserves this relative layout, with the peaks maintaining their front-back and left-right relationships despite a potential camera rotation; the spacing and grouping of the peaks match the study image. Other options alter peak positions, groupings, or the presence of the lake, disrupting the original spatial configuration.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t15",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 6.463164806365967,
+      "reply": "The study image features four mountain peaks with distinct relative positions: one prominent peak on the left, a central peak slightly behind, another peak to the right, and a fourth peak in the background. Option 3 preserves this exact spatial arrangement of the four peaks, with their front-back and left-right relationships matching the study view, even though the camera angle and lighting differ. Other options either alter the number of peaks, their relative spacing, or their spatial hierarchy (e.g., adding or repositioning peaks).\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t10",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 8.930791139602661,
+      "reply": "The study image features four peaks with distinct shapes and a central lake; the relative arrangement (e.g., one peak in the foreground, others spaced around the lake) must be preserved. Option 2 maintains the same spatial configuration of peaks and the lake, with consistent relative positions (e.g., the tallest peak\u2019s placement relative to others) despite potential camera rotation, while other options alter peak shapes or their spatial relationships. \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t00",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 16.27460813522339,
+      "reply": "The study image features four peaks arranged with two in the foreground (left and right) and two in the background, forming a quadrilateral layout where the front-left peak is prominent and the background peaks are offset behind their respective front counterparts. Option 4 preserves this exact spatial arrangement, with the same relative positions of the four peaks (front-left, front-right, back-left, back-right) despite potential camera rotation, while other options alter peak clustering or spacing.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t08",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 73.08867311477661,
+      "reply": "The study image features four peaks with a distinct tall, narrow peak at the back-center. Option 4 preserves the same spatial arrangement: the tall, narrow peak remains at the back-center, while the front, left-back, and right-back peaks maintain their relative positions (front-left in Option 4 corresponds to the front peak in the study, likely due to a slight camera rotation). Other options misplace the unique tall peak or alter the spatial relationships between peaks.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t09",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 7.407806158065796,
+      "reply": "The study image features four peaks with a specific spatial arrangement: one prominent peak in the front-left, another slightly behind it, a third to the right of the front-left peak, and a fourth further back. Option 4 maintains the same relative positions of the four peaks (front-left, front-right, back-left, back-right) around the central lake, with the river\u2019s path and overall layout consistent despite a possible camera rotation. Other options alter the peaks\u2019 relative positions or the landscape\u2019s structure, making them mismatched.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t09",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 6.679135799407959,
+      "reply": "The study image features four mountain peaks with a specific spatial arrangement: one prominent peak in the foreground, two flanking it to the left and right, and a fourth positioned slightly behind and between them. Option 4 preserves this relative layout, with the peaks maintaining their front-back and left-right relationships despite a potential camera rotation, while the other options alter the grouping or positioning of the peaks. The key alignment of the four peaks in a coherent quadrilateral formation matches only Option 4.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t12",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 17.14414381980896,
+      "reply": "The study image features four mountain peaks with a specific spatial arrangement: one peak is positioned front-right, another front-left, a third center-back, and the fourth right-back, with a winding river connecting them. Among the options, only Option 4 preserves this exact relative positioning of the peaks (front/back and left/right relationships), accounting for a possible camera rotation that shifts the perspective while maintaining the landscape\u2019s structural integrity. The other options alter the peaks\u2019 spatial hierarchy or river configuration, making them distinct from the study view.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t10",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 11.420193195343018,
+      "reply": "The study image features four mountain peaks arranged with specific relative positions: a front-left peak, a front-right peak, a middle peak behind the lake, and a rear peak. Option 3 preserves this spatial configuration, with the peaks maintaining their relative distances and directional relationships (e.g., the front-left peak remains anterior to the rear peak, and the lake\u2019s position relative to the peaks matches). Other options alter peak counts, spacing, or orientation, breaking the original layout.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t10",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 8.514539003372192,
+      "reply": "The study image features four mountain peaks with a specific spatial arrangement: two prominent peaks in the foreground (left and right) and two in the background, with a lake positioned between them. Option 3 preserves this relative layout\u2014the foreground peaks align with the study\u2019s left and right front positions, the background peaks maintain their spatial relationship, and the lake\u2019s placement between the peaks remains consistent, accounting for potential camera rotation or lighting differences. Other options alter the peak positions (e.g., shifting foreground/background relationships or misaligning the lake), confirming Option 3 as the match.  \n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t03",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 13.346467971801758,
+      "reply": "The study image features four mountain peaks with a distinct spatial arrangement: one prominent peak in the foreground, two peaks positioned behind and to the left/right, and a fourth peak further in the background. Option 2 preserves this exact relative layout, with the same foreground peak, paired left/right peaks, and background peak, accounting for a slight camera rotation that shifts the perspective but maintains the spatial relationships. Other options alter the number of peaks, their relative distances, or groupings, making them inconsistent with the study view.  \n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t01",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 27.853414058685303,
+      "reply": "The study image features four peaks with a distinct central foreground peak, a left peak, and two background peaks positioned to the right and center. Option 4 maintains the same relative spatial arrangement: the central foreground peak is prominent, the left peak aligns with the study\u2019s leftmost structure, and the two background peaks retain their positions relative to the central peak, accounting for a slight camera rotation that shifts perspective but preserves the 3D layout. The river\u2019s path and background terrain also match the study\u2019s spatial logic.  \n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t13",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 32.08393216133118,
+      "reply": "The study image features four peaks with a specific spatial arrangement: a leftmost peak, a rear-center peak, and two right-side peaks (one forward, one rear). Comparing options, Option 4 preserves this relative layout\u2014peaks maintain their front/back and left/right relationships despite minor camera angle shifts, with the river and lake positions aligning with the study\u2019s geometry. Other options distort peak spacing or order, failing to match the original configuration.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t12",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 59.720881938934326,
+      "reply": "The study image features four peaks with a broad front-center peak, a smaller left-front peak, a medium right-front peak, and a tall spire-like back peak centered behind the front cluster. Option 1 preserves this spatial arrangement: the front-center peak remains the largest and broadest, the left and right front peaks align with their relative positions, and the spire-like back peak is centrally located behind them. Camera rotation or lighting changes do not alter the core 3D spatial relationships, which match Option 1\u2019s layout.  \n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t12",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 161.95916104316711,
+      "reply": "The study image features four distinct mountain peaks: a small smooth peak (back left), a medium jagged peak (back right), a large very jagged peak with multiple spires (front left), and a large less-jagged peak (front right). The relative spatial arrangement forms two vertical columns, with the front peaks directly in front of the back peaks. Option 1 shows the same peaks with identical shapes and relative positions, but viewed from a rotated camera angle; the very jagged peak is now on the left (front left equivalent), the smooth peak is at the top center (back left equivalent), and the columns appear diagonal due to the rotation, preserving the parallel alignment between the front and back pairs. Options 2, 3, and 4 have shape mismatches (e.g., overly smooth or jagged peaks) and inconsistent spatial configurations that do not align with the study image's geometry.\n\nFinal Answer: Option 1",
+      "error": null
+    }
+  ]
+}

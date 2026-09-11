@@ -1,0 +1,59 @@
+{
+  "summary": {
+    "model": "google/gemini-3.8-flash",
+    "benchmark": "data/vlm_benchmark_4afc_easy_m.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 1,
+    "overall_accuracy": 1.0,
+    "choice_distribution": {
+      "1": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "run_config": {
+      "benchmark_path": "data/vlm_benchmark_4afc_easy_m.json",
+      "benchmark_sha256_12": "c863b9eb8f3c",
+      "prompt_style": "cot_anyview",
+      "prompt_sha256_12": "269bd7e9dbe4",
+      "reasoning_effort": "medium",
+      "max_tokens": 8000,
+      "workers": 16,
+      "max_trials": 1,
+      "sampling": "stratified_mode_x_delta",
+      "modes": null,
+      "n_options": 4,
+      "resumed_from_existing_output": 0,
+      "git_commit": "e69a9f7",
+      "finished_utc": "2026-09-09T19:13:10+00:00"
+    },
+    "api_usage": {
+      "calls": 1,
+      "spent_usd": 0.02572,
+      "prompt_tokens": 5608,
+      "completion_tokens": 5737,
+      "usd_per_call": 0.02572
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 42.67217803001404,
+      "reply": "In the study image, the layout consists of the cone at the front-left directly in front of the cylinder at the back-left, with the hemisphere positioned in the middle-right and the pyramid at the front-right. \n\nOption 1 retains this exact same 3D spatial arrangement and camera viewpoint, with identical object positions and relative depths, differing only in the lighting direction and surface shading. In contrast, the other options alter the relative spatial configuration (for example, Option 2 presents a mirrored arrangement, while Options 3 and 4 incorrectly position the cylinder or pyramid).\n\nFinal Answer: Option 1",
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,1319 @@
+{
+  "summary": {
+    "model": "google/gemini-3.8-flash",
+    "benchmark": "data/vlm_benchmark_4afc_mid_m.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 100,
+    "overall_accuracy": 0.87,
+    "choice_distribution": {
+      "4": 26,
+      "2": 30,
+      "3": 25,
+      "1": 18
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c0_shape_colour_d90": {
+        "mode": "c0_shape_colour",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c0_shape_colour_d135": {
+        "mode": "c0_shape_colour",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c0_shape_colour_d180": {
+        "mode": "c0_shape_colour",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c1_shape_d0": {
+        "mode": "c1_shape",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c1_shape_d45": {
+        "mode": "c1_shape",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c1_shape_d90": {
+        "mode": "c1_shape",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c1_shape_d135": {
+        "mode": "c1_shape",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c1_shape_d180": {
+        "mode": "c1_shape",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c2_colour_d0": {
+        "mode": "c2_colour",
+        "delta": 0,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c2_colour_d45": {
+        "mode": "c2_colour",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c2_colour_d90": {
+        "mode": "c2_colour",
+        "delta": 90,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c2_colour_d135": {
+        "mode": "c2_colour",
+        "delta": 135,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c2_colour_d180": {
+        "mode": "c2_colour",
+        "delta": 180,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c3_peaks_bare_d0": {
+        "mode": "c3_peaks_bare",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c3_peaks_bare_d45": {
+        "mode": "c3_peaks_bare",
+        "delta": 45,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c3_peaks_bare_d90": {
+        "mode": "c3_peaks_bare",
+        "delta": 90,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c3_peaks_bare_d135": {
+        "mode": "c3_peaks_bare",
+        "delta": 135,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c3_peaks_bare_d180": {
+        "mode": "c3_peaks_bare",
+        "delta": 180,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c4_valley_d0": {
+        "mode": "c4_valley",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 4,
+        "total": 4
+      },
+      "c4_valley_d45": {
+        "mode": "c4_valley",
+        "delta": 45,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c4_valley_d90": {
+        "mode": "c4_valley",
+        "delta": 90,
+        "accuracy": 0.75,
+        "correct": 3,
+        "total": 4
+      },
+      "c4_valley_d135": {
+        "mode": "c4_valley",
+        "delta": 135,
+        "accuracy": 0.5,
+        "correct": 2,
+        "total": 4
+      },
+      "c4_valley_d180": {
+        "mode": "c4_valley",
+        "delta": 180,
+        "accuracy": 0.25,
+        "correct": 1,
+        "total": 4
+      }
+    },
+    "run_config": {
+      "benchmark_path": "data/vlm_benchmark_4afc_mid_m.json",
+      "benchmark_sha256_12": "d12d72cc5ad4",
+      "prompt_style": "cot_anyview",
+      "prompt_sha256_12": "269bd7e9dbe4",
+      "reasoning_effort": "medium",
+      "max_tokens": 8000,
+      "workers": 16,
+      "max_trials": 100,
+      "sampling": "stratified_mode_x_delta",
+      "modes": null,
+      "n_options": 4,
+      "resumed_from_existing_output": 0,
+      "git_commit": "e69a9f7",
+      "finished_utc": "2026-09-09T19:16:45+00:00"
+    },
+    "api_usage": {
+      "calls": 100,
+      "spent_usd": 1.678258,
+      "prompt_tokens": 555198,
+      "completion_tokens": 336496,
+      "usd_per_call": 0.016783
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d045_t00",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 19.23328995704651,
+      "reply": "In the study image, the four objects form a quadrilateral with the green cylinder at the front-left, the yellow dome behind it at the back-left, the purple cone at the back-right, and the cyan pyramid at the front-right (proceeding clockwise: yellow dome \u2192 purple cone \u2192 cyan pyramid \u2192 green cylinder). \n\n**Option 4** depicts this exact same spatial arrangement viewed from a slightly rotated perspective (looking from the front-right/south-east), placing the cyan pyramid closest in the foreground, the green cylinder to the left, the yellow dome in the background, and the purple cone to the right.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t07",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 22.72077226638794,
+      "reply": "In the study view, the objects form a clockwise loop: cylinder (back-left), hemisphere (back-right), pyramid (front-right), and cone (front-left), meaning the cone and hemisphere sit diagonally opposite one another, as do the cylinder and pyramid. \n\nWhen viewed from the right side (looking roughly westward), the hemisphere and pyramid are in the foreground on the right and left respectively, while the cylinder and cone recede into the background behind them. **Option 2** correctly preserves this exact spatial relationship and perspective.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t19",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 26.248785972595215,
+      "reply": "In the study image, the four shapes form a layout where the cyan pyramid (front-left) and purple cone (back-right) are diagonally opposite, while the green cylinder (back-left) and yellow hemisphere (front-right) form the other diagonal. \n\nViewing the scene from the east (looking west), the adjacent yellow hemisphere and purple cone appear in the foreground on the left and right respectively, with the cyan pyramid positioned behind the hemisphere and the green cylinder behind towards the right, which matches **Option 2**.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t16",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 26.87084197998047,
+      "reply": "In the study view, the yellow hemisphere and green cylinder are positioned opposite each other, while the purple cone and teal pyramid form the other opposing pair, arranged clockwise as yellow hemisphere \u2192 purple cone \u2192 green cylinder \u2192 teal pyramid. Viewing the layout from between the yellow hemisphere and the teal pyramid places the yellow hemisphere at the front-left, the teal pyramid at the front-right, the purple cone at the rear-left, and the green cylinder at the rear-right, precisely preserving these spatial relationships and their clockwise sequence.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t18",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 26.97877025604248,
+      "reply": "In the study image, the four shapes form a clockwise loop when viewed from above: Green cylinder $\\rightarrow$ Blue pyramid $\\rightarrow$ Yellow dome $\\rightarrow$ Purple cone. \n\nViewing this same arrangement from the front-right places the Blue pyramid in the foreground, with the Green cylinder to its right, the Yellow dome to its left, and the Purple cone in the background between them, which corresponds precisely to Option 4.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t14",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 28.46005916595459,
+      "reply": "In the study image, the layout consists of the purple cone in the front-left, the yellow hemisphere behind it in the back-left, the blue pyramid in the back-right, and the green cylinder in the front-right (making the cone opposite the pyramid, and the hemisphere opposite the cylinder). \n\nOptions 2, 3, and 4 alter the relative arrangement such that the cone is placed opposite the cylinder rather than the pyramid. Option 1 maintains the exact same spatial arrangement and viewpoint as the study image, differing only in the lighting direction and resulting shadows.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t07",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 28.47051191329956,
+      "reply": "In the study image, the four objects form a clockwise cycle from a top-down perspective: the green cylinder (back/north), the yellow dome (right/east), the cyan pyramid (front/south), and the purple cone (left/west). \n\nViewing the scene from the northeast (looking southwest), the green cylinder and yellow dome are in the foreground (cylinder on the right, dome on the left), while the purple cone sits behind the cylinder on the right and the cyan pyramid sits behind the dome on the left. **Option 4** correctly captures this precise spatial arrangement and perspective.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t00",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 29.76453709602356,
+      "reply": "In the study view, the green cylinder and yellow dome are situated opposite each other, as are the cyan pyramid and purple cone, with the clockwise sequence around the perimeter being green cylinder, cyan pyramid, yellow dome, and purple cone. Option 3 presents this exact spatial layout viewed from the side of the yellow dome, placing the yellow dome in the foreground, the green cylinder in the background, the cyan pyramid to the right, and the purple cone to the left.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t02",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 30.327269077301025,
+      "reply": "In the study image, the four objects form a quadrilateral where the green cylinder is diagonally opposite the purple cone, and the yellow hemisphere is diagonally opposite the blue pyramid. \n\nViewing the scene from the back-right (behind the green cylinder looking toward the purple cone), the green cylinder appears in the immediate foreground, the purple cone is in the background, the blue pyramid is to the left, and the yellow hemisphere is to the right. **Option 4** represents this exact same spatial configuration from this rotated viewpoint.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 34.677841901779175,
+      "reply": "In the study view, the layout consists of the purple cone in the front-left, the green cylinder directly behind it, the yellow hemisphere in the background to the right, and the cyan pyramid in the foreground on the far right. \n\nWhile Options 2, 3, and 4 alter the relative positions of the shapes (e.g., placing the pyramid between the cylinder and hemisphere or shifting the cone to the right), **Option 1** presents the exact same spatial arrangement and viewpoint, rendered under different lighting.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t11",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 35.36088681221008,
+      "reply": "In the study view, the four objects form a quadrilateral with the clockwise layout: green cylinder (back-left), blue pyramid (back-right), purple cone (front-right), and yellow hemisphere (front-left). \n\nViewing this scene from the front-right corner (looking diagonally toward the green cylinder in the background) places the purple cone closest to the camera in the foreground, the blue pyramid to its right, the yellow hemisphere to its left, and the green cylinder farthest away in the background. **Option 2** accurately preserves this spatial configuration under this camera rotation, whereas the other options alter the relative positions of the shapes.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t18",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 37.18555974960327,
+      "reply": "In the study image, the blue pyramid is at the front-left, the green cylinder is at the front-right, the yellow dome sits directly behind the green cylinder, and the purple cone is positioned in the middle ground behind and between the two front objects. \n\nOptions 1, 2, and 4 alter the relative geometric relationships between the shapes (for instance, swapping depths or positions of opposing pairs in non-rigid configurations). Option 3 maintains the exact same spatial layout and viewpoint as the study image, presented under an alternate lighting direction where shadows are cast to the right instead of the left.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t13",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 14.974088907241821,
+      "reply": "In the study image, the green cylinder (front-left) and the teal pyramid (back-right) are diagonally opposite each other, while the yellow dome (back-left) and the purple cone (front-right) form the other diagonal pair. \n\nViewing this scene from the opposite side (a rotation of approximately 180 degrees) places the teal pyramid at the front-left, the purple cone behind it at the back-left, the yellow dome at the front-right, and the green cylinder at the back-right. **Option 4** correctly preserves this exact spatial relationship.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t17",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 40.81525492668152,
+      "reply": "In the study image, the four objects form a quadrilateral with the cyan pyramid at the front-left, the green cylinder at the back-left, the purple cone at the back-right, and the yellow dome at the front-right (forming the clockwise sequence: pyramid \u2192 cylinder \u2192 cone \u2192 dome). \n\nViewing the scene from the front-right (near the yellow dome looking toward the green cylinder), the yellow dome is in the foreground, the green cylinder is in the background, the cyan pyramid is on the left, and the purple cone is on the right. **Option 3** correctly preserves this exact 3D spatial layout from this rotated viewpoint.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t00",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 15.375977277755737,
+      "reply": "In the study image, the four peaks form a diamond arrangement with the pyramid in the foreground, the cone directly behind it, the dome on the left, and the cylinder on the right. Option 2 preserves this exact spatial layout and viewpoint, with the four objects in identical relative positions while only the lighting direction has changed (casting shadows to the right instead of the left). The other options misplace the objects relative to one another (for example, placing the dome behind the cylinder in Option 1).\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t18",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 16.550166130065918,
+      "reply": "In the study image, the yellow hemisphere (front-left) and green cylinder (front-right) sit in the foreground, with the blue pyramid (back-left) and purple cone (back-right) behind them. \n\nWhen viewed from the opposite side (rotated approximately $180^\\circ$), the positions invert so that the purple cone is in the front-left, the blue pyramid is in the front-right, the green cylinder is in the back-left, and the yellow hemisphere is in the back-right, which perfectly matches **Option 4**.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t06",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 25.599398851394653,
+      "reply": "In the study image, the layout features the purple cone in the foreground opposite the teal pyramid in the background, with the green cylinder on the left opposite the yellow hemisphere on the right. \n\nViewing the scene from the opposite side (a ~180\u00b0 camera rotation), the teal pyramid moves to the foreground with the purple cone behind it, while the yellow hemisphere appears on the left and the green cylinder on the right. Only **Option 3** correctly preserves this relative spatial arrangement.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t17",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 22.091516971588135,
+      "reply": "In the study image, the four peaks form a quadrilateral where the yellow dome (front-left) is adjacent to the purple cone (back-left) and green cylinder (front-right), while the cyan pyramid sits at the back-right opposite the yellow dome (with the green cylinder opposite the purple cone). \n\nViewing the scene from the opposite side (a rotation of approximately 180\u00b0) places the cyan pyramid and purple cone in the foreground (with cyan on the left and purple on the right), and the green cylinder and yellow dome in the background (green on the left, yellow on the right). **Option 4** correctly preserves this relative layout and geometry.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t16",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 49.69955110549927,
+      "reply": "To determine which option shows the identical spatial arrangement, we can trace the cyclic order of the four objects around their convex hull:\n- In the **Study image**, moving clockwise around the layout gives: **Yellow Dome $\\rightarrow$ Purple Cone $\\rightarrow$ Green Cylinder $\\rightarrow$ Cyan Pyramid $\\rightarrow$ Yellow Dome**.\n- **Option 1** presents a mirrored layout (chirality is reversed).\n- **Option 2** and **Option 3** swap the relative positions of the peaks (in Option 3, the green cylinder and cyan pyramid are swapped).\n- **Option 4** preserves the exact same spatial layout and viewpoint as the study image, with only the direction of the lighting changed (casting shadows to the left instead of to the right).\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t12",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 15.888318300247192,
+      "reply": "In the study view, reading clockwise around the layout gives the sequence: **cylinder \u2192 pyramid \u2192 hemisphere \u2192 cone**. **Option 4** preserves this exact spatial relationship, viewing the configuration rotated about 60\u201390\u00b0 counter-clockwise, placing the hemisphere and pyramid in the foreground (left and right) with the cone and cylinder directly behind them (left and right, respectively). The other options alter the relative topology or present mirrored configurations.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t19",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 22.55905508995056,
+      "reply": "In the study image, the four peaks form a quadrilateral with the dome at the front-left, the cone at the front-right, the pyramid at the back-left, and the cylinder at the back-right (with the light source on the left casting shadows to the right). \n\n**Option 4** depicts the exact same spatial layout from the identical camera angle, with only the lighting direction altered (light now coming from the right, casting shadows toward the left). The other options alter the relative positions (for example, swapping the cylinder and cone in Option 2, or reflecting the arrangement in Option 1).\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t08",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 23.99223303794861,
+      "reply": "In the study image, the four peaks form a quadrilateral: the cylinder is in the foreground (south), the cone is in the background (north), the dome/hemisphere is to the left (west), and the pyramid is to the right (east). \n\nWhen viewed from the southeast looking toward the northwest (rotated roughly 45 degrees clockwise around the scene), the cylinder and pyramid form the foreground (with the cylinder on the left and the pyramid on the right), while the dome appears directly behind the cylinder and the cone directly behind the pyramid. This spatial layout is accurately represented only in Option 3.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t13",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 55.237494707107544,
+      "reply": "To determine which option shows the same landscape, we can analyze the relative layout of the four objects:\n- In the **Study Image**, the scene is viewed from the **South-West**: the yellow dome is closest in the foreground, the green cylinder is furthest in the background, with the cyan pyramid to the left and the purple cone to the right.\n- Viewing this identical spatial arrangement from the **South-East** (looking North-West towards the cyan pyramid) means the purple cone should now be closest in the foreground, the cyan pyramid furthest in the background, with the yellow dome on the left and the green cylinder on the right. \n\n**Option 1** matches this perspective precisely.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t12",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 57.96151804924011,
+      "reply": "To determine the correct image, we analyze the relative 3D spatial layout of the four shapes in the study view:\n- **Teal pyramid** and **purple cone** are grouped together on the left, with the cone located behind the pyramid.\n- **Yellow dome** and **green cylinder** are grouped on the right, with the cylinder located behind the dome.\n- Viewed from the opposite side (~180\u00b0 rotation), the relative depth and left-right positions invert: the group containing the green cylinder and yellow dome moves to the left foreground/midground (with the cylinder in front of the dome), while the group containing the purple cone and teal pyramid moves to the right (with the cone in front of the pyramid).\n\n**Option 2** correctly depicts this exact spatial layout viewed from this opposite vantage point.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t16",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 21.018125772476196,
+      "reply": "In the study view, the peaks form a quadrilateral where the cone is diagonally opposite the pyramid, and the hemisphere is diagonally opposite the cylinder (arranged counter-clockwise as cone, cylinder, pyramid, hemisphere). \n\n**Option 4** depicts this exact same layout viewed from a rotated perspective (viewed from the front-right), placing the cone in the foreground, the pyramid directly behind it in the distance, the hemisphere to the left, and the cylinder to the right.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t07",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 18.7364559173584,
+      "reply": "In the study image, the cylinder and pyramid form the front row, while the hemisphere (behind the cylinder) and the cone (behind the pyramid) form the back row, meaning the cylinder is diagonally opposite the cone, and the hemisphere is diagonally opposite the pyramid. \n\nViewing the scene from the right-hand side (a 90\u00b0 counterclockwise rotation of the camera) places the pyramid and cone in the foreground (left and right, respectively) and the cylinder and hemisphere in the background (left and right, respectively), maintaining all neighbor and diagonal relationships. Only **Option 2** correctly represents this rotated layout.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t07",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 14.892687797546387,
+      "reply": "In the study image, the four shapes form a layout where the hemisphere and cylinder are diagonally opposite each other, as are the cone and pyramid; following the perimeter clockwise gives the order: hemisphere, cone, cylinder, pyramid. Option 4 views this identical layout from behind the cylinder looking toward the hemisphere, correctly placing the pyramid on the left and the cone in the background on the right.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d045_t13",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 27.974015951156616,
+      "reply": "To determine which option shows the same landscape, we can analyze the spatial layout and clockwise arrangement of the four shapes:\n- In the **Study image**, the hemisphere is in the front-left directly in front of the pyramid (which is partially occluded behind it), while the cone is in the front-right and the cylinder is in the background. Tracing the layout clockwise gives: **Hemisphere $\\rightarrow$ Pyramid $\\rightarrow$ Cylinder $\\rightarrow$ Cone**.\n- **Option 1** incorrectly places the pyramid behind the cone, while **Option 3** and **Option 4** alter the relative positions (swapping shapes or inverting the chiral order).\n- **Option 2** maintains the correct clockwise configuration (**Hemisphere $\\rightarrow$ Pyramid $\\rightarrow$ Cylinder $\\rightarrow$ Cone**) viewed from a slightly rotated perspective where the camera has shifted rightward, revealing the pyramid from behind the hemisphere.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t14",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 13.827522039413452,
+      "reply": "In the study image, the four peaks form a quadrilateral layout where the dome (front-left) is diagonally opposite the cylinder (back-right), and the cone (front-right) is diagonally opposite the pyramid (back-left). \n\nViewing the scene from the northeast (looking past the cylinder toward the dome) places the cylinder in the immediate foreground, the cone to the left, the dome directly behind the cylinder, and the pyramid to the right. Only Option 4 preserves this exact relative spatial configuration and opposing diagonal pairings.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t12",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 21.632786989212036,
+      "reply": "In the study image, the layout features a cylinder (front-left), a pyramid (front-right), a cone (back-left), and a hemisphere (back-right), forming a quadrilateral where the cylinder is diagonally opposite the hemisphere and the pyramid is diagonally opposite the cone. \n\nViewing this arrangement from the right side (a 90\u00b0 clockwise perspective shift) places the pyramid in the front-left, the hemisphere in the front-right, the cylinder in the back-left, and the cone in the back-right. **Option 1** accurately preserves these relative positions, orientations, and diagonals.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t04",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 27.501350164413452,
+      "reply": "In the study view, the four objects are arranged in a clockwise loop: Pyramid (front-left) $\\rightarrow$ Cone (back-left) $\\rightarrow$ Hemisphere (back-right) $\\rightarrow$ Cylinder (front-right), with the Pyramid diagonally opposite the Hemisphere and the Cone diagonally opposite the Cylinder. \n\nViewing this same layout from the right/east side places the Hemisphere in the foreground, the Cylinder to the left, the Cone to the right, and the Pyramid in the background, which precisely matches **Option 1**.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t11",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": null,
+      "is_correct": false,
+      "latency": 6.116735935211182,
+      "reply": "",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t08",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 13.652795791625977,
+      "reply": "In the study image, the cylinder (front-left) and pyramid (front-right) form the foreground, with the cone (back-left) and hemisphere (back-right) in the background. Viewing this arrangement from the opposite side (rotated roughly 180\u00b0) places the hemisphere at the front-left, the cone at the front-right, the pyramid at the back-left, and the cylinder at the back-right. Only Option 3 preserves these correct diagonal and neighbor relationships among the four shapes.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d090_t08",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 23.999444007873535,
+      "reply": "In the study view, the pyramid and cylinder are positioned diagonally opposite each other, as are the cone and dome, forming a clockwise layout of Cone \u2192 Cylinder \u2192 Dome \u2192 Pyramid. \n\nOption 3 depicts this exact same layout viewed from the opposite side, placing the dome in the foreground, the cylinder to its rear-right, the pyramid to its front-left, and the cone in the background.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t18",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 40.1377739906311,
+      "reply": "Based on the spatial arrangement of the four shapes:\n- In the **Study Image**, the layout consists of the flat cylinder on the front-left, the cone in the front-center, the dome in the rear-middle, and the pyramid on the rear-right, with strong directional sunlight casting long shadows to the right.\n- **Option 1**, **Option 3**, and **Option 4** alter the relative positions of the shapes (e.g., placing the pyramid adjacent to the cylinder, swapping the dome and cylinder, or inverting their chiral arrangement).\n- **Option 2** retains the exact same spatial layout and viewpoint as the study image, presented under different, more diffuse lighting conditions.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t12",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 10.562901735305786,
+      "reply": "In the study image, the four peaks form a spatial quadrilateral with the small green peak at the rear (North), the medium purple peak on the right (East), the large yellow peak in the front foreground (South), and the cyan peak on the left (West). **Option 4** preserves this exact spatial configuration and viewing perspective, differing from the study view only in the direction of the illumination, which casts the shadows to the left instead of to the right.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t13",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 15.359276056289673,
+      "reply": "In the study image, the four objects arranged in clockwise order from the top (back) are the flat-topped cylinder, the smooth dome (right), the square-based pyramid (front), and the cone (left). \n\nViewing the scene from the opposite side (behind the cylinder, rotated roughly 180\u00b0) places the cylinder in the foreground, the dome to its rear-left, the pyramid directly behind it, and the cone to the right. Only **Option 4** correctly preserves this relative spatial configuration under rotation.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t18",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 20.782552003860474,
+      "reply": "In the study image, the pyramid and hemisphere are situated closely together on the right side, with the cylinder positioned in the background to the left and the cone in the foreground. Moving clockwise around the cluster, the topological sequence of the objects is Cone \u2192 Cylinder \u2192 Pyramid \u2192 Hemisphere. \n\nOption 4 depicts this exact spatial layout viewed from the opposite side (behind the pyramid and hemisphere), placing the hemisphere and pyramid in the foreground (with the hemisphere to the left and pyramid to the right), while the cone appears in the background to the left and the cylinder to the right.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t10",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 18.037705898284912,
+      "reply": "In the study view, the shapes arranged clockwise are the cylinder (back-left), hemisphere (back-right), pyramid (front-right), and cone (front-left), meaning the cylinder is diagonally opposite the pyramid, and the hemisphere is diagonally opposite the cone. \n\nViewing the scene from the opposite perspective (a rotation of roughly 180\u00b0), the hemisphere shifts to the front-left, the pyramid moves to the back-left, the cone to the back-right, and the cylinder to the front-right. **Option 2** correctly preserves this exact spatial relationship and clockwise ordering under rotation.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d180_t15",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 14.475570917129517,
+      "reply": "In the study view, the layout forms a quadrilateral with the hemisphere at the back-left, the cylinder at the back-right, the pyramid at the front-right, and the cone at the front-left. \n\nViewing this exact arrangement from the opposite side (a ~180\u00b0 rotation) brings the cylinder to the front-left and the hemisphere to the front-right, while placing the pyramid in the background on the left and the cone in the background on the right. **Option 4** matches this spatial geometry precisely.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t00",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 11.758005857467651,
+      "reply": "In the study image, the four peaks form a layout where the green peak is diagonally opposite the purple peak, and the yellow peak is diagonally opposite the cyan peak, with a clockwise ordering of Yellow\u2013Purple\u2013Cyan\u2013Green. Option 2 represents this exact arrangement viewed from behind the green peak looking toward the purple peak, placing the yellow peak to the left and the cyan peak to the right.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d135_t10",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 29.418047189712524,
+      "reply": "In the study image, the four peaks form a quadrilateral with the hemisphere in the front, the cone opposite it in the back, the cylinder to the left, and the pyramid to the right (proceeding clockwise: cone, pyramid, hemisphere, cylinder). \n\nOption 3 shows this exact same spatial configuration from the opposite side (viewed from the north-east, rotated approximately 135\u00b0), placing the pyramid and cone in the foreground (left and right, respectively), with the hemisphere at the back-left and the cylinder at the back-right.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t02",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 19.86830711364746,
+      "reply": "In the study image, the four cones form a clockwise arrangement of Yellow (foreground) $\\rightarrow$ Teal/Blue (front-left) $\\rightarrow$ Green (rear-left) $\\rightarrow$ Purple (rear-right), with the yellow cone being the largest in the immediate foreground. \n\nOptions 1, 3, and 4 alter the relative geometric layout or reflect the arrangement (for instance, Option 1 mirrors the layout, placing Green opposite its true position relative to Blue and Yellow). **Option 2** retains the exact same spatial configuration and relative positioning of all four cones from the original perspective under altered lighting conditions.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c1_shape_d000_t01",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 50.111148834228516,
+      "reply": "Based on the 3D spatial layout in the study image:\n- The cylinder and cone lie opposite each other along the left-right axis, while the pyramid (foreground) and hemisphere (background) lie opposite each other along the front-back axis. \n- In Options 1, 2, and 4, the relative topological positions are altered (for example, in Options 2 and 4 both the cylinder and cone appear on the same side of the hemisphere\u2013pyramid line, which is geometrically impossible under any rigid rotation).\n- **Option 3** preserves the exact relative spatial arrangement of all four objects from the study viewpoint, with the difference being a change in the illumination/lighting angle (casting shadows in a different direction).\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t01",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 18.304224014282227,
+      "reply": "In the study view, the four peaks form a quadrilateral with the yellow and purple cones in the foreground (left and right, respectively), the green cone in the background on the left, and the cyan cone in the background toward the center-right. Tracing the layout clockwise from the top-down perspective yields yellow $\\rightarrow$ green $\\rightarrow$ cyan $\\rightarrow$ purple. \n\nViewing the scene from the right side (a roughly $90^\\circ$ counter-clockwise camera rotation) places the purple cone in the near-left foreground, the cyan cone in the near-right foreground, with the yellow cone behind the purple one on the left and the green cone in the background to its right, which matches **Option 2**.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d000_t19",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 21.57362389564514,
+      "reply": "In the study image, the four cones form a specific spatial arrangement: the purple cone is on the mid-left, the green cone is furthest back near the center, the yellow cone is in the near foreground on the right, and the cyan cone sits just behind the yellow cone on the far right. \n\nOptions 1, 2, and 4 alter the relative positions and topological order of the cones (for example, swapping the relative positions of the yellow and green cones with respect to cyan and purple). Option 3 maintains the identical relative 3D layout from the same viewpoint, differing only in the direction of the lighting and shadows.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t06",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 19.993139028549194,
+      "reply": "In the study image, tracing the peaks clockwise from the top yields the cyclic layout: **Green \u2192 Purple \u2192 Yellow \u2192 Cyan**. \n\nWhen viewing the scene with a counter-clockwise camera rotation of about 60\u00b0, the yellow cone shifts to the foreground-left, the cyan cone sits behind it on the left, the purple cone occupies the right foreground/midground, and the green cone remains in the background. Only **Option 3** preserves this exact spatial geometry and clockwise topological ordering.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t19",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 19.627881050109863,
+      "reply": "In the study image, the teal and purple cones are positioned diagonally opposite each other, as are the green and yellow cones, with the teal cone adjacent to both the yellow (behind it) and green (to its right) cones. \n\n**Option 1** shows this identical spatial arrangement viewed from the side of the green cone looking toward the yellow cone, placing the green cone in the foreground, the yellow cone in the background, the teal cone to the left, and the purple cone to the right.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t02",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 20.588961124420166,
+      "reply": "In the study image, the four cones form a layout where diagonally opposite pairs are the purple cone opposite the green cone, and the yellow cone opposite the teal cone, with the clockwise arrangement being Yellow \u2192 Purple \u2192 Teal \u2192 Green. \n\n**Option 3** presents the exact same spatial configuration viewed from an angle rotated approximately 90 degrees counter-clockwise, placing the large green cone at the front-left, the yellow cone at the rear-left, the small purple cone at the rear-right, and the teal cone at the front-right.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t11",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 15.26004934310913,
+      "reply": "In the study view, the peaks form a quadrilateral with the yellow and purple peaks at the rear (left and right, respectively) and the green and blue peaks in the foreground (left and right, respectively), establishing a clockwise order from above of yellow $\\rightarrow$ purple $\\rightarrow$ blue $\\rightarrow$ green. \n\nViewing the landscape from behind the purple peak (looking across the scene toward the green peak in the distance) places the purple peak in the immediate foreground, the green peak straight ahead in the background, the yellow peak to the right, and the blue peak to the left. **Option 1** matches this exact 3D spatial layout.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t12",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 19.133052110671997,
+      "reply": "In the study view, the peaks arranged clockwise are Cyan (back), Yellow (right), Green (front), and Purple (left). Looking from the right/east side rotated approximately 90 degrees counter-clockwise places the Yellow cone in the foreground, the Purple cone in the background, the Green cone on the left, and the Cyan cone on the right, which precisely matches Option 1. The other options show mirrored or altered topological configurations.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t01",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 19.574792861938477,
+      "reply": "In the study image, the four cones form a quadrilateral layout where, in clockwise order, we have the cyan cone (front-left), yellow cone (back-left), purple cone (back-right), and green cone (front-right). \n\nViewing this same layout from the opposite side (near the purple cone, rotated approximately 180 degrees) places the purple cone in the immediate foreground, with green to the left, yellow to the right, and cyan in the background, which is precisely depicted in Option 3. The other options either alter the relative order of the cones or represent mirrored configurations.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t04",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 19.04395580291748,
+      "reply": "In the study image, the four cones form a quadrilateral layout where the purple cone is diagonally opposite the cyan cone, and the green cone is diagonally opposite the yellow cone (in clockwise order from above: purple, yellow, cyan, green). Viewed from the right-hand side, the yellow and cyan cones appear in the foreground with cyan on the left and yellow on the right, while green and purple appear in the background behind them. Only Option 2 preserves this exact relative spatial arrangement and cyclic ordering.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d045_t18",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 26.330474615097046,
+      "reply": "In the study view, the four cones form a quadrilateral: the cyan and green cones are positioned closer together in the background (northwest and northeast), while the purple cone is in the front-left (southwest) and the yellow cone is in the front-right (southeast), placing cyan and yellow diagonally opposite each other. \n\nViewing the scene from the southeast (facing northwest) aligns the yellow cone in the immediate foreground directly in front of the distant cyan cone, with the purple cone to the left and the green cone to the right. **Option 4** correctly preserves this exact spatial geometry under a counter-clockwise camera rotation of approximately 45 degrees.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d090_t08",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 24.02626609802246,
+      "reply": "To determine which option shows the same 3D spatial layout, we can track the relative positions and clockwise arrangement of the four colored cones:\n- In the **Study Image**, the layout forms a loop going clockwise: **Yellow (front-left) \u2192 Green (back-left) \u2192 Cyan (back-right) \u2192 Purple (front-right)**.\n- Viewing this scene from the right side (a roughly 90\u00b0 counter-clockwise camera rotation) places the **Purple** and **Cyan/Blue** cones in the foreground (left and right, respectively), with **Yellow** positioned behind Purple on the left and **Green** behind Blue on the right.\n- Only **Option 3** preserves this exact spatial geometry and relative ordering from this new vantage point, whereas the other options either alter the relative adjacencies or mirror the layout.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t15",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 16.124067068099976,
+      "reply": "In the study view, the peaks arranged clockwise around the center are teal (back), yellow (right), purple (front), and green (left). Option 2 presents the same landscape from the opposite side (rotated roughly 180\u00b0), placing the teal peak in the near foreground, the purple peak in the far background, the yellow peak on the left, and the green peak on the right while maintaining the correct relative geometry. The other options show mirrored layouts or incorrect relative positions.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t13",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 21.1909761428833,
+      "reply": "In the study image, the four peaks arranged cyclically counter-clockwise are: Yellow $\\rightarrow$ Purple $\\rightarrow$ Green $\\rightarrow$ Cyan, with the purple peak furthest back, the cyan peak closest in the foreground, and the yellow peak situated closely behind and to the right of the cyan peak. \n\n**Option 2** views this exact landscape from the opposite side (rotated roughly 180\u00b0), placing the purple peak in the immediate foreground, the cyan peak in the background, the yellow peak to the left, and the green peak to the right, fully preserving the true 3D spatial relationships. The other options alter the relative positions of the peaks (e.g., mirroring the layout).\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 15.994213104248047,
+      "reply": "In the study view, the layout features a pointed, ridge-covered mountain in the foreground, a bulky, craggy mountain to the left, a distinctive ring-crested mountain to the right, and a cluster of tall, needle-like spires situated in the distant center. \n\n**Option 2** portrays the exact same four mountain models in the identical spatial configuration and camera perspective, differing only in the direction of the sunlight and shadows (cast toward the bottom-left). The other options alter the relative positions of the peaks or substitute them with different mountain models.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 16.898154973983765,
+      "reply": "The study image features four distinct mountains: a slender, multi-spired needle cluster; a smooth-flanked conical peak; a broad craggy ridge; and a jagged multi-peaked mountain. Options 1, 2, and 4 each introduce an incorrect distractor peak (a sheer, flat-topped cylindrical volcanic plug). Option 3 correctly retains the original four peaks and maintains their topological arrangement, showing the conical peak opposite the broad craggy mountain, and the spired needle cluster opposite the jagged mountain.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t14",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 28.97649312019348,
+      "reply": "In the study image, the purple and yellow cones are in the foreground (left and right, respectively), while the green and cyan cones are in the background (left and right, respectively). \n\nViewing the scene from the opposite side (approximately a 180\u00b0 rotation looking from behind the original background):\n- The cyan cone appears in the foreground-left, with the yellow cone behind it in the background-left.\n- The green cone appears in the foreground-right, with the purple cone behind it in the background-right.\n\nThis correctly matches the arrangement shown in **Option 3**.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d180_t18",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 29.60795283317566,
+      "reply": "In the study image, the teal, purple, and yellow peaks form a close-knit triangular cluster where teal is situated adjacent to both purple and yellow, while the green peak is distinctly separated to the far side. Tracing the layout clockwise from above yields the arrangement: Green $\\rightarrow$ Yellow $\\rightarrow$ Teal $\\rightarrow$ Purple. Viewing this exact layout from the opposite side (roughly from the north-east) places the purple peak in the near foreground, the green peak isolated on the left, and the yellow and teal peaks across the background, which precisely matches **Option 2**.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 15.676951169967651,
+      "reply": "In the study image, the four mountains comprise an isolated caldera-topped peak on the far left, a sharp conical peak in the center-rear, and a close pair on the right consisting of a tall, needle-spined crag in the foreground and a blocky, fluted mesa behind it. \n\nViewed from approximately 90 degrees to the right (looking from the right flank toward the caldera), the layout places the caldera peak in the far background, the tall needle crag on the front-left, the blocky mesa on the front-right, and the sharp cone behind the mesa on the right. **Option 2** correctly reproduces this exact 3D spatial configuration.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t17",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 15.854145765304565,
+      "reply": "In the study image, the four mountains form a diamond-like arrangement with the jagged, needle-like peak at the rear, the large bulky mountain in the foreground, and two conical peaks to the left and right. \n\nViewing the scene from the right side (a roughly 90\u00b0 clockwise perspective shift) places the needle-like mountain on the right, the bulky mountain on the left, and the two conical peaks along the front-to-back axis, which precisely matches the layout shown in **Option 3**.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 25.75685977935791,
+      "reply": "In the study image, the landscape consists of four distinct peaks: a spiky needle-like mountain in the front-left, a flat-ridged mesa in the back-left, a saddle-shaped peak with twin horns in the back-right, and a broad jagged mountain in the front-right. \n\nOptions 1, 2, and 3 are distractors that replace the saddle-shaped mountain with an incorrect single-peaked cone mountain and alter the relative spatial positions of the peaks. Option 4 depicts the identical topography and spatial arrangement of all four original mountains from the same camera viewpoint under shifted illumination.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 21.104862928390503,
+      "reply": "In the study image, the four peaks form a quadrilateral where the tall needle-spire peak (front) is opposite the steep, multi-crowned massif (back), and the smooth-apron pyramid (left) is opposite the craggy pyramid (right). \n\nViewing the scene from the southeast (between the needle spire and the craggy pyramid) places the needle spire in the left-foreground, the craggy pyramid in the right-foreground, the smooth pyramid in the left-background, and the steep massif in the right-background. This exact 3D spatial relationship is correctly preserved only in **Option 1**.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 22.465902090072632,
+      "reply": "In the study view, the four peaks form a quadrilateral with the spire-like peak (back-left) opposite the pyramidal peak (front-right), and the smoother horned peak (front-center) opposite the ridged massif (back-center). \n\nViewing the scene from the front-right (near the pyramidal peak) looking toward the spire peak places the pyramidal peak in the foreground, the spire peak in the far background, the horned peak to the left, and the ridged massif to the right, which uniquely matches **Option 2**.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t10",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 34.626620292663574,
+      "reply": "In the study image, the landscape consists of four distinct peaks: a crater-topped mountain in the near left, a sharp conical peak in the near right, a tall spiky peak in the far left, and a ridged mountain in the far right. \n\n**Option 1** presents the exact same landscape from the same viewpoint, preserving the precise relative positions of all four peaks (spiky peak at the back-left, ridge at the back-right, crater mountain at the front-left, and conical peak at the front-right) with only the lighting direction altered. In contrast, Options 2, 3, and 4 feature incorrect peak substitutions and altered spatial arrangements (notably lacking the prominent crater mountain).\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t07",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 19.843650102615356,
+      "reply": "In the study image, the four mountains arranged clockwise are: the smooth conical peak (back-left), the pyramidal jagged peak (back-right), the broad bulky ridge (front-right), and the sharp spired peak (front-left). \n\nViewing this scene from the opposite direction (from the northeast looking southwest), the pyramidal peak appears in the front, the broad bulky ridge is on the left, the conical peak is on the right, and the needle-like spires appear in the background. **Option 4** reproduces this exact spatial relationship and set of peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t16",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 35.51698875427246,
+      "reply": "The study image displays four distinct mountains arranged in a quadrilateral layout: a sharp-peaked mountain in the background left, a steep ribbed dome in the background right, a tall spiky cluster in the foreground left, and a broad craggy peak in the foreground right. \n\n**Option 4** features the exact same four mountain peaks in identical relative spatial positions viewed from the same camera direction, with only the illumination direction changed (lighting from the right instead of the left, reversing the cast shadows). The other options alter the relative positions or substitute different mountain geometries.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c2_colour_d135_t15",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 50.45248818397522,
+      "reply": "Comparing the 3D layout of the mountains in the study view, the yellow peak is in the background, the green peak is to the mid-right, the cyan peak is in the near-foreground just in front of the green peak, and the purple peak is positioned further away on the left. \n\nViewing this exact arrangement from the opposite side (from the back-right, looking toward the front-left) places the yellow peak in the near foreground on the right, the green peak in the foreground on the left with the cyan peak directly behind it, and the purple peak furthest away in the background.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t12",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 21.65964698791504,
+      "reply": "In the study image, the four peaks form a quadrilateral layout where the jagged, needle-spire mountain is opposite the twin-peaked volcano, and the sharp pyramid cone is opposite the broad massif. In the study view, looking from the front, the needle-spire mountain is at the front-left, the pyramid is at the rear-left, the twin-peaked volcano is at the rear-right, and the broad massif is at the front-right. \n\n**Option 2** represents the same landscape viewed from the opposite side (looking from the twin-peaked volcano towards the needle-spire mountain), correctly placing the volcano in the foreground, the needle-spire mountain in the background, the pyramid cone on the right, and the broad massif on the left.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t12",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 7.306160926818848,
+      "reply": "In the study image, the landscape features a tall, spiky mountain in the background, a broad craggy peak in the center-foreground, a flat-topped peak with small notches on the left, and a rugged conical peak on the right surrounding a central pond. Option 2 depicts the exact same scene from the identical camera angle and arrangement under different lighting conditions, with every peak shape, tree cluster, and water feature matching perfectly. The other options either rearrange the relative positions of the peaks or alter their specific topographic shapes.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 38.425251722335815,
+      "reply": "To determine which option depicts the same landscape, we analyze the relative layout of the four distinct peaks:\n- **Peak A** (front-right in Study): a sharp, conical peak with pronounced ridges.\n- **Peak B** (front-left in Study): a broad, massive mountain with a jagged, multi-crested ridge.\n- **Peak C** (back-left in Study): an extremely slender, needle-like spire cluster.\n- **Peak D** (back-right in Study): a pyramid-shaped mountain.\n\nViewing the scene from the front-right (a clockwise camera rotation of approximately 45\u201360\u00b0):\n- **Peak A** moves to the immediate center-foreground.\n- **Peak C** is positioned in the background to the left.\n- **Peak D** appears in the center-background.\n- **Peak B** shifts to the right side of the view.\n\n**Option 2** accurately preserves this exact 3D spatial relationship and geometry among all four peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t06",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 10.425637006759644,
+      "reply": "In the study image, the four peaks form a ring consisting of a massive flat-topped mountain in the foreground, a spiky cluster of spires to the left, a distinct twin-horned saddle peak at the back, and a conical pyramidal peak to the right (maintaining a clockwise sequence: twin-horned, pyramidal, flat-topped, spiky). **Option 4** depicts this exact same landscape and spatial configuration viewed from a perspective rotated slightly toward the south-southeast, retaining all four characteristic mountain profiles and their relative positions.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t12",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 46.902859926223755,
+      "reply": "In the study image, the mountains form a quadrilateral layout: the jagged, bulky mountain (**Craggy**) is in the near-foreground, the single sharp peak (**Cone**) is to the left, the tall multi-spired peak (**Needles**) is to the right, and the rounded textured peak (**Dome**) is in the back-right. \n\nWhen the viewpoint is rotated roughly 45\u00b0\u201360\u00b0 clockwise (looking toward the northwest), **Craggy** shifts to the foreground-left directly in front of **Cone**, while **Needles** sits in the foreground-right directly in front of **Dome**. **Option 3** is the only candidate that accurately preserves this relative spatial configuration.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t17",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 16.735947847366333,
+      "reply": "In the study image, three prominent mountains surround a central lake: a twin-peaked mountain on the left, a pyramidal peak in the center background, and a massive craggy peak with tall spires on the right, with a river flowing toward the foreground and a path curving along the lake's eastern shore. \n\nOption 1 presents the exact same layout from the same viewpoint, matching the distinctive shapes and relative positions of all the peaks, lake, and waterways under altered seasonal lighting and green vegetation. The other options introduce rotated viewpoints with conflicting mountain morphologies that do not match the original landscape.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t02",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 18.5955171585083,
+      "reply": "In the study image, the landscape features a central lake surrounded by four distinct mountains: a multi-spire, jagged mountain in the foreground (south), a broad, bulky mountain on the left (west), a single pointed pyramid-like peak in the back (north), and a distinct twin-horned double peak on the right (east). \n\n**Option 2** depicts this exact same landscape viewed from the southeast: the twin-horned mountain is now prominent in the foreground on the right, the jagged spire-topped mountain is in the foreground on the left, the bulky mountain appears in the background on the left, and the pointed peak sits in the background on the right.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t05",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 26.71666121482849,
+      "reply": "In the study view, the landscape features four distinct mountains arranged around a central lake: a twin-spire peak on the left, a rounded dome-like mountain in the center background, a craggy pyramid-shaped peak in the right background, and a tall, sharp needle spire in the right foreground. \n\nComparing the layout and individual mountain shapes across the candidates, **Option 1** preserves the exact identity, shape, and relative spatial configuration of all four peaks viewed from the same perspective (with altered seasonal/lighting conditions), whereas the other options alter the relative placement and topography of the mountains.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 45.74535822868347,
+      "reply": "To determine which option shows the same landscape, we can map the four peaks by their compass positions in the study view: the needle-like Spire mountain is to the Southeast (front-right), the craggy flat-topped mountain is to the Northeast (back-right), the broad faceted peak is to the Southwest (front-left), and the slender sharp peak is to the Northwest (back-left). \n\nViewing the scene from the North (looking South) means East is on the left and West is on the right: the Northeast craggy peak should appear in the left foreground in front of the Southeast Spire peak, while the Northwest sharp peak should appear in the foreground in front of the Southwest broad peak to the right. **Option 2** accurately preserves this exact spatial geometry under camera rotation, whereas the other options either present mirrored configurations or alter the relative positions and identities of the peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t05",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 59.67810893058777,
+      "reply": "In the study image, the four mountains consist of:\n- A ridged/blocky mountain in the foreground-left.\n- A pointed conical mountain in the background-left.\n- A cathedral-spire mountain in the foreground-right.\n- A forked/crater mountain situated behind and slightly to the left of the spire mountain.\n\nExamining the candidate options:\n- **Option 1**, **Option 3**, and **Option 4** alter the relative positions of the peaks (for example, in Option 4 the blocky and forked mountains are paired directly on the left).\n- **Option 2** presents the same four-mountain topography viewed from a slightly different perspective, preserving the correct relative layout: the blocky peak on the left, the conical peak in the background, the forked crater mountain in the center-foreground, and the multi-spire peak to its right.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t09",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 38.92961597442627,
+      "reply": "To determine the correct landscape, we can analyze the topological layout (clockwise arrangement) of the four peaks from above: the central craggy peak (North), the bulky flat-topped mountain (East), the spiky needle-like peak (South), and the smooth-flanked cone (West). \n\nViewing this scene rotated by approximately 180\u00b0 places the craggy peak in the immediate foreground and the needle spire in the distant background. From this perspective, the bulky mountain must appear on the left and the smooth cone on the right, which precisely matches **Option 2**.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d000_t11",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 37.182234048843384,
+      "reply": "The study view features a distinctive layout with a triangular conical peak in the foreground, a multi-spired \"cathedral\" mountain on the left, a rounded dome-shaped mountain in the background, and a craggy angular mountain on the right, surrounding a central pond and river. \n\nComparing this configuration to the options, **Option 2** displays the exact same four mountains in the identical spatial arrangement, whereas the other options substitute or rearrange the peaks.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t00",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 23.075783014297485,
+      "reply": "In the study view, four distinct peaks surround a central lake: a broad massif (front-left), a craggy triangular peak (rear-left), a slender spire (rear-right), and a sharp pyramid (front-right), which follow a clockwise sequence of Spire \u2192 Pyramid \u2192 Massif \u2192 Craggy Peak. \n\n**Option 4** depicts this exact landscape rotated approximately 90\u00b0 counter-clockwise (viewed from the east), placing the sharp pyramid in the foreground-left, the slender spire in the foreground-right, the broad massif at the rear-left, and the craggy peak at the rear-right, perfectly preserving their relative spatial layout.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 44.96801805496216,
+      "reply": "To determine which option depicts the same landscape, we can analyze the spatial layout and clockwise arrangement of the four peaks from the study image:\n- The twin-peaked/crater-topped mountain is in the near-foreground (South).\n- The bulky, ridged mountain is to its front-left (Southwest).\n- The pyramid-like mountain sits in the back-left (Northwest).\n- The tall, needle-spire mountain is to the right (East/Northeast).\n\nIn the clockwise order around the center, this arrangement is **Pyramid $\\rightarrow$ Needle $\\rightarrow$ Twin-peak $\\rightarrow$ Bulky**. \n\n- **Option 2** alters the mountain topography (introducing an inaccurate smooth cone).\n- **Option 3** is a mirror-reversed (chiral) layout, placing the needle peak to the left of the twin-peaked mountain instead of the right.\n- **Option 4** misarranges the spatial relationships among the mountains.\n- **Option 1** correctly preserves the true 3D spatial layout viewed from a rotated perspective (viewed from the west/northwest), where the needle mountain appears on the left, the twin-horned peak is in the background, and the bulky and pyramid peaks occupy the foreground and midground to the right.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t12",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 18.49147915840149,
+      "reply": "In the study image, the four mountains arranged clockwise around the central lake are: the sharp multi-spired mountain (back), the conical twin-horned peak (back-right), the pyramidal craggy mountain (front-right), and the broad, flat-topped massif (left). \n\nViewing the scene from the opposite angle (camera rotated approximately 90\u00b0 counter-clockwise), **Option 3** preserves this exact spatial relationship and individual peak topography, placing the broad massif in the background, the multi-spired mountain at the back-right, the twin-horned peak in the right foreground, and the pyramidal craggy peak in the left foreground.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t08",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 54.66785407066345,
+      "reply": "To determine which option represents the exact same landscape, we can track the relative positions of the four distinct peaks around the circular layout: the tall vertical tower/spire (A, center-back in the study view), the conical peak (B, left), the rugged ridged peak (C, right), and the large jagged mountain (D, foreground).\n\nViewing the study arrangement from above, moving clockwise around the circle gives the sequence: **Tower (A) \u2192 Ridged peak (C) \u2192 Jagged mountain (D) \u2192 Conical peak (B)**. \n\nA 90-degree clockwise camera rotation places the Tower (A) on the left, the ridged peak (C) in the back, the jagged mountain (D) on the right, and the conical peak (B) in the foreground. **Option 2** matches this exact spatial configuration perfectly.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t04",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 42.481098890304565,
+      "reply": "In the study image, the four peaks surround a central lake: a bulky snow-capped peak at the northwest (back-left), a jagged peak at the northeast (back-right), a slender twin-spired peak at the southeast (front-right), and a broad steep mountain at the southwest (front-left), with an outflow river draining to the southeast. \n\n**Option 1** shows the exact same landscape rotated approximately 90\u00b0 clockwise (viewed from the east looking west): the snow-capped peak is in the background-right, the jagged peak is in the foreground-right, the twin-spired peak is in the foreground-left, and the river drains toward the foreground-left (southeast). The other options misplace peak identities or mirror the spatial layout.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 55.487189054489136,
+      "reply": "In the study image, the landscape consists of four distinct mountains: a twin-peaked mountain in the front-left, a conical mountain in the back-left, a steep spire-like cluster in the back-right, and a massive rounded mountain in the front-right. Arranged in clockwise order from a top-down perspective, the layout is Cone (back-left) \u2192 Spire (back-right) \u2192 Massive (front-right) \u2192 Twin-Peaks (front-left). \n\nAccounting for camera rotation, only **Option 1** correctly preserves this unique arrangement (viewed from a rotated perspective where the Massive mountain is in the front-left, Spire in the back-left, Cone in the back-right, and Twin-Peaks in the front-right), whereas the other options either alter the relative positions or present mirrored configurations.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t09",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 24.342806100845337,
+      "reply": "In the study image, the four mountains arranged clockwise around the central lake are: the large two-peaked bulky mountain (foreground-left), the pointed cone-like mountain (background-left), the rounded triangular mountain (background-right), and the sharp multi-spire needle mountain (mid-right). \n\nViewing the scene rotated approximately 90\u00b0 counter-clockwise places the needle mountain at the foreground-left, the bulky two-peaked mountain at the foreground-right, the pointed mountain at the background-right, and the rounded triangular mountain at the background-center. **Option 3** precisely matches this rotated spatial layout and all peak identities.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t19",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 60.67646288871765,
+      "reply": "Based on the spatial arrangement of the four peaks in the **Study Image**:\n* **West (left):** Tall, slender needle/spire mountain\n* **South (foreground):** Large, broad mountain with extensive craggy ridges\n* **North (background):** Conical, steep pyramid mountain with a jagged summit\n* **East (right):** Mountain with a saddle/two-horned summit\n\nIn **Option 3**, the scene is viewed from the opposite side (looking from the northeast toward the southwest): the two background mountains from the study view now appear in the corresponding foreground positions, but with a mirrored layout indicating an incorrect spatial relationship. In **Option 2** and **Option 4**, individual mountain identities are swapped relative to the needle spire. **Option 1** correctly preserves the true 3D configuration when viewed from an alternate angle, maintaining the relative positions and unique topographies of all four peaks.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t09",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 26.19836974143982,
+      "reply": "In the study image, arranged clockwise around the central lake, the peaks are: the thin jagged spires (North), the sharp pyramidal peak (East), the multi-crested conical mountain (South), and the large blocky dome-shaped mountain (West). \n\n**Option 4** presents the exact same 3D spatial layout viewed from the east/northeast: the dome mountain is in the upper right, the spire peak is in the lower right foreground, the pyramidal peak is in the lower left foreground, and the multi-crested conical mountain is in the upper left.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t10",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 30.927700996398926,
+      "reply": "In the study image, the four peaks surrounding the central lake follow a clockwise arrangement: the sharp-spired peak (back-left), the massive craggy peak (back-right), the cathedral-like pinnacled peak (mid-right), and the two-horned triangular peak (front-left). \n\n**Option 3** shows this exact same landscape viewed from the opposite side (looking from the northeast toward the southwest), correctly maintaining this cyclic arrangement with the cathedral peak on the left, the craggy peak in the foreground right, the sharp-spired peak in the background right, and the two-horned peak in the background center.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d045_t19",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 51.791269063949585,
+      "reply": "Based on the spatial arrangement of the four peaks surrounding the central lake in the study image:\n- The fluted columnar mountain (left) and the saddle-crested mountain (right) form one opposite pair.\n- The rugged pyramid peak (top) and the spiky conical mountain (foreground) form the other opposite pair.\n\nIn **Option 4**, the camera views the scene rotated roughly 90 degrees counter-clockwise (looking from the east/southeast), correctly maintaining the spatial relationship where the road approaches the lake between the appropriate peaks and the relative clockwise order of the four landmarks remains identical to the study image.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t10",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 45.14960789680481,
+      "reply": "In the study image, the four mountains surround a central lake in the following layout:\n- **Foreground (South):** A broad, bulky mountain.\n- **Background (North):** A tall, pyramidal peak.\n- **Right (East):** A slender cluster of steep, needle-like spires.\n- **Left (West):** An asymmetrical mountain with twin horns.\n\n**Option 2** depicts the exact same spatial layout viewed from the East (a 90\u00b0 clockwise rotation): the needle-like spires are now in the immediate foreground, the broad bulky mountain is to the left, the pyramidal peak is to the right, and the twin-horned mountain stands in the background.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d090_t15",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 50.236058950424194,
+      "reply": "Based on the 3D spatial layout of the landscape, the central lake is surrounded by four distinct peaks: the tall cathedral-like spire mountain, the sharp central-pinnacle peak, the broad three-spire mountain, and the craggy/notched mountain. In the study image, viewed from the opposite side, the three-spire mountain is on the right, the sharp central-pinnacle peak is in the background, and the notched mountain is on the left, while the cathedral-spire mountain is situated in the foreground/behind the viewpoint. **Option 1** shows this exact same landscape and layout from a reversed vantage point, with the cathedral-spire mountain prominent in the foreground and the other three peaks correctly positioned around the lake behind it.\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t12",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 35.476531982421875,
+      "reply": "In the study view, four peaks surround a central lake: a slender spire-like peak at the far side (north), a sharp pyramid peak at the front-right (southeast), and two craggy peaks at the front-left (southwest) and far-left (northwest). \n\n**Option 3** represents the exact same landscape rotated approximately 180 degrees (viewed from the north looking south), placing the slender spire peak in the immediate foreground, the distinct sharp pyramid peak to the background-left, and the two craggy peaks along the background-center and background-right.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t01",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 55.33120107650757,
+      "reply": "Based on the spatial layout of the four mountains surrounding the central area:\n\n1. **Study Image:** Mountain 1 (large pyramidal mountain with a central peak) is in the foreground (south), Mountain 2 (slender needle-like spires) is to the left (west), Mountain 3 (steep triangular twin peaks) is in the background (north), and Mountain 4 (broad, bulky rock massif) is to the right (east). The opposite pairs across the center are Mountain 1 opposite Mountain 3, and Mountain 2 opposite Mountain 4.\n2. In **Option 4**, the scene is viewed from the opposite side (a ~180\u00b0 rotation looking from behind Mountain 3 towards Mountain 1), preserving the true relative 3D arrangement: Mountain 1 is now in the background, Mountain 3 is in the foreground, while Mountain 2 (needle spires) and Mountain 4 (broad massif) correctly maintain their opposite spatial positions across the central lake. The other options either alter the opposite pairings or mirror the relative positions of the peaks.\n\nFinal Answer: Option 4",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d135_t03",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 62.07188105583191,
+      "reply": "In the **study image**, the landscape features a central lake surrounded by four distinct mountain formations:\n- A massive, broad dome with a jagged crest in the foreground (south).\n- A cluster of tall, slender spires opposite it across the lake in the background (north).\n- A craggy pyramidal peak to the left (west).\n- A twin-/multi-horned peak to the right (east).\n\nLooking at the options, **Option 3** preserves this exact relative configuration and terrain geometry, shown from a rotated viewpoint (viewed from the south-west looking north-east towards the lake): the spired mountain and pyramidal peak are positioned to the left, the broad dome is in the right foreground, and the twin-horned peak stands in the background to the right, with the lake and connecting waterways matching the original layout.\n\nFinal Answer: Option 3",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t13",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 51.50284194946289,
+      "reply": "To determine the correct match, we analyze the spatial arrangement of the four mountains surrounding the central lake:\n- **Horn peak** (North / 12 o'clock)\n- **Broad double-peaked mountain** (North-East / ~2 o'clock)\n- **Jagged needle-spire mountain** (South-East / ~4:30)\n- **Dome-shaped mountain** (West / ~9 o'clock)\n\nRotating the viewpoint counter-clockwise by approximately 135\u00b0 places the jagged needle-spire mountain at the top center (12 o'clock), the broad mountain at the upper-left (~10 o'clock), the conical horn peak in the foreground-left (~7:30), and the dome mountain on the right (~2:30). **Option 2** exhibits this exact relative layout and topographic geometry.\n\nFinal Answer: Option 2",
+      "error": null
+    },
+    {
+      "trial_id": "c4_valley_d180_t10",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 57.83059573173523,
+      "reply": "4-5 o'clock!\nAND IN OPTION 3, THE ROAD IS AT 4-5 O'CLOCK!\nLet's check the river exit:\nIn Study, river exit is at ~5:30.\nIf camera moves clockwise, it moves to ~7 o'clock!\nAND IN OPTION 3, THE RIVER EXITS AT ~7 O'CLOCK!\nEVERY SINGLE TERRAIN FEATURE (river, lake, road) perfectly matches a clockwise camera rotation of about 45 to 60 degrees in OPTION 3!\n\nNow let's check the 4 mountains with this ~50\u00b0 clockwise camera rotation:\nIn Study:\n- Blocky mountain was at ~8 o'clock -> rotated counter-clockwise by ~50\u00b0 -> now at ~6-7 o'clock (front-left in Option 3)!\nWait, 7 o'clock in Option 3 is where the Blocky mountain should be!\n- Pyramid was at ~10:30 -> rotated by ~50\u00b0 -> now at ~9-10 o'clock (11 o'clock in Option 3)!\n- Needle was at ~1:30 -> rotated by ~50\u00b0 -> now at ~12-1 o'clock (1 o'clock in Option 3)!\n- Ridged was at ~4:30 -> rotated by ~50\u00b0 -> now at ~3-4 o'clock (4 o'clock in Option 3",
+      "error": null
+    }
+  ]
+}

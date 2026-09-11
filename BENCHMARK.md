@@ -8,161 +8,222 @@ first and indifferent to the second. Most image benchmarks cannot separate them,
 because "the same place" and "the same picture" coincide whenever the viewpoint
 is held fixed.
 
-This dataset varies both independently and measures them in one currency —
-cosine distance in a frozen encoder's embedding — which lets them be traded
-against each other:
+The task is the clinical **Four Mountains Test** (Burgess et al. 2002; Hartley
+et al. 2007) turned into a forced choice a model can take:
 
-> **How far must the landmarks physically move to confuse a model as much as
-> walking Δ degrees around the scene does?**
+> A **study** image of a place. Then four **options**, all photographed from one
+> bearing and under one lighting condition. Exactly one is the same place. Which?
 
-That distance is **λ(Δ)**, in metres, and **small λ is the good end**. A model
-with a genuine allocentric representation barely notices the walk, so only a
-small displacement is needed to cost it the same — λ of a metre or two. A model
-matching appearance is thrown by the walk, and the landmarks would have to be
-rebuilt somewhere else entirely before a scene change cost as much — λ of tens
-of metres, or off the top of the ladder.
+Two factors are crossed on top of it:
 
-## The design: one set of scenes, rendered five ways
+* **Δ, the viewpoint change** — 0°, 45°, 90°, 135°, 180° between the study
+  bearing and the option bearing. Δ=0 is the **appearance gate**: same place,
+  same bearing, resampled weather. It measures what the model can do when no
+  viewpoint change is asked of it.
+* **Foil similarity** — how close the wrong options are to the target in layout
+  (§3). This used to be an accident; it is now the axis.
 
-Every scene is sampled once — landmark positions, uniform sizes, one camera rig
-— and then rendered in each of five stimulus modes. Scene `a007` in `c0` and in
-`c4` is **the same place from the same spot**; only the cues that tell landmarks
-apart, and the world around them, differ.
+The headline claim the design supports: **scaling buys the gate, not the map.**
+
+---
+
+## 1. The dataset: one set of layouts, rendered five ways
+
+100 anchor layouts × 5 stimulus modes × 2 appearances × 8 azimuths = **8 000
+frames** (plus instance masks) in `data/scenes_100/`.
 
 | mode | landmarks | world |
 |---|---|---|
-| `c0_shape_colour` | 6 shapes × 6 colours | bare plane |
-| `c1_shape` | 6 shapes, one colour | bare plane |
-| `c2_colour` | one shape, 6 colours | bare plane |
-| `c3_peaks_bare` | parametric landforms | bare plane |
+| `c0_shape_colour` | 4 shapes × colours | bare plane |
+| `c1_shape` | 4 shapes, one colour | bare plane |
+| `c2_colour` | one shape, 4 colours | bare plane |
+| `c3_peaks_bare` | 4 parametric landforms | bare plane |
 | `c4_valley` | the same landforms | terrain, lake, vegetation, haze |
 
-Mode is therefore a **within-scene factor**, so every cross-mode comparison is
-paired. This matters more than it looks: sampling layouts independently per mode
-entangles "mode" with "which places happened to be drawn", and nothing in the
-rendered images reveals it.
+**Scene `a007` is the same place in all five modes**, at the same landmark
+positions from the same camera — verified: `a000`'s peak coordinates are
+byte-identical across c0 and c3. Mode is a within-scene factor, so every
+cross-mode comparison is paired. Landmark **size is uniform in every mode**
+(`UNIFORM_HEIGHT`, `UNIFORM_RADIUS`), so apparent size stays a pure distance cue.
 
-Landmark **size is uniform in every mode**. A landmark 14 m wide in `c3` and
-17 m wide in `c0` would not be the same landmark seen two ways, and apparent size
-is the image's distance cue.
+**Every mode is landmark-inventory controlled.** All 100 scenes in a mode are
+built from *one* set of four landmarks, permuted per scene, so only the
+arrangement separates two places. `fm_stimulus.assign_objects` applies
+`canonical_objects` (c0–c2) or `canonical_forms` (c3–c4).
 
-## Three axes
+> ⚠️ **`layout["morphologies"]` and `peak["type"]` are stale labels.**
+> `sample_layout` writes them *before* `assign_objects` replaces the landforms,
+> and never updates them — they list 106 distinct strings over 100 scenes
+> describing forms that were never rendered. **Identity is `obj` (c0–c2) or the
+> `form` vector (c3–c4).** Reading the labels instead produced a false "c3/c4
+> leak landmark identity" finding and a broken distance metric.
 
-| axis | varies | |
-|---|---|---|
-| **viewpoint** | camera azimuth, 8 bearings | how much does moving cost? |
-| **scene** | landmark position, `d_pos` metres | how much does the place changing cost? |
-| **cue** | c0 → c4 | which cues does the model rely on? |
+---
 
-Probes perturb **positions only**, which is mode-independent, so the probe
-geometry is identical in all five modes. Identity is varied by the cue ladder,
-which is what it is for.
+## 2. The prompt
 
-## Scene distance
+`bench/evaluate_vlm.py::get_prompt_text` holds every wording; `build_human_task.py`
+reads the same function, so people and models cannot drift apart.
 
-A scene is a set of (identity, position) pairs. `fm_scenedist` measures three
-coordinates, each under an optimal assignment between landmark sets:
+**Use `cot_anyview` for models and `neutral_anyview` for people.**
 
-| | | units | translation | permutation | substitution |
-|---|---|---|---|---|---|
-| `d_pos` | largest distance a landmark must move | **metres** | = displacement | **0** | 0 |
-| `d_bind` | fraction of places whose occupant changed | 0–1 | 0 | **> 0** | > 0 |
-| `d_id` | how different the landmark *sets* are | 0–1 / form L2 | 0 | **0** | **> 0** |
+`cot`, `neutral`, `direct`, `anchor`, `birdseye` and `elimination` all state that
+the matching option is *"viewed from a different viewpoint"*. **That is false for
+every Δ=0 trial** — the target sits at the study's own azimuth — and it tells the
+model to eliminate the correct answer. Gemini 3.8 Flash did so explicitly
+("Option 2 merely reproduces the initial study perspective rather than the
+required rotated viewpoint") and scored 5/10 at Δ=0. With one clause changed and
+nothing else: **10/10** (one-sided exact p = 0.031).
 
-Only `d_pos` is swept, because it is the one with units.
+`--max_tokens 8000`. At 4000, 27 % of Gemini's replies were cut off mid-thought
+and scored as errors rather than as missing data; those trials scored 0.37
+against 0.70 for well-formed ones.
 
-**Why this replaced the old foil families.** The previous displacement measure
-matched landmarks *by slot name*, so a permutation — which leaves the set of
-occupied positions exactly as it found it — recorded 50–65 m, more than an
-explicit 20 m translation. A second helper matched *by identity* and scored the
-same permutation ~0 m. The two disagreed precisely on the case that separated the
-families, so every binding-vs-metric contrast depended on which convention the
-caller happened to use. Here the matching is stated once and the three
-coordinates are orthogonal by construction.
+Reasoning models are asked for `reasoning: {effort, exclude: false}` and the
+answer is read from the trace if `content` never arrives. Disabling reasoning is
+not always allowed — Gemini 3.8 Flash returns *"Reasoning is mandatory for this
+endpoint"*.
 
-`d_pos` is the **bottleneck** (largest) matched displacement, not the mean, so
-"one object moved 20 m" measures 20 m. It is still a metric: symmetry and the
-triangle inequality both hold.
+---
 
-## The bank
+## 3. Foil selection: difficulty is chosen, not sampled
 
-* **40 anchors** — mutually distinct places, by rejection rather than distinct
-  seeds. Two independently sampled layouts can land on the same place, and a
-  retrieval miss between them would be the pool's fault, not the model's.
-* **120 probes** — 20 anchors × `d_pos ∈ {1, 2, 4, 8, 16, 24}` m. One landmark
-  per anchor moves, so the anchor's ladder is a single trajectory.
-* Every scene, anchor or probe, rendered **identically**: 2 appearances × 8
-  azimuths, plus an instance mask. **Nothing is a distractor at render time**;
-  roles are metadata and every analysis is post hoc.
+`build_vlm_benchmark.py` drew distractors uniformly at random, so a trial's
+difficulty was a lottery: the median random foil is **32.4 m** of layout
+displacement away, but the occasional draw lands at 3 m. Those near-duplicates
+were almost exactly where the strongest model failed — Gemini's errors sat at a
+mean 17.8° from the nearest foil against 36.2° for its successes (permutation
+p = 0.0001), and it chose the *single* most confusable foil in 12 of 16 failures
+(binomial p = 7.9e-04).
 
-## Read-outs
+### The distance
 
-**λ** (`bench/exchange.py`) — the headline. `D_view(Δ)` from an anchor against
-itself Δ degrees away; `D_scene(d)` from an anchor against its probe at the same
-bearing; λ where the curves cross, bootstrap CI over anchors. Both curves use the
-same appearance contrast, or λ would be wrong by that margin with nothing
-downstream to catch it. Where the crossing falls outside the probe ladder, λ is
-reported as **unmeasured** — clamping would turn "we did not measure this" into a
-number.
-
-**Retrieval, NVM, RSA** (`bench/metrics.py`) — cross-view Recall@1/@5/mAP over
-the anchor gallery, the invariance margin, and the Spearman correlation between
-scene×scene distance matrices at two bearings. The gallery is anchors only:
-probes are the same place nudged, so including them would make Recall@1 depend on
-how many near-duplicates the pool happened to hold.
-
-## Running it
-
-```bash
-# 1. render one mode (repeat for c0..c4; shard with --shard/--shards)
-blender -b -P blender/four_mountains/render_bank.py -- \
-    --out data/scenes/c0_shape_colour --mode c0_shape_colour \
-    --anchors 40 --probes_per_anchor 20 --azimuth_step 45 --samples 24
-
-# 2. merge shards and CHECK the dataset before scoring it
-python bench/merge_bank.py --root data/scenes
-
-# 3. look at it
-python bench/figure_dataset.py --root data/scenes --out figures/fig1_dataset.png
-
-# 4. score
-python bench/metrics.py  --bank data/scenes/c0_shape_colour --model <timm id>
-python bench/exchange.py --bank data/scenes/c0_shape_colour --model <timm id>
+```
+D(i, j) = min over φ  of  mean over peaks k  ‖ R(φ) p_ik − p_jk ‖      [metres]
 ```
 
-## What must hold before a number is read
+* **Minimised over global rotation φ** because the camera rotates too: a layout
+  that is the target turned by φ is the *hardest possible* foil, not a different
+  place.
+* **Peaks correspond by landmark identity in every mode.** Minimising over
+  permutations instead — as an earlier version did for c3/c4 — finds alignments
+  identity matching forbids, and compressed those modes to a 7.3 m median
+  against 32.4 m **from identical coordinates**.
+* All five modes therefore share **one** distance matrix.
 
-* `merge_bank.py` exits non-zero unless the five modes hold **the same scenes at
-  the same positions**, every scene has all 16 frames, and every probe has
-  `d_id = d_bind = 0`.
-* At Δ0° with appearance unchanged the query is the byte-identical file, so
-  **Recall@1 must be exactly 1.000**.
-* Look at Figure 1 before scoring. It prints how much of the frame each rung
-  actually changes. Measured on `a000` at 0°, the smallest rung moves **5.5% of
-  the pixels** and the ladder is monotone (5.5, 9.9, 14.5, 20.0, 33.0, 38.4%),
-  so the bottom of the ladder is above the renderer's floor: a flat
-  `D_scene(1 m)` would be the model's doing, not the stimulus's.
-* Read the **occlusion census** `merge_bank.py` prints. See the known limit
-  below.
+`python3 bench/layout_distance.py` → `data/layout_distance.npz` (4 s).
 
-## Known limits
+### The bands
+
+`bench/build_hard_benchmark.py --pct LO HI` selects foils from a percentile band
+of each mode's own distance distribution. **Percentiles, not metres**, so a rung
+means the same thing in every mode.
+
+| file | band | nearest foil, median |
+|---|---|---|
+| `data/vlm_benchmark_4afc.json` | random (legacy) | 32.4 m |
+| `data/vlm_benchmark_4afc_hard.json` | pct 0–10 | 6.8 m |
+| `data/vlm_benchmark_4afc_vhard.json` | pct 0–2 | 4.5 m |
+
+Every trial records `layout_distance_m` per option and `min_foil_distance_m`, so
+difficulty is a **regressor**, not a label. The answer key is exactly balanced
+(125/125/125/125), so the best-fixed-answer baseline is exactly 0.250.
+
+**Feasibility.** 4AFC needs three in-band foils for the *same* target. At the
+2nd percentile ~32 scenes per mode qualify (20 distinct targets per cell, no
+reuse); at the 1st percentile only ~10, which is too few.
+
+**This replaces the unrendered probe ladder.** `probe_ladder: [1,2,4,8,16,24]`
+metres was configured and never rendered. Selecting existing pairs by D covers
+2.7–48 m, so a psychometric threshold can be fitted per observer with no Blender
+time at all.
+
+---
+
+## 4. Metrics
+
+**Report two numbers, not one.** The claim is a *dissociation*, and no single
+scalar can express one.
+
+* **d′(0) — the gate.** Can the model tell places apart when nothing rotates?
+  Comparable across 2AFC/4AFC/retrieval, which raw accuracy is not.
+* **VII(Δ) = d′(Δ) / d′(0) — the invariance.** How much of the gate survives the
+  turn. `bench/vii.py`, m-AFC d′ by Gauss–Hermite inversion.
+
+**Cohen's κ is not used.** It corrects for chance but still collapses "can it
+tell places apart" and "does that survive rotation" into one number.
+
+**Two floors that must be stated wherever VII appears:**
+
+1. **VII is undefined when d′(0) = 0.** Gemini scored exactly chance at Δ=0 on
+   one run, so the model with the most apparent invariance was the one VII could
+   not score. VII assumes the gate is the ceiling and rotation degrades it.
+2. **d′ clips at 0 for p ≤ chance**, so "at chance" and "reliably below chance"
+   both collate as VII = 0 and the retinotopic trap vanishes from that axis.
+   Report signed accuracy−chance with a binomial interval beside it.
+
+**Always report the positional-prior controls.** `constant_answer_rate` gives
+`best_fixed` (always answer the most common option) and `distribution` (sample
+the model's own answer distribution, ignoring the images). Qwen2.5-VL-3B and 7B
+do **not** beat their own best-fixed baseline on the 4AFC arm.
+
+---
+
+## 5. Running it
+
+```bash
+# distances and benchmarks (fast, local)
+python3 bench/layout_distance.py
+python3 bench/build_hard_benchmark.py --pct 0 10 --out data/vlm_benchmark_4afc_hard.json
+
+# an API model  (WORKERS parallelises; it is pure network latency)
+WORKERS=8 MAX_TOKENS=8000 PROMPT_STYLE=cot_anyview \
+BENCHMARK=data/vlm_benchmark_4afc_hard.json OPENROUTER_API_KEY=sk-or-... \
+  bash bench/run_openrouter.sh google/gemini-3.8-flash 100 3.00
+
+# open models on dgx2 (shared GPU lock, smoke-tested, restartable)
+bash bench/launch_hard_queue.sh
+
+# a person, on the SAME 100 trials
+python3 bench/build_human_task.py --benchmark data/vlm_benchmark_4afc_hard.json \
+    --match_run 100 --match_seed 0 --prompt_style neutral_anyview --out human_task_hard
+
+# read it
+python3 bench/analyze_vii.py
+python3 bench/figure_double_dissociation.py
+python3 bench/figure_modes_full.py
+```
+
+Always smoke-test a new model at **n=1** before widening.
+
+---
+
+## 6. What must hold before a number is read
+
+* **The run used the locked configuration** (`HANDOVER.md` §0). `max_tokens` and
+  `workers` are not yet recorded in result files — check provenance by hand.
+* **Accuracy clears both positional-prior baselines.** If it does not, it is not
+  evidence of anything.
+* **The truncation rate is low.** Count replies with no `Final Answer` line; at
+  `max_tokens 4000` this reached 27 % and depressed whole modes unevenly.
+* **The comparison is paired.** `--match_run N` for people; the same stratified
+  seed for models. Trial ids collide between benchmark files, so a result must be
+  scored against the benchmark it was actually run on.
+* **Per-cell n is stated.** A 50-trial run has 2 trials per (mode × delta) cell;
+  every such cell is one of {0 %, 50 %, 100 %} and its interval spans most of the
+  axis.
+
+---
+
+## 7. Known limits
 
 * **Synthetic stimuli.** Landmark identity is a shape/colour pair or a form
-  vector, not an object category.
-* **Azimuth only.** The camera orbits at fixed elevation and radius; elevation
-  and distance are not varied.
-* **λ assumes the two curves cross once.** `D_view` is not always monotone in Δ
-  — near-symmetric layouts can make 180° easier than 135° — so λ can be
-  multi-valued. Report the surface when that happens.
-* **No 4AFC arm at present.** The human-comparable forced-choice path was tied to
-  the previous bank schema and has not yet been rebuilt against this one.
-* **The top of the probe ladder occludes.** Displacing a landmark can move it in
-  front of another. On `a000` at 0°, the second landmark falls from 4913 px to
-  575 px at `d = 16` m and 237 px at `d = 24` m — hidden behind the one that
-  moved. `d_id` and `d_bind` are still exactly 0, so the *scene* changed only in
-  position, but the *image* lost an object, and `D_scene` at the top rungs is
-  therefore not purely a displacement. `merge_bank.py` prints the rate per rung
-  over the whole bank; treat a large λ that rests only on `d = 16`–`24` m with
-  suspicion, and read Figure 3 to see which rungs it was interpolated between.
-* `visible_px` in the masks is absolute area, so it conflates "occluded" with
+  vector, not an object category. Frontier models may be familiar with the
+  *rendering style* (c0 is essentially CLEVR) independently of the spatial task —
+  testable by re-rendering the same layouts in a different visual style.
+* **Azimuth only.** The camera orbits at fixed elevation and radius.
+* **Modes do not separate** under matched foil selection: c0–c4 span 0.35–0.50
+  with every interval overlapping at n=20/mode. Larger n needed to say more.
+* **The human arm is one non-naive participant.** p01 built the scenes.
+* **`visible_px` in the masks is absolute area**, so it conflates "occluded" with
   "far away". It is a floor on visibility, not an occlusion rate.

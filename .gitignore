@@ -159,3 +159,16 @@ paper/*.blg
 # committed; the staged copies of the stimuli are not (they are reproducible
 # from data/scenes_100 with bench/build_human_task.py).
 human_task*/images/
+
+# LaTeX build artefacts. main.pdf is committed on purpose; the rest is noise.
+paper/tex/*.aux
+paper/tex/*.log
+paper/tex/*.out
+paper/tex/*.bbl
+paper/tex/*.blg
+paper/tex/*.fls
+paper/tex/*.fdb_latexmk
+paper/tex/*.synctex.gz
+
+# Overleaf upload bundle, rebuilt on demand
+asp_paper_overleaf.zip

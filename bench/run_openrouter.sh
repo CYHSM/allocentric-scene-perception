@@ -21,6 +21,12 @@ N="${2:-20}"
 BUDGET="${3:-0}"
 PROMPT="${PROMPT_STYLE:-neutral}"
 BENCH="${BENCHMARK:-human_task/task.json}"
+# Reasoning models spend the whole budget on hidden thinking and return an empty
+# content field; raise this for them (dots-3 needs ~2000) or the parse sees "".
+MAX_TOKENS="${MAX_TOKENS:-512}"
+# Parallel in-flight requests. The run is provider latency end to end, so this
+# is close to a linear speedup until OpenRouter rate limits.
+WORKERS="${WORKERS:-8}"
 
 if [ -z "${OPENROUTER_API_KEY:-}" ]; then
     echo "OPENROUTER_API_KEY is not set. Get a key at https://openrouter.ai/keys" >&2
@@ -28,7 +34,11 @@ if [ -z "${OPENROUTER_API_KEY:-}" ]; then
 fi
 
 SLUG=$(echo "$MODEL" | tr '/:[:upper:]' '__[:lower:]' | tr -cd 'a-z0-9_.-')
-OUT="results/or_${SLUG}_${PROMPT}_n${N}.json"
+# The benchmark name is part of the identity of a run. Without it, the same
+# model+prompt+n against the random-foil bank and against the hard-foil bank
+# both land on one filename and silently overwrite each other.
+BENCH_TAG=$(basename "$BENCH" .json | sed 's/^vlm_benchmark_//; s/^task$/human50/')
+OUT="results/or_${SLUG}_${PROMPT}_${BENCH_TAG}_n${N}.json"
 mkdir -p results
 
 echo "model    $MODEL"
@@ -39,6 +49,8 @@ echo "budget   \$$BUDGET"
 echo "out      $OUT"
 echo
 
+# bash 3.2 (macOS) errors on ${arr[@]} for an empty array under `set -u`;
+# the ${arr[@]+...} guard makes the empty case expand to nothing instead.
 BUDGET_ARG=()
 if [ "$BUDGET" != "0" ]; then BUDGET_ARG=(--budget_usd "$BUDGET"); fi
 
@@ -49,8 +61,9 @@ python3 bench/evaluate_vlm.py \
     --api_key "$OPENROUTER_API_KEY" \
     --prompt_style "$PROMPT" \
     --max_trials "$N" \
-    --max_tokens 512 \
-    "${BUDGET_ARG[@]}" \
+    --max_tokens "$MAX_TOKENS" \
+    --workers "$WORKERS" \
+    ${BUDGET_ARG[@]+"${BUDGET_ARG[@]}"} \
     --out "$OUT"
 
 echo

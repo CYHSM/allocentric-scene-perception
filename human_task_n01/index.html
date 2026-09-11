@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Which one is the same place?</title>
+<style>
+:root{--paper:#f6f4ee;--sheet:#fff;--ink:#1a1f1d;--dim:#5b625c;--rule:#ddd8cc;
+      --accent:#2f6690;--ok:#4f6a54;--warn:#9e2a2b;--focus:#2f6690}
+@media (prefers-color-scheme:dark){:root{--paper:#14181a;--sheet:#1b2023;--ink:#e8e6df;
+      --dim:#9aa39c;--rule:#2e353a;--accent:#7fb3d5;--ok:#93b79a;--warn:#e08a83;--focus:#7fb3d5}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 20px 64px}
+h1{font-size:1.6rem;margin:0 0 .5em;letter-spacing:-.01em}
+h2{font-size:1.1rem;margin:1.6em 0 .5em}
+p{margin:0 0 1em;max-width:66ch}
+button{font:inherit;cursor:pointer;border-radius:6px;border:1px solid var(--rule);
+  background:var(--sheet);color:var(--ink);padding:10px 18px}
+button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.primary:disabled{opacity:.45;cursor:not-allowed}
+.card{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:22px}
+.pre{white-space:pre-wrap;font-size:.97rem;color:var(--dim)}
+label{display:block;margin:14px 0 6px;font-size:.9rem;color:var(--dim)}
+input{font:inherit;padding:9px 12px;border:1px solid var(--rule);border-radius:6px;
+  background:var(--paper);color:var(--ink);width:280px;max-width:100%}
+/* --- trial ------------------------------------------------------------ */
+#bar{height:4px;background:var(--rule);border-radius:2px;overflow:hidden;margin-bottom:6px}
+#bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.count{font-size:.82rem;color:var(--dim);margin-bottom:16px;
+  font-variant-numeric:tabular-nums;display:flex;justify-content:space-between}
+.study{text-align:center;margin-bottom:8px}
+.study img{max-width:min(100%,560px);border-radius:6px;border:1px solid var(--rule)}
+.tag{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);
+  display:block;margin-bottom:6px}
+/* Two columns, always. `auto-fit` packed four options into 3+1 on a wide
+   window, which puts option 4 on its own row at a different apparent size and
+   invites a position bias the answer-key balancing cannot undo. A 2x2 grid
+   shows all four at one scale; 2AFC falls out as a single row. */
+.opts{display:grid;gap:14px;margin-top:14px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  max-width:940px;margin-left:auto;margin-right:auto}
+@media (max-width:620px){.opts{grid-template-columns:1fr}}
+.opt{padding:0;overflow:hidden;border:2px solid var(--rule);background:var(--sheet);
+  border-radius:8px;display:block;width:100%}
+.opt:hover{border-color:var(--accent)}
+.opt img{display:block;width:100%}
+.opt .n{padding:9px 12px;font-weight:600;font-size:.9rem;text-align:left;
+  border-top:1px solid var(--rule)}
+.opt kbd{font:inherit;background:var(--paper);border:1px solid var(--rule);
+  border-radius:4px;padding:1px 6px;margin-right:8px;font-size:.85em}
+/* --- done ------------------------------------------------------------- */
+textarea{width:100%;height:190px;font-family:ui-monospace,SFMono-Regular,monospace;
+  font-size:.78rem;border:1px solid var(--rule);border-radius:6px;padding:12px;
+  background:var(--paper);color:var(--ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.note{font-size:.88rem;color:var(--dim)}
+.resume{border:1px solid var(--accent);border-radius:8px;padding:12px 16px;
+  margin:0 0 18px;background:color-mix(in srgb,var(--accent) 8%,transparent)}
+[hidden]{display:none!important}
+</style></head><body>
+<div class="wrap">
+
+<section id="intro" class="card">
+  <h1>Which one is the same place?</h1>
+  <p class="pre" id="instr"></p>
+  <p>Each option is photographed from the <b>same direction</b>, so you cannot
+  tell them apart by the camera angle &mdash; only by the arrangement of the
+  landmarks. Some trials are easy and some are close to impossible. Answer as
+  best you can; there is no feedback, and guessing when unsure is expected.</p>
+  <p><b>Use the number keys</b> to answer, or click. About <span id="mins"></span> minutes.</p>
+  <div id="resumebox" hidden class="resume">
+    <p><b>Unfinished session found.</b> <span id="resumeinfo"></span></p>
+    <div class="row">
+      <button class="primary" id="resume">Resume</button>
+      <button id="fresh">Start over (discards it)</button>
+    </div>
+  </div>
+  <label for="pid">Participant ID (anything that is not your name)</label>
+  <input id="pid" autocomplete="off" placeholder="e.g. p01">
+  <div class="row"><button class="primary" id="start">Start</button></div>
+  <p class="note">Your progress is saved in this browser after every trial, so
+  you can close the tab and come back to the same address. Take breaks &mdash;
+  there is no time limit and no penalty for pausing.</p>
+</section>
+
+<section id="task" hidden>
+  <div id="bar"><i></i></div>
+  <div class="count"><span id="prog"></span><span id="hint"></span></div>
+  <div class="study"><span class="tag">Study image</span><img id="study" alt="the place to remember"></div>
+  <div class="opts" id="opts"></div>
+  <p class="note" style="text-align:center;margin-top:18px">
+    Saved after every trial &mdash; you can close this tab and resume later.
+    <button id="export" style="padding:4px 12px;margin-left:10px">Export progress</button>
+  </p>
+</section>
+
+<section id="done" hidden class="card">
+  <h1>Finished &mdash; thank you</h1>
+  <p id="summary" class="note"></p>
+  <p><b>Send this file back.</b> If the download does not start, copy the text
+  below instead.</p>
+  <div class="row">
+    <button class="primary" id="dl">Download results</button>
+    <button id="copy">Copy to clipboard</button>
+  </div>
+  <textarea id="out" readonly></textarea>
+</section>
+
+</div>
+<script>
+const DATA = {"n_options": 4, "prompt_style": "neutral_anyview", "benchmark": "vlm_benchmark_setsize_n01.json", "benchmark_sha256_12": "1bba64d10184", "embedded": false, "instructions": "You will see a STUDY image of a place, then 4 options.\n\nThe place contains several landmarks. Exactly ONE option shows the SAME place as the study image. It may be photographed from the same direction as the study image or from a different one, and the lighting may differ.\nThe other options show different places, each containing the same landmarks arranged differently, photographed from the same direction as the correct option.\n\nWhich option shows the same place as the study image?", "trials": [{"trial_id": "c0_shape_colour_d000_t05", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 1, "study": "c0_shape_colour__a050_A_az000.png", "options": ["c0_shape_colour__a050_B_az000.png", "c0_shape_colour__a030_B_az000.png", "c0_shape_colour__a077_B_az000.png", "c0_shape_colour__a067_B_az000.png"]}, {"trial_id": "c0_shape_colour_d000_t13", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 2, "study": "c0_shape_colour__a056_A_az180.png", "options": ["c0_shape_colour__a018_B_az180.png", "c0_shape_colour__a056_B_az180.png", "c0_shape_colour__a037_B_az180.png", "c0_shape_colour__a082_B_az180.png"]}, {"trial_id": "c0_shape_colour_d000_t18", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 3, "study": "c0_shape_colour__a076_A_az180.png", "options": ["c0_shape_colour__a089_B_az180.png", "c0_shape_colour__a082_B_az180.png", "c0_shape_colour__a076_B_az180.png", "c0_shape_colour__a039_B_az180.png"]}, {"trial_id": "c0_shape_colour_d000_t09", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 4, "study": "c0_shape_colour__a078_A_az135.png", "options": ["c0_shape_colour__a088_B_az135.png", "c0_shape_colour__a002_B_az135.png", "c0_shape_colour__a003_B_az135.png", "c0_shape_colour__a078_B_az135.png"]}, {"trial_id": "c0_shape_colour_d000_t10", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 1, "study": "c0_shape_colour__a073_A_az315.png", "options": ["c0_shape_colour__a073_B_az315.png", "c0_shape_colour__a038_B_az315.png", "c0_shape_colour__a064_B_az315.png", "c0_shape_colour__a013_B_az315.png"]}, {"trial_id": "c0_shape_colour_d000_t00", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 2, "study": "c0_shape_colour__a042_A_az090.png", "options": ["c0_shape_colour__a069_B_az090.png", "c0_shape_colour__a042_B_az090.png", "c0_shape_colour__a074_B_az090.png", "c0_shape_colour__a032_B_az090.png"]}, {"trial_id": "c0_shape_colour_d000_t17", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 3, "study": "c0_shape_colour__a092_A_az045.png", "options": ["c0_shape_colour__a049_B_az045.png", "c0_shape_colour__a093_B_az045.png", "c0_shape_colour__a092_B_az045.png", "c0_shape_colour__a043_B_az045.png"]}, {"trial_id": "c0_shape_colour_d000_t12", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 4, "study": "c0_shape_colour__a055_A_az135.png", "options": ["c0_shape_colour__a026_B_az135.png", "c0_shape_colour__a047_B_az135.png", "c0_shape_colour__a083_B_az135.png", "c0_shape_colour__a055_B_az135.png"]}, {"trial_id": "c0_shape_colour_d000_t04", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 1, "study": "c0_shape_colour__a065_A_az225.png", "options": ["c0_shape_colour__a065_B_az225.png", "c0_shape_colour__a098_B_az225.png", "c0_shape_colour__a020_B_az225.png", "c0_shape_colour__a007_B_az225.png"]}, {"trial_id": "c0_shape_colour_d000_t07", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 2, "study": "c0_shape_colour__a070_A_az225.png", "options": ["c0_shape_colour__a026_B_az225.png", "c0_shape_colour__a070_B_az225.png", "c0_shape_colour__a051_B_az225.png", "c0_shape_colour__a099_B_az225.png"]}, {"trial_id": "c0_shape_colour_d000_t03", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 3, "study": "c0_shape_colour__a009_A_az000.png", "options": ["c0_shape_colour__a093_B_az000.png", "c0_shape_colour__a028_B_az000.png", "c0_shape_colour__a009_B_az000.png", "c0_shape_colour__a037_B_az000.png"]}, {"trial_id": "c0_shape_colour_d000_t08", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 4, "study": "c0_shape_colour__a015_A_az225.png", "options": ["c0_shape_colour__a065_B_az225.png", "c0_shape_colour__a089_B_az225.png", "c0_shape_colour__a097_B_az225.png", "c0_shape_colour__a015_B_az225.png"]}, {"trial_id": "c0_shape_colour_d000_t14", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 1, "study": "c0_shape_colour__a072_A_az315.png", "options": ["c0_shape_colour__a072_B_az315.png", "c0_shape_colour__a047_B_az315.png", "c0_shape_colour__a053_B_az315.png", "c0_shape_colour__a008_B_az315.png"]}, {"trial_id": "c0_shape_colour_d000_t02", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 2, "study": "c0_shape_colour__a091_A_az270.png", "options": ["c0_shape_colour__a079_B_az270.png", "c0_shape_colour__a091_B_az270.png", "c0_shape_colour__a004_B_az270.png", "c0_shape_colour__a063_B_az270.png"]}, {"trial_id": "c0_shape_colour_d000_t11", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 3, "study": "c0_shape_colour__a010_A_az315.png", "options": ["c0_shape_colour__a086_B_az315.png", "c0_shape_colour__a001_B_az315.png", "c0_shape_colour__a010_B_az315.png", "c0_shape_colour__a036_B_az315.png"]}, {"trial_id": "c0_shape_colour_d000_t16", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 4, "study": "c0_shape_colour__a048_A_az000.png", "options": ["c0_shape_colour__a042_B_az000.png", "c0_shape_colour__a092_B_az000.png", "c0_shape_colour__a018_B_az000.png", "c0_shape_colour__a048_B_az000.png"]}, {"trial_id": "c0_shape_colour_d000_t01", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 1, "study": "c0_shape_colour__a041_A_az090.png", "options": ["c0_shape_colour__a041_B_az090.png", "c0_shape_colour__a021_B_az090.png", "c0_shape_colour__a070_B_az090.png", "c0_shape_colour__a011_B_az090.png"]}, {"trial_id": "c0_shape_colour_d000_t06", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 2, "study": "c0_shape_colour__a001_A_az180.png", "options": ["c0_shape_colour__a084_B_az180.png", "c0_shape_colour__a001_B_az180.png", "c0_shape_colour__a080_B_az180.png", "c0_shape_colour__a044_B_az180.png"]}, {"trial_id": "c0_shape_colour_d000_t19", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 3, "study": "c0_shape_colour__a037_A_az315.png", "options": ["c0_shape_colour__a063_B_az315.png", "c0_shape_colour__a024_B_az315.png", "c0_shape_colour__a037_B_az315.png", "c0_shape_colour__a053_B_az315.png"]}, {"trial_id": "c0_shape_colour_d000_t15", "mode": "c0_shape_colour", "delta": 0, "correct_choice": 4, "study": "c0_shape_colour__a045_A_az000.png", "options": ["c0_shape_colour__a039_B_az000.png", "c0_shape_colour__a043_B_az000.png", "c0_shape_colour__a026_B_az000.png", "c0_shape_colour__a045_B_az000.png"]}, {"trial_id": "c0_shape_colour_d045_t09", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 1, "study": "c0_shape_colour__a080_A_az225.png", "options": ["c0_shape_colour__a080_B_az270.png", "c0_shape_colour__a088_B_az270.png", "c0_shape_colour__a052_B_az270.png", "c0_shape_colour__a025_B_az270.png"]}, {"trial_id": "c0_shape_colour_d045_t10", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 2, "study": "c0_shape_colour__a058_A_az000.png", "options": ["c0_shape_colour__a081_B_az045.png", "c0_shape_colour__a058_B_az045.png", "c0_shape_colour__a078_B_az045.png", "c0_shape_colour__a001_B_az045.png"]}, {"trial_id": "c0_shape_colour_d045_t12", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 3, "study": "c0_shape_colour__a053_A_az090.png", "options": ["c0_shape_colour__a015_B_az135.png", "c0_shape_colour__a079_B_az135.png", "c0_shape_colour__a053_B_az135.png", "c0_shape_colour__a045_B_az135.png"]}, {"trial_id": "c0_shape_colour_d045_t07", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 4, "study": "c0_shape_colour__a022_A_az090.png", "options": ["c0_shape_colour__a009_B_az135.png", "c0_shape_colour__a035_B_az135.png", "c0_shape_colour__a025_B_az135.png", "c0_shape_colour__a022_B_az135.png"]}, {"trial_id": "c0_shape_colour_d045_t19", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 1, "study": "c0_shape_colour__a064_A_az180.png", "options": ["c0_shape_colour__a064_B_az225.png", "c0_shape_colour__a065_B_az225.png", "c0_shape_colour__a029_B_az225.png", "c0_shape_colour__a061_B_az225.png"]}, {"trial_id": "c0_shape_colour_d045_t18", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 2, "study": "c0_shape_colour__a087_A_az270.png", "options": ["c0_shape_colour__a054_B_az315.png", "c0_shape_colour__a087_B_az315.png", "c0_shape_colour__a046_B_az315.png", "c0_shape_colour__a084_B_az315.png"]}, {"trial_id": "c0_shape_colour_d045_t15", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 3, "study": "c0_shape_colour__a040_A_az315.png", "options": ["c0_shape_colour__a008_B_az000.png", "c0_shape_colour__a078_B_az000.png", "c0_shape_colour__a040_B_az000.png", "c0_shape_colour__a070_B_az000.png"]}, {"trial_id": "c0_shape_colour_d045_t06", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 4, "study": "c0_shape_colour__a036_A_az000.png", "options": ["c0_shape_colour__a035_B_az045.png", "c0_shape_colour__a015_B_az045.png", "c0_shape_colour__a045_B_az045.png", "c0_shape_colour__a036_B_az045.png"]}, {"trial_id": "c0_shape_colour_d045_t08", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 1, "study": "c0_shape_colour__a008_A_az000.png", "options": ["c0_shape_colour__a008_B_az045.png", "c0_shape_colour__a054_B_az045.png", "c0_shape_colour__a030_B_az045.png", "c0_shape_colour__a083_B_az045.png"]}, {"trial_id": "c0_shape_colour_d045_t03", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 2, "study": "c0_shape_colour__a015_A_az180.png", "options": ["c0_shape_colour__a020_B_az225.png", "c0_shape_colour__a015_B_az225.png", "c0_shape_colour__a012_B_az225.png", "c0_shape_colour__a040_B_az225.png"]}, {"trial_id": "c0_shape_colour_d045_t17", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 3, "study": "c0_shape_colour__a041_A_az225.png", "options": ["c0_shape_colour__a020_B_az270.png", "c0_shape_colour__a071_B_az270.png", "c0_shape_colour__a041_B_az270.png", "c0_shape_colour__a056_B_az270.png"]}, {"trial_id": "c0_shape_colour_d045_t13", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 4, "study": "c0_shape_colour__a014_A_az090.png", "options": ["c0_shape_colour__a017_B_az135.png", "c0_shape_colour__a081_B_az135.png", "c0_shape_colour__a007_B_az135.png", "c0_shape_colour__a014_B_az135.png"]}, {"trial_id": "c0_shape_colour_d045_t14", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 1, "study": "c0_shape_colour__a046_A_az180.png", "options": ["c0_shape_colour__a046_B_az225.png", "c0_shape_colour__a039_B_az225.png", "c0_shape_colour__a043_B_az225.png", "c0_shape_colour__a005_B_az225.png"]}, {"trial_id": "c0_shape_colour_d045_t01", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 2, "study": "c0_shape_colour__a004_A_az000.png", "options": ["c0_shape_colour__a025_B_az045.png", "c0_shape_colour__a004_B_az045.png", "c0_shape_colour__a082_B_az045.png", "c0_shape_colour__a020_B_az045.png"]}, {"trial_id": "c0_shape_colour_d045_t16", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 3, "study": "c0_shape_colour__a032_A_az135.png", "options": ["c0_shape_colour__a013_B_az180.png", "c0_shape_colour__a064_B_az180.png", "c0_shape_colour__a032_B_az180.png", "c0_shape_colour__a061_B_az180.png"]}, {"trial_id": "c0_shape_colour_d045_t05", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 4, "study": "c0_shape_colour__a074_A_az180.png", "options": ["c0_shape_colour__a012_B_az225.png", "c0_shape_colour__a008_B_az225.png", "c0_shape_colour__a043_B_az225.png", "c0_shape_colour__a074_B_az225.png"]}, {"trial_id": "c0_shape_colour_d045_t11", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 1, "study": "c0_shape_colour__a039_A_az135.png", "options": ["c0_shape_colour__a039_B_az180.png", "c0_shape_colour__a082_B_az180.png", "c0_shape_colour__a043_B_az180.png", "c0_shape_colour__a024_B_az180.png"]}, {"trial_id": "c0_shape_colour_d045_t02", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 2, "study": "c0_shape_colour__a063_A_az090.png", "options": ["c0_shape_colour__a039_B_az135.png", "c0_shape_colour__a063_B_az135.png", "c0_shape_colour__a074_B_az135.png", "c0_shape_colour__a099_B_az135.png"]}, {"trial_id": "c0_shape_colour_d045_t00", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 3, "study": "c0_shape_colour__a078_A_az225.png", "options": ["c0_shape_colour__a018_B_az270.png", "c0_shape_colour__a000_B_az270.png", "c0_shape_colour__a078_B_az270.png", "c0_shape_colour__a027_B_az270.png"]}, {"trial_id": "c0_shape_colour_d045_t04", "mode": "c0_shape_colour", "delta": 45, "correct_choice": 4, "study": "c0_shape_colour__a066_A_az135.png", "options": ["c0_shape_colour__a021_B_az180.png", "c0_shape_colour__a008_B_az180.png", "c0_shape_colour__a029_B_az180.png", "c0_shape_colour__a066_B_az180.png"]}, {"trial_id": "c0_shape_colour_d090_t10", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 1, "study": "c0_shape_colour__a071_A_az315.png", "options": ["c0_shape_colour__a071_B_az045.png", "c0_shape_colour__a050_B_az045.png", "c0_shape_colour__a012_B_az045.png", "c0_shape_colour__a008_B_az045.png"]}, {"trial_id": "c0_shape_colour_d090_t05", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 2, "study": "c0_shape_colour__a034_A_az270.png", "options": ["c0_shape_colour__a050_B_az000.png", "c0_shape_colour__a034_B_az000.png", "c0_shape_colour__a087_B_az000.png", "c0_shape_colour__a002_B_az000.png"]}, {"trial_id": "c0_shape_colour_d090_t09", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 3, "study": "c0_shape_colour__a026_A_az270.png", "options": ["c0_shape_colour__a084_B_az000.png", "c0_shape_colour__a015_B_az000.png", "c0_shape_colour__a026_B_az000.png", "c0_shape_colour__a013_B_az000.png"]}, {"trial_id": "c0_shape_colour_d090_t04", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 4, "study": "c0_shape_colour__a097_A_az045.png", "options": ["c0_shape_colour__a044_B_az135.png", "c0_shape_colour__a099_B_az135.png", "c0_shape_colour__a066_B_az135.png", "c0_shape_colour__a097_B_az135.png"]}, {"trial_id": "c0_shape_colour_d090_t17", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 1, "study": "c0_shape_colour__a012_A_az135.png", "options": ["c0_shape_colour__a012_B_az225.png", "c0_shape_colour__a048_B_az225.png", "c0_shape_colour__a082_B_az225.png", "c0_shape_colour__a086_B_az225.png"]}, {"trial_id": "c0_shape_colour_d090_t07", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 2, "study": "c0_shape_colour__a058_A_az270.png", "options": ["c0_shape_colour__a026_B_az000.png", "c0_shape_colour__a058_B_az000.png", "c0_shape_colour__a064_B_az000.png", "c0_shape_colour__a009_B_az000.png"]}, {"trial_id": "c0_shape_colour_d090_t00", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 3, "study": "c0_shape_colour__a078_A_az180.png", "options": ["c0_shape_colour__a053_B_az270.png", "c0_shape_colour__a071_B_az270.png", "c0_shape_colour__a078_B_az270.png", "c0_shape_colour__a089_B_az270.png"]}, {"trial_id": "c0_shape_colour_d090_t11", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 4, "study": "c0_shape_colour__a011_A_az000.png", "options": ["c0_shape_colour__a015_B_az090.png", "c0_shape_colour__a044_B_az090.png", "c0_shape_colour__a051_B_az090.png", "c0_shape_colour__a011_B_az090.png"]}, {"trial_id": "c0_shape_colour_d090_t14", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 1, "study": "c0_shape_colour__a003_A_az270.png", "options": ["c0_shape_colour__a003_B_az000.png", "c0_shape_colour__a099_B_az000.png", "c0_shape_colour__a048_B_az000.png", "c0_shape_colour__a024_B_az000.png"]}, {"trial_id": "c0_shape_colour_d090_t06", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 2, "study": "c0_shape_colour__a009_A_az270.png", "options": ["c0_shape_colour__a066_B_az000.png", "c0_shape_colour__a009_B_az000.png", "c0_shape_colour__a014_B_az000.png", "c0_shape_colour__a067_B_az000.png"]}, {"trial_id": "c0_shape_colour_d090_t16", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 3, "study": "c0_shape_colour__a083_A_az000.png", "options": ["c0_shape_colour__a002_B_az090.png", "c0_shape_colour__a053_B_az090.png", "c0_shape_colour__a083_B_az090.png", "c0_shape_colour__a026_B_az090.png"]}, {"trial_id": "c0_shape_colour_d090_t13", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 4, "study": "c0_shape_colour__a063_A_az315.png", "options": ["c0_shape_colour__a087_B_az045.png", "c0_shape_colour__a038_B_az045.png", "c0_shape_colour__a098_B_az045.png", "c0_shape_colour__a063_B_az045.png"]}, {"trial_id": "c0_shape_colour_d090_t02", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 1, "study": "c0_shape_colour__a067_A_az180.png", "options": ["c0_shape_colour__a067_B_az270.png", "c0_shape_colour__a010_B_az270.png", "c0_shape_colour__a099_B_az270.png", "c0_shape_colour__a098_B_az270.png"]}, {"trial_id": "c0_shape_colour_d090_t03", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 2, "study": "c0_shape_colour__a099_A_az090.png", "options": ["c0_shape_colour__a079_B_az180.png", "c0_shape_colour__a099_B_az180.png", "c0_shape_colour__a072_B_az180.png", "c0_shape_colour__a074_B_az180.png"]}, {"trial_id": "c0_shape_colour_d090_t15", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 3, "study": "c0_shape_colour__a017_A_az225.png", "options": ["c0_shape_colour__a037_B_az315.png", "c0_shape_colour__a068_B_az315.png", "c0_shape_colour__a017_B_az315.png", "c0_shape_colour__a063_B_az315.png"]}, {"trial_id": "c0_shape_colour_d090_t08", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 4, "study": "c0_shape_colour__a023_A_az315.png", "options": ["c0_shape_colour__a098_B_az045.png", "c0_shape_colour__a068_B_az045.png", "c0_shape_colour__a001_B_az045.png", "c0_shape_colour__a023_B_az045.png"]}, {"trial_id": "c0_shape_colour_d090_t01", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 1, "study": "c0_shape_colour__a047_A_az180.png", "options": ["c0_shape_colour__a047_B_az270.png", "c0_shape_colour__a058_B_az270.png", "c0_shape_colour__a006_B_az270.png", "c0_shape_colour__a077_B_az270.png"]}, {"trial_id": "c0_shape_colour_d090_t12", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 2, "study": "c0_shape_colour__a062_A_az090.png", "options": ["c0_shape_colour__a029_B_az180.png", "c0_shape_colour__a062_B_az180.png", "c0_shape_colour__a053_B_az180.png", "c0_shape_colour__a014_B_az180.png"]}, {"trial_id": "c0_shape_colour_d090_t18", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 3, "study": "c0_shape_colour__a080_A_az315.png", "options": ["c0_shape_colour__a071_B_az045.png", "c0_shape_colour__a005_B_az045.png", "c0_shape_colour__a080_B_az045.png", "c0_shape_colour__a003_B_az045.png"]}, {"trial_id": "c0_shape_colour_d090_t19", "mode": "c0_shape_colour", "delta": 90, "correct_choice": 4, "study": "c0_shape_colour__a069_A_az045.png", "options": ["c0_shape_colour__a037_B_az135.png", "c0_shape_colour__a087_B_az135.png", "c0_shape_colour__a002_B_az135.png", "c0_shape_colour__a069_B_az135.png"]}, {"trial_id": "c0_shape_colour_d135_t00", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 1, "study": "c0_shape_colour__a095_A_az045.png", "options": ["c0_shape_colour__a095_B_az180.png", "c0_shape_colour__a048_B_az180.png", "c0_shape_colour__a017_B_az180.png", "c0_shape_colour__a077_B_az180.png"]}, {"trial_id": "c0_shape_colour_d135_t09", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 2, "study": "c0_shape_colour__a033_A_az180.png", "options": ["c0_shape_colour__a012_B_az315.png", "c0_shape_colour__a033_B_az315.png", "c0_shape_colour__a086_B_az315.png", "c0_shape_colour__a014_B_az315.png"]}, {"trial_id": "c0_shape_colour_d135_t05", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 3, "study": "c0_shape_colour__a012_A_az315.png", "options": ["c0_shape_colour__a018_B_az090.png", "c0_shape_colour__a041_B_az090.png", "c0_shape_colour__a012_B_az090.png", "c0_shape_colour__a065_B_az090.png"]}, {"trial_id": "c0_shape_colour_d135_t14", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 4, "study": "c0_shape_colour__a004_A_az315.png", "options": ["c0_shape_colour__a023_B_az090.png", "c0_shape_colour__a086_B_az090.png", "c0_shape_colour__a021_B_az090.png", "c0_shape_colour__a004_B_az090.png"]}, {"trial_id": "c0_shape_colour_d135_t02", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 1, "study": "c0_shape_colour__a077_A_az000.png", "options": ["c0_shape_colour__a077_B_az135.png", "c0_shape_colour__a039_B_az135.png", "c0_shape_colour__a025_B_az135.png", "c0_shape_colour__a044_B_az135.png"]}, {"trial_id": "c0_shape_colour_d135_t13", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 2, "study": "c0_shape_colour__a003_A_az180.png", "options": ["c0_shape_colour__a046_B_az315.png", "c0_shape_colour__a003_B_az315.png", "c0_shape_colour__a068_B_az315.png", "c0_shape_colour__a093_B_az315.png"]}, {"trial_id": "c0_shape_colour_d135_t11", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 3, "study": "c0_shape_colour__a097_A_az090.png", "options": ["c0_shape_colour__a019_B_az225.png", "c0_shape_colour__a094_B_az225.png", "c0_shape_colour__a097_B_az225.png", "c0_shape_colour__a052_B_az225.png"]}, {"trial_id": "c0_shape_colour_d135_t19", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 4, "study": "c0_shape_colour__a035_A_az045.png", "options": ["c0_shape_colour__a036_B_az180.png", "c0_shape_colour__a028_B_az180.png", "c0_shape_colour__a098_B_az180.png", "c0_shape_colour__a035_B_az180.png"]}, {"trial_id": "c0_shape_colour_d135_t17", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 1, "study": "c0_shape_colour__a014_A_az180.png", "options": ["c0_shape_colour__a014_B_az315.png", "c0_shape_colour__a086_B_az315.png", "c0_shape_colour__a024_B_az315.png", "c0_shape_colour__a065_B_az315.png"]}, {"trial_id": "c0_shape_colour_d135_t10", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 2, "study": "c0_shape_colour__a094_A_az135.png", "options": ["c0_shape_colour__a040_B_az270.png", "c0_shape_colour__a094_B_az270.png", "c0_shape_colour__a092_B_az270.png", "c0_shape_colour__a077_B_az270.png"]}, {"trial_id": "c0_shape_colour_d135_t01", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 3, "study": "c0_shape_colour__a041_A_az180.png", "options": ["c0_shape_colour__a064_B_az315.png", "c0_shape_colour__a054_B_az315.png", "c0_shape_colour__a041_B_az315.png", "c0_shape_colour__a065_B_az315.png"]}, {"trial_id": "c0_shape_colour_d135_t12", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 4, "study": "c0_shape_colour__a063_A_az000.png", "options": ["c0_shape_colour__a033_B_az135.png", "c0_shape_colour__a080_B_az135.png", "c0_shape_colour__a072_B_az135.png", "c0_shape_colour__a063_B_az135.png"]}, {"trial_id": "c0_shape_colour_d135_t06", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 1, "study": "c0_shape_colour__a092_A_az000.png", "options": ["c0_shape_colour__a092_B_az135.png", "c0_shape_colour__a002_B_az135.png", "c0_shape_colour__a020_B_az135.png", "c0_shape_colour__a028_B_az135.png"]}, {"trial_id": "c0_shape_colour_d135_t15", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 2, "study": "c0_shape_colour__a026_A_az270.png", "options": ["c0_shape_colour__a099_B_az045.png", "c0_shape_colour__a026_B_az045.png", "c0_shape_colour__a037_B_az045.png", "c0_shape_colour__a047_B_az045.png"]}, {"trial_id": "c0_shape_colour_d135_t18", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 3, "study": "c0_shape_colour__a067_A_az270.png", "options": ["c0_shape_colour__a069_B_az045.png", "c0_shape_colour__a099_B_az045.png", "c0_shape_colour__a067_B_az045.png", "c0_shape_colour__a046_B_az045.png"]}, {"trial_id": "c0_shape_colour_d135_t03", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 4, "study": "c0_shape_colour__a010_A_az315.png", "options": ["c0_shape_colour__a057_B_az090.png", "c0_shape_colour__a071_B_az090.png", "c0_shape_colour__a034_B_az090.png", "c0_shape_colour__a010_B_az090.png"]}, {"trial_id": "c0_shape_colour_d135_t04", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 1, "study": "c0_shape_colour__a018_A_az315.png", "options": ["c0_shape_colour__a018_B_az090.png", "c0_shape_colour__a049_B_az090.png", "c0_shape_colour__a023_B_az090.png", "c0_shape_colour__a041_B_az090.png"]}, {"trial_id": "c0_shape_colour_d135_t16", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 2, "study": "c0_shape_colour__a078_A_az180.png", "options": ["c0_shape_colour__a003_B_az315.png", "c0_shape_colour__a078_B_az315.png", "c0_shape_colour__a017_B_az315.png", "c0_shape_colour__a024_B_az315.png"]}, {"trial_id": "c0_shape_colour_d135_t07", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 3, "study": "c0_shape_colour__a045_A_az045.png", "options": ["c0_shape_colour__a051_B_az180.png", "c0_shape_colour__a007_B_az180.png", "c0_shape_colour__a045_B_az180.png", "c0_shape_colour__a095_B_az180.png"]}, {"trial_id": "c0_shape_colour_d135_t08", "mode": "c0_shape_colour", "delta": 135, "correct_choice": 4, "study": "c0_shape_colour__a060_A_az270.png", "options": ["c0_shape_colour__a085_B_az045.png", "c0_shape_colour__a006_B_az045.png", "c0_shape_colour__a033_B_az045.png", "c0_shape_colour__a060_B_az045.png"]}, {"trial_id": "c0_shape_colour_d180_t07", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 1, "study": "c0_shape_colour__a006_A_az225.png", "options": ["c0_shape_colour__a006_B_az045.png", "c0_shape_colour__a072_B_az045.png", "c0_shape_colour__a061_B_az045.png", "c0_shape_colour__a048_B_az045.png"]}, {"trial_id": "c0_shape_colour_d180_t14", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 2, "study": "c0_shape_colour__a001_A_az090.png", "options": ["c0_shape_colour__a076_B_az270.png", "c0_shape_colour__a001_B_az270.png", "c0_shape_colour__a020_B_az270.png", "c0_shape_colour__a015_B_az270.png"]}, {"trial_id": "c0_shape_colour_d180_t08", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 3, "study": "c0_shape_colour__a045_A_az225.png", "options": ["c0_shape_colour__a084_B_az045.png", "c0_shape_colour__a079_B_az045.png", "c0_shape_colour__a045_B_az045.png", "c0_shape_colour__a050_B_az045.png"]}, {"trial_id": "c0_shape_colour_d180_t06", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 4, "study": "c0_shape_colour__a076_A_az270.png", "options": ["c0_shape_colour__a037_B_az090.png", "c0_shape_colour__a030_B_az090.png", "c0_shape_colour__a088_B_az090.png", "c0_shape_colour__a076_B_az090.png"]}, {"trial_id": "c0_shape_colour_d180_t17", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 1, "study": "c0_shape_colour__a048_A_az090.png", "options": ["c0_shape_colour__a048_B_az270.png", "c0_shape_colour__a018_B_az270.png", "c0_shape_colour__a060_B_az270.png", "c0_shape_colour__a022_B_az270.png"]}, {"trial_id": "c0_shape_colour_d180_t01", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 2, "study": "c0_shape_colour__a021_A_az315.png", "options": ["c0_shape_colour__a011_B_az135.png", "c0_shape_colour__a021_B_az135.png", "c0_shape_colour__a062_B_az135.png", "c0_shape_colour__a097_B_az135.png"]}, {"trial_id": "c0_shape_colour_d180_t18", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 3, "study": "c0_shape_colour__a091_A_az270.png", "options": ["c0_shape_colour__a078_B_az090.png", "c0_shape_colour__a030_B_az090.png", "c0_shape_colour__a091_B_az090.png", "c0_shape_colour__a032_B_az090.png"]}, {"trial_id": "c0_shape_colour_d180_t13", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 4, "study": "c0_shape_colour__a010_A_az090.png", "options": ["c0_shape_colour__a009_B_az270.png", "c0_shape_colour__a049_B_az270.png", "c0_shape_colour__a037_B_az270.png", "c0_shape_colour__a010_B_az270.png"]}, {"trial_id": "c0_shape_colour_d180_t09", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 1, "study": "c0_shape_colour__a065_A_az000.png", "options": ["c0_shape_colour__a065_B_az180.png", "c0_shape_colour__a061_B_az180.png", "c0_shape_colour__a068_B_az180.png", "c0_shape_colour__a080_B_az180.png"]}, {"trial_id": "c0_shape_colour_d180_t12", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 2, "study": "c0_shape_colour__a050_A_az225.png", "options": ["c0_shape_colour__a066_B_az045.png", "c0_shape_colour__a050_B_az045.png", "c0_shape_colour__a076_B_az045.png", "c0_shape_colour__a058_B_az045.png"]}, {"trial_id": "c0_shape_colour_d180_t11", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 3, "study": "c0_shape_colour__a082_A_az315.png", "options": ["c0_shape_colour__a030_B_az135.png", "c0_shape_colour__a033_B_az135.png", "c0_shape_colour__a082_B_az135.png", "c0_shape_colour__a036_B_az135.png"]}, {"trial_id": "c0_shape_colour_d180_t02", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 4, "study": "c0_shape_colour__a079_A_az135.png", "options": ["c0_shape_colour__a045_B_az315.png", "c0_shape_colour__a001_B_az315.png", "c0_shape_colour__a040_B_az315.png", "c0_shape_colour__a079_B_az315.png"]}, {"trial_id": "c0_shape_colour_d180_t16", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 1, "study": "c0_shape_colour__a043_A_az315.png", "options": ["c0_shape_colour__a043_B_az135.png", "c0_shape_colour__a017_B_az135.png", "c0_shape_colour__a041_B_az135.png", "c0_shape_colour__a082_B_az135.png"]}, {"trial_id": "c0_shape_colour_d180_t00", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 2, "study": "c0_shape_colour__a046_A_az315.png", "options": ["c0_shape_colour__a028_B_az135.png", "c0_shape_colour__a046_B_az135.png", "c0_shape_colour__a042_B_az135.png", "c0_shape_colour__a025_B_az135.png"]}, {"trial_id": "c0_shape_colour_d180_t05", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 3, "study": "c0_shape_colour__a059_A_az315.png", "options": ["c0_shape_colour__a023_B_az135.png", "c0_shape_colour__a078_B_az135.png", "c0_shape_colour__a059_B_az135.png", "c0_shape_colour__a044_B_az135.png"]}, {"trial_id": "c0_shape_colour_d180_t04", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 4, "study": "c0_shape_colour__a024_A_az000.png", "options": ["c0_shape_colour__a070_B_az180.png", "c0_shape_colour__a085_B_az180.png", "c0_shape_colour__a084_B_az180.png", "c0_shape_colour__a024_B_az180.png"]}, {"trial_id": "c0_shape_colour_d180_t19", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 1, "study": "c0_shape_colour__a038_A_az270.png", "options": ["c0_shape_colour__a038_B_az090.png", "c0_shape_colour__a066_B_az090.png", "c0_shape_colour__a019_B_az090.png", "c0_shape_colour__a091_B_az090.png"]}, {"trial_id": "c0_shape_colour_d180_t10", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 2, "study": "c0_shape_colour__a084_A_az135.png", "options": ["c0_shape_colour__a073_B_az315.png", "c0_shape_colour__a084_B_az315.png", "c0_shape_colour__a098_B_az315.png", "c0_shape_colour__a094_B_az315.png"]}, {"trial_id": "c0_shape_colour_d180_t15", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 3, "study": "c0_shape_colour__a014_A_az315.png", "options": ["c0_shape_colour__a092_B_az135.png", "c0_shape_colour__a002_B_az135.png", "c0_shape_colour__a014_B_az135.png", "c0_shape_colour__a095_B_az135.png"]}, {"trial_id": "c0_shape_colour_d180_t03", "mode": "c0_shape_colour", "delta": 180, "correct_choice": 4, "study": "c0_shape_colour__a015_A_az270.png", "options": ["c0_shape_colour__a071_B_az090.png", "c0_shape_colour__a075_B_az090.png", "c0_shape_colour__a050_B_az090.png", "c0_shape_colour__a015_B_az090.png"]}], "blobs": {}};
+const $ = s => document.querySelector(s);
+const src = name => DATA.embedded ? DATA.blobs[name] : "images/" + name;
+
+document.getElementById("instr").textContent = DATA.instructions;
+$("#mins").textContent = Math.max(3, Math.round(DATA.trials.length * 7 / 60));
+
+// Trial order is shuffled per participant; the recorded trial_id keeps the
+// pairing with the model runs, which see a fixed order.
+let order = DATA.trials.map((t, i) => i);
+for (let i = order.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [order[i], order[j]] = [order[j], order[i]];
+}
+
+let k = 0, t0 = 0, pid = "anon";
+let results = [];
+
+// Answers lived only in memory, so closing the tab threw the session away. A
+// 100-trial 4AFC run is long enough that nobody does it in one sitting, so the
+// state is written after every trial. Keyed by benchmark and length, so the
+// easy and hard tasks do not overwrite one another. Every access is wrapped:
+// private windows and blocked site data make localStorage *throw*, and the task
+// must still run when it does -- it just cannot resume.
+const STORE_KEY = "fourmountains:" + DATA.benchmark + ":" + DATA.trials.length;
+
+function saveState() {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(
+      {pid, k, order, results, saved_at: new Date().toISOString()}));
+  } catch (e) { /* nothing to do; the run continues unsaved */ }
+}
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    const v = raw ? JSON.parse(raw) : null;
+    return (v && Array.isArray(v.results) && Array.isArray(v.order)
+            && v.order.length === DATA.trials.length) ? v : null;
+  } catch (e) { return null; }
+}
+function clearState() { try { localStorage.removeItem(STORE_KEY); } catch (e) {} }
+
+function render() {
+  const t = DATA.trials[order[k]];
+  $("#prog").textContent = `Trial ${k + 1} of ${DATA.trials.length}`;
+  $("#hint").textContent = `press 1–${t.options.length}`;
+  $("#bar i").style.width = (100 * k / DATA.trials.length) + "%";
+  $("#study").src = src(t.study);
+
+  const box = $("#opts");
+  box.innerHTML = "";
+  t.options.forEach((name, i) => {
+    const b = document.createElement("button");
+    b.className = "opt"; b.type = "button";
+    b.innerHTML = `<img alt="option ${i + 1}"><span class="n"><kbd>${i + 1}</kbd>Option ${i + 1}</span>`;
+    b.querySelector("img").src = src(name);
+    b.addEventListener("click", () => answer(i + 1));
+    box.appendChild(b);
+  });
+  t0 = performance.now();
+}
+
+function answer(choice) {
+  const t = DATA.trials[order[k]];
+  results.push({
+    trial_id: t.trial_id, mode: t.mode, delta: t.delta,
+    correct_choice: t.correct_choice,
+    model_choice: choice,               // the schema analyze_vii.py reads
+    is_correct: choice === t.correct_choice,
+    latency: (performance.now() - t0) / 1000,
+    reply: String(choice), error: null,
+    presentation_index: k
+  });
+  k++;
+  saveState();
+  if (k < DATA.trials.length) render(); else finish();
+}
+
+document.addEventListener("keydown", e => {
+  if ($("#task").hidden) return;
+  const n = parseInt(e.key, 10);
+  if (n >= 1 && n <= DATA.trials[order[k]].options.length) { e.preventDefault(); answer(n); }
+});
+
+const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+
+// Shared by the end screen and by "Export progress", so a run stopped half way
+// is written in exactly the schema a finished one is -- `agents.py` already
+// honours `in_progress`, and will not collate a partial run as a complete one.
+function buildBlob() {
+  const byDelta = {}, byMode = {};
+  for (const r of results) {
+    (byDelta[r.delta] = byDelta[r.delta] || []).push(r.is_correct);
+    (byMode[r.mode] = byMode[r.mode] || []).push(r.is_correct);
+  }
+  const dist = {};
+  for (const r of results) dist[r.model_choice] = (dist[r.model_choice] || 0) + 1;
+  const partial = results.length < DATA.trials.length;
+  return {
+    summary: {
+      model: "human:" + pid, benchmark: DATA.benchmark,
+      benchmark_sha256_12: DATA.benchmark_sha256_12,
+      prompt_style: DATA.prompt_style, n_options: DATA.n_options,
+      chance_level: 1 / DATA.n_options,
+      total_trials: results.length,
+      planned_trials: DATA.trials.length,
+      in_progress: partial,
+      overall_accuracy: results.length
+        ? results.filter(r => r.is_correct).length / results.length : null,
+      choice_distribution: dist,
+      by_mode_delta: Object.fromEntries(Object.entries(byDelta).map(
+        ([d, v]) => [d, {accuracy: mean(v), total: v.length}])),
+      user_agent: navigator.userAgent,
+      finished_at: new Date().toISOString()
+    },
+    results
+  };
+}
+
+function download(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(blob, null, 2)],
+                                        {type: "application/json"}));
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+$("#export").onclick = () => {
+  if (!results.length) return;
+  download(buildBlob(), `human_${pid}_${DATA.n_options}afc_partial${results.length}.json`);
+  $("#export").textContent = "Exported";
+  setTimeout(() => { $("#export").textContent = "Export progress"; }, 2000);
+};
+
+function finish() {
+  $("#task").hidden = true; $("#done").hidden = false;
+  const blob = buildBlob();
+  const acc = blob.summary.overall_accuracy;
+  const byDelta = {};
+  for (const r of results) (byDelta[r.delta] = byDelta[r.delta] || []).push(r.is_correct);
+  const text = JSON.stringify(blob, null, 2);
+  $("#out").value = text;
+  $("#summary").textContent =
+    `${results.length} trials, ${(100 * acc).toFixed(1)}% correct ` +
+    `(chance ${(100 / DATA.n_options).toFixed(0)}%). ` +
+    Object.entries(byDelta).sort((a, b) => a[0] - b[0])
+      .map(([d, v]) => `${d}° ${(100 * mean(v)).toFixed(0)}%`).join("  ·  ");
+
+  $("#dl").onclick = () => {
+    download(blob, `human_${pid}_${DATA.n_options}afc.json`);
+    clearState();          // only once the file has actually been handed over
+    $("#dl").textContent = "Downloaded";
+  };
+  $("#copy").onclick = async () => {
+    try { await navigator.clipboard.writeText(text); $("#copy").textContent = "Copied"; }
+    catch (e) { $("#out").select(); $("#copy").textContent = "Select all and copy"; }
+  };
+}
+
+function begin() {
+  $("#intro").hidden = true; $("#task").hidden = false;
+  if (k >= DATA.trials.length) finish(); else render();
+}
+
+$("#start").onclick = () => {
+  pid = ($("#pid").value || "anon").replace(/[^A-Za-z0-9_.-]/g, "") || "anon";
+  clearState();
+  begin();
+};
+
+const saved = loadState();
+if (saved && saved.results.length > 0) {
+  $("#resumebox").hidden = false;
+  const done = saved.results.length;
+  $("#resumeinfo").textContent =
+    `${done} of ${DATA.trials.length} trials answered as "${saved.pid}"` +
+    (saved.saved_at ? `, last saved ${new Date(saved.saved_at).toLocaleString()}.` : ".");
+  $("#pid").value = saved.pid;
+  $("#resume").onclick = () => {
+    pid = saved.pid; order = saved.order; results = saved.results;
+    k = Math.min(saved.k, DATA.trials.length);
+    begin();
+  };
+  $("#fresh").onclick = () => {
+    clearState();
+    $("#resumebox").hidden = true;
+  };
+}
+</script></body></html>

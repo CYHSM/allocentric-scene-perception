@@ -34,6 +34,7 @@ calls cannot. The trial ids record which is which, so the pairing survives.
 
 import argparse
 import base64
+import hashlib
 import importlib.util
 import json
 import os
@@ -89,6 +90,35 @@ def balanced_slice(trials, per_cell, n_options, seed):
     return out
 
 
+def stratified_like_runner(trials, n, seed=0):
+    """
+    The exact slice `bench/evaluate_vlm.py --max_trials n` would run.
+
+    `balanced_slice` below picks its own trials, so a person built with it and a
+    model run with `--max_trials` were answering *different* subsets of the same
+    benchmark -- fine for a group average, useless for a paired comparison. This
+    is `_stratified` from evaluate_vlm.py, copied deliberately rather than
+    imported, because importing that module pulls in torch.
+    """
+    rng = random.Random(seed)
+    by_cell = {}
+    for t in trials:
+        by_cell.setdefault((t["mode"], t["delta"]), []).append(t)
+    for v in by_cell.values():
+        rng.shuffle(v)
+    cells, out, i = sorted(by_cell), [], 0
+    while len(out) < n:
+        room = [c for c in cells if len(by_cell[c]) > i]
+        if not room:
+            break
+        for c in room:
+            if len(out) == n:
+                break
+            out.append(by_cell[c][i])
+        i += 1
+    return sorted(out, key=lambda t: t["id"])
+
+
 def stage_images(trials, out_dir, embed, quality):
     """
     Copy every image the slice needs into `out_dir/images` under a flat name,
@@ -135,6 +165,21 @@ def main():
     ap.add_argument("--out", default="human_task")
     ap.add_argument("--per_cell", type=int, default=2,
                     help="trials per (mode x delta); 2 gives 50 trials, ~6 min")
+    ap.add_argument("--match_run", type=int, metavar="N",
+                    help="instead of --per_cell, take the SAME N trials that "
+                         "`evaluate_vlm.py --max_trials N` selects, so the person "
+                         "and the model answer trial-for-trial the same slice")
+    ap.add_argument("--match_seed", type=int, default=0,
+                    help="the runner's stratification seed (its default is 0)")
+    ap.add_argument("--prompt_style", default="neutral",
+                    help="instruction wording, read from evaluate_vlm.py; use "
+                         "neutral_anyview to match a cot_anyview model run")
+    ap.add_argument("--modes", default=None,
+                    help="comma-separated modes to keep, filtered AFTER the "
+                         "slice is chosen. Use it to re-collect part of a "
+                         "session: the trials kept are exactly the ones the "
+                         "same --match_run would have given, so a top-up merges "
+                         "back into the original run item for item.")
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--embed", action="store_true",
                     help="inline the images as JPEG data URIs -- one shareable "
@@ -143,14 +188,31 @@ def main():
     ap.add_argument("--title", default="Which one is the same place?")
     args = ap.parse_args()
 
+    with open(args.benchmark, "rb") as f:
+        bench_sha = hashlib.sha256(f.read()).hexdigest()[:12]
     blob = json.load(open(args.benchmark))
     n_options = blob["n_options"]
-    trials = balanced_slice(blob["trials"], args.per_cell, n_options, args.seed)
+    if args.match_run:
+        trials = stratified_like_runner(blob["trials"], args.match_run, args.match_seed)
+    else:
+        trials = balanced_slice(blob["trials"], args.per_cell, n_options, args.seed)
+
+    if args.modes:
+        keep = {m.strip() for m in args.modes.split(",")}
+        unknown = keep - {t["mode"] for t in blob["trials"]}
+        if unknown:
+            raise SystemExit(f"unknown modes: {sorted(unknown)}")
+        before = len(trials)
+        trials = [t for t in trials if t["mode"] in keep]
+        print(f"modes filter: {before} -> {len(trials)} trials "
+              f"({', '.join(sorted(keep))})")
+        if not trials:
+            raise SystemExit("no trials left after the modes filter")
 
     os.makedirs(args.out, exist_ok=True)
     blobs = stage_images(trials, args.out, args.embed, args.quality)
 
-    instructions = _load_evaluate_vlm().get_prompt_text(n_options, style="neutral")
+    instructions = _load_evaluate_vlm().get_prompt_text(n_options, style=args.prompt_style)
     # The models are told to answer "Final Answer: Option X"; a person clicks a
     # button. Strip the output-format lines and nothing else.
     human_instructions = instructions.split("Answer on the last line")[0].strip()
@@ -163,12 +225,24 @@ def main():
         json.dump({**{k: v for k, v in blob.items() if k != "trials"},
                    "total_trials": len(slim),
                    "derived_from": os.path.basename(args.benchmark),
+                   # Trial ids are positional, so a rebuilt benchmark reassigns
+                   # which scene sits at each id while every id still matches by
+                   # name. p01's first session was generated 72 minutes before a
+                   # rebuild and 40 of its 100 trials were different scenes at a
+                   # different foil band; nothing in the file said so. The digest
+                   # does, and `collate.check_task_items` reads it.
+                   "benchmark_sha256_12": bench_sha,
                    "per_cell": args.per_cell, "slice_seed": args.seed,
+                   "match_run": args.match_run, "match_seed": args.match_seed,
+                   "modes_filter": args.modes,
+                   "prompt_style": args.prompt_style,
                    "trials": slim}, f, indent=2)
 
     payload = {
         "n_options": n_options,
+        "prompt_style": args.prompt_style,
         "benchmark": os.path.basename(args.benchmark),
+        "benchmark_sha256_12": bench_sha,
         "embedded": bool(args.embed),
         "instructions": human_instructions,
         "trials": [{
@@ -193,7 +267,7 @@ def main():
     print(f"directory is {size/1e6:.1f} MB")
     print(f"\nmatched model arm:\n"
           f"  python bench/evaluate_vlm.py --benchmark {args.out}/task.json \\\n"
-          f"      --model <id> --prompt_style neutral --out results/<name>.json")
+          f"      --model <id> --prompt_style {args.prompt_style} --out results/<name>.json")
 
 
 TEMPLATE = r"""<!doctype html>
@@ -231,8 +305,14 @@ input{font:inherit;padding:9px 12px;border:1px solid var(--rule);border-radius:6
 .study img{max-width:min(100%,560px);border-radius:6px;border:1px solid var(--rule)}
 .tag{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);
   display:block;margin-bottom:6px}
+/* Two columns, always. `auto-fit` packed four options into 3+1 on a wide
+   window, which puts option 4 on its own row at a different apparent size and
+   invites a position bias the answer-key balancing cannot undo. A 2x2 grid
+   shows all four at one scale; 2AFC falls out as a single row. */
 .opts{display:grid;gap:14px;margin-top:14px;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  max-width:940px;margin-left:auto;margin-right:auto}
+@media (max-width:620px){.opts{grid-template-columns:1fr}}
 .opt{padding:0;overflow:hidden;border:2px solid var(--rule);background:var(--sheet);
   border-radius:8px;display:block;width:100%}
 .opt:hover{border-color:var(--accent)}
@@ -247,6 +327,8 @@ textarea{width:100%;height:190px;font-family:ui-monospace,SFMono-Regular,monospa
   background:var(--paper);color:var(--ink)}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
 .note{font-size:.88rem;color:var(--dim)}
+.resume{border:1px solid var(--accent);border-radius:8px;padding:12px 16px;
+  margin:0 0 18px;background:color-mix(in srgb,var(--accent) 8%,transparent)}
 [hidden]{display:none!important}
 </style></head><body>
 <div class="wrap">
@@ -259,9 +341,19 @@ textarea{width:100%;height:190px;font-family:ui-monospace,SFMono-Regular,monospa
   landmarks. Some trials are easy and some are close to impossible. Answer as
   best you can; there is no feedback, and guessing when unsure is expected.</p>
   <p><b>Use the number keys</b> to answer, or click. About <span id="mins"></span> minutes.</p>
+  <div id="resumebox" hidden class="resume">
+    <p><b>Unfinished session found.</b> <span id="resumeinfo"></span></p>
+    <div class="row">
+      <button class="primary" id="resume">Resume</button>
+      <button id="fresh">Start over (discards it)</button>
+    </div>
+  </div>
   <label for="pid">Participant ID (anything that is not your name)</label>
   <input id="pid" autocomplete="off" placeholder="e.g. p01">
   <div class="row"><button class="primary" id="start">Start</button></div>
+  <p class="note">Your progress is saved in this browser after every trial, so
+  you can close the tab and come back to the same address. Take breaks &mdash;
+  there is no time limit and no penalty for pausing.</p>
 </section>
 
 <section id="task" hidden>
@@ -269,6 +361,10 @@ textarea{width:100%;height:190px;font-family:ui-monospace,SFMono-Regular,monospa
   <div class="count"><span id="prog"></span><span id="hint"></span></div>
   <div class="study"><span class="tag">Study image</span><img id="study" alt="the place to remember"></div>
   <div class="opts" id="opts"></div>
+  <p class="note" style="text-align:center;margin-top:18px">
+    Saved after every trial &mdash; you can close this tab and resume later.
+    <button id="export" style="padding:4px 12px;margin-left:10px">Export progress</button>
+  </p>
 </section>
 
 <section id="done" hidden class="card">
@@ -294,14 +390,38 @@ $("#mins").textContent = Math.max(3, Math.round(DATA.trials.length * 7 / 60));
 
 // Trial order is shuffled per participant; the recorded trial_id keeps the
 // pairing with the model runs, which see a fixed order.
-const order = DATA.trials.map((t, i) => i);
+let order = DATA.trials.map((t, i) => i);
 for (let i = order.length - 1; i > 0; i--) {
   const j = Math.floor(Math.random() * (i + 1));
   [order[i], order[j]] = [order[j], order[i]];
 }
 
 let k = 0, t0 = 0, pid = "anon";
-const results = [];
+let results = [];
+
+// Answers lived only in memory, so closing the tab threw the session away. A
+// 100-trial 4AFC run is long enough that nobody does it in one sitting, so the
+// state is written after every trial. Keyed by benchmark and length, so the
+// easy and hard tasks do not overwrite one another. Every access is wrapped:
+// private windows and blocked site data make localStorage *throw*, and the task
+// must still run when it does -- it just cannot resume.
+const STORE_KEY = "fourmountains:" + DATA.benchmark + ":" + DATA.trials.length;
+
+function saveState() {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(
+      {pid, k, order, results, saved_at: new Date().toISOString()}));
+  } catch (e) { /* nothing to do; the run continues unsaved */ }
+}
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    const v = raw ? JSON.parse(raw) : null;
+    return (v && Array.isArray(v.results) && Array.isArray(v.order)
+            && v.order.length === DATA.trials.length) ? v : null;
+  } catch (e) { return null; }
+}
+function clearState() { try { localStorage.removeItem(STORE_KEY); } catch (e) {} }
 
 function render() {
   const t = DATA.trials[order[k]];
@@ -335,6 +455,7 @@ function answer(choice) {
     presentation_index: k
   });
   k++;
+  saveState();
   if (k < DATA.trials.length) render(); else finish();
 }
 
@@ -344,24 +465,31 @@ document.addEventListener("keydown", e => {
   if (n >= 1 && n <= DATA.trials[order[k]].options.length) { e.preventDefault(); answer(n); }
 });
 
-function finish() {
-  $("#task").hidden = true; $("#done").hidden = false;
-  const acc = results.filter(r => r.is_correct).length / results.length;
+const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+
+// Shared by the end screen and by "Export progress", so a run stopped half way
+// is written in exactly the schema a finished one is -- `agents.py` already
+// honours `in_progress`, and will not collate a partial run as a complete one.
+function buildBlob() {
   const byDelta = {}, byMode = {};
   for (const r of results) {
     (byDelta[r.delta] = byDelta[r.delta] || []).push(r.is_correct);
     (byMode[r.mode] = byMode[r.mode] || []).push(r.is_correct);
   }
-  const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
   const dist = {};
   for (const r of results) dist[r.model_choice] = (dist[r.model_choice] || 0) + 1;
-
-  const blob = {
+  const partial = results.length < DATA.trials.length;
+  return {
     summary: {
       model: "human:" + pid, benchmark: DATA.benchmark,
-      prompt_style: "neutral", n_options: DATA.n_options,
+      benchmark_sha256_12: DATA.benchmark_sha256_12,
+      prompt_style: DATA.prompt_style, n_options: DATA.n_options,
       chance_level: 1 / DATA.n_options,
-      total_trials: results.length, overall_accuracy: acc,
+      total_trials: results.length,
+      planned_trials: DATA.trials.length,
+      in_progress: partial,
+      overall_accuracy: results.length
+        ? results.filter(r => r.is_correct).length / results.length : null,
       choice_distribution: dist,
       by_mode_delta: Object.fromEntries(Object.entries(byDelta).map(
         ([d, v]) => [d, {accuracy: mean(v), total: v.length}])),
@@ -370,6 +498,29 @@ function finish() {
     },
     results
   };
+}
+
+function download(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(blob, null, 2)],
+                                        {type: "application/json"}));
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+$("#export").onclick = () => {
+  if (!results.length) return;
+  download(buildBlob(), `human_${pid}_${DATA.n_options}afc_partial${results.length}.json`);
+  $("#export").textContent = "Exported";
+  setTimeout(() => { $("#export").textContent = "Export progress"; }, 2000);
+};
+
+function finish() {
+  $("#task").hidden = true; $("#done").hidden = false;
+  const blob = buildBlob();
+  const acc = blob.summary.overall_accuracy;
+  const byDelta = {};
+  for (const r of results) (byDelta[r.delta] = byDelta[r.delta] || []).push(r.is_correct);
   const text = JSON.stringify(blob, null, 2);
   $("#out").value = text;
   $("#summary").textContent =
@@ -379,10 +530,9 @@ function finish() {
       .map(([d, v]) => `${d}° ${(100 * mean(v)).toFixed(0)}%`).join("  ·  ");
 
   $("#dl").onclick = () => {
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([text], {type: "application/json"}));
-    a.download = `human_${pid}_${DATA.n_options}afc.json`;
-    document.body.appendChild(a); a.click(); a.remove();
+    download(blob, `human_${pid}_${DATA.n_options}afc.json`);
+    clearState();          // only once the file has actually been handed over
+    $("#dl").textContent = "Downloaded";
   };
   $("#copy").onclick = async () => {
     try { await navigator.clipboard.writeText(text); $("#copy").textContent = "Copied"; }
@@ -390,11 +540,35 @@ function finish() {
   };
 }
 
+function begin() {
+  $("#intro").hidden = true; $("#task").hidden = false;
+  if (k >= DATA.trials.length) finish(); else render();
+}
+
 $("#start").onclick = () => {
   pid = ($("#pid").value || "anon").replace(/[^A-Za-z0-9_.-]/g, "") || "anon";
-  $("#intro").hidden = true; $("#task").hidden = false;
-  render();
+  clearState();
+  begin();
 };
+
+const saved = loadState();
+if (saved && saved.results.length > 0) {
+  $("#resumebox").hidden = false;
+  const done = saved.results.length;
+  $("#resumeinfo").textContent =
+    `${done} of ${DATA.trials.length} trials answered as "${saved.pid}"` +
+    (saved.saved_at ? `, last saved ${new Date(saved.saved_at).toLocaleString()}.` : ".");
+  $("#pid").value = saved.pid;
+  $("#resume").onclick = () => {
+    pid = saved.pid; order = saved.order; results = saved.results;
+    k = Math.min(saved.k, DATA.trials.length);
+    begin();
+  };
+  $("#fresh").onclick = () => {
+    clearState();
+    $("#resumebox").hidden = true;
+  };
+}
 </script></body></html>
 """
 

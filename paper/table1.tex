@@ -1,0 +1,31 @@
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Observer} & \textbf{Params} & \textbf{Accuracy} & \textbf{95\% CI} & \textbf{$\Delta\!=\!0$ gate} & \textbf{$\Delta\!\geq\!45$} \\
+\midrule
+Human & -- & \textbf{86\%} & [78\%, 91\%] & \textbf{100\%} & \textbf{82\%} \\
+\midrule
+InternVL3.5-4B & 4B & 17\% & [11\%, 26\%] & 35\% & 12\% \\
+InternVL3.5-2B & 2B & 21\% & [14\%, 30\%] & 25\% & 20\% \\
+InternVL3.5-1B & 1B & 23\% & [16\%, 32\%] & 35\% & 20\% \\
+InternVL3.5-38B & 38B & 28\% & [20\%, 37\%] & 65\% & 19\% \\
+InternVL3.5-8B & 8B & 28\% & [20\%, 37\%] & 55\% & 21\% \\
+InternVL3.5-30B-A3B & 30B & 29\% & [21\%, 39\%] & 55\% & 22\% \\
+Qwen2.5-VL-32B & 32B & 29\% & [21\%, 39\%] & 75\% & 18\% \\
+Qwen2.5-VL-3B & 3B & 29\% & [21\%, 39\%] & 30\% & 29\% \\
+Qwen3-VL-235B (t) & 235B & 30\% & [22\%, 40\%] & 75\% & 19\% \\
+InternVL3.5-14B & 14B & 31\% & [23\%, 41\%] & 50\% & 26\% \\
+Qwen2.5-VL-72B & 72B & 31\% & [23\%, 41\%] & 75\% & 20\% \\
+Qwen3-VL-235B (i) & 235B & 33\% & [25\%, 43\%] & 90\% & 19\% \\
+InternVL3-38B & 38B & 34\% & [25\%, 44\%] & 85\% & 21\% \\
+Qwen2.5-VL-7B & 7B & 36\% & [27\%, 46\%] & 55\% & 31\% \\
+Gemini 3.8 Flash & -- & 44\% & [35\%, 54\%] & 65\% & \textbf{39\%} \\
+GPT-5.6 Luna & -- & \textbf{45\%} & [36\%, 55\%] & \textbf{100\%} & 31\% \\
+\bottomrule
+\end{tabular}
+\caption{Four-alternative forced choice with hard foils (100 trials, chance 25\%: 20 unrotated and 80 rotated). The $\Delta=0$ column is the appearance gate. Qwen3-VL-235B (i) is the \texttt{instruct} variant, (t) the \texttt{thinking} one. Rows are ordered by overall accuracy. Bold marks the human row and the best model in each column.}
+\label{tab:main}
+\end{table}

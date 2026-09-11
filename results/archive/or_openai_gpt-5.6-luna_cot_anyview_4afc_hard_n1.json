@@ -1,0 +1,43 @@
+{
+  "summary": {
+    "model": "openai/gpt-5.6-luna",
+    "benchmark": "data/vlm_benchmark_4afc_hard.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 1,
+    "overall_accuracy": 1.0,
+    "choice_distribution": {
+      "1": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "api_usage": {
+      "calls": 1,
+      "spent_usd": 0.000884,
+      "prompt_tokens": 1891,
+      "completion_tokens": 343,
+      "usd_per_call": 0.000884
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 7.776247024536133,
+      "reply": "In the study view, the cone is in front of the cylinder on the left, while the hemisphere is behind and to the right of them. The pyramid is farther right and somewhat in front of the hemisphere. Option 1 preserves these same relative positions and overall spatial arrangement.\n\nFinal Answer: Option 1",
+      "error": null
+    }
+  ]
+}

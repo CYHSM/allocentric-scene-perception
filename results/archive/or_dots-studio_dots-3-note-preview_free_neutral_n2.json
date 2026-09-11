@@ -1,0 +1,61 @@
+{
+  "summary": {
+    "model": "dots-studio/dots-3-note-preview:free",
+    "benchmark": "human_task/task.json",
+    "prompt_style": "neutral",
+    "n_options": 2,
+    "chance_level": 0.5,
+    "total_trials": 2,
+    "overall_accuracy": 0.5,
+    "choice_distribution": {
+      "1": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      },
+      "c0_shape_colour_d45": {
+        "mode": "c0_shape_colour",
+        "delta": 45,
+        "accuracy": 0.0,
+        "correct": 0,
+        "total": 1
+      }
+    },
+    "api_usage": {
+      "calls": 2,
+      "spent_usd": 0.0,
+      "prompt_tokens": 2480,
+      "completion_tokens": 4373,
+      "usd_per_call": 0.0
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t12",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 18.425004959106445,
+      "reply": "Based on the spatial arrangement of the landmarks (the purple cone on the left, the cyan pyramid behind it, the yellow dome in the front center, and the green cylinder on the right in the background):\n\n* **Option 1** shows the same spatial layout (the same place) viewed from a different angle and under different lighting.\n* **Option 2** shows a different arrangement of the same objects (with the blue pyramid in the foreground and the yellow dome in the background).\n\nFinal Answer: Option 1",
+      "error": null
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t07",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": null,
+      "is_correct": false,
+      "latency": 36.54849886894226,
+      "reply": "",
+      "error": null
+    }
+  ]
+}

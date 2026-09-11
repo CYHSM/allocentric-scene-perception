@@ -1,0 +1,43 @@
+{
+  "summary": {
+    "model": "qwen/qwen3-vl-235b-a22b-instruct",
+    "benchmark": "data/vlm_benchmark_4afc_hard.json",
+    "prompt_style": "cot_anyview",
+    "n_options": 4,
+    "chance_level": 0.25,
+    "total_trials": 1,
+    "overall_accuracy": 1.0,
+    "choice_distribution": {
+      "1": 1
+    },
+    "by_mode_delta": {
+      "c0_shape_colour_d0": {
+        "mode": "c0_shape_colour",
+        "delta": 0,
+        "accuracy": 1.0,
+        "correct": 1,
+        "total": 1
+      }
+    },
+    "api_usage": {
+      "calls": 1,
+      "spent_usd": 0.000587,
+      "prompt_tokens": 1619,
+      "completion_tokens": 160,
+      "usd_per_call": 0.000587
+    }
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t10",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 4.512097120285034,
+      "reply": "The study image displays four distinct geometric shapes arranged in a specific spatial configuration: a green cylinder, a purple cone, a yellow hemisphere, and a cyan pyramid. In Option 1, the same four objects are present with identical relative positions \u2014 the purple cone remains in front-left, the green cylinder behind it, the yellow hemisphere to the right of the cylinder, and the cyan pyramid further right \u2014 suggesting only a subtle lighting or color shift, not a repositioning or rotation. Options 2, 3, and 4 all show altered spatial relationships among the objects (e.g., different foreground/background arrangements or object clustering), indicating they are not the same scene from a rotated viewpoint. Thus, Option 1 is the only one preserving the exact spatial layout.\n\nFinal Answer: Option 1",
+      "error": null
+    }
+  ]
+}
