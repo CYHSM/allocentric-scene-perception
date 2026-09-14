@@ -61,7 +61,7 @@ Evaluated across 100 stratified trials per benchmark (chance level: 25.0%):
 | InternVL3.5-14B-HF | 14B | `4afc_easy_m`| *TBD* | *TBD* | *TBD* | Queued |
 | **InternVL3.5-8B-HF** | 8B | `4afc_hard` | 28.0% | 55.0% | 21.2% | Complete |
 | InternVL3.5-8B-HF | 8B | `4afc_mid_m` | *TBD* | *TBD* | *TBD* | Queued |
-| InternVL3.5-8B-HF | 8B | `4afc_easy_m`| *TBD* | *TBD* | *TBD* | Queued |
+| **InternVL3.5-8B-HF** | 8B | `4afc_easy_m`| **39.0%** | **75.0%** | **30.0%** | **Complete** |
 
 *(For comparison: Human baseline on hard is 86% overall, 100% gate, 82% rotated; Gemini 3.8 Flash on easy_m is 84% overall, 90% gate, 82.5% rotated).*
 
