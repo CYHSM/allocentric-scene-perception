@@ -184,7 +184,7 @@ def encoder_records(root="data/scenes_100", appearance="changed", per_mode=False
 SKIP = re.compile(r"smoke|_test|_c[0-4]_|corrupt|calib|^_")
 
 
-def afc_records(dirs=("results", "human_task"), min_trials=40, per_mode=False):
+def afc_records(dirs=("results", "human_task/hard", "human_task/pilot_2afc", "human_task"), min_trials=40, per_mode=False):
     """
     Every forced-choice result file that is not a smoke test or a per-mode shard.
 
@@ -211,7 +211,8 @@ def afc_records(dirs=("results", "human_task"), min_trials=40, per_mode=False):
 @functools.lru_cache(maxsize=32)
 def _benchmark_answers(name):
     """{trial_id: correct_choice} for a benchmark file, if it is still on disk."""
-    for cand in (name, os.path.join("data", name), os.path.join("human_task", name)):
+    for cand in (name, os.path.join("data", name), os.path.join("human_task", name),
+                 os.path.join("human_task", "hard", name), os.path.join("human_task", "pilot_2afc", name)):
         if os.path.exists(cand):
             try:
                 return {t["id"]: t["correct_choice"]
@@ -349,7 +350,7 @@ def pool_humans(records):
     return others + [pooled]
 
 
-def collect(root="data/scenes_100", dirs=("results", "human_task"),
+def collect(root="data/scenes_100", dirs=("results", "human_task/hard", "human_task/pilot_2afc", "human_task"),
             per_mode=False, primary_only=True, complete_only=False,
             pool=True):
     recs = encoder_records(root, per_mode=per_mode) + afc_records(dirs, per_mode=per_mode)

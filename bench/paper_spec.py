@@ -161,7 +161,7 @@ DELTAS = [0, 45, 90, 135, 180]
 OBSERVERS = [
     dict(key="human_p01", label="Human", family="human", access="human",
          params_b=None, active_b=None,
-         path="human_task_hard/human_p01_4afc.json",
+         path="human_task/hard/human_p01_4afc.json",
          prompt="neutral_anyview"),
 
     dict(key="luna", label="GPT-5.6 Luna", family="openai", access="api",

@@ -125,7 +125,7 @@ def main(out="figures/fig_mode_detail.png"):
     rand = load("results/or_google_gemini-3.8-flash_cot_anyview_randomfoils_n100.json", tmp)
     hard = load("results/or_google_gemini-3.8-flash_cot_anyview_hardfoils_n100.json",
                 "data/vlm_benchmark_4afc_hard.json")
-    hum = load("human_task_hard/human_p01_4afc_partial40.json",
+    hum = load("human_task/hard/human_p01_4afc.json",
                "data/vlm_benchmark_4afc_hard.json")
     for rows in (rand, hard, hum):
         for x in rows:

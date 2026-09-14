@@ -125,8 +125,8 @@ bench/
 ├── run_openrouter.sh       API runs      launch_hard_queue.sh   dgx2 runs
 └── tests/
 
-human_task_hard/            the browser task + collected human data
-paper/main.tex              the write-up
+human_task/                 the browser tasks + collected human data (hard, n01, pilot_2afc)
+paper/tex/main.tex          the write-up
 ```
 
 ## Getting started

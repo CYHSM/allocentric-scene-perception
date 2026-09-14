@@ -143,6 +143,6 @@ def main(human_path, model_path, out="figures/fig_double_dissociation.png"):
 
 if __name__ == "__main__":
     main(sys.argv[1] if len(sys.argv) > 1
-         else "human_task_hard/human_p01_4afc_partial40.json",
+         else "human_task/hard/human_p01_4afc.json",
          sys.argv[2] if len(sys.argv) > 2
          else "results/or_google_gemini-3.8-flash_cot_anyview_hardfoils_n100.json")

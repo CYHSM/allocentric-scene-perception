@@ -76,7 +76,7 @@ def panel_a_only(out, keep_deltas, subtitle):
     """
     rand = [x for x in json.load(open("results/or_google_gemini-3.8-flash_cot_anyview_randomfoils_n100.json"))["results"] if x["delta"] in keep_deltas]
     hard = [x for x in json.load(open("results/or_google_gemini-3.8-flash_cot_anyview_hardfoils_n100.json"))["results"] if x["delta"] in keep_deltas]
-    hum = [x for x in json.load(open("human_task_hard/human_p01_4afc_partial40.json"))["results"] if x["delta"] in keep_deltas]
+    hum = [x for x in json.load(open("human_task/hard/human_p01_4afc.json"))["results"] if x["delta"] in keep_deltas]
     chance = 0.25
 
     fig, ax = plt.subplots(figsize=(8.4, 4.8))
@@ -124,7 +124,7 @@ def panel_a_only(out, keep_deltas, subtitle):
 def main(out="figures/fig_modes_full.png"):
     rand = json.load(open("results/or_google_gemini-3.8-flash_cot_anyview_randomfoils_n100.json"))["results"]
     hard = json.load(open("results/or_google_gemini-3.8-flash_cot_anyview_hardfoils_n100.json"))["results"]
-    hum = json.load(open("human_task_hard/human_p01_4afc_partial40.json"))["results"]
+    hum = json.load(open("human_task/hard/human_p01_4afc.json"))["results"]
     chance = 0.25
 
     fig = plt.figure(figsize=(14.5, 4.8))

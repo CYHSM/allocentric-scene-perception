@@ -11,20 +11,25 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+PYTHON="python3"
+if [ -x ".venv/bin/python3" ]; then
+  PYTHON=".venv/bin/python3"
+fi
+
 echo "== collate =========================================================="
-python3 bench/collate.py
+$PYTHON bench/collate.py
 
 echo
 echo "== tables ==========================================================="
-python3 bench/make_tables.py --latex | tee paper/tables.md
+$PYTHON bench/make_tables.py --latex | tee paper/tables.md
 
 echo
 echo "== figures =========================================================="
-python3 bench/make_figures.py
+$PYTHON bench/make_figures.py
 
 echo
 echo "== prompts (appendix) ==============================================="
-python3 bench/make_prompts.py
+$PYTHON bench/make_prompts.py
 
 echo
 echo "paper/   runs.json observers.csv cells.csv trials.csv ladder.csv"

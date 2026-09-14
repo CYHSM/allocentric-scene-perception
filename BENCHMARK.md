@@ -186,7 +186,7 @@ bash bench/launch_hard_queue.sh
 
 # a person, on the SAME 100 trials
 python3 bench/build_human_task.py --benchmark data/vlm_benchmark_4afc_hard.json \
-    --match_run 100 --match_seed 0 --prompt_style neutral_anyview --out human_task_hard
+    --match_run 100 --match_seed 0 --prompt_style neutral_anyview --out human_task/hard
 
 # read it
 python3 bench/analyze_vii.py

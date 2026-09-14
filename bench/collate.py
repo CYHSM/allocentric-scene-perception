@@ -305,7 +305,7 @@ def unclaimed():
     """
     claimed = {o["path"] for o in SPEC.OBSERVERS}
     found = []
-    for root in ("results", "human_task_hard"):
+    for root in ("results", "human_task/hard"):
         d = os.path.join(SPEC.REPO, root)
         if not os.path.isdir(d):
             continue

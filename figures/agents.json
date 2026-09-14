@@ -13,7 +13,7 @@
     "prompt_style": "neutral",
     "stale_benchmark": false,
     "benchmark": "vlm_benchmark_2afc.json",
-    "path": "human_task/human_p01_2afc.json",
+    "path": "human_task/pilot_2afc/human_p01_2afc.json",
     "accuracy": {
       "0": 1.0,
       "90": 1.0,

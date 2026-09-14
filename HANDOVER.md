@@ -354,12 +354,12 @@ directory and pre-paper probes; nothing the paper needs.
 
 | directory | trials | status |
 |---|---|---|
-| `human_task_hard/` | 100, locked arm | p01 complete, 86 % |
-| `human_task_hard_c34/` | 40, c3+c4 re-collection | merged into the above |
-| `human_task_n01/` | 100, the N=1 set-size bank | **built, not yet run** |
-| `human_task_hard/superseded/` | earlier partial saves and the stale task | archive, not scanned |
+| `human_task/hard/` | 100, locked arm | p01 complete, 86 % |
+| `human_task/n01/` | 100, the N=1 set-size bank | **built, not yet run** |
+| `human_task/pilot_2afc/` | 50, pilot 2AFC | completed |
+| `human_task/hard/superseded/` | earlier partial saves and the stale task | archive, not scanned |
 
-`human_task_n01/index.html` opens in any browser, no server. It is the same 100
+`human_task/n01/index.html` opens in any browser, no server. It is the same 100
 trials the models answered on `vlm_benchmark_setsize_n01.json` (verified: 0
 items differ, sha `1bba64d10184` stamped into task.json). Save the JSON at the
 end and drop it in that directory.
@@ -598,8 +598,8 @@ per-mode differences seen earlier were the broken distance metric.
 
 ```
 python3 bench/build_human_task.py --benchmark data/vlm_benchmark_4afc_hard.json \
-    --match_run 100 --match_seed 0 --prompt_style neutral_anyview --out human_task_hard
-python3 -m http.server 8765 --directory .   # open /human_task_hard/index.html
+    --match_run 100 --match_seed 0 --prompt_style neutral_anyview --out human_task/hard
+python3 -m http.server 8765 --directory .   # open /human_task/hard/index.html
 ```
 
 `--match_run N` reproduces `evaluate_vlm.py --max_trials N` exactly, so the
@@ -608,8 +608,8 @@ builder chose its own subset and the pairing was silently broken.
 
 The page autosaves to `localStorage` after every trial and offers **Resume**;
 **Export progress** writes a partial file in the model-result schema with
-`in_progress: true`. `human_task_hard/human_p01_4afc_partial40.json` is the
-current human data — 40 of 100, on the **v1** benchmark (see §0).
+`in_progress: true`. `human_task/hard/human_p01_4afc.json` is the
+current human data — 100 of 100, on the **v1** benchmark (see §0).
 
 **p01 built the scenes and is not naive.** 40/40 → 35/40 establishes the task is
 *doable* where a frontier model is at chance; it is not a human ceiling. Naive

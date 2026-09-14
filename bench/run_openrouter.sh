@@ -20,7 +20,7 @@ MODEL="${1:-meta-llama/llama-3.2-11b-vision-instruct:free}"
 N="${2:-20}"
 BUDGET="${3:-0}"
 PROMPT="${PROMPT_STYLE:-neutral}"
-BENCH="${BENCHMARK:-human_task/task.json}"
+BENCH="${BENCHMARK:-data/vlm_benchmark_4afc_hard.json}"
 # Reasoning models spend the whole budget on hidden thinking and return an empty
 # content field; raise this for them (dots-3 needs ~2000) or the parse sees "".
 MAX_TOKENS="${MAX_TOKENS:-512}"

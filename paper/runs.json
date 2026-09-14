@@ -55,7 +55,7 @@
       "params_b": null,
       "active_b": null,
       "role": "primary",
-      "path": "human_task_hard/human_p01_4afc.json",
+      "path": "human_task/hard/human_p01_4afc.json",
       "present": true,
       "eligible": true,
       "blocking_deviations": [],
