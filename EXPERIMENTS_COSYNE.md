@@ -58,7 +58,7 @@ Evaluated across 100 stratified trials per benchmark (chance level: 25.0%):
 | InternVL3.5-38B-HF | 38B | `4afc_easy_m`| *TBD* | *TBD* | *TBD* | Queued |
 | **InternVL3.5-14B-HF** | 14B | `4afc_hard` | 31.0% | 50.0% | 26.2% | Complete |
 | InternVL3.5-14B-HF | 14B | `4afc_mid_m` | *TBD* | *TBD* | *TBD* | Queued |
-| InternVL3.5-14B-HF | 14B | `4afc_easy_m`| *TBD* | *TBD* | *TBD* | Queued |
+| **InternVL3.5-14B-HF** | 14B | `4afc_easy_m`| **27.0%** | **65.0%** | **17.5%** | **Complete** |
 | **InternVL3.5-8B-HF** | 8B | `4afc_hard` | 28.0% | 55.0% | 21.2% | Complete |
 | InternVL3.5-8B-HF | 8B | `4afc_mid_m` | *TBD* | *TBD* | *TBD* | Queued |
 | **InternVL3.5-8B-HF** | 8B | `4afc_easy_m`| **39.0%** | **75.0%** | **30.0%** | **Complete** |
