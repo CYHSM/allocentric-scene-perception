@@ -81,4 +81,4 @@ echo "--- full run, 500 trials ---"
     --max_tokens 512 --out "$OUT" 2>&1 | tee "$LOG"
 
 echo "$MODEL ($PROMPT) finished at $(date)"
-.venv/bin/python bench/analyze_vii.py --json figures/vii_rows.json | tail -30
+.venv/bin/python bench/archive/analyze_vii.py --json figures/vii_rows.json | tail -30

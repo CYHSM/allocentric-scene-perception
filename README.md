@@ -119,9 +119,9 @@ bench/
 ├── layout_distance.py      the rotation-optimal layout distance
 ├── build_hard_benchmark.py foil selection by percentile band
 ├── build_human_task.py     the browser task, on the SAME trials
-├── vii.py / analyze_vii.py d′, VII, positional-prior controls
+├── vii.py                  d′, VII, positional-prior controls
 ├── agents.py               one discovery layer every figure reads
-├── figure_*.py             the paper figures
+├── make_figures.py         the paper figures (historical ones in archive/)
 ├── run_openrouter.sh       API runs      launch_hard_queue.sh   dgx2 runs
 └── tests/
 

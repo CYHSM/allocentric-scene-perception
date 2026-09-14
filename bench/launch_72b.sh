@@ -65,4 +65,4 @@ echo "72B ($PROMPT) finished at $(date)"
 
 # The scaling axis, regenerated. analyze_vii is the one that reports VII and the
 # positional-prior controls; figure_vlm.py is the older raw-accuracy figure.
-.venv/bin/python bench/analyze_vii.py --json figures/vii_rows.json | tail -30
+.venv/bin/python bench/archive/analyze_vii.py --json figures/vii_rows.json | tail -30

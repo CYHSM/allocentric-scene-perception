@@ -189,9 +189,8 @@ python3 bench/build_human_task.py --benchmark data/vlm_benchmark_4afc_hard.json 
     --match_run 100 --match_seed 0 --prompt_style neutral_anyview --out human_task/hard
 
 # read it
-python3 bench/analyze_vii.py
-python3 bench/figure_double_dissociation.py
-python3 bench/figure_modes_full.py
+bash bench/build_paper.sh
+# (historical one-off figure scripts are preserved in bench/archive/)
 ```
 
 Always smoke-test a new model at **n=1** before widening.

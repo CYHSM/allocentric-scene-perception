@@ -395,7 +395,7 @@ Three earlier figures were retired on 9 September 2026 and are not coming back:
 * the **positional-prior panel** is the `prior` column of Table 1.
 
 Older one-off figure scripts (`figure_double_dissociation.py`,
-`figure_modes_full.py`, `figure_mode_detail.py`, `analyze_vii.py`) still work
+`figure_modes_full.py`, `figure_mode_detail.py`, `analyze_vii.py`, preserved in `bench/archive/`) still work
 and were the exploration; they each open result files directly and each carry
 their own copy of `wilson`. They are not part of the paper build. Prefer the
 pipeline above; if one of them shows something the pipeline does not, that is a

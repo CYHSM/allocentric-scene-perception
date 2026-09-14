@@ -257,3 +257,89 @@ Prefer the shortest natural formulation that preserves the meaning.
 Do not explain what you changed.
 
 Return ONLY the rewritten paper.
+
+
+---
+
+# Ten Simple Rules for Structuring Papers (Mensh & Kording, 2017)
+
+*Reference: Mensh B, Kording K (2017) "Ten simple rules for structuring papers." PLoS Comput Biol 13(9): e1005619.*
+
+### Core Principles
+1. **Focus on how readers consume information**: Readers have limited attention and start without your insider context.
+2. **Context-Content-Conclusion (C-C-C) Scheme**:
+   - **Context**: Set up the problem and why it matters.
+   - **Content**: Deliver the novel findings, data, or methods.
+   - **Conclusion**: Explain what the findings mean in light of the context.
+   - Use C-C-C at all scales: the whole paper, each section, each subsection, and each paragraph.
+
+---
+
+### The Ten Rules
+
+#### Rule 1: Focus your paper on a central contribution, which you communicate in the title
+- Successful communication means readers can summarize the paper's core contribution in one sentence.
+- Announce that contribution directly in the title and weave every section around supporting it.
+
+#### Rule 2: Write for flesh-and-blood human beings who do not know your work
+- You are an expert; your readers are smart and motivated, but unfamiliar with your specific details.
+- Avoid insider jargon, define non-standard terms early, and minimize cognitive friction.
+
+#### Rule 3: Stick to the Context-Content-Conclusion (C-C-C) scheme
+- Apply C-C-C recursively across:
+  - The entire paper (Intro = Context, Methods/Results = Content, Discussion = Conclusion).
+  - Each section and subsection.
+  - Each individual paragraph: open with context/topic, provide content/evidence in the middle, and conclude with the takeaway.
+
+#### Rule 4: Optimize your logical flow by avoiding zig-zag and using parallelism
+- **Avoid zig-zag**: Only the central idea should recur throughout the paper. Do not jump between unrelated topics and circle back unexpectedly.
+- **Use parallelism**: When comparing two conditions, methods, or models, use identical grammatical forms, order of presentation, and naming conventions.
+
+#### Rule 5: Tell a complete story in the abstract
+- The abstract is the only part most people read. It must stand alone as a compact summary:
+  1. High-level background / broad context.
+  2. Specific gap or unresolved question.
+  3. Executive summary of what was done.
+  4. Key results / central finding.
+  5. What the results imply or change about our understanding.
+
+#### Rule 6: Communicate why the paper matters in the introduction
+- Funnel structure:
+  - Broad importance of the general domain.
+  - Specific gap or bottleneck in existing methods/knowledge.
+  - Exactly what this work does to resolve that gap.
+
+#### Rule 7: Deliver the results as a sequence of statements, supported by figures, that connect logically to support the central contribution
+- Convert the results section into a clear sequence of declarative claims.
+- Subsection headers (and figure titles) should be informative statements of the finding, not generic labels (e.g., *"Foil distance recovers rotated performance"* rather than *"Foil analysis"*).
+- Every figure should directly support a specific claim in the logic chain.
+
+#### Rule 8: Discuss how the gap was filled, the limitations of the interpretation, and the relevance to the field
+- State how the central claim answers the question raised in the introduction.
+- Frankly address limitations, counter-hypotheses, and boundaries of the findings before reviewers point them out.
+- Highlight concrete implications for the field without sweeping over-generalizations.
+
+#### Rule 9: Allocate time where it matters: Title, abstract, figures, and outlining
+- The title, abstract, and figures receive orders of magnitude more attention than the methods or body prose.
+- Outline first: write a one-sentence summary for each planned paragraph before drafting sentences. Avoid wordsmithing text that will be cut later.
+
+#### Rule 10: Get feedback to reduce, reuse, and recycle the story
+- Writing is an iterative optimization problem. Be willing to scrap entire paragraphs and restructure when feedback reveals the storyline is unclear.
+- Test drafts on naive readers to find where the story drags, confuses, or loses momentum.
+
+---
+
+### Diagnostic Table: Signs Rules Are Being Violated
+
+| Rule | Sign it is violated |
+|---|---|
+| **1: Focus on one big idea** | Readers cannot give a 1-sentence summary of the paper. |
+| **2: Write for naive humans** | Readers do not "get" the point or stumble over assumptions. |
+| **3: Use C-C-C structure** | Readers ask why something matters or what a paragraph means. |
+| **4: Optimize logical flow** | Readers stumble or need to re-read small sections of text. |
+| **5: Abstract: Complete story** | Readers cannot deliver the elevator pitch after reading the abstract. |
+| **6: Intro: Why it matters** | Readers show little interest or question the motivation. |
+| **7: Results: Justified conclusions** | Readers do not agree that the data supports your conclusions. |
+| **8: Discussion: Preempt criticism** | Readers or reviewers raise obvious criticisms that were ignored. |
+| **9: Allocate time wisely** | Readers struggle to understand the core idea despite massive writing effort. |
+| **10: Iterate the story** | The paper's contribution is misunderstood or rejected by reviewers. |
