@@ -1,0 +1,1020 @@
+{
+  "summary": {
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "benchmark": "data/vlm_benchmark_4afc_easy_m.json",
+    "delay_seconds": 1.0,
+    "diffusion_rate": 0.05,
+    "noise_scale": 0.22360679774997896,
+    "effective_sigma": 0.22360679774997896,
+    "noise_type": "gaussian",
+    "noise_target": "study",
+    "locus": "vision_embed",
+    "prompt_style": "cot_anyview",
+    "n_trials": 100,
+    "overall_accuracy": 0.29,
+    "gate_accuracy_delta0": 0.5,
+    "rotated_accuracy": 0.2375
+  },
+  "results": [
+    {
+      "trial_id": "c0_shape_colour_d000_t04",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 7.69,
+      "reply": "The study image presents a landscape with four distinct peaks: a yellow sphere, a green cylinder, a purple cone, and a blue pyramid. The purple cone is positioned to the left of the green cylinder, while the blue pyramid is situated to the right of the green cylinder. The yellow sphere is located in front of the green cylinder, slightly to the left.\n\nIn Option 1, the blue pyramid has moved closer to the green cylinder, and the purple cone is now positioned further back, behind the green cylinder. This change alters the relative spatial arrangement of the peaks.\n\nOption 2 shows a significant rearrangement where the green cylinder is now in front of the yellow sphere, and the blue pyramid is positioned further back, behind the green cylinder. The purple cone remains to the left of the green cylinder but is now closer to it.\n\nOption 3 features a dramatic shift; the yellow sphere is now in front of the green cylinder, and the blue pyramid is positioned further back, behind the green cylinder. The purple cone is also closer to the green cylinder than in the study image.\n\nOption 4 maintains the relative positions of the peaks similar to the study image, with the yellow sphere in front of the green cylinder, the purple cone to the left, and the blue pyramid to the right. However, the green cylinder appears to have shifted slightly forward compared to the study image.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t05",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 4.71,
+      "reply": "The study image features a green cylinder, a yellow sphere, a purple cone, and a blue pyramid. In Option 1, the green cylinder remains in the back, the yellow sphere is still in front, the purple cone is to the right, and the blue pyramid is to the left, maintaining the same relative spatial arrangement but with a slight change in lighting. Option 2 shifts the purple cone to the left and the blue pyramid to the right, altering the spatial layout. Option 3 places the blue pyramid in the foreground, changing its position significantly. Option 4 keeps the green cylinder in the back, the yellow sphere in front, the purple cone to the right, and the blue pyramid to the left, similar to the study image but with a different lighting effect.\n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t14",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.46,
+      "reply": "The study image and Option 4 both depict the same four mountain peaks with the same relative spatial arrangement. The yellow sphere is positioned in front of the purple cone, which is in front of the green cylinder, and the blue pyramid is situated behind the green cylinder but in front of the yellow sphere. The only difference is the camera angle; in the study image, the camera appears to be slightly angled towards the left, while in Option 4, it seems more directly facing the scene. The lighting and weather conditions also appear consistent between the two.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c0_shape_colour_d000_t19",
+      "mode": "c0_shape_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 4.19,
+      "reply": "The study image features a yellow sphere, a green cylinder, a purple cone, and a teal pyramid. In Option 1, the yellow sphere remains in the same position but the green cylinder has moved closer to the purple cone, and the teal pyramid is now positioned further back. Option 2 shows the yellow sphere in a new location, the green cylinder is in a different spot, and the purple cone and teal pyramid have shifted as well. Option 3 maintains the original positions of all four peaks, just like the study image. Option 4 places the yellow sphere in a new position, the green cylinder is in a different location, and the purple cone and teal pyramid have been repositioned.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t03",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.53,
+      "reply": "The study image and Option 4 both depict the same four mountain peaks in a similar spatial layout. The teal pyramid is positioned to the left, the green cylinder is slightly behind it, the purple cone is in front of the green cylinder, and the yellow sphere is to the right. The only difference is the slight rotation of the camera angle in Option 4, which does not alter the relative positions of the peaks. Therefore, the exact same mountain landscape is shown in Option 4.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t08",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 2.96,
+      "reply": "The study image and Option 4 both depict the same four mountain peaks with the yellow sphere in the foreground, the purple cone slightly behind it, the green cylinder further back, and the blue pyramid positioned to the right of the green cylinder. The relative spatial arrangement of these peaks remains consistent across both views, suggesting that Option 4 is the correct match. The only difference is the color of the pyramid, which does not affect the spatial layout.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t11",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.25,
+      "reply": "The study image and Option 3 both depict the same four mountain peaks in a similar spatial arrangement. The yellow sphere is positioned in the foreground on the left side, the green cylinder is slightly behind it towards the center, the purple cone is on the right side, and the blue pyramid is behind the purple cone. The only difference is that in Option 3, the camera appears to be rotated slightly clockwise compared to the study image, which changes the perspective but not the relative positions of the peaks. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c0_shape_colour_d045_t14",
+      "mode": "c0_shape_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.06,
+      "reply": "The study image and Option 4 both depict the same four mountain peaks with the green cylinder-like shape positioned centrally, the purple cone to its left, the yellow sphere to its right, and the blue pyramid partially obscured by the yellow sphere. The relative spatial arrangement of these peaks remains consistent across both views, suggesting that Option 4 is the correct match. The only difference is the camera angle, which appears slightly rotated in Option 4 compared to the study image.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t00",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 6.59,
+      "reply": "The study image presents a landscape with four distinct peaks: a yellow sphere on the left, a purple cone slightly behind it, a green cylinder to the right, and a blue pyramid in front of the green cylinder. In Option 1, the yellow sphere remains on the left, but the purple cone has moved closer to the center, and the green cylinder is positioned further back. The blue pyramid is now in front of the green cylinder, but its orientation appears different. Option 2 shows the yellow sphere still on the left, the purple cone in a similar position, and the green cylinder in a new location, but the blue pyramid is now in front of the green cylinder, and its orientation is altered. Option 3 places the yellow sphere on the left, the purple cone in a similar position, and the green cylinder in a new location, but the blue pyramid is in front of the green cylinder, and its orientation is different. Option 4 maintains the yellow sphere on the left, the purple cone in a similar position, and the green cylinder in a new location, but the blue pyramid is in front of the green cylinder, and its orientation is altered.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t02",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.2,
+      "reply": "The study image features a green cylinder, a yellow sphere, a purple cone, and a teal pyramid arranged in a specific order. In Option 1, the green cylinder and the yellow sphere have swapped positions, while the purple cone and teal pyramid remain in their original spots but are rotated slightly. Option 2 shows a similar rotation but places the teal pyramid in front of the yellow sphere instead of behind it. Option 3 has the teal pyramid positioned in front of the yellow sphere, and the green cylinder is now closer to the viewer than before. Option 4 maintains the original positions and spatial arrangement of the peaks, just with a slight change in perspective due to the camera's rotation.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t09",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 4.21,
+      "reply": "The study image features a purple cone on the left, a teal pyramid in the center, a yellow sphere in the foreground, and a green cylinder on the right. In Option 1, the pyramid has moved slightly forward, and the green cylinder has shifted to the left, altering the spatial arrangement. Option 2 presents a significant change, with the pyramid now positioned behind the green cylinder and the yellow sphere moved further back. Option 3 shows the pyramid and green cylinder swapped positions, while the yellow sphere remains in the foreground but is closer to the green cylinder than in the study image. Option 4 maintains the original spatial layout of the peaks, with only minor differences in shadow and lighting.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c0_shape_colour_d090_t19",
+      "mode": "c0_shape_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 4.83,
+      "reply": "The study image presents a landscape with four distinct peaks: a green cylinder, a purple cone, a yellow sphere, and a blue pyramid. The blue pyramid is positioned in front of the green cylinder, the purple cone is to the right of the green cylinder, and the yellow sphere is situated to the right of the purple cone. In comparison, Option 2 mirrors this exact spatial arrangement but appears rotated slightly clockwise, maintaining the same relative positions of the peaks. Options 1 and 3 alter the spatial relationships among the peaks, with the blue pyramid being placed behind the green cylinder in Option 1 and the yellow sphere being closer to the green cylinder in Option 3. Option 4 also changes the spatial layout by positioning the blue pyramid further back and altering the relative distances between the green cylinder and the purple cone.\n\nFinal Answer: Option 2"
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t00",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 6.96,
+      "reply": "The study image presents a landscape with four distinct peaks: a green cylinder, a yellow sphere, a purple cone, and a blue pyramid. The green cylinder is positioned to the left, the yellow sphere is slightly behind and to the right, the purple cone is in front and to the right, and the blue pyramid is further back and to the right. In Option 1, the green cylinder remains on the left, but the yellow sphere has moved closer to the center, the purple cone is now more prominent in the foreground, and the blue pyramid is shifted further back. Option 2 shows a significant rearrangement where the green cylinder is still on the left, but the yellow sphere is now in the center, the purple cone is in the foreground, and the blue pyramid is positioned to the right. Option 3 places the green cylinder on the left, the yellow sphere in the center, the purple cone in the foreground, and the blue pyramid to the right. Option 4 has the green cylinder on the left, the yellow sphere in the center, the purple cone in the foreground, and the blue pyramid to the right, similar to Option 2 but with a slight difference in the positioning of the yellow sphere. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t08",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 6.06,
+      "reply": "The study image presents a landscape with four distinct peaks: a green cylinder, a purple cone, a yellow sphere, and a blue pyramid. The blue pyramid is positioned in front of the green cylinder, with the yellow sphere to its right and slightly behind, and the purple cone situated further back and to the right of the green cylinder. In Option 1, the blue pyramid remains in front of the green cylinder, but the yellow sphere has moved closer to the green cylinder and the purple cone has shifted to the right, altering the relative spatial arrangement. Option 2 shows the yellow sphere in front of the green cylinder, which contradicts the study image's layout. Option 3 maintains the blue pyramid in front of the green cylinder, with the yellow sphere and purple cone in their original positions, thus preserving the same relative spatial arrangement as the study image. Option 4 places the yellow sphere in front of the green cylinder, changing the relative positions significantly.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t10",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.37,
+      "reply": "The study image and Option 2 both depict the same four mountain peaks in a similar spatial arrangement. The yellow sphere is positioned to the left, the purple cone is in front of it, the green cylinder is to the right, and the blue pyramid is behind the green cylinder. The only difference is that the camera angle in Option 2 appears to be rotated slightly clockwise compared to the study image, which does not significantly alter the relative positions of the peaks. Therefore, the exact same mountain landscape is shown in Option 2.\n\nFinal Answer: Option 2"
+    },
+    {
+      "trial_id": "c0_shape_colour_d135_t14",
+      "mode": "c0_shape_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 6.33,
+      "reply": "The study image presents a landscape with four distinct peaks: a yellow sphere, a purple cone, a green cylinder, and a cyan pyramid. The green cylinder is positioned to the right of the yellow sphere, the purple cone is situated behind the green cylinder, and the cyan pyramid is in front of the yellow sphere. In Option 1, the green cylinder is still to the right of the yellow sphere, but the purple cone has moved closer to the green cylinder, and the cyan pyramid is now positioned behind the yellow sphere. Option 2 shows the green cylinder to the left of the yellow sphere, the purple cone behind the green cylinder, and the cyan pyramid in front of the yellow sphere. Option 3 places the green cylinder to the right of the yellow sphere, the purple cone behind the green cylinder, and the cyan pyramid in front of the yellow sphere, similar to the study image. Option 4 has the green cylinder to the right of the yellow sphere, the purple cone behind the green cylinder, and the cyan pyramid in front of the yellow sphere, but the green cylinder appears larger than in the study image.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t09",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 5.34,
+      "reply": "The study image features a green cylinder in the foreground, with a yellow sphere slightly behind it, a purple cone to the left, and a teal pyramid to the right. In Option 1, the green cylinder remains in the foreground but the yellow sphere has moved closer to the center, and the purple cone and teal pyramid have shifted positions. Option 2 shows the green cylinder still in the foreground, but the yellow sphere is now more centrally located, and the purple cone and teal pyramid have swapped places. Option 3 presents the green cylinder in the foreground, with the yellow sphere positioned further back, the purple cone to the left, and the teal pyramid to the right, similar to the study image. Option 4 has the green cylinder in the foreground, the yellow sphere in the middle, the purple cone to the left, and the teal pyramid to the right, but the yellow sphere appears larger than in the study image.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t11",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 4.02,
+      "reply": "The study image features a purple cone, a teal pyramid, a green cylinder, and a yellow sphere arranged in a specific order. In Option 1, the teal pyramid has moved closer to the green cylinder, and the yellow sphere is now positioned further back. Option 2 shows the teal pyramid in a different orientation but maintains its relative position to the green cylinder and the yellow sphere. Option 3 places the teal pyramid in a new location, closer to the green cylinder, and the yellow sphere is also repositioned. Option 4 presents a completely different arrangement, with the teal pyramid and the yellow sphere swapped, and the green cylinder moved to the side.\n\nFinal Answer: Option 2"
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t12",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.65,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The yellow sphere is positioned to the left, the green cylinder is in the back center, the purple cone is to the right, and the teal pyramid is in the foreground. There is no significant difference in the relative positions or the camera angle between the study view and Option 4. \n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c0_shape_colour_d180_t13",
+      "mode": "c0_shape_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.21,
+      "reply": "The study image and Option 3 both depict the same four mountain peaks with the same relative spatial arrangement. The green cylinder is positioned in the foreground on the left side, the yellow sphere is slightly behind it to the right, the purple cone is further back to the right, and the blue pyramid is situated behind the purple cone. The only difference is the camera angle; in the study image, the camera appears to be facing slightly towards the right, while in Option 3, the camera seems to be facing more directly forward. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c1_shape_d000_t00",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 3.35,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 2 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The cone is positioned centrally behind the sphere, the cylinder is to the right of the cone, and the pyramid is in front of the cylinder. There is no significant difference in the camera angle or lighting that would alter this arrangement. \n\nFinal Answer: Option 2"
+    },
+    {
+      "trial_id": "c1_shape_d000_t01",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 2.52,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 is identical. The cylinder is positioned to the left, the sphere is in the back, the cone is to the right, and the pyramid is in the foreground. There is no significant difference in the relative positions or the camera angle between the study view and Option 3. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c1_shape_d000_t09",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 2.56,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 1 is identical. Both depict the same four mountain peaks with the cone in the foreground, the pyramid to its left, the cylinder slightly behind and to the right, and the sphere further back and to the right. The relative positions and the camera angle appear consistent between the two views. \n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c1_shape_d000_t14",
+      "mode": "c1_shape",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.01,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 2 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The camera angle in Option 2 seems to be rotated slightly clockwise compared to the study view, but this does not alter the spatial arrangement of the peaks. The shadows cast by the cones in both views also align, further supporting that they depict the same landscape.\n\nFinal Answer: Option 2"
+    },
+    {
+      "trial_id": "c1_shape_d045_t00",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 3.69,
+      "reply": "The study image features a cone, a pyramid, a sphere, and a cylinder arranged in a specific order. In Option 1, the cone and pyramid are swapped, while the sphere and cylinder remain in their original positions but appear slightly rotated. Option 2 maintains the original order but rotates the entire scene, altering the spatial relationships. Option 3 also keeps the original order but shifts the sphere and cylinder closer together, changing the relative distances. Option 4 presents a different arrangement where the cone and pyramid are swapped again, and the sphere and cylinder are positioned differently compared to the study image.\n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c1_shape_d045_t05",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 2.58,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The large sphere is positioned to the left, the cylinder is in the back center, the cone is to the right, and the pyramid is in the foreground. There is no significant difference in the relative positions or the camera angle between the study view and Option 4. \n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c1_shape_d045_t08",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 6.44,
+      "reply": "The study image presents a landscape with a large sphere in the foreground, a cylinder slightly behind it, and two pyramids positioned further back, with one closer to the center and the other more towards the right. In Option 1, the large sphere remains in the foreground, but the cylinder has moved to the background, and the two pyramids have shifted positions, with the one originally closer to the center now being more to the right. Option 2 shows a significant rearrangement where the large sphere is now in the middle, the cylinder is in the foreground, and the two pyramids are positioned behind them, with the one that was originally closer to the center now being more to the left. Option 3 maintains the original spatial layout of the peaks, with the large sphere in the foreground, the cylinder behind it, and the two pyramids in the background, though their relative positions are slightly altered due to a possible camera rotation. Option 4 places the large sphere in the middle, the cylinder in the foreground, and the two pyramids behind them, with the one originally closer to the center now being more to the right.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c1_shape_d045_t11",
+      "mode": "c1_shape",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 3.14,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 1 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The shadows cast by the cones and the pyramid also align perfectly, suggesting that the camera angle and lighting conditions are consistent between the two. In contrast, Options 2, 3, and 4 show variations in the spatial arrangement of the peaks, indicating different camera rotations or perspectives.\n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c1_shape_d090_t01",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 6.27,
+      "reply": "The study image features a landscape with four distinct peaks: a sphere, a cone, a cylinder, and another cone. The sphere is positioned to the left, the first cone is slightly behind and to the right of the sphere, the cylinder is in front of the sphere and to the right, and the second cone is further back and to the right of the cylinder. In Option 1, the sphere remains to the left, but the first cone has moved closer to the sphere, the cylinder is now more centrally located, and the second cone is positioned further back and to the right. Option 2 shows a significant rearrangement where the sphere is now in the center, the first cone is to the left, the cylinder is to the right, and the second cone is behind the cylinder. Option 3 places the sphere in the center, the first cone to the left, the cylinder to the right, and the second cone behind the cylinder. Option 4 has the sphere to the left, the first cone to the right, the cylinder in the center, and the second cone behind the cylinder. \n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c1_shape_d090_t05",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.25,
+      "reply": "The study image and Option 4 both depict the same four mountain peaks with the same relative spatial arrangement. The cone is positioned to the left of the cylinder, the sphere is behind the cylinder, and the pyramid is to the right of the cylinder. The only difference is the camera angle; in the study image, the camera appears to be slightly angled towards the right, while in Option 4, it seems more directly facing forward. The lighting and shadows also appear consistent across these two options.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c1_shape_d090_t13",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.29,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 is identical. Both depict the same four mountain peaks with the same relative positions: the largest peak is in the foreground, followed by a smaller peak to its right, another smaller peak further back, and the smallest peak positioned behind the others. The camera angle appears to be consistent between the two, maintaining the same perspective and distance from the peaks. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c1_shape_d090_t15",
+      "mode": "c1_shape",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.22,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. Both depict the same four mountain peaks with the same relative positions: the large sphere in the foreground, the cylinder slightly behind it, the smaller pyramid to the right, and the larger pyramid further back. The only difference is the camera angle; the study view appears to be taken from a slightly higher and more angled perspective compared to Option 4, which is almost directly in front of the scene. \n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c1_shape_d135_t02",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 5.99,
+      "reply": "The study image presents a landscape with four distinct peaks: a triangular peak on the left, a conical peak slightly behind it, a cylindrical peak further back, and a spherical peak in the foreground. In Option 1, the triangular peak remains on the left, but the conical peak has moved closer to the center, and the cylindrical peak is now positioned more towards the back. The spherical peak is still in the foreground but appears smaller due to perspective. Option 2 shows a significant shift; the triangular peak is now on the right, and the conical peak is much smaller and positioned behind the cylindrical peak. The spherical peak is also smaller and more distant. Option 3 maintains the original positions of the peaks but with a noticeable change in their sizes and shadows, indicating a possible camera rotation that alters the perspective. Option 4 places the triangular peak on the right, the conical peak in the middle, the cylindrical peak behind, and the spherical peak in the foreground, similar to the study image but with a different camera angle and lighting.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c1_shape_d135_t06",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 4.57,
+      "reply": "The study image presents a landscape with four distinct peaks: a sphere, a cone, a cylinder, and a pyramid, arranged in a specific order. In Option 1, the sphere is positioned to the left, the cone is behind it, the cylinder is in front of the cone, and the pyramid is to the right of the cylinder. Option 2 shows the same peaks but with the cone and the pyramid swapped, altering their relative positions. Option 3 places the cone and the pyramid closer together, with the cone in front of the pyramid, and the sphere and cylinder remain in their original positions. Option 4 has the cone and the pyramid reversed in position compared to the study image, with the cone now in front of the pyramid. \n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c1_shape_d135_t12",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.6,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 is identical. The cone is positioned to the left, the sphere is in the center, the cube is to the right, and the pyramid is in front of the sphere. There is no significant difference in the relative positions or the camera angle between the study view and Option 3. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c1_shape_d135_t14",
+      "mode": "c1_shape",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 2.92,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 1 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The lighting and shadows also match closely, suggesting that the camera angle has not changed significantly. In contrast, Options 2, 3, and 4 show variations in the spatial arrangement of the peaks, indicating different camera rotations or perspectives.\n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c1_shape_d180_t00",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 4.84,
+      "reply": "The study image presents a landscape with four distinct peaks: a cone, a cylinder, a pyramid, and a sphere, arranged in a specific order. In Option 1, the cone and the cylinder remain in their original positions, but the pyramid and the sphere have been swapped, altering the spatial relationship between them. Option 2 shows a significant rearrangement where the cone is now in front of the cylinder, and the pyramid and sphere are positioned differently, indicating a substantial change in the landscape's layout. Option 3 maintains the cone and cylinder in their original spots but shifts the pyramid and sphere further apart, changing the overall spatial arrangement. Option 4 places the cone and cylinder in a similar position as in the study image, but the pyramid and sphere are in a different configuration, suggesting a different perspective or rotation.\n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c1_shape_d180_t01",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 2,
+      "is_correct": true,
+      "latency": 3.11,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 2 appears identical. The large sphere is positioned in the foreground, slightly to the left, with the cone to its right and slightly behind it. The pyramid is situated further back, to the right of the cone, and the cylinder is positioned behind the pyramid, to the right. The relative positions and distances between the peaks remain consistent across both views, suggesting that Option 2 is the correct match.\n\nFinal Answer: Option 2"
+    },
+    {
+      "trial_id": "c1_shape_d180_t07",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 3.9,
+      "reply": "The study image presents a landscape with four distinct peaks: a cylinder, a pyramid, a cone, and a sphere, arranged in a specific order. In Option 1, the pyramid is positioned in front of the cylinder, while the cone and sphere are behind them, maintaining the same relative spatial arrangement but rotated slightly clockwise. Option 2 shows the cone in front of the cylinder, which changes the relative positioning compared to the study image. Option 3 places the pyramid in front of the cylinder, similar to Option 1, but the cone and sphere are rearranged differently. Option 4 has the cone in front of the cylinder, altering the spatial layout significantly.\n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c1_shape_d180_t11",
+      "mode": "c1_shape",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 4.77,
+      "reply": "The study image presents a landscape with four distinct peaks: a cone, a pyramid, a cylinder, and a sphere, arranged in a specific order from left to right. In Option 1, the cone and pyramid have swapped positions, while the cylinder and sphere remain in their original spots. Option 2 rearranges all the peaks differently, placing the cone in front of the cylinder and the pyramid behind the sphere. Option 3 maintains the original order but rotates the entire scene slightly clockwise, keeping the cone in front of the cylinder and the pyramid behind the sphere. Option 4 places the cone and pyramid in a different order, with the cone now behind the cylinder and the pyramid in front of the sphere.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c2_colour_d000_t04",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 3.05,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The green peak is positioned to the left, the purple peak is slightly behind and to the right, the yellow peak is in front and to the right, and the blue peak is in front and to the left. There is no significant difference in the relative positions of the peaks between the study view and Option 4, indicating that they represent the exact same mountain landscape.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d000_t15",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.53,
+      "reply": "The 3D spatial layout of the peaks in the study image and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise compared to the study image. The lighting and weather conditions also seem consistent across both views.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d000_t16",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.78,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The green peak is positioned to the left of the blue peak, which is in front of the yellow peak, and the purple peak is to the right of the yellow peak. The relative positions and the camera angle remain consistent between the two views. Therefore, the exact same mountain landscape is shown in Option 4.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d000_t17",
+      "mode": "c2_colour",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 3.12,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 is identical. The purple peak is positioned to the left, the green peak is slightly behind and to the right, the yellow peak is further back and to the right, and the teal peak is in the foreground, slightly to the right. There is no noticeable difference in the relative positions of the peaks between the study view and Option 3, indicating that they represent the exact same mountain landscape.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c2_colour_d045_t00",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.98,
+      "reply": "The 3D spatial layout of the peaks in the study image and Option 3 is identical. The yellow peak is positioned in the foreground on the left side, the green peak is slightly behind it on the right, the purple peak is further back and to the left, and the blue peak is situated behind the green peak on the right. There is no significant difference in the relative positions or the camera angle between the study image and Option 3.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c2_colour_d045_t01",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.64,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The green peak is positioned to the left of the yellow peak, which is in front of the purple peak, and the teal peak is situated behind the green peak. The relative positions of the peaks remain consistent across both views, indicating that Option 4 is the correct match.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d045_t04",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.61,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle; the study view presents a slightly more frontal perspective compared to Option 3, which offers a more angled view. The lighting and weather conditions also appear consistent across both views.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c2_colour_d045_t14",
+      "mode": "c2_colour",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.69,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 is identical. The purple peak is positioned to the left, the yellow peak is to the right, the teal peak is in front, and the green peak is behind. There is no significant difference in the relative positions or the camera angle between the study view and Option 3. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c2_colour_d090_t03",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.42,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The purple peak is positioned in the foreground on the left side, the yellow peak is slightly behind it on the right, the green peak is further back and to the right, and the blue peak is situated behind the green one, completing the quadrilateral formation. The relative positions and the camera angle appear consistent across both views, indicating that Option 4 matches the study view exactly.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d090_t04",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.2,
+      "reply": "The study image presents four cone-shaped peaks arranged in a specific spatial layout where the purple peak is positioned to the left, the yellow peak is slightly behind and to the right, the green peak is in front and to the right, and the blue peak is further back and to the right. In Option 1, the peaks maintain this relative positioning but appear rotated clockwise by approximately 90 degrees. Option 2 shows a similar layout but with the green and blue peaks swapped, indicating a different rotation. Option 3 has the green and blue peaks swapped again, suggesting another rotation. Option 4 aligns perfectly with the original layout, maintaining the same relative positions and rotations as the study image.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d090_t07",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.02,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The yellow peak is positioned to the left, the purple peak is slightly behind and to the right, the teal peak is in the foreground and center, and the green peak is to the right and slightly behind. There is no significant difference in the relative positions of the peaks between the study view and Option 4, indicating that they represent the exact same mountain landscape.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d090_t09",
+      "mode": "c2_colour",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.79,
+      "reply": "The 3D spatial layout of the peaks in the study image and Option 3 is identical. The yellow peak is positioned in the foreground on the left side, the purple peak is slightly behind it to the right, the green peak is further back and to the right, and the blue peak is situated in the background on the far right. The relative positions and the camera angle remain consistent between the two images. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c2_colour_d135_t02",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.95,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The green peak is positioned in the foreground, slightly to the left, with the yellow peak directly behind it. The purple peak is situated to the right of the green peak, and the blue peak is positioned further back, to the right of the yellow peak. The relative positions and the camera angle remain consistent between the study view and Option 4.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d135_t06",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.94,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical. The teal peak is positioned in the foreground on the left, the purple peak is slightly behind it to the right, the green peak is further back and to the right, and the yellow peak is situated furthest back on the right. There is no noticeable difference in the relative positions or the camera angle between the study view and Option 3. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c2_colour_d135_t09",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.77,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 is identical. The green peak is positioned in the foreground on the left side, the yellow peak is slightly behind it on the right, the purple peak is further back on the right, and the blue peak is situated behind the green one on the left. The relative positions and the camera angle remain consistent between the two views. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c2_colour_d135_t12",
+      "mode": "c2_colour",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.97,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The purple peak is positioned in the foreground on the left side, the teal peak is slightly behind it on the right, the green peak is further back on the right, and the yellow peak is situated behind the green one on the far right. There is no significant difference in the relative positions or the camera angle between the study view and Option 4.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d180_t01",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 3.29,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. In both views, the yellow peak is positioned in the foreground, slightly to the left, with the green peak directly behind it. The purple peak is situated to the right and slightly behind the yellow peak, while the blue peak is positioned further back and to the right of the green peak. The relative positions and distances between the peaks remain consistent across these two options, indicating that they depict the exact same mountain landscape. \n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c2_colour_d180_t05",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.76,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which has rotated slightly, altering the perspective but not the spatial arrangement of the peaks. The shadows cast by the cones also align similarly, confirming the consistency in the scene's layout.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c2_colour_d180_t09",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 6.17,
+      "reply": "The study image presents four cone-shaped peaks arranged in a specific spatial layout where the yellow peak is positioned to the left, the green peak is in front, the teal peak is slightly behind and to the right, and the purple peak is further back and to the right. In Option 1, the cones are rearranged with the teal peak now in front, the purple peak behind it, the yellow peak to the left, and the green peak to the right. Option 2 shows the cones with the green peak in front, the teal peak behind it, the yellow peak to the left, and the purple peak to the right. Option 3 places the green peak in front, the teal peak behind it, the purple peak to the left, and the yellow peak to the right. Option 4 has the teal peak in front, the yellow peak behind it, the green peak to the left, and the purple peak to the right. None of these options match the exact spatial arrangement seen in the study image.\n\nFinal Answer: Option 2"
+    },
+    {
+      "trial_id": "c2_colour_d180_t10",
+      "mode": "c2_colour",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.62,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The green peak is positioned to the left of the blue peak, which is in front of the purple peak, and the yellow peak is to the right of the blue peak. The relative positions of the peaks remain consistent across both views, indicating that Option 4 is the correct match.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.81,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The shadows cast by the peaks also align similarly, suggesting that the camera angle and lighting conditions have not changed significantly between the two. Therefore, the exact same mountain landscape is depicted in both the study view and Option 3.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t05",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.75,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The slight differences in shadow angles and lighting suggest a similar viewing angle but not necessarily the exact same perspective. Therefore, the mountain landscape in Option 4 matches the one in the study view.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t12",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 2.85,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The lighting and shadows in both views are consistent, suggesting that the camera angle and lighting conditions have not changed significantly. Therefore, the exact same mountain landscape is depicted in both the study view and Option 4.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d000_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 2.65,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise compared to the study view. The shadows cast by the peaks also align similarly, confirming their identical spatial arrangement.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t00",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.73,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise compared to the study view. The shadows cast by the peaks also align similarly, indicating that the lighting conditions have not changed significantly.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t04",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.11,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical. The peaks maintain their relative positions and distances from each other, with no significant changes in their arrangement or the camera's perspective. Both views show the same four peaks in the same order, with the central peak slightly larger than the others, and the peaks on the left side being closer together compared to those on the right. The lighting and shadows also appear consistent between the two.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t16",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.54,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise compared to the study view. The lighting and weather conditions also seem consistent across both views.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d045_t17",
+      "mode": "c3_peaks_bare",
+      "delta": 45,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 2.53,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise compared to the study view. The shadows cast by the peaks also align similarly, confirming their identical spatial arrangement.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t05",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 2.6,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The shadows cast by the peaks also align similarly, suggesting that the lighting conditions are consistent. There is no noticeable difference in the arrangement or perspective of the peaks between the study view and Option 4.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.25,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise compared to the study view. The shadows cast by the peaks also align similarly, confirming their identical spatial arrangement.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t13",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 2.71,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise compared to the study view. The shadows cast by the peaks also align similarly, reinforcing the similarity in the overall spatial arrangement.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d090_t17",
+      "mode": "c3_peaks_bare",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.66,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise in Option 4 compared to the study view. The shadows and lighting also differ due to this change in perspective.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t03",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.8,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The camera angle in Option 3 seems to be rotated slightly compared to the study view, but the overall arrangement of the peaks remains consistent. The shadows cast by the peaks also align similarly, further supporting this observation.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t06",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.9,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The camera angle in both views seems to be consistent, suggesting that the only difference is the lighting and weather conditions, which do not affect the spatial arrangement of the peaks. Therefore, the exact same mountain landscape is shown in Option 3.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t16",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.78,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical, with each peak maintaining its relative position in front, behind, and to the sides of the others. The camera angle in Option 3 seems to be rotated slightly compared to the study view, but the overall arrangement of the peaks remains consistent. The shadows cast by the peaks also align similarly, further supporting this observation.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d135_t17",
+      "mode": "c3_peaks_bare",
+      "delta": 135,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.56,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise compared to the study view. The lighting and weather conditions also seem consistent across both views.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t11",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.68,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears to be rotated slightly clockwise compared to the study view. The shadows cast by the peaks also align similarly, confirming their identical spatial arrangement.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t13",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.59,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which has rotated slightly, altering the perspective but not the spatial arrangement of the peaks. The shadows cast by the peaks also align similarly, further supporting this observation.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t15",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.06,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The shadows cast by the peaks also align similarly, suggesting that the lighting conditions are consistent. There is no noticeable difference in the arrangement or perspective of the peaks between the two views.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c3_peaks_bare_d180_t18",
+      "mode": "c3_peaks_bare",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 4.43,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 1 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The camera angle in both views seems to be the same, suggesting that the perspective is consistent. Option 2, however, shows a different arrangement where the peaks are not in the same relative positions, indicating a change in the camera's orientation. Option 3 also differs significantly, with the peaks rearranged in a way that does not match the original study view. Option 4 presents a similar layout but with a slight shift in the positioning of the peaks, which could be due to a minor rotation or a different viewpoint.\n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c4_valley_d000_t03",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 2.9,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the angle at which the peaks are viewed; the study view presents them more directly from above, while Option 4 offers a slightly angled perspective. The lighting and weather conditions also appear consistent between the two.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d000_t07",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.79,
+      "reply": "The 3D spatial layout of the peaks in all four options appears consistent with the study view, maintaining the same relative positions and distances between the peaks. The peaks are positioned in a triangular formation with one peak slightly offset to the side, creating a distinct visual pattern. The camera angle in each option seems to be rotated slightly compared to the study view, but the overall spatial arrangement remains unchanged. \n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d000_t09",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 3.0,
+      "reply": "The 3D spatial layout of the peaks in all four options closely resembles that of the study view, with the peaks maintaining their relative positions in front, behind, and to the sides of each other. The slight variations in the angle of the camera rotation do not significantly alter the perceived spatial arrangement of the mountains. The lighting and weather conditions also appear consistent across the options, suggesting they are all depicting the same landscape from slightly different angles.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c4_valley_d000_t10",
+      "mode": "c4_valley",
+      "delta": 0,
+      "correct_choice": 2,
+      "model_choice": 1,
+      "is_correct": false,
+      "latency": 3.55,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 1 appears identical, with the four mountain peaks maintaining their relative positions and orientations. Both images show the peaks in a similar arrangement, with two peaks closer together in the foreground and two more distant peaks in the background. The camera angle and lighting seem consistent, suggesting that these two views are from the same perspective. Options 2, 3, and 4 display variations in the spatial arrangement of the peaks, indicating they are not the correct match for the study view.\n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c4_valley_d045_t00",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.98,
+      "reply": "The 3D spatial layout of the peaks in all four options closely resembles that of the study view, with the peaks maintaining their relative positions and orientations. In each option, the central peak is flanked by two peaks on either side, and the fourth peak is positioned further back, creating a symmetrical arrangement. The slight variations in the angle of the camera and the lighting do not significantly alter the perceived spatial relationships between the peaks. \n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d045_t04",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.66,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical, with the four mountain peaks maintaining their relative positions and orientations. The camera angle in both views seems to be from a similar perspective, slightly elevated and looking towards the mountains. The lighting and weather conditions also appear consistent, suggesting that these two options depict the exact same landscape. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c4_valley_d045_t07",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.07,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle, which appears slightly rotated in Option 4 compared to the study view, but the overall arrangement of the peaks remains unchanged. The other options show variations in the positioning of the peaks, indicating they are not the correct match.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d045_t13",
+      "mode": "c4_valley",
+      "delta": 45,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 3.36,
+      "reply": "The 3D spatial layout of the peaks in all four options closely resembles that of the study view, with the four mountain peaks maintaining their relative positions and orientations. The primary difference lies in the perspective and the lighting conditions, which vary slightly among the options. Option 3 appears to be taken from a similar angle and distance as the study view, preserving the same spatial arrangement of the peaks. The other options show slight variations in the positioning of the peaks, suggesting a change in the camera's orientation or viewpoint.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c4_valley_d090_t04",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.14,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the angle at which the viewer perceives the scene; the study view presents a slightly more direct frontal perspective compared to Option 4, which offers a more angled view. The lighting and weather conditions also appear consistent across both views.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d090_t14",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 3.12,
+      "reply": "The 3D spatial layout of the peaks in all four options appears to be identical to that in the study view, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the perspective from which the landscape is viewed, suggesting a slight rotation around the scene. The lighting and weather conditions also appear consistent across all options, reinforcing the similarity in the spatial arrangement of the peaks.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d090_t15",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 3,
+      "model_choice": 3,
+      "is_correct": true,
+      "latency": 3.05,
+      "reply": "The 3D spatial layout of the peaks in all four options closely resembles that of the study view, with the peaks maintaining their relative positions and orientations. In each option, the peaks are positioned in a similar manner, with two peaks on the left side and two on the right, and the central peak slightly elevated compared to the others. The slight variations in the angle of the camera and the lighting do not significantly alter the overall spatial arrangement of the peaks. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c4_valley_d090_t19",
+      "mode": "c4_valley",
+      "delta": 90,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 2.98,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the angle at which the landscape is viewed; the study view appears slightly more elevated than Option 4, but the overall arrangement of the peaks remains unchanged. The lighting and weather conditions also appear consistent between the two.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d135_t03",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 4.23,
+      "reply": "The 3D spatial layout of the peaks in all four options closely resembles that of the study view, with the four mountain peaks maintaining their relative positions and orientations. The primary difference lies in the perspective and the slight variations in the angle at which the peaks are viewed. In Option 1, the peaks appear slightly more spread out compared to the study view, while in Options 2 and 3, they seem to be positioned closer together. Option 4 presents a view that is almost identical to the study view, with the peaks aligned in a similar manner and the landscape details appearing consistent.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d135_t07",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 4,
+      "model_choice": 4,
+      "is_correct": true,
+      "latency": 2.9,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the angle at which the viewer perceives these peaks, suggesting that the camera has been rotated slightly but not enough to alter the spatial arrangement significantly. The lighting and weather conditions also appear consistent across both views.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d135_t11",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 1,
+      "is_correct": true,
+      "latency": 3.55,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 1 appears identical, with the four mountain peaks maintaining their relative positions and orientations. The only difference is the angle at which the viewer perceives them; the study view shows a slightly more frontal perspective compared to Option 1, which offers a more angled view. Both images depict the same four peaks in the same order, with the central peak being the largest and flanked by two smaller peaks on either side, and the fourth peak positioned further back and to the right. \n\nFinal Answer: Option 1"
+    },
+    {
+      "trial_id": "c4_valley_d135_t14",
+      "mode": "c4_valley",
+      "delta": 135,
+      "correct_choice": 1,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.84,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 3 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the angle at which the viewer perceives these peaks, suggesting that the camera has been rotated slightly but not enough to alter the spatial arrangement significantly. The lighting and weather conditions also appear consistent across both views.\n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c4_valley_d180_t02",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 2,
+      "is_correct": false,
+      "latency": 3.13,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 2 appears identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The lighting and weather conditions also seem consistent, suggesting that the two views are taken from the same angle. In contrast, Options 1 and 3 show slight variations in the positioning of the peaks, while Option 4 presents a completely different landscape with a different arrangement of peaks.\n\nFinal Answer: Option 2"
+    },
+    {
+      "trial_id": "c4_valley_d180_t07",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 2,
+      "model_choice": 3,
+      "is_correct": false,
+      "latency": 2.81,
+      "reply": "The 3D spatial layout of the peaks in all four options appears consistent with the study view, maintaining the same relative positions and distances between the peaks. The peaks are positioned in a triangular formation with one peak slightly offset to the side, creating a sense of depth and perspective. The camera angle in each option seems to be rotated slightly compared to the study view, but the overall arrangement of the peaks remains unchanged. \n\nFinal Answer: Option 3"
+    },
+    {
+      "trial_id": "c4_valley_d180_t15",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 1,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 2.92,
+      "reply": "The 3D spatial layout of the peaks in the study view and Option 4 is identical, with each peak maintaining its relative position in front, behind, left, and right of the others. The only difference is the camera angle; while the study view presents a direct frontal perspective, Option 4 offers a slight rotation, giving a more angled view of the same landscape. The lighting and weather conditions also appear consistent across both views.\n\nFinal Answer: Option 4"
+    },
+    {
+      "trial_id": "c4_valley_d180_t16",
+      "mode": "c4_valley",
+      "delta": 180,
+      "correct_choice": 3,
+      "model_choice": 4,
+      "is_correct": false,
+      "latency": 3.29,
+      "reply": "The 3D spatial layout of the peaks in all four options closely resembles that of the study view, with the two prominent peaks on the left and right appearing in the same relative positions. The central peak is slightly more elevated and positioned centrally in both the study and the options. The fourth peak, smaller in size, is situated behind the central peak in all views. There are minor differences in the angle of the camera, which slightly alters the perspective but does not change the overall spatial arrangement of the peaks. \n\nFinal Answer: Option 4"
+    }
+  ]
+}

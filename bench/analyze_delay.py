@@ -156,7 +156,7 @@ def plot_delay_decay(analysis: Dict[str, Any], out_path_prefix: str, title_suffi
     # Plot Rotated
     valid_rot = ~np.isnan(rot_accs)
     if np.any(valid_rot):
-        ax1.plot(x_vals[valid_rot], rot_accs[valid_rot] * 100, "s-", color="#d62728", linewidth=2, markersize=5, label="Rotated ($\\Delta \\ge 45^\\circ$)")
+        ax1.plot(x_vals[valid_rot], rot_accs[valid_rot] * 100, "s-", color="#d62728", linewidth=2, markersize=5, label="Rotated ($\\Delta \\geq 45^\\circ$)")
         if len(x_vals[valid_rot]) >= 3:
             try:
                 popt, _ = curve_fit(exp_decay, x_vals[valid_rot], rot_accs[valid_rot], p0=[rot_accs[valid_rot][0], 0.5], maxfev=2000)
@@ -211,15 +211,15 @@ def generate_latex_table(analysis: Dict[str, Any]) -> str:
         r"\label{tab:delay_results}",
         r"\begin{tabular}{lcccc}",
         r"\toprule",
-        r"Delay / $\sigma$ & Gate ($\Delta = 0^\circ$) & Rotated ($\Delta \ge 45^\circ$) & Overall & $\Delta = 180^\circ$ \\",
+        r"Delay / $\sigma$ & Gate ($\Delta = 0^\circ$) & Rotated ($\Delta \geq 45^\circ$) & Overall & $\Delta = 180^\circ$ \\",
         r"\midrule",
     ]
     for s in series:
-        x_str = f"{s[x]:.2f}"
-        gate = f"{s[gate_acc]*100:.1f}\\%" if not np.isnan(s[gate_acc]) else "--"
-        rot = f"{s[rot_acc]*100:.1f}\\%" if not np.isnan(s[rot_acc]) else "--"
-        all_ = f"{s[overall_acc]*100:.1f}\\%"
-        a180 = f"{s[angles].get(180, np.nan)*100:.1f}\\%" if not np.isnan(s[angles].get(180, np.nan)) else "--"
+        x_str = f"{s['x']:.2f}"
+        gate = f"{s['gate_acc']*100:.1f}\\%" if not np.isnan(s['gate_acc']) else "--"
+        rot = f"{s['rot_acc']*100:.1f}\\%" if not np.isnan(s['rot_acc']) else "--"
+        all_ = f"{s['overall_acc']*100:.1f}\\%"
+        a180 = f"{s['angles'].get(180, np.nan)*100:.1f}\\%" if not np.isnan(s['angles'].get(180, np.nan)) else "--"
         lines.append(f"{x_str} & {gate} & {rot} & {all_} & {a180} \\")
 
     lines.extend([
