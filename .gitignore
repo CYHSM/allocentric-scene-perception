@@ -172,3 +172,13 @@ paper/tex/*.synctex.gz
 
 # Overleaf upload bundle, rebuilt on demand
 asp_paper_overleaf.zip
+
+# Cosyne build artefacts
+paper/cosyne/*.aux
+paper/cosyne/*.log
+paper/cosyne/*.out
+paper/cosyne/*.bbl
+paper/cosyne/*.blg
+paper/cosyne/*.fls
+paper/cosyne/*.fdb_latexmk
+paper/cosyne/*.synctex.gz
