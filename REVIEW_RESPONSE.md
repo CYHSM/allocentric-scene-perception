@@ -32,7 +32,7 @@ was regenerated from the code and *is* current.
 Four figures, three tables, a prompt appendix. Built by one command:
 
 ```bash
-bash bench/build_paper.sh      # collate -> tables -> figures -> prompts
+bash scripts/build_paper.sh      # collate -> tables -> figures -> prompts
 ```
 
 | output | source |
@@ -127,7 +127,7 @@ landscapes. That is strategy-relevant information sitting on the main dependent
 variable.
 
 ```bash
-bash bench/run_openrouter.sh --model google/gemini-3.8-flash \
+bash scripts/run_openrouter.sh --model google/gemini-3.8-flash \
   --benchmark data/vlm_benchmark_4afc_hard.json \
   --prompt_style neutral_anyview --n 1 --budget_usd 0.05    # smoke test first
 ```

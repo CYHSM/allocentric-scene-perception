@@ -179,17 +179,17 @@ python3 bench/build_hard_benchmark.py --pct 0 10 --out data/vlm_benchmark_4afc_h
 # an API model  (WORKERS parallelises; it is pure network latency)
 WORKERS=8 MAX_TOKENS=8000 PROMPT_STYLE=cot_anyview \
 BENCHMARK=data/vlm_benchmark_4afc_hard.json OPENROUTER_API_KEY=sk-or-... \
-  bash bench/run_openrouter.sh google/gemini-3.8-flash 100 3.00
+  bash scripts/run_openrouter.sh google/gemini-3.8-flash 100 3.00
 
 # open models on dgx2 (shared GPU lock, smoke-tested, restartable)
-bash bench/launch_hard_queue.sh
+bash scripts/launch_local_queue.sh
 
 # a person, on the SAME 100 trials
 python3 bench/build_human_task.py --benchmark data/vlm_benchmark_4afc_hard.json \
     --match_run 100 --match_seed 0 --prompt_style neutral_anyview --out human_task/hard
 
 # read it
-bash bench/build_paper.sh
+bash scripts/build_paper.sh
 # (historical one-off figure scripts are preserved in bench/archive/)
 ```
 

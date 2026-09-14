@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Compile the paper. Tables and figures come from `bash bench/build_paper.sh`
+# Compile the paper. Tables and figures come from `bash scripts/build_paper.sh`
 # and are \input / \includegraphics'd from ../ and ../../figures -- so refresh
 # those first if any run has landed since the last compile.
 set -euo pipefail

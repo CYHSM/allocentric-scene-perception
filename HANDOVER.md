@@ -24,7 +24,7 @@ is the resolution of the representation rather than its absence.
 ## 0. Build the paper
 
 ```bash
-bash bench/build_paper.sh
+bash scripts/build_paper.sh
 ```
 
 That is the whole pipeline. It runs three scripts in a fixed order and nothing
@@ -92,7 +92,7 @@ workshop site said 5 Sep and the tracker said 11 Sep 11:59 UTC; confirm on
 OpenReview.
 
 It `\input`s `paper/table[1-5].tex` and pulls `figures/fig[1-8].pdf`, both of
-which `bash bench/build_paper.sh` regenerates -- so **run that first** whenever a
+which `bash scripts/build_paper.sh` regenerates -- so **run that first** whenever a
 run has landed, then recompile. No number is typed into the .tex by hand except
 in the prose, and every one of those appears in a generated table.
 
@@ -260,7 +260,7 @@ Outstanding: InternVL3.5-8B, -14B and -30B-A3B need N=4 and N=6; the other seven
 open models need N=6 only.
 
     ssh dgx2 'tail -f /raid/nbe_tmp/markus_frey/asp/logs/setsize.log'
-    bash bench/sync_results.sh      # pull finished runs, show what is running
+    bash scripts/sync_results.sh      # pull finished runs, show what is running
 
 `run_setsize.sh` skips any run whose output already exists, so re-running it
 after an interruption is safe and resumes where it stopped. If the box was
@@ -269,7 +269,7 @@ rebooted, relaunch with:
     ssh dgx2 'cd /raid/nbe_tmp/markus_frey/asp && setsid nohup ./run_setsize.sh \
         > logs/setsize.log 2>&1 < /dev/null'
 
-When it finishes, `bash bench/build_paper.sh` regenerates everything. A 13x4
+When it finishes, `bash scripts/build_paper.sh` regenerates everything. A 13x4
 appendix table is then worth adding: with 12 open models the gate column climbs
 with landmark count and the rotated column does not, which is a stronger
 statement than the three curves in Figure 4. The two completed columns already
@@ -310,7 +310,7 @@ is where runs execute, but every result file the paper reads is local.
          v
     figures/fig*.pdf        paper/table*.tex
 
-`bash bench/build_paper.sh` runs the whole chain. **Run it before recompiling
+`bash scripts/build_paper.sh` runs the whole chain. **Run it before recompiling
 the paper** whenever a result lands. No figure or table script opens a result
 file, so a figure and a table cannot disagree.
 
@@ -342,7 +342,7 @@ and nothing reads them.
 
 ### Syncing from dgx2
 
-    bash bench/sync_results.sh
+    bash scripts/sync_results.sh
 
 Pulls `*_n100.json` only and prints what is still running. Smoke tests and
 dev-era probes deliberately stay on the box: they carry the arm's benchmark
@@ -368,7 +368,7 @@ end and drop it in that directory.
 
 ## 2. Where the numbers are
 
-Everything comes out of `bash bench/build_paper.sh` (§0). The generated
+Everything comes out of `bash scripts/build_paper.sh` (§0). The generated
 artefacts:
 
 | file | what it is |
@@ -625,7 +625,7 @@ checkout — rsync `bench/` and `data/*.json` into it).
 
 ```
 ssh dgx2 'cd /raid/nbe_tmp/markus_frey/asp && tail -f logs/hard_queue.log'
-bash bench/launch_hard_queue.sh    # 5 cached models, shared GPU lock, smoke-tested
+bash scripts/launch_local_queue.sh    # 5 cached models, shared GPU lock, smoke-tested
 ```
 
 The queue takes the shared `logs/.vlm_gpu.lock`, smoke-tests 3 trials per model
@@ -686,7 +686,7 @@ where every piece of data lives and what draws from it.
 4d. **Build benchmarks on the landmark-count banks** (see §1c). Needs
     `layout_distance.py` then `build_hard_benchmark.py` run per bank, and a
     roster entry per bank in `paper_spec.py`. Nothing exists yet.
-4c. **The prompt sweep** (`bench/launch_prompt_sweep.sh`, queued behind the
+4c. **The prompt sweep** (`scripts/launch_prompt_sweep.sh`, queued behind the
     ladder on dgx2): Qwen2.5-VL-32B x six prompt styles on the locked
     benchmark. Report rotated trials only -- six of the nine styles assert a
     rotation that is false at delta = 0. The old `results/calib_7b_*.json`
@@ -706,7 +706,7 @@ where every piece of data lives and what draws from it.
 ## 9. OpenRouter
 
 Key is in the shell history, not the repo. `$7.41 of $40` monthly used as of
-9 Sep. `bash bench/run_openrouter.sh <model> <n> <budget>`; `WORKERS`,
+9 Sep. `bash scripts/run_openrouter.sh <model> <n> <budget>`; `WORKERS`,
 `MAX_TOKENS`, `PROMPT_STYLE`, `BENCHMARK` are env overrides. Output names now
 include the benchmark tag — before that fix, two benchmarks collided on one
 filename.

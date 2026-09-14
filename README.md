@@ -107,25 +107,40 @@ five renders.
 ## Repository
 
 ```
-blender/four_mountains/     the renderer (Blender 5.2 + Cycles)
-├── fm_layout.py            layouts, framing validity, camera geometry
-├── fm_peak.py              the parametric landform shape space
-├── fm_stimulus.py          the five modes; canonical landmark sets
-├── fm_bank.py              what is in the bank — no Blender, so it is testable
-└── render_bank.py          the only renderer
+blender/four_mountains/     procedural scene generator & Cycles rendering
+├── procedural/             noise, materials, peak forms, procedural terrain generator
+├── layout/                 layouts, framing validity, camera geometry, stimulus modes, bank
+└── rendering/              Cycles render pipelines (render_bank.py, render_dataset.py)
 
-bench/
+bench/                      benchmark evaluation, metrics, and paper analysis (Python only)
 ├── evaluate_vlm.py         the runner: local GPU + any OpenAI-compatible API
 ├── layout_distance.py      the rotation-optimal layout distance
 ├── build_hard_benchmark.py foil selection by percentile band
 ├── build_human_task.py     the browser task, on the SAME trials
-├── vii.py                  d′, VII, positional-prior controls
-├── agents.py               one discovery layer every figure reads
-├── make_figures.py         the paper figures (historical ones in archive/)
-├── run_openrouter.sh       API runs      launch_hard_queue.sh   dgx2 runs
-└── tests/
+├── collate.py              results collation and schema validation
+├── make_figures.py         paper figures
+├── make_tables.py          paper LaTeX & markdown tables
+├── paper_spec.py           canonical models, styles, and difficulty bands
+├── vii.py                  d', VII, positional-prior controls
+└── agents.py               one discovery layer every figure reads
 
-human_task/                 the browser tasks + collected human data (hard, n01, pilot_2afc)
+scripts/                    all bash runners, GPU launchers, and build scripts
+├── build_paper.sh          full paper pipeline (collate -> tables -> figures -> prompts)
+├── run_openrouter.sh       OpenRouter API evaluation runner
+├── run_luna_setsize.sh     landmark-count evaluation runner
+├── launch_local_queue.sh   local GPU model queue launcher
+├── launch_open_vlm.sh      single open-source VLM evaluator
+├── launch_72b.sh           72B model evaluation launcher
+├── launch_prompt_sweep.sh  instruction style sweep runner
+├── sync_results.sh         remote cluster sync
+└── render_n_sweep.sh       landmark count dataset rendering sweep
+
+data/                       active benchmarks and layout distance matrices
+├── benchmarks/             clean active benchmark JSONs (4afc hard, mid, easy, setsize)
+└── distances/              layout distance NPZ cache files
+
+tests/                      complete test suite (174 tests, pytest)
+human_task/                 browser tasks + collected human data (hard, n01, pilot_2afc)
 paper/tex/main.tex          the write-up
 ```
 
@@ -133,13 +148,13 @@ paper/tex/main.tex          the write-up
 
 ```bash
 pip install -e .
-pytest bench/tests
+pytest
 python3 -m http.server 8765 --directory .    # then open /figures/
 
 # score a model on the hard benchmark (see HANDOVER.md §0 for the locked config)
 WORKERS=8 MAX_TOKENS=8000 PROMPT_STYLE=cot_anyview \
-BENCHMARK=data/vlm_benchmark_4afc_hard.json OPENROUTER_API_KEY=sk-or-... \
-  bash bench/run_openrouter.sh google/gemini-3.8-flash 100 3.00
+BENCHMARK=data/benchmarks/vlm_benchmark_4afc_hard.json OPENROUTER_API_KEY=sk-or-... \
+  bash scripts/run_openrouter.sh google/gemini-3.8-flash 100 3.00
 ```
 
 Rendering needs Blender 5.2 with Cycles and a CUDA GPU; local model scoring needs
@@ -156,7 +171,7 @@ See [`HANDOVER.md`](HANDOVER.md) §7.
 ## The paper
 
 ```bash
-bash bench/build_paper.sh     # tables + figures from the result files
+bash scripts/build_paper.sh     # tables + figures from the result files
 bash paper/tex/build.sh       # -> paper/tex/main.pdf
 ```
 
