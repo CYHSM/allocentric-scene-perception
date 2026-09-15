@@ -83,3 +83,61 @@ Evaluated across 100 stratified trials per benchmark (chance level: 25.0%):
   1. Gate maintenance vs Rotated maintenance on `4afc_hard`.
   2. Memory decay on `4afc_easy_m` and `4afc_mid_m` (simpler foils).
   3. Memory decay on `c0_shape_colour` (high baseline headroom: 50% at $\sigma=0$).
+
+---
+
+## 5. Completed Runs: Open Models on `easy_m` and `mid_m`
+
+Updated matrix incorporating the completed InternVL3.5 runs on `dgx2`:
+
+| Model | Parameters | Benchmark | Overall Acc | Gate ($\Delta=0^\circ$) | Rotated ($\Delta \ge 45^\circ$) | Status |
+|---|---|---|---|---|---|---|
+| **InternVL3.5-8B-HF** | 8B | `4afc_easy_m` | **39.0%** | **75.0%** | **30.0%** | Complete |
+| InternVL3.5-8B-HF | 8B | `4afc_mid_m` | 33.0% | 65.0% | 25.0% | Complete |
+| InternVL3.5-14B-HF | 14B | `4afc_easy_m` | 27.0% | 65.0% | 17.5% | Complete |
+| InternVL3.5-14B-HF | 14B | `4afc_mid_m` | 32.0% | 60.0% | 25.0% | Complete |
+| InternVL3.5-38B-HF | 38B | `4afc_easy_m` | 33.0% | 55.0% | 27.5% | Complete |
+| InternVL3.5-38B-HF | 38B | `4afc_mid_m` | 34.0% | 70.0% | 25.0% | Complete |
+
+---
+
+## 6. Prompt Calibration Study on `c0_shape_colour` (Qwen2.5-VL-7B)
+
+*Full report and methodology: [EXPERIMENT_PROMPTS_C0.md](file:///Users/markus/Documents/Github/allocentric-scene-perception_claude/EXPERIMENT_PROMPTS_C0.md)*
+
+We conducted a 14-condition prompt calibration experiment on `c0_shape_colour` (100 trials, 1,400 trials evaluated on `dgx2` GPU 7) to investigate if cognitive scaffolding could elevate open-weights allocentric performance:
+
+| Strategy | Prompt Style | Overall Acc | Gate ($\Delta=0^\circ$) | Rotated ($\Delta \ge 45^\circ$) | Key Takeaway |
+|:---|:---|:---:|:---:|:---:|:---|
+| **Novel Falsification** | `c0_falsification` | **31.0%** | **65.0%** | 22.5% | Highest gate headroom (+20% over baseline); balanced choices |
+| **Baseline CoT** | `cot_anyview` | **31.0%** | 45.0% | **27.5%** | Standard CoT; strong Option 4 recency bias (51%) |
+| **Novel Vector Triangulation** | `c0_anchor_triangulation` | 30.0% | 50.0% | 25.0% | Peak performance at $135^\circ$ inversion (40%); balanced choices |
+| **Novel BBB Translation** | `c0_ego_to_allo` | 29.0% | 50.0% | 23.8% | Egocentric depth to allocentric bearing translation |
+| **Legacy Falsification** | `elimination` | 28.0% | 60.0% | 20.0% | Mountain prompt semantics; good gate, weak rotated |
+| **Zero-Shot Direct** | `direct` | 27.0% | 55.0% | 20.0% | Direct choice without CoT |
+| **Novel Mental Rotation** | `c0_mental_rotation` | 26.0% | 60.0% | 17.5% | Stimulus-aligned 3D rotation; gate 60%, rotated near chance |
+| **Legacy Mental Rotation** | `mental_rotation` | 24.0% | 50.0% | 17.5% | Mountain prompt semantic mismatch |
+| **Neutral Human Text** | `neutral_anyview` | 23.0% | 25.0% | 22.5% | Total positional collapse: 90% Option 1 choices |
+
+### Takeaways:
+1. **Gate Optimization**: `c0_falsification` pushed the appearance gate from 45.0% to **65.0%** (13/20), establishing strong above-chance preservation.
+2. **Positional Bias Mitigation**: Structured relational prompts (`c0_anchor_triangulation`, `c0_falsification`) successfully broke the ~54% Option 4 recency prior.
+3. **Capacity Limit**: Across 80 rotated trials per prompt, rotated accuracy tightly bounded between 17.5% and 27.5% (chance = 25.0%). The apparent 50% rotated finding in preliminary runs was a small-sample artifact ($N=16$).
+
+---
+
+## 7. Working-Memory Delay Latent Perturbation Sweep (Qwen2.5-VL-7B)
+
+Evaluated on `data/vlm_benchmark_4afc_easy_m.json` across 7 temporal delay points ($t \in \{0.0, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0\}\text{s}$) with diffusion coefficient $D = 0.05$:
+
+| Simulated Delay ($t$) | Latent Noise ($\sigma = \sqrt{2Dt}$) | Overall Acc | Gate ($\Delta=0^\circ$) | Rotated ($\Delta \ge 45^\circ$) | Notes |
+|:---:|:---:|:---:|:---:|:---:|:---|
+| **$0.0\,\text{s}$ (Baseline)** | $0.000$ | 26.0% | 45.0% | 21.25% | Baseline floor on rotated foils |
+| **$0.5\,\text{s}$** | $0.224$ | 31.0% | 50.0% | 26.25% | Position prior noise interaction |
+| **$1.0\,\text{s}$** | $0.316$ | 29.0% | 50.0% | 23.75% | Stable gate |
+| **$2.0\,\text{s}$ (Clinical 4MT)** | $0.447$ | 28.0% | 50.0% | 22.50% | Clinical working memory analog |
+| **$4.0\,\text{s}$** | $0.632$ | 32.0% | 60.0% | 25.00% | Fluctuations within $\pm 8.6\%$ Wilson CI |
+| **$8.0\,\text{s}$** | $0.894$ | **25.0%** | 45.0% | 20.00% | **Exact chance floor (25.0% overall)** |
+| **$16.0\,\text{s}$** | $1.265$ | 30.0% | 50.0% | 25.00% | Degraded representation dominated by priors |
+
+*Figures generated*: `paper/cosyne/figures/working_memory_decay_qwen7b_easym.pdf` and `.png`.

@@ -244,6 +244,87 @@ def get_prompt_text(n_options=4, style="cot"):
             f"Answer on the last line as:\n"
             f"Final Answer: Option X"
         )
+    elif style == "c0_mental_rotation":
+        return (
+            f"You will see a STUDY image of a scene, followed by {n_options} candidate options.\n\n"
+            f"The scene contains four distinct 3D objects with unique colors and shapes (e.g. cylinder, cone, dome, pyramid).\n"
+            f"Exactly ONE option shows the EXACT SAME scene with the exact same four objects in the exact same 3D spatial layout. "
+            f"It may be viewed from the same direction as the study image or from a different one, and the lighting may differ.\n"
+            f"The other options show altered layouts where objects have been swapped or moved.\n\n"
+            f"Spatial Mental Rotation Strategy:\n"
+            f"1. Identify each of the four colored objects in the study image.\n"
+            f"2. Estimate the camera rotation angle (perspective shift) between the study view and candidate options.\n"
+            f"3. Mentally rotate the four objects around the center to check whether their 3D configuration and relative left/right ordering match.\n\n"
+            f"Explain your reasoning concisely in 2-4 sentences, then conclude on the last line as:\n"
+            f"Final Answer: Option X"
+        )
+    elif style == "c0_cyclic_topology":
+        return (
+            f"You will see a STUDY image of a scene, followed by {n_options} candidate options.\n\n"
+            f"The scene contains four distinct 3D objects with unique colors and shapes arranged around a central area.\n"
+            f"Exactly ONE option shows the EXACT SAME scene. It may be viewed from the same direction as the study image or from a different one, and lighting may differ.\n"
+            f"The other options are distractors where objects have been rearranged or swapped.\n\n"
+            f"Cyclic Topology Strategy:\n"
+            f"1. Identify the four colored objects in the study image and determine their circular clockwise order around the center (e.g., Object A -> Object B -> Object C -> Object D -> Object A).\n"
+            f"2. Under any camera rotation around the vertical axis, this clockwise cyclic sequence is strictly INVARIANT.\n"
+            f"3. Check the candidate options and find the one that preserves this exact clockwise order around the center, eliminating any options where objects are swapped.\n\n"
+            f"Explain your reasoning concisely in 2-4 sentences, then conclude on the last line as:\n"
+            f"Final Answer: Option X"
+        )
+    elif style == "c0_anchor_triangulation":
+        return (
+            f"You will see a STUDY image of a scene, followed by {n_options} candidate options.\n\n"
+            f"The scene contains four distinct 3D objects with unique colors and shapes.\n"
+            f"Exactly ONE option shows the EXACT SAME scene with the exact same spatial layout. "
+            f"It may be viewed from the same direction as the study image or from a different one, and lighting may differ.\n"
+            f"The other options show altered configurations.\n\n"
+            f"Anchor Triangulation Strategy:\n"
+            f"1. Choose the single most salient colored object as an Anchor (reference point).\n"
+            f"2. Note the relative bearing and distance of the other three objects from this anchor (which object is closest, which is opposite, and which are to its left/right).\n"
+            f"3. Identify which candidate option preserves this exact spatial triangulation around the anchor object under camera viewpoint rotation.\n\n"
+            f"Explain your reasoning concisely in 2-4 sentences, then conclude on the last line as:\n"
+            f"Final Answer: Option X"
+        )
+    elif style == "c0_ego_to_allo":
+        return (
+            f"You will see a STUDY image of a scene, followed by {n_options} candidate options.\n\n"
+            f"The scene contains four distinct 3D objects with unique colors and shapes.\n"
+            f"Exactly ONE option shows the EXACT SAME scene with the exact same spatial arrangement. "
+            f"It may be viewed from the same direction as the study image or from a different one, and lighting may differ.\n"
+            f"The other options show different arrangements.\n\n"
+            f"Egocentric-to-Allocentric Viewpoint Strategy:\n"
+            f"1. In the study view, note which objects are in the foreground (closest to viewer) versus background (farthest).\n"
+            f"2. For each candidate option, determine the camera new viewing direction by observing which object is now closest to the camera.\n"
+            f"3. Verify whether the objects lying to the left and right of that line of sight match the study layout viewed from that new direction.\n\n"
+            f"Explain your reasoning concisely in 2-4 sentences, then conclude on the last line as:\n"
+            f"Final Answer: Option X"
+        )
+    elif style == "c0_falsification":
+        return (
+            f"You will see a STUDY image of a scene, followed by {n_options} candidate options.\n\n"
+            f"The scene contains four distinct 3D objects with unique colors and shapes.\n"
+            f"Exactly ONE option shows the EXACT SAME scene. It may be viewed from the same direction as the study image or from a different one, and lighting may differ.\n"
+            f"The other options are geometric distractors with swapped or displaced objects.\n\n"
+            f"Falsification & Elimination Strategy:\n"
+            f"1. Note key spatial relationships in the study scene (e.g. which two colored objects are opposite each other, which are adjacent).\n"
+            f"2. Inspect each candidate option to find geometric contradictions: eliminate options where opposite objects are adjacent or where relative positions are swapped.\n"
+            f"3. Select the single candidate that contains no contradictions and is fully consistent with the study scene.\n\n"
+            f"Briefly eliminate the distractors and conclude on the last line as:\n"
+            f"Final Answer: Option X"
+        )
+    elif style == "c0_birdseye_grid":
+        return (
+            f"You will see a STUDY image of a scene, followed by {n_options} candidate options.\n\n"
+            f"The scene contains four distinct 3D objects with unique colors and shapes.\n"
+            f"Exactly ONE option shows the EXACT SAME scene. It may be viewed from the same direction as the study image or from a different one, and lighting may differ.\n"
+            f"The other options show altered layouts.\n\n"
+            f"Top-Down Bird eye Grid Strategy:\n"
+            f"1. Mentally reconstruct an overhead 2D map looking down at the four colored objects (e.g., plotting their relative positions like compass points: North, South, East, West).\n"
+            f"2. For each candidate option, determine where the camera is standing around that 2D map.\n"
+            f"3. Verify which option geometrically matches the perspective projection of your top-down 2D map from that camera position.\n\n"
+            f"Explain your reasoning concisely in 2-4 sentences, then conclude on the last line as:\n"
+            f"Final Answer: Option X"
+        )
     else:  # direct
         return (
             f"You are taking the Four Mountains Test of spatial perception.\n\n"
@@ -304,7 +385,10 @@ def build_text_message(trial, prompt_style="neutral"):
     return "\n".join(parts)
 
 
-REASONING_STYLES = {"cot", "cot_anyview", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid"}
+REASONING_STYLES = {
+    "cot", "cot_anyview", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid",
+    "c0_mental_rotation", "c0_cyclic_topology", "c0_anchor_triangulation", "c0_ego_to_allo", "c0_falsification", "c0_birdseye_grid"
+}
 
 
 class OpenVLMBackend:
@@ -911,7 +995,10 @@ def main():
     parser.add_argument("--benchmark", default="data/vlm_benchmark_4afc.json", help="Path to benchmark JSON")
     parser.add_argument("--model", required=True, help="Model ID (e.g. Qwen/Qwen2-VL-2B-Instruct)")
     parser.add_argument("--out", required=True, help="Output JSON path")
-    parser.add_argument("--prompt_style", default="cot", choices=["direct", "cot", "neutral", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid", "cot_anyview", "neutral_anyview"], help="Prompting style")
+    parser.add_argument("--prompt_style", default="cot", choices=[
+        "direct", "cot", "neutral", "mental_rotation", "anchor", "birdseye", "elimination", "elevation", "hybrid", "cot_anyview", "neutral_anyview",
+        "c0_mental_rotation", "c0_cyclic_topology", "c0_anchor_triangulation", "c0_ego_to_allo", "c0_falsification", "c0_birdseye_grid"
+    ], help="Prompting style")
     parser.add_argument("--api_base", default=None, help="API Base URL for OpenAI/OpenRouter")
     parser.add_argument("--api_key", default=None, help="API Key for API backend")
     parser.add_argument("--max_trials", type=int, default=None, help="Limit number of trials for testing")
