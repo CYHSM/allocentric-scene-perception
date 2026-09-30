@@ -157,8 +157,19 @@ paper/*.blg
 
 # The human task: the page and the trial list are the analysis inputs and are
 # committed; the staged copies of the stimuli are not (they are reproducible
-# from data/scenes_100 with bench/build_human_task.py).
+# from data/scenes_100 with bench/restore_human_images.py).
+#
+# `human_task*/images/` alone was written for the old flat layout and cannot
+# match `human_task/hard/images/` -- a `*` does not cross a `/` -- so 326 MB of
+# renders sat untracked and ready to be committed. Both forms are kept: the
+# first for any legacy `human_task_n01/` directory, the second for the nested
+# bundles that replaced them.
 human_task*/images/
+human_task/**/images/
+
+# Zipped bundles handed to participants. Reproducible, and 158 MB each.
+human_task/**/*.zip
+human_task/*.zip
 
 # LaTeX build artefacts. main.pdf is committed on purpose; the rest is noise.
 paper/tex/*.aux

@@ -103,7 +103,7 @@ Updated matrix incorporating the completed InternVL3.5 runs on `dgx2`:
 
 ## 6. Prompt Calibration Study on `c0_shape_colour` (Qwen2.5-VL-7B)
 
-*Full report and methodology: [EXPERIMENT_PROMPTS_C0.md](file:///Users/markus/Documents/Github/allocentric-scene-perception_claude/EXPERIMENT_PROMPTS_C0.md)*
+*Full report and methodology: [EXPERIMENT_PROMPTS_C0.md](EXPERIMENT_PROMPTS_C0.md)*
 
 We conducted a 14-condition prompt calibration experiment on `c0_shape_colour` (100 trials, 1,400 trials evaluated on `dgx2` GPU 7) to investigate if cognitive scaffolding could elevate open-weights allocentric performance:
 
