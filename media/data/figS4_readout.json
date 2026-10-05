@@ -1,0 +1,60 @@
+{
+ "_source": "Digitized from the raster figures of Frey, Doeller & Barry (2023), arXiv:2303.06367. Not the original data: see README.md in this folder for method and known limitations. Figure S4, right. Object World at PHC and CA3 is almost entirely hidden behind other markers in the original; those two values are estimated from the visible arc (about +-0.03).",
+ "unit": "linear readout performance, z-scored across layers",
+ "layers": [
+  "PHC",
+  "PRC",
+  "MEC",
+  "LEC",
+  "CA3",
+  "CA1"
+ ],
+ "series": {
+  "Object screen": [
+   0.365,
+   0.568,
+   0.807,
+   0.146,
+   0.299,
+   -2.186
+  ],
+  "Object world": [
+   -0.9,
+   -0.693,
+   -0.095,
+   -0.459,
+   2.14,
+   0.017
+  ],
+  "Object size": [
+   -0.937,
+   -0.497,
+   -0.167,
+   -0.347,
+   2.163,
+   -0.215
+  ],
+  "Camera position": [
+   1.047,
+   -0.772,
+   0.965,
+   0.535,
+   -0.039,
+   -1.748
+  ],
+  "Camera angle": [
+   1.113,
+   -0.245,
+   1.029,
+   0.317,
+   -0.37,
+   -1.845
+  ]
+ },
+ "estimated": {
+  "Object world": [
+   "PHC",
+   "CA3"
+  ]
+ }
+}
